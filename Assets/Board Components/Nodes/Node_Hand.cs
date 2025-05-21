@@ -31,12 +31,12 @@ public class Node_Hand : Node
         {
             Card card = cards[i];
             card.Node = this;
-            card.anchoredPosition = new Vector3(cardAnchor.position.x + (i * Card.cardWidth * 1.1f), cardAnchor.position.y, cardAnchor.position.z);
+            card.anchoredPosition = new Vector3(i * Card.cardWidth * 1.1f, 0f, 0f);
             card.lookTarget = Camera.main.transform;
             card.ToggleColliders(true);
             if (instant)
             {
-                card.transform.position = card.anchoredPosition;
+                card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
             }
         }
     }

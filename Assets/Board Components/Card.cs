@@ -15,7 +15,7 @@ public class Card : MonoBehaviour
 
     protected CardInfo cardInfo;
     protected Node node;
-    public Node Node { get { return node; } set { node = value; transform.SetParent(value.transform, true); } }
+    public Node Node { get { return node; } set { node = value; } }
 
     public Vector3 anchoredPosition;        // The intended position of the card
     public Vector3 anchoredPositionOffset;  // Offset of the final position, i.e. on hover
@@ -40,10 +40,6 @@ public class Card : MonoBehaviour
     private void Awake()
     {
         SharedGamestate.allCards.Add(this);
-        transform.rotation = Quaternion.identity;
-        anchoredPosition = transform.position;
-        anchoredPositionOffset = Vector3.zero;
-        lastAnchoredPosition = anchoredPosition;
     }
 
     private void OnDestroy()
@@ -56,7 +52,7 @@ public class Card : MonoBehaviour
         // If no animation exist, do a smooth lerp
         if (!anim)
         {
-            transform.position = Vector3.Lerp(transform.position, anchoredPosition + anchoredPositionOffset, AnimationSpeed);
+            transform.position = Vector3.Lerp(transform.position, node.transform.position + anchoredPosition + anchoredPositionOffset, AnimationSpeed);
             Vector3 targetEuler = Vector3.zero;
             if (lookTarget != null)
             {

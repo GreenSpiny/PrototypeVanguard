@@ -49,7 +49,6 @@ public abstract class Node : MonoBehaviour
             PreviousNode = card.Node;
             PreviousNode.RemoveCard(card);
             card.Node = this;
-            card.transform.SetParent(transform, true);
         }
     }
     protected virtual void RemoveCard(Card card)

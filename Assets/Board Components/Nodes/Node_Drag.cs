@@ -41,12 +41,13 @@ public class Node_Drag : Node
         {
             Card card = cards[0];
             card.Node = this;
-            card.anchoredPosition = cardAnchor.position;
+            card.anchoredPosition = Vector3.zero;
+            card.anchoredPositionOffset = Vector3.zero;
             card.lookTarget = null;
             card.ToggleColliders(true);
             if (instant)
             {
-                card.transform.position = card.anchoredPosition;
+                card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
             }
         }
     }

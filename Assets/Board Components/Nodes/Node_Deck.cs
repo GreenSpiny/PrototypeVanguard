@@ -32,12 +32,13 @@ public class Node_Deck : Node
         {
             Card card = cards[i];
             card.Node = this;
-            card.anchoredPosition = new Vector3(cardAnchor.position.x, cardAnchor.position.y + (i * Card.cardDepth) + (Card.cardDepth / 2f), cardAnchor.position.z);
+            card.anchoredPosition = new Vector3(0f, (i * Card.cardDepth) + (Card.cardDepth / 2f), 0f);
+            card.anchoredPositionOffset = Vector3.zero;
             card.lookTarget = null;
             card.ToggleColliders(i == cards.Count - 1);
             if (instant)
             {
-                card.transform.position = card.anchoredPosition;
+                card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
             }
         }
     }
