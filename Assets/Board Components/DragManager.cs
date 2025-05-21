@@ -18,6 +18,7 @@ public class DragManager : MonoBehaviour
     protected Card selectedCard;    // The card currently chosen for a context action
     protected Node hoveredNode;     // The node currently being hovered
     protected Node targetedNode;    // The node currently being hovered to recieve a card or context action
+    protected Node selectedNode;    // The node currently being chosen for a context action
 
     protected float clickTime;          // The time of the most recent mouse press
     protected float lastClickTime;      // The time of the previous mouse press, for double click detection
@@ -56,7 +57,8 @@ public class DragManager : MonoBehaviour
     protected void Update()
     {
         // First, raycast all nodes and cards.
-        Vector3 raycastOffset = (activeCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f)) - activeCamera.transform.position).normalized;
+        float raycastDistance = 10f;
+        Vector3 raycastOffset = (activeCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, raycastDistance)) - activeCamera.transform.position).normalized;
         Debug.DrawRay(activeCamera.transform.position, raycastOffset * 10f, Color.yellow);
 
         RaycastHit cardHit;
@@ -79,7 +81,7 @@ public class DragManager : MonoBehaviour
 
         RaycastHit nodeHit;
         Node hitNode = null;
-        if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out nodeHit, 10f, nodeMask))
+        if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out nodeHit, raycastDistance, nodeMask))
         {
             hitNode = nodeHit.transform.GetComponent<Node>();
         }
@@ -116,7 +118,7 @@ public class DragManager : MonoBehaviour
         if (dmstate == DMstate.dragging)
         {
             RaycastHit dragHit;
-            if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out dragHit, 10f, dragMask))
+            if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out dragHit, raycastDistance, dragMask))
             {
                 dragNode.transform.position = dragHit.point;
             }
