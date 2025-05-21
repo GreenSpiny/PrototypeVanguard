@@ -55,6 +55,47 @@ public class DragManager : MonoBehaviour
 
     protected void Update()
     {
+        // First, raycast all nodes and cards.
+        Vector3 raycastOffset = (activeCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f)) - activeCamera.transform.position).normalized;
+        Debug.DrawRay(activeCamera.transform.position, raycastOffset * 10f, Color.yellow);
+
+        RaycastHit cardHit;
+        Card hitCard = null;
+        if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out cardHit, 10f, cardMask))
+        {
+            hitCard = cardHit.transform.GetComponent<Card>();
+        }
+        foreach (Card card in SharedGamestate.allCards)
+        {
+            if (card == hitCard)
+            {
+                OnCardHoverEnter(card);
+            }
+            else
+            {
+                OnCardHoverExit(card);
+            }
+        }
+
+        RaycastHit nodeHit;
+        Node hitNode = null;
+        if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out nodeHit, 10f, nodeMask))
+        {
+            hitNode = nodeHit.transform.GetComponent<Node>();
+        }
+        foreach (Node node in SharedGamestate.allNodes)
+        {
+            if (node == hitNode)
+            {
+                OnNodeHoverEnter(node);
+            }
+            else
+            {
+                OnNodeHoverExit(node);
+            }
+        }
+
+        // Second, handle input and state changes.
         Vector3 mousePosition = Input.mousePosition;
         if (Input.GetMouseButtonDown(0))
         {
@@ -74,12 +115,10 @@ public class DragManager : MonoBehaviour
         }
         if (dmstate == DMstate.dragging)
         {
-            RaycastHit hit;
-            Vector3 offset = (activeCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f)) - activeCamera.transform.position).normalized;
-            // Debug.DrawRay(activeCamera.transform.position, offset * 10f, Color.yellow);
-            if (Physics.Raycast(activeCamera.transform.position, offset, out hit, 10f, dragMask.value))
+            RaycastHit dragHit;
+            if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out dragHit, 10f, dragMask))
             {
-                dragNode.transform.position = hit.point;
+                dragNode.transform.position = dragHit.point;
             }
         }
     }
@@ -105,6 +144,7 @@ public class DragManager : MonoBehaviour
                 dmstate = DMstate.dragging;
                 Debug.Log("DMstate -> dragging");
                 draggedCard = hoveredCard;
+                draggedCard.UIState = Card.CardUIState.normal;
                 dragNode.RecieveCard(draggedCard, null);
 
                 selectedCard = null;

@@ -19,7 +19,7 @@ public abstract class Node : MonoBehaviour
     [SerializeField] protected Vector3 nudgeDistance;   // If and how far cards on this node "nudge" when hovered, as feedback
     [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
 
-    protected virtual void Awake()
+    private void Awake()
     {
         SharedGamestate.allNodes.Add(this);
         if (cardAnchor == null)
@@ -32,18 +32,16 @@ public abstract class Node : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        SharedGamestate.allNodes.Remove(this);
+    }
+
     protected virtual void Start()
     {
         AlignCards(true);
     }
 
-    public void ToggleColliders(bool toggle)
-    {
-        if (nodeColldier != null)
-        {
-            nodeColldier.enabled = toggle;
-        }
-    }
     public virtual void RecieveCard(Card card, IEnumerable<string> parameters)
     {
         if (card.Node != this)
@@ -65,15 +63,5 @@ public abstract class Node : MonoBehaviour
     public abstract void AlignCards(bool instant);
 
     public Vector3 NudgeDistance { get { return nudgeDistance; } }
-
-    public void OnMouseEnter()
-    {
-        DragManager.instance.OnNodeHoverEnter(this);
-    }
-
-    public void OnMouseExit()
-    {
-        DragManager.instance.OnNodeHoverExit(this);
-    }
 
 }

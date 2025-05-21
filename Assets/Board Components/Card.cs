@@ -7,6 +7,7 @@ public class Card : MonoBehaviour
 {
     [SerializeField] protected BoxCollider mainCollider;
     [SerializeField] protected BoxCollider nudgeCollider;
+    public bool CollidersEnabled { get { return mainCollider.enabled; } }
 
     public const float cardWidth = 0.68605f;
     public const float cardHeight = 1f;
@@ -34,7 +35,6 @@ public class Card : MonoBehaviour
     public void ToggleColliders(bool toggle)
     {
         mainCollider.enabled = toggle;
-        nudgeCollider.enabled = toggle;
     }
 
     private void Awake()
@@ -44,6 +44,11 @@ public class Card : MonoBehaviour
         anchoredPosition = transform.position;
         anchoredPositionOffset = Vector3.zero;
         lastAnchoredPosition = anchoredPosition;
+    }
+
+    private void OnDestroy()
+    {
+        SharedGamestate.allCards.Remove(this);
     }
     private void Update()
     {
@@ -100,22 +105,12 @@ public class Card : MonoBehaviour
     protected void Nudge()
     {
         anchoredPositionOffset = transform.forward * node.NudgeDistance.z;
-        //nudgeCollider.enabled = node.NudgeDistance.z > 0.001;
+        nudgeCollider.enabled = node.NudgeDistance.z > 0.001;
     }
     protected void DeNudge()
     {
         anchoredPositionOffset = Vector3.zero;
-        //nudgeCollider.enabled = false;
-    }
-
-    public void OnMouseEnter()
-    {
-        DragManager.instance.OnCardHoverEnter(this);
-    }
-
-    public void OnMouseExit()
-    {
-        DragManager.instance.OnCardHoverExit(this);
+        nudgeCollider.enabled = false;
     }
     
 }

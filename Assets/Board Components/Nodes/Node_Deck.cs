@@ -8,10 +8,12 @@ public class Node_Deck : Node
     {
         return NodeType.deck;
     }
+
     public override bool DefaultSelectable()
     {
         return false;
     }
+
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
         base.RecieveCard(card, parameters);

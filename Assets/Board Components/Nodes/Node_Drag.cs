@@ -15,7 +15,6 @@ public class Node_Drag : Node
             AlignCards(false);
         }
     }
-
     public override bool DefaultSelectable()
     {
         return false;
