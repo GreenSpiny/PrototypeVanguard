@@ -10,6 +10,7 @@ public class DragManager : MonoBehaviour
     public static DragManager instance;
 
     [SerializeField] Player activePlayer;
+    [SerializeField] Camera activeCamera;
     [SerializeField] Node_Drag dragNode;
 
     protected Card hoveredCard;     // The card currently being hovered
@@ -21,7 +22,11 @@ public class DragManager : MonoBehaviour
     protected float clickTime;          // The time of the most recent mouse press
     protected float lastClickTime;      // The time of the previous mouse press, for double click detection
     protected Vector3 clickLocation;    // The location of the most recent mouse press, for drag detection
-    LayerMask dragMask;                 // The LayerMask used to drag cards at a fixed height
+
+    // Layer Masks
+    public static LayerMask cardMask;
+    public static LayerMask nodeMask;
+    public static LayerMask dragMask;
 
     public enum DMstate
     {
@@ -43,6 +48,8 @@ public class DragManager : MonoBehaviour
             gameObject.SetActive(false);
         }
         instance = this;
+        cardMask = LayerMask.GetMask("Card Layer");
+        nodeMask = LayerMask.GetMask("Node Layer");
         dragMask = LayerMask.GetMask("Board Drag Layer");
     }
 
@@ -68,9 +75,9 @@ public class DragManager : MonoBehaviour
         if (dmstate == DMstate.dragging)
         {
             RaycastHit hit;
-            Vector3 offset = (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f)) - Camera.main.transform.position).normalized;
-            // Debug.DrawRay(Camera.main.transform.position, offset * 10f, Color.yellow);
-            if (Physics.Raycast(Camera.main.transform.position, offset, out hit, 10f, dragMask.value))
+            Vector3 offset = (activeCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f)) - activeCamera.transform.position).normalized;
+            // Debug.DrawRay(activeCamera.transform.position, offset * 10f, Color.yellow);
+            if (Physics.Raycast(activeCamera.transform.position, offset, out hit, 10f, dragMask.value))
             {
                 dragNode.transform.position = hit.point;
             }
@@ -122,24 +129,6 @@ public class DragManager : MonoBehaviour
                 return;
         }
     }
-
-    /*
-    protected void ToggleCardColliders(bool toggle)
-    {
-        foreach (Card card in SharedGamestate.allCards)
-        {
-            card.ToggleColliders(toggle);
-        }
-    }
-
-    protected void ToggleNodeColliders(bool toggle)
-    {
-        foreach (Node node in SharedGamestate.allNodes)
-        {
-            node.ToggleColliders(toggle);
-        }
-    }
-    */
 
     public void OnCardHoverEnter(Card card)
     {
