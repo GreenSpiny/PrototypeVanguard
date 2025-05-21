@@ -8,6 +8,11 @@ public class Node_Hand : Node
         return NodeType.hand;
     }
 
+    public override bool DefaultSelectable()
+    {
+        return false;
+    }
+
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
         base.RecieveCard(card, parameters);
@@ -26,7 +31,7 @@ public class Node_Hand : Node
         {
             Card card = cards[i];
             card.Node = this;
-            card.anchoredPosition = new Vector3(transform.position.x + (i * Card.cardWidth * 1.1f), transform.position.y, transform.position.z);
+            card.anchoredPosition = new Vector3(cardAnchor.position.x + (i * Card.cardWidth * 1.1f), cardAnchor.position.y, cardAnchor.position.z);
             card.lookTarget = Camera.main.transform;
             card.ToggleColliders(true);
             if (instant)

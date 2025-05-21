@@ -12,9 +12,6 @@ public class DragManager : MonoBehaviour
     [SerializeField] Player activePlayer;
     [SerializeField] Node_Drag dragNode;
 
-    List<Card> allCards;
-    List<Node> allNodes;
-
     protected Card hoveredCard;     // The card currently being hovered
     protected Card draggedCard;     // The card currently being dragged about
     protected Card selectedCard;    // The card currently chosen for a context action
@@ -24,6 +21,7 @@ public class DragManager : MonoBehaviour
     protected float clickTime;          // The time of the most recent mouse press
     protected float lastClickTime;      // The time of the previous mouse press, for double click detection
     protected Vector3 clickLocation;    // The location of the most recent mouse press, for drag detection
+    LayerMask dragMask;                 // The LayerMask used to drag cards at a fixed height
 
     public enum DMstate
     {
@@ -45,6 +43,7 @@ public class DragManager : MonoBehaviour
             gameObject.SetActive(false);
         }
         instance = this;
+        dragMask = LayerMask.GetMask("Board Drag Layer");
     }
 
     protected void Update()
@@ -66,10 +65,16 @@ public class DragManager : MonoBehaviour
         {
             ChangeDMstate(DMstate.open);
         }
-
-        // Default drag behavior
-        Vector3 defaultDragPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 2f));
-        dragNode.transform.position = defaultDragPosition;
+        if (dmstate == DMstate.dragging)
+        {
+            RaycastHit hit;
+            Vector3 offset = (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f)) - Camera.main.transform.position).normalized;
+            // Debug.DrawRay(Camera.main.transform.position, offset * 10f, Color.yellow);
+            if (Physics.Raycast(Camera.main.transform.position, offset, out hit, 10f, dragMask.value))
+            {
+                dragNode.transform.position = hit.point;
+            }
+        }
     }
 
     protected void ChangeDMstate(DMstate state)
@@ -118,6 +123,24 @@ public class DragManager : MonoBehaviour
         }
     }
 
+    /*
+    protected void ToggleCardColliders(bool toggle)
+    {
+        foreach (Card card in SharedGamestate.allCards)
+        {
+            card.ToggleColliders(toggle);
+        }
+    }
+
+    protected void ToggleNodeColliders(bool toggle)
+    {
+        foreach (Node node in SharedGamestate.allNodes)
+        {
+            node.ToggleColliders(toggle);
+        }
+    }
+    */
+
     public void OnCardHoverEnter(Card card)
     {
         hoveredCard = card;
@@ -155,5 +178,10 @@ public class DragManager : MonoBehaviour
         {
             hoveredNode = null;
         }
+    }
+
+    public void OnNodeContextClick(Node node)
+    {
+
     }
 }

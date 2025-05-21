@@ -16,7 +16,7 @@ public class Card : MonoBehaviour
     protected Node node;
     public Node Node { get { return node; } set { node = value; transform.SetParent(value.transform, true); } }
 
-    public Vector3 anchoredPosition;        // The intended final position of the card on the board
+    public Vector3 anchoredPosition;        // The intended position of the card
     public Vector3 anchoredPositionOffset;  // Offset of the final position, i.e. on hover
     public Vector3 lastAnchoredPosition;    // If applicable, the previous position of the card before a transition animation
 
@@ -31,14 +31,15 @@ public class Card : MonoBehaviour
     public bool anim = false;  // temporary
     public float AnimationSpeed { get { return 10f * Time.deltaTime; } }
 
-    public void ToggleColliders(bool on)
+    public void ToggleColliders(bool toggle)
     {
-        mainCollider.enabled = on;
-        nudgeCollider.enabled = on;
+        mainCollider.enabled = toggle;
+        nudgeCollider.enabled = toggle;
     }
 
     private void Awake()
     {
+        SharedGamestate.allCards.Add(this);
         transform.rotation = Quaternion.identity;
         anchoredPosition = transform.position;
         anchoredPositionOffset = Vector3.zero;
@@ -99,12 +100,12 @@ public class Card : MonoBehaviour
     protected void Nudge()
     {
         anchoredPositionOffset = transform.forward * node.NudgeDistance.z;
-        nudgeCollider.enabled = node.NudgeDistance.z > 0.001;
+        //nudgeCollider.enabled = node.NudgeDistance.z > 0.001;
     }
     protected void DeNudge()
     {
         anchoredPositionOffset = Vector3.zero;
-        nudgeCollider.enabled = false;
+        //nudgeCollider.enabled = false;
     }
 
     public void OnMouseEnter()

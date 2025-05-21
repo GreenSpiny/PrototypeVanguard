@@ -8,18 +8,6 @@ public class SharedGamestate : MonoBehaviour
 }
 
 public static class SharedGameStateFunctions
-{
-    public static void Shuffle(Node_Deck deck)
-    {
-
-    }
-
-    public static void Shuffle(Node_Hand hand)
-    {
-
-    }
-
-
-
+{ 
 
 }

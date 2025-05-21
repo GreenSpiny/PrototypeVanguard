@@ -15,6 +15,11 @@ public class Node_Drag : Node
             AlignCards(false);
         }
     }
+
+    public override bool DefaultSelectable()
+    {
+        return false;
+    }
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
         foreach (Card c in cards)
@@ -37,7 +42,7 @@ public class Node_Drag : Node
         {
             Card card = cards[0];
             card.Node = this;
-            card.anchoredPosition = transform.position;
+            card.anchoredPosition = cardAnchor.position;
             card.lookTarget = null;
             card.ToggleColliders(true);
             if (instant)

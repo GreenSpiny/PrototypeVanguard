@@ -8,6 +8,10 @@ public class Node_Deck : Node
     {
         return NodeType.deck;
     }
+    public override bool DefaultSelectable()
+    {
+        return false;
+    }
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
         base.RecieveCard(card, parameters);
@@ -26,7 +30,7 @@ public class Node_Deck : Node
         {
             Card card = cards[i];
             card.Node = this;
-            card.anchoredPosition = new Vector3(transform.position.x, transform.position.y + (i * Card.cardDepth) + (Card.cardDepth / 2f), transform.position.z);
+            card.anchoredPosition = new Vector3(cardAnchor.position.x, cardAnchor.position.y + (i * Card.cardDepth) + (Card.cardDepth / 2f), cardAnchor.position.z);
             card.lookTarget = null;
             card.ToggleColliders(i == cards.Count - 1);
             if (instant)
