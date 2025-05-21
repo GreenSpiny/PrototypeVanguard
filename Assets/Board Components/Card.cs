@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,9 +14,9 @@ public class Card : MonoBehaviour
     public const float cardHeight = 1f;
     public const float cardDepth = 0.05f;
 
-    protected CardInfo cardInfo;
-    protected Node node;
-    public Node Node { get { return node; } set { node = value; } }
+    [NonSerialized] public Player player;
+    [NonSerialized] public Node node;
+    [NonSerialized] public CardInfo cardInfo;
 
     public Vector3 anchoredPosition;        // The intended position of the card
     public Vector3 anchoredPositionOffset;  // Offset of the final position, i.e. on hover
@@ -40,11 +41,6 @@ public class Card : MonoBehaviour
     private void Awake()
     {
         SharedGamestate.allCards.Add(this);
-    }
-
-    private void OnDestroy()
-    {
-        SharedGamestate.allCards.Remove(this);
     }
     private void Update()
     {

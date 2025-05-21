@@ -132,9 +132,13 @@ public class DragManager : MonoBehaviour
             case DMstate.open:
                 dmstate = DMstate.open;
                 Debug.Log("DMstate -> open");
-                if (draggedCard != null && targetedNode == null)
+                if (draggedCard != null && hoveredNode == null)
                 {
                     dragNode.PreviousNode.RecieveCard(draggedCard, null);
+                }
+                else if (draggedCard != null && hoveredNode != null)
+                {
+                    hoveredNode.RecieveCard(draggedCard, null); // todo: use sharedgamestate to transfer objects with advanced logic instead
                 }
 
                 foreach (Node node in SharedGamestate.allNodes)
@@ -145,7 +149,7 @@ public class DragManager : MonoBehaviour
                 draggedCard = null;
                 selectedCard = null;
                 targetedNode = null;
-                return;
+                break;
 
             case DMstate.dragging:
                 dmstate = DMstate.dragging;
@@ -160,7 +164,7 @@ public class DragManager : MonoBehaviour
                 }
 
                 selectedCard = null;
-                return;
+                break;
 
             case DMstate.context:
                 dmstate = DMstate.context;
@@ -168,17 +172,17 @@ public class DragManager : MonoBehaviour
 
                 draggedCard = null;
                 targetedNode = null;
-                return;
+                break;
 
             case DMstate.targeting:
                 dmstate = DMstate.targeting;
                 Debug.Log("DMstate -> targeting");
 
                 draggedCard = null;
-                return;
+                break;
 
             default:
-                return;
+                break;
         }
     }
 

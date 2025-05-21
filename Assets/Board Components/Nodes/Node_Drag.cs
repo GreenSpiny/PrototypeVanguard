@@ -40,7 +40,7 @@ public class Node_Drag : Node
         if (HasCard)
         {
             Card card = cards[0];
-            card.Node = this;
+            card.node = this;
             card.anchoredPosition = Vector3.zero;
             card.anchoredPositionOffset = Vector3.zero;
             card.lookTarget = null;

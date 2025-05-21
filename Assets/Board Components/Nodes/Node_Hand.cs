@@ -30,7 +30,7 @@ public class Node_Hand : Node
         for (int i = 0; i < cards.Count; i++)
         {
             Card card = cards[i];
-            card.Node = this;
+            card.node = this;
             card.anchoredPosition = new Vector3(i * Card.cardWidth * 1.1f, 0f, 0f);
             card.lookTarget = Camera.main.transform;
             card.ToggleColliders(true);

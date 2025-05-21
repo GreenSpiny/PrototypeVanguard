@@ -31,7 +31,7 @@ public class Node_Deck : Node
         for (int i = 0; i < cards.Count; i++)
         {
             Card card = cards[i];
-            card.Node = this;
+            card.node = this;
             card.anchoredPosition = new Vector3(0f, (i * Card.cardDepth) + (Card.cardDepth / 2f), 0f);
             card.anchoredPositionOffset = Vector3.zero;
             card.lookTarget = null;
