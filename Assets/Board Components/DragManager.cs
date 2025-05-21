@@ -211,6 +211,10 @@ public class DragManager : MonoBehaviour
     public void OnNodeHoverEnter(Node node)
     {
         hoveredNode = node;
+        if (dmstate == DMstate.dragging)
+        {
+            node.UIState = Node.NodeUIState.hovered;
+        }
     }
 
     public void OnNodeHoverExit(Node node)
@@ -218,6 +222,17 @@ public class DragManager : MonoBehaviour
         if (hoveredNode == node)
         {
             hoveredNode = null;
+        }
+        if (node.UIState == Node.NodeUIState.hovered)
+        {
+            if (dmstate == DMstate.dragging)
+            {
+                node.UIState = Node.NodeUIState.available;
+            }
+            else
+            {
+                node.UIState = Node.NodeUIState.normal;
+            }
         }
     }
 

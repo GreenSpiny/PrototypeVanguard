@@ -48,14 +48,12 @@ public abstract class Node : MonoBehaviour
     protected virtual void Start()
     {
         AlignCards(true);
+        animInfo.Initialize();
     }
 
     private void Update()
     {
-        if (animInfo.Initialized)
-        {
-            animInfo.Animate();
-        }
+        animInfo.Animate();
     }
 
     public virtual void RecieveCard(Card card, IEnumerable<string> parameters)
@@ -88,26 +86,32 @@ public abstract class Node : MonoBehaviour
         set
         {
             state = value;
-            if (animInfo.Initialized)
+            if (state == NodeUIState.normal)
             {
-                if (state == NodeUIState.normal)
-                {
-                    animInfo.shouldFlash = false;
-                    animInfo.arrowsScale = 0f;
-                    animInfo.ArrowsColor = Color.red;
-                }
-                else if (state == NodeUIState.available)
-                {
-                    animInfo.shouldFlash = true;
-                    animInfo.arrowsScale = 1f;
-                    animInfo.ArrowsColor = Color.red;
-                }
-                else if (state == NodeUIState.hovered)
-                {
-                    animInfo.shouldFlash = true;
-                    animInfo.arrowsScale = 1f;
-                    animInfo.ArrowsColor = Color.yellow;
-                }
+                animInfo.shouldFlash = false;
+                animInfo.arrowsScale = 0f;
+                animInfo.arrowsColor = Color.red;
+                animInfo.flashColor = Color.white;
+                animInfo.flashColor.a = 0f;
+                animInfo.instantColor = false;
+            }
+            else if (state == NodeUIState.available)
+            {
+                animInfo.shouldFlash = true;
+                animInfo.arrowsScale = 1f;
+                animInfo.arrowsColor = Color.red;
+                animInfo.flashColor = Color.red;
+                animInfo.flashColor.a = 0.5f;
+                animInfo.instantColor = false;
+            }
+            else if (state == NodeUIState.hovered)
+            {
+                animInfo.shouldFlash = false;
+                animInfo.arrowsScale = 1f;
+                animInfo.arrowsColor = Color.yellow;
+                animInfo.flashColor = Color.yellow;
+                animInfo.flashColor.a = 0.5f;
+                animInfo.instantColor = true;
             }
         }
     }
@@ -115,24 +119,50 @@ public abstract class Node : MonoBehaviour
     [System.Serializable]
     public class NodeAnimationInfo
     {
-        [SerializeField] public GameObject nodeFlashObject;
-        [SerializeField] public GameObject nodeArrowsObject;
+        [SerializeField] public SpriteRenderer flashRenderer;
+        [SerializeField] public SpriteRenderer arrowsRenderer;
 
         [NonSerialized] public bool shouldFlash;
         [NonSerialized] public float arrowsScale;
-        [NonSerialized] protected Color arrowsColor;
-
-        public Color ArrowsColor { get { return arrowsColor; } set { arrowsColor = value; nodeArrowsObject.GetComponent<SpriteRenderer>().color = arrowsColor; } }
+        [NonSerialized] public Color flashColor = new Color(1f, 1f, 1f, 0f);
+        [NonSerialized] public Color arrowsColor = new Color(1f, 1f, 1f, 0f);
+        [NonSerialized] public bool instantColor = false;
 
         static float transitionSpeed = 8f;
         static float spinSpeed = 64f;
 
-        public bool Initialized { get { return nodeFlashObject != null && nodeArrowsObject != null; } }
+        public bool CanAnimate { get { return flashRenderer != null && arrowsRenderer != null; } }
+
+        public void Initialize()
+        {
+            if (CanAnimate)
+            {
+                arrowsRenderer.transform.localScale = new Vector3(0f, 0f, 1f);
+                flashRenderer.color = flashColor;
+            }
+        }
+
         public void Animate()
         {
-            float targetScale = Mathf.Lerp(nodeArrowsObject.transform.localScale.x, arrowsScale, Time.deltaTime * transitionSpeed);
-            nodeArrowsObject.transform.localScale = new Vector3(targetScale, targetScale, 1f);
-            nodeArrowsObject.transform.localRotation = Quaternion.Euler(0f, 0f, (Time.time * spinSpeed) % 360);
+            if (CanAnimate)
+            {
+                float targetScale = Mathf.Lerp(arrowsRenderer.transform.localScale.x, arrowsScale, Time.deltaTime * transitionSpeed);
+                arrowsRenderer.transform.localScale = new Vector3(targetScale, targetScale, 1f);
+                arrowsRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, (Time.time * spinSpeed) % 360);
+
+                if (targetScale > 0.001f)
+                {
+                    if (instantColor)
+                    {
+                        flashRenderer.color = flashColor;
+                    }
+                    else
+                    {
+                        flashRenderer.color = Color.Lerp(flashRenderer.color, flashColor, transitionSpeed);
+                    }
+                    arrowsRenderer.color = new Color(arrowsColor.r, arrowsColor.g, arrowsColor.b, Mathf.Clamp(arrowsRenderer.transform.localScale.x * 2f, 0f, 1f));
+                }
+            }
         }
     }
 
