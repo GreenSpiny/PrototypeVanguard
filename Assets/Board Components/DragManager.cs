@@ -137,6 +137,11 @@ public class DragManager : MonoBehaviour
                     dragNode.PreviousNode.RecieveCard(draggedCard, null);
                 }
 
+                foreach (Node node in SharedGamestate.allNodes)
+                {
+                    node.UIState = Node.NodeUIState.normal;
+                }
+
                 draggedCard = null;
                 selectedCard = null;
                 targetedNode = null;
@@ -148,6 +153,11 @@ public class DragManager : MonoBehaviour
                 draggedCard = hoveredCard;
                 draggedCard.UIState = Card.CardUIState.normal;
                 dragNode.RecieveCard(draggedCard, null);
+
+                foreach (Node node in SharedGamestate.allNodes)
+                {
+                    node.UIState = Node.NodeUIState.available;
+                }
 
                 selectedCard = null;
                 return;

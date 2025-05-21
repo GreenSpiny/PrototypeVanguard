@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Globalization;
 using System;
+using static Card;
 
 // Nodes are locations on the board that cards are anchored to. They recieve and arrange cards by their own devices.
 // Examples include the hand, deck, all zones, and all unit circles.
@@ -16,8 +17,12 @@ public abstract class Node : MonoBehaviour
     [SerializeField] protected List<Card> cards;        // The cards attached to this node
     [SerializeField] protected Transform cardAnchor;    // The position and rotation cards begin to accrue on this node
     [SerializeField] protected Collider nodeColldier;   // The physics collider associated with this node.
+    [SerializeField] protected Animator anim;           // The animator associated with this node.
     [SerializeField] protected Vector3 nudgeDistance;   // If and how far cards on this node "nudge" when hovered, as feedback
     [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
+
+    public enum NodeUIState { normal, available, hovered, selected };
+    protected NodeUIState state;
 
     private void Awake()
     {
@@ -29,6 +34,10 @@ public abstract class Node : MonoBehaviour
         if (nodeColldier == null)
         {
             nodeColldier = GetComponent<Collider>();
+        }
+        if (anim == null)
+        {
+            anim = GetComponent<Animator>();
         }
     }
 
@@ -62,5 +71,29 @@ public abstract class Node : MonoBehaviour
     public abstract void AlignCards(bool instant);
 
     public Vector3 NudgeDistance { get { return nudgeDistance; } }
+
+    public NodeUIState UIState
+    {
+        get
+        {
+            return state;
+        }
+        set
+        {
+            state = value;
+            if (state == NodeUIState.normal)
+            {
+                anim.SetFloat("state", 0);
+            }
+            else if (state == NodeUIState.available)
+            {
+                anim.SetFloat("state", 1);
+            }
+            else if (state == NodeUIState.hovered)
+            {
+                anim.SetFloat("state", 2);
+            }
+        }
+    }
 
 }
