@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -134,11 +133,11 @@ public class DragManager : MonoBehaviour
                 Debug.Log("DMstate -> open");
                 if (draggedCard != null && hoveredNode == null)
                 {
-                    dragNode.PreviousNode.RecieveCard(draggedCard, null);
+                    dragNode.PreviousNode.RecieveCard(draggedCard, new string[0]);
                 }
                 else if (draggedCard != null && hoveredNode != null)
                 {
-                    hoveredNode.RecieveCard(draggedCard, null);
+                    hoveredNode.RecieveCard(draggedCard, new string[0]);
                 }
 
                 foreach (Node node in SharedGamestate.allNodes)

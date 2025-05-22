@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class Node_RC : Node
+public class Node_Drop : Node
 {
     public override NodeType GetNodeType()
     {
-        return NodeType.RC;
+        return NodeType.drop;
     }
 
     public override bool DefaultSelectable()
@@ -16,13 +15,6 @@ public class Node_RC : Node
 
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
-        for (int i = cards.Count - 1; i >= 0; i--)
-        {
-            Card existingCard = cards[i];
-            existingCard.player.drop.RecieveCard(existingCard, new string[0]);
-        }
-
-        // base resolution
         base.RecieveCard(card, parameters);
         cards.Add(card);
         AlignCards(false);

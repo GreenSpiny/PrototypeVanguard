@@ -1,21 +1,19 @@
-using NUnit.Framework;
-using System;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
     // All entities owned by this player
-    List<Card> cards = new List<Card>();
-    List<Node> nodes = new List<Node>();
+    public Camera playerCamera;
+    public List<Card> cards = new List<Card>();
+    public List<Node> nodes = new List<Node>();
 
     // Specific entities owned by this player
-    Node hand;
-    Node deck;
-    Node drop;
-    Node VC;
-    List<Node> RC;
+    public Node hand;
+    public Node deck;
+    public Node drop;
+    public Node VC;
+    public List<Node> RC;
 
     private void Awake()
     {

@@ -1,10 +1,7 @@
-using NUnit.Framework;
+
 using UnityEngine;
 using System.Collections.Generic;
-using System.Globalization;
 using System;
-using static Card;
-using NUnit.Framework.Constraints;
 
 // Nodes are locations on the board that cards are anchored to. They recieve and arrange cards by their own devices.
 // Examples include the hand, deck, all zones, and all unit circles.
@@ -17,7 +14,6 @@ public abstract class Node : MonoBehaviour
 
     [SerializeField] protected List<Card> cards;        // The cards attached to this node
     [SerializeField] protected Transform cardAnchor;    // The position and rotation cards begin to accrue on this node
-    [SerializeField] protected Collider nodeColldier;   // The physics collider associated with this node.
     [SerializeField] protected Vector3 nudgeDistance;   // If and how far cards on this node "nudge" when hovered, as feedback
     [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
 
@@ -36,10 +32,6 @@ public abstract class Node : MonoBehaviour
         if (cardAnchor == null)
         {
             cardAnchor = transform;
-        }
-        if (nodeColldier == null)
-        {
-            nodeColldier = GetComponent<Collider>();
         }
     }
 

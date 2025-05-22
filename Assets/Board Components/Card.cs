@@ -1,7 +1,5 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 // CARD represents a physical card in the game.
 public class Card : MonoBehaviour
@@ -12,7 +10,7 @@ public class Card : MonoBehaviour
 
     public const float cardWidth = 0.68605f;
     public const float cardHeight = 1f;
-    public const float cardDepth = 0.05f;
+    public const float cardDepth = 0.01f;
 
     [NonSerialized] public Player player;
     [NonSerialized] public Node node;
@@ -58,6 +56,11 @@ public class Card : MonoBehaviour
             {
                 targetEuler.x = 0f;
             }
+            targetEuler.z = 0f;
+            if (flipRotation)
+            {
+                targetEuler.z = 180f;
+            }    
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetEuler), AnimationSpeed);
         }
         // If an animation exists, follow the procedure

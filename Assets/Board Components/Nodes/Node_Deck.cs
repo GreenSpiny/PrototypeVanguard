@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.GPUSort;
 
 public class Node_Deck : Node
 {
@@ -35,6 +34,7 @@ public class Node_Deck : Node
             card.anchoredPosition = new Vector3(0f, (i * Card.cardDepth) + (Card.cardDepth / 2f), 0f);
             card.anchoredPositionOffset = Vector3.zero;
             card.lookTarget = null;
+            card.flipRotation = true;
             card.ToggleColliders(i == cards.Count - 1);
             if (instant)
             {
