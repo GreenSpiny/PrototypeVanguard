@@ -138,7 +138,7 @@ public class DragManager : MonoBehaviour
                 }
                 else if (draggedCard != null && hoveredNode != null)
                 {
-                    hoveredNode.RecieveCard(draggedCard, null); // todo: use sharedgamestate to transfer objects with advanced logic instead
+                    hoveredNode.RecieveCard(draggedCard, null);
                 }
 
                 foreach (Node node in SharedGamestate.allNodes)
