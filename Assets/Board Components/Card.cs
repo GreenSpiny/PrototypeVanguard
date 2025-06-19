@@ -98,8 +98,11 @@ public class Card : MonoBehaviour
 
     protected void Nudge()
     {
-        anchoredPositionOffset = transform.forward * node.NudgeDistance.z;
-        nudgeCollider.enabled = node.NudgeDistance.z > 0.001;
+        Vector3 anchoredPositionOffsetX = transform.right * node.NudgeDistance.x;
+        Vector3 anchoredPositionOffsetY = transform.up * node.NudgeDistance.y;
+        Vector3 anchoredPositionOffsetZ = transform.forward * node.NudgeDistance.z;
+        anchoredPositionOffset = anchoredPositionOffsetX + anchoredPositionOffsetY + anchoredPositionOffsetZ;
+        nudgeCollider.enabled = anchoredPositionOffset.magnitude > 0.0001f;
     }
     protected void DeNudge()
     {

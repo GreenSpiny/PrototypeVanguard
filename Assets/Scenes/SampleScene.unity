@@ -245,7 +245,6 @@ MonoBehaviour:
   anchoredPositionOffset: {x: 0, y: 0, z: 0}
   lastAnchoredPosition: {x: 0, y: 0, z: 0}
   isToken: 0
-  lookTarget: {fileID: 0}
   flipRotation: 0
   anim: 0
 --- !u!65 &133572897
@@ -1249,7 +1248,6 @@ MonoBehaviour:
   anchoredPositionOffset: {x: 0, y: 0, z: 0}
   lastAnchoredPosition: {x: 0, y: 0, z: 0}
   isToken: 0
-  lookTarget: {fileID: 0}
   flipRotation: 0
   anim: 0
 --- !u!65 &548536399
@@ -1401,7 +1399,6 @@ MonoBehaviour:
   anchoredPositionOffset: {x: 0, y: 0, z: 0}
   lastAnchoredPosition: {x: 0, y: 0, z: 0}
   isToken: 0
-  lookTarget: {fileID: 0}
   flipRotation: 0
   anim: 0
 --- !u!65 &564916862
@@ -1717,7 +1714,6 @@ MonoBehaviour:
   anchoredPositionOffset: {x: 0, y: 0, z: 0}
   lastAnchoredPosition: {x: 0, y: 0, z: 0}
   isToken: 0
-  lookTarget: {fileID: 0}
   flipRotation: 0
   anim: 0
 --- !u!65 &816450757
@@ -2042,7 +2038,6 @@ MonoBehaviour:
   anchoredPositionOffset: {x: 0, y: 0, z: 0}
   lastAnchoredPosition: {x: 0, y: 0, z: 0}
   isToken: 0
-  lookTarget: {fileID: 0}
   flipRotation: 0
   anim: 0
 --- !u!65 &969314415
@@ -2539,7 +2534,6 @@ MonoBehaviour:
   anchoredPositionOffset: {x: 0, y: 0, z: 0}
   lastAnchoredPosition: {x: 0, y: 0, z: 0}
   isToken: 0
-  lookTarget: {fileID: 0}
   flipRotation: 0
   anim: 0
 --- !u!65 &1315709114
@@ -3118,7 +3112,6 @@ MonoBehaviour:
   anchoredPositionOffset: {x: 0, y: 0, z: 0}
   lastAnchoredPosition: {x: 0, y: 0, z: 0}
   isToken: 0
-  lookTarget: {fileID: 0}
   flipRotation: 0
   anim: 0
 --- !u!4 &1467332842
@@ -3406,7 +3399,6 @@ MonoBehaviour:
   anchoredPositionOffset: {x: 0, y: 0, z: 0}
   lastAnchoredPosition: {x: 0, y: 0, z: 0}
   isToken: 0
-  lookTarget: {fileID: 0}
   flipRotation: 0
   anim: 0
 --- !u!65 &1653971401
@@ -3813,7 +3805,6 @@ MonoBehaviour:
   anchoredPositionOffset: {x: 0, y: 0, z: 0}
   lastAnchoredPosition: {x: 0, y: 0, z: 0}
   isToken: 0
-  lookTarget: {fileID: 0}
   flipRotation: 0
   anim: 0
 --- !u!65 &1827942421
@@ -4604,7 +4595,7 @@ MonoBehaviour:
   - {fileID: 1315709113}
   - {fileID: 816450756}
   cardAnchor: {fileID: 2104965012}
-  nudgeDistance: {x: 0, y: 0, z: 0.2}
+  nudgeDistance: {x: 0, y: 0.01, z: 0.2}
   animInfo:
     flashRenderer: {fileID: 174936530}
     arrowsRenderer: {fileID: 469306256}
