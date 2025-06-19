@@ -33,7 +33,7 @@ public class Node_Drag : Node
             card.node = this;
             card.anchoredPosition = Vector3.zero;
             card.anchoredPositionOffset = Vector3.zero;
-            card.lookTarget = null;
+            card.LookAt(null);
             card.ToggleColliders(true);
             if (instant)
             {

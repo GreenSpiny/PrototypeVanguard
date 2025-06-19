@@ -24,27 +24,28 @@ public class Node_Hand : Node
     {
         float spacing = 0f;
         float totalWidth = 0f;
+        float originX = 0f;
 
-        if (cards.Count >= 7)
+        if (cards.Count >= 5)
         {
-            totalWidth = Card.cardWidth * 7f;
+            totalWidth = Card.cardWidth * 5f;
             spacing = (totalWidth - Card.cardWidth) / (cards.Count - 1);
+            originX = -totalWidth / 2f + Card.cardWidth / 2f;
         }
         else
         {
-            spacing = Card.cardWidth + Card.cardWidth * 0.1f;
             totalWidth = Card.cardWidth * cards.Count + 0.1f * (cards.Count - 1);
+            spacing = Card.cardWidth + Card.cardWidth * 0.1f;
+            originX = -totalWidth / 2f + Card.cardWidth / 2f + Card.cardWidth * 0.05f;
         }
-        
-        float originX = -totalWidth / 2f + Card.cardWidth / 2f;
 
         for (int i = 0; i < cards.Count; i++)
         {
             Card card = cards[i];
             card.node = this;
             card.anchoredPosition = new Vector3(originX + spacing * i, 0f, 0f);
-            card.lookTarget = card.player.playerCamera.transform;
             card.flipRotation = false;
+            card.LookAt(card.player.playerCamera.transform);
             card.ToggleColliders(true);
             if (instant)
             {

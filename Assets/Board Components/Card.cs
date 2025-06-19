@@ -19,10 +19,9 @@ public class Card : MonoBehaviour
     public Vector3 anchoredPosition;        // The intended position of the card
     public Vector3 anchoredPositionOffset;  // Offset of the final position, i.e. on hover
     public Vector3 lastAnchoredPosition;    // If applicable, the previous position of the card before a transition animation
+    protected Vector3 targetEuler;          // The direction the card should face
 
     public bool isToken = false;
-
-    public Transform lookTarget = null;
     public bool flipRotation = false;
 
     public enum CardUIState { normal, hovered, selected };
@@ -46,27 +45,27 @@ public class Card : MonoBehaviour
         // If no animation exist, do a smooth lerp
         if (!anim)
         {
-            transform.position = Vector3.Lerp(transform.position, node.transform.position + anchoredPosition + anchoredPositionOffset, AnimationSpeed);
-            Vector3 targetEuler = Vector3.zero;
-            if (lookTarget != null)
-            {
-                targetEuler.x = Mathf.Atan(Mathf.Abs(lookTarget.transform.position.y - transform.position.y) / Mathf.Abs(lookTarget.transform.position.z - transform.position.z)) * (180f / Mathf.PI) - 90f;
-            }
-            else
-            {
-                targetEuler.x = 0f;
-            }
-            targetEuler.z = 0f;
-            if (flipRotation)
-            {
-                targetEuler.z = 180f;
-            }    
+            transform.position = Vector3.Lerp(transform.position, node.transform.position + anchoredPosition + anchoredPositionOffset, AnimationSpeed);  
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetEuler), AnimationSpeed);
         }
         // If an animation exists, follow the procedure
         else
         {
 
+        }
+    }
+
+    public void LookAt(Transform target)
+    {
+        targetEuler = Vector3.zero;
+        if (target != null)
+        {
+            //targetEuler.x = Mathf.Atan(Mathf.Abs(target.transform.position.y - transform.position.y) / Mathf.Abs(target.transform.position.z - transform.position.z)) * (180f / Mathf.PI) - 90f;
+            targetEuler.x = Mathf.Atan(Mathf.Abs(target.transform.position.y - node.transform.position.y + anchoredPosition.y) / Mathf.Abs(target.transform.position.z - node.transform.position.z + anchoredPosition.z)) * (180f / Mathf.PI) - 90f;
+        }
+        if (flipRotation)
+        {
+            targetEuler.z = 180f;
         }
     }
 
