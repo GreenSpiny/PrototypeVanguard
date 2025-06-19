@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 // Nodes are locations on the board that cards are anchored to. They recieve and arrange cards by their own devices.
 // Examples include the hand, deck, all zones, and all unit circles.
@@ -55,7 +56,58 @@ public abstract class Node : MonoBehaviour
             card.node = this;
         }
     }
-    protected virtual void RemoveCard(Card card)
+
+    public virtual void SwapAllCards(Node otherNode, IEnumerable<string> parameters)
+    {
+        bool drag = parameters.Contains("drag");
+        Debug.Log("drag: " + drag.ToString());
+
+        List<Card> selfCards = new List<Card>();
+        foreach (Card card in cards)
+        {
+            selfCards.Add(card);
+        }
+        cards.Clear();
+
+        List<Card> otherCards = new List<Card>();
+        foreach (Card c in otherNode.cards)
+        {
+            otherCards.Add(c);
+        }
+        otherNode.cards.Clear();
+        if (drag)
+        {
+            foreach (Card c in otherNode.PreviousNode.cards)
+            {
+                otherCards.Add(c);
+            }
+            otherNode.PreviousNode.cards.Clear();
+        } 
+        
+        foreach (Card c in selfCards)
+        {
+            if (drag)
+            {
+                otherNode.PreviousNode.cards.Add(c);
+            }
+            else
+            {
+                otherNode.cards.Add(c);
+            }
+        }
+
+        foreach (Card c in otherCards)
+        {
+            cards.Add(c);
+        }
+
+        AlignCards(false);
+        otherNode.AlignCards(false);
+        otherNode.PreviousNode.AlignCards(false);
+    }
+
+    // RemoveCard is not to be overridden. Nodes should call either RecieveCard or SwapAllCards.
+    private void RemoveCard(Card card)
     {
         if (cards.Contains(card))
         {
@@ -118,7 +170,7 @@ public abstract class Node : MonoBehaviour
         [NonSerialized] public Color arrowsColor = new Color(1f, 1f, 1f, 0f);
         [NonSerialized] public bool instantColor = false;
 
-        static float transitionSpeed = 8f;
+        static float transitionSpeed = 10f;
         static float spinSpeed = 64f;
 
         public bool CanAnimate { get { return flashRenderer != null && arrowsRenderer != null; } }
@@ -148,7 +200,7 @@ public abstract class Node : MonoBehaviour
                     }
                     else
                     {
-                        flashRenderer.color = Color.Lerp(flashRenderer.color, flashColor, transitionSpeed);
+                        flashRenderer.color = Color.Lerp(flashRenderer.color, flashColor, Time.deltaTime * transitionSpeed);
                     }
                     arrowsRenderer.color = new Color(arrowsColor.r, arrowsColor.g, arrowsColor.b, Mathf.Clamp(arrowsRenderer.transform.localScale.x * 2f, 0f, 1f));
                 }

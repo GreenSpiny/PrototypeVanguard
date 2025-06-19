@@ -20,28 +20,29 @@ public class Node_Hand : Node
         AlignCards(false);
     }
 
-    protected override void RemoveCard(Card card)
-    {
-        base.RemoveCard(card);
-    }
-
     public override void AlignCards(bool instant)
     {
-        float spacing = Card.cardWidth * 0.1f;
-        float totalWidth = (Card.cardWidth * cards.Count) + (spacing * (cards.Count - 1));
-        float maxWidth = Card.cardWidth * 6f;
-        if (totalWidth >= maxWidth)
+        float spacing = 0f;
+        float totalWidth = 0f;
+
+        if (cards.Count >= 7)
         {
-            totalWidth = maxWidth;
-            spacing = 0f;
+            totalWidth = Card.cardWidth * 7f;
+            spacing = (totalWidth - Card.cardWidth) / (cards.Count - 1);
         }
+        else
+        {
+            spacing = Card.cardWidth + Card.cardWidth * 0.1f;
+            totalWidth = Card.cardWidth * cards.Count + 0.1f * (cards.Count - 1);
+        }
+        
         float originX = -totalWidth / 2f + Card.cardWidth / 2f;
 
         for (int i = 0; i < cards.Count; i++)
         {
             Card card = cards[i];
             card.node = this;
-            card.anchoredPosition = new Vector3(originX + ((Card.cardWidth + spacing) * i), 0f, 0f);
+            card.anchoredPosition = new Vector3(originX + spacing * i, 0f, 0f);
             card.lookTarget = card.player.playerCamera.transform;
             card.flipRotation = false;
             card.ToggleColliders(true);

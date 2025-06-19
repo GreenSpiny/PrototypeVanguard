@@ -532,6 +532,78 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &234790068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 234790069}
+  - component: {fileID: 234790071}
+  - component: {fileID: 234790070}
+  m_Layer: 8
+  m_Name: Drop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &234790069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234790068}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: -1.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1050813229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &234790070
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234790068}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.68605, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &234790071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234790068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc290675c3867347b0826bdfceac726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cards: []
+  cardAnchor: {fileID: 234790069}
+  nudgeDistance: {x: 0, y: 0, z: 0}
+  animInfo:
+    flashRenderer: {fileID: 0}
+    arrowsRenderer: {fileID: 0}
 --- !u!1 &328104694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1552,6 @@ MonoBehaviour:
   - {fileID: 548536398}
   - {fileID: 1827942420}
   cardAnchor: {fileID: 679944880}
-  nodeColldier: {fileID: 0}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
     flashRenderer: {fileID: 0}
@@ -1494,7 +1565,7 @@ Transform:
   m_GameObject: {fileID: 679944878}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.045, y: 0, z: 0.155}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1928,7 +1999,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 939825010}
-  nodeColldier: {fileID: 939825011}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
     flashRenderer: {fileID: 1541326942}
@@ -2421,6 +2491,7 @@ Transform:
   - {fileID: 836347282}
   - {fileID: 2104965012}
   - {fileID: 679944880}
+  - {fileID: 234790069}
   - {fileID: 1423804615}
   - {fileID: 1660647168}
   - {fileID: 1957572629}
@@ -2747,7 +2818,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1416433501}
-  nodeColldier: {fileID: 1416433502}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
     flashRenderer: {fileID: 453417814}
@@ -2832,7 +2902,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1423804615}
-  nodeColldier: {fileID: 1423804616}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
     flashRenderer: {fileID: 2132235755}
@@ -3617,7 +3686,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1660647168}
-  nodeColldier: {fileID: 1660647169}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
     flashRenderer: {fileID: 41650478}
@@ -3702,7 +3770,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1807026769}
-  nodeColldier: {fileID: 1807026770}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
     flashRenderer: {fileID: 1014865898}
@@ -3978,7 +4045,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 0}
-  nodeColldier: {fileID: 0}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
     flashRenderer: {fileID: 0}
@@ -4240,7 +4306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1957572629}
-  nodeColldier: {fileID: 1957572630}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
     flashRenderer: {fileID: 1970322710}
@@ -4539,7 +4604,6 @@ MonoBehaviour:
   - {fileID: 1315709113}
   - {fileID: 816450756}
   cardAnchor: {fileID: 2104965012}
-  nodeColldier: {fileID: 2104965013}
   nudgeDistance: {x: 0, y: 0, z: 0.2}
   animInfo:
     flashRenderer: {fileID: 174936530}

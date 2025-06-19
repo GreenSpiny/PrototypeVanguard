@@ -20,18 +20,9 @@ public class Node_Drag : Node
     }
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
-        foreach (Card c in cards)
-        {
-            RemoveCard(c);
-        }
         base.RecieveCard(card, parameters);
         cards.Add(card);
         AlignCards(false);
-    }
-
-    protected override void RemoveCard(Card card)
-    {
-        base.RemoveCard(card);
     }
 
     public override void AlignCards(bool instant)

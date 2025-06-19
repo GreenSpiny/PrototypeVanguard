@@ -16,21 +16,28 @@ public class Node_RC : Node
 
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
-        for (int i = cards.Count - 1; i >= 0; i--)
+        bool otherNodeRC = card.node.GetNodeType() == NodeType.RC;
+        bool otherNodeRCDrag = card.node.GetNodeType() == NodeType.drag && card.node.PreviousNode.GetNodeType() == NodeType.RC;
+
+        if (otherNodeRC)
         {
-            Card existingCard = cards[i];
-            existingCard.player.drop.RecieveCard(existingCard, new string[0]);
+            SwapAllCards(card.node, new string[0]);
         }
-
-        // base resolution
-        base.RecieveCard(card, parameters);
-        cards.Add(card);
-        AlignCards(false);
-    }
-
-    protected override void RemoveCard(Card card)
-    {
-        base.RemoveCard(card);
+        if (otherNodeRCDrag)
+        {
+            SwapAllCards(card.node, new string[1] {"drag"});
+        }
+        else
+        {
+            for (int i = cards.Count - 1; i >= 0; i--)
+            {
+                Card existingCard = cards[i];
+                existingCard.player.drop.RecieveCard(existingCard, new string[0]);
+            }
+            base.RecieveCard(card, parameters);
+            cards.Add(card);
+            AlignCards(false);
+        }
     }
 
     public override void AlignCards(bool instant)

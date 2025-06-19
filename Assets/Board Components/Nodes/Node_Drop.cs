@@ -20,11 +20,6 @@ public class Node_Drop : Node
         AlignCards(false);
     }
 
-    protected override void RemoveCard(Card card)
-    {
-        base.RemoveCard(card);
-    }
-
     public override void AlignCards(bool instant)
     {
         for (int i = 0; i < cards.Count; i++)
