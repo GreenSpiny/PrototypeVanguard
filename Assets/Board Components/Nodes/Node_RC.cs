@@ -11,7 +11,7 @@ public class Node_RC : Node
 
     public override bool DefaultSelectable()
     {
-        return false;
+        return true;
     }
 
     public override void RecieveCard(Card card, IEnumerable<string> parameters)

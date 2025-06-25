@@ -60,7 +60,6 @@ public abstract class Node : MonoBehaviour
     public virtual void SwapAllCards(Node otherNode, IEnumerable<string> parameters)
     {
         bool drag = parameters.Contains("drag");
-        Debug.Log("drag: " + drag.ToString());
 
         List<Card> selfCards = new List<Card>();
         foreach (Card card in cards)
@@ -75,6 +74,7 @@ public abstract class Node : MonoBehaviour
             otherCards.Add(c);
         }
         otherNode.cards.Clear();
+
         if (drag)
         {
             foreach (Card c in otherNode.PreviousNode.cards)
@@ -106,7 +106,7 @@ public abstract class Node : MonoBehaviour
         otherNode.PreviousNode.AlignCards(false);
     }
 
-    // RemoveCard is not to be overridden. Nodes should call either RecieveCard or SwapAllCards.
+    // RemoveCard is not to be overridden. External classes should call either RecieveCard or SwapAllCards.
     private void RemoveCard(Card card)
     {
         if (cards.Contains(card))

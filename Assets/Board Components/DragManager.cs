@@ -104,9 +104,10 @@ public class DragManager : MonoBehaviour
             clickTime = Time.time;
             clickLocation = mousePosition;
         }
-        bool doubleClick = clickTime - lastClickTime < DoubleClickThreshold;
+        bool dragDistanceMet = Vector3.Distance(clickLocation, mousePosition) > DragThreshold;
+        bool doubleClick = (clickTime - lastClickTime < DoubleClickThreshold) && !dragDistanceMet;
 
-        if (Input.GetMouseButton(0) && dmstate == DMstate.open && hoveredCard != null && Vector3.Distance(clickLocation, mousePosition) > DragThreshold)
+        if (Input.GetMouseButton(0) && dmstate == DMstate.open && hoveredCard != null && dragDistanceMet)
         {
             ChangeDMstate(DMstate.dragging);
         }
@@ -159,7 +160,10 @@ public class DragManager : MonoBehaviour
 
                 foreach (Node node in SharedGamestate.allNodes)
                 {
-                    node.UIState = Node.NodeUIState.available;
+                    if (node.DefaultSelectable())
+                    {
+                        node.UIState = Node.NodeUIState.available;
+                    }
                 }
 
                 selectedCard = null;
