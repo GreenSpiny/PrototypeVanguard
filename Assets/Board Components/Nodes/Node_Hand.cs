@@ -22,15 +22,22 @@ public class Node_Hand : Node
 
     public override void AlignCards(bool instant)
     {
+        int maxCards = 5;
+
         float spacing = 0f;
         float totalWidth = 0f;
         float originX = 0f;
+        float yOffset = 0f;
 
-        if (cards.Count >= 5)
+        if (cards.Count >= maxCards)
         {
             totalWidth = Card.cardWidth * 5f;
             spacing = (totalWidth - Card.cardWidth) / (cards.Count - 1);
             originX = -totalWidth / 2f + Card.cardWidth / 2f;
+            if (cards.Count > maxCards )
+            {
+                yOffset = -Card.cardDepth;
+            }
         }
         else
         {
@@ -43,7 +50,7 @@ public class Node_Hand : Node
         {
             Card card = cards[i];
             card.node = this;
-            card.anchoredPosition = new Vector3(originX + spacing * i, 0f, 0f);
+            card.anchoredPosition = new Vector3(originX + spacing * i, i * yOffset, 0f);
             card.flipRotation = false;
             card.LookAt(card.player.playerCamera.transform);
             card.ToggleColliders(true);
