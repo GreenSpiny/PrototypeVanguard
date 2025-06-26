@@ -10,7 +10,8 @@ public abstract class Node : MonoBehaviour
 {
     public enum NodeType { drag, hand, deck, drop, trigger, damage, order, gauge, VC, RC, GC }
     public abstract NodeType GetNodeType();
-    public abstract bool DefaultSelectable();   // If true, this node can be hovered and selected outside of targeting mode.
+    public abstract bool CanDragTo();       // If true, this node can have cards dragged to it.
+    public abstract bool CanSelectRaw();    // If true, this node can be context clicked in an open gamestate
     public bool HasCard { get { return cards.Count > 0; } }     // True if the node has at least one card
 
     [SerializeField] protected List<Card> cards;        // The cards attached to this node
@@ -134,6 +135,7 @@ public abstract class Node : MonoBehaviour
                 animInfo.arrowsScale = 0f;
                 animInfo.arrowsColor = Color.red;
                 animInfo.flashColor = Color.white;
+                animInfo.arrowsColor.a = 0f;
                 animInfo.flashColor.a = 0f;
                 animInfo.instantColor = false;
             }
@@ -143,6 +145,7 @@ public abstract class Node : MonoBehaviour
                 animInfo.arrowsScale = 1f;
                 animInfo.arrowsColor = Color.red;
                 animInfo.flashColor = Color.red;
+                animInfo.arrowsColor.a = 0.5f;
                 animInfo.flashColor.a = 0.5f;
                 animInfo.instantColor = false;
             }
@@ -152,6 +155,7 @@ public abstract class Node : MonoBehaviour
                 animInfo.arrowsScale = 1f;
                 animInfo.arrowsColor = Color.yellow;
                 animInfo.flashColor = Color.yellow;
+                animInfo.arrowsColor.a = 0.5f;
                 animInfo.flashColor.a = 0.5f;
                 animInfo.instantColor = true;
             }
@@ -202,7 +206,7 @@ public abstract class Node : MonoBehaviour
                     {
                         flashRenderer.color = Color.Lerp(flashRenderer.color, flashColor, Time.deltaTime * transitionSpeed);
                     }
-                    arrowsRenderer.color = new Color(arrowsColor.r, arrowsColor.g, arrowsColor.b, Mathf.Clamp(arrowsRenderer.transform.localScale.x * 2f, 0f, 1f));
+                    arrowsRenderer.color = new Color(arrowsColor.r, arrowsColor.g, arrowsColor.b, Mathf.Clamp(arrowsRenderer.transform.localScale.x * 0.5f, 0f, 0.5f));
                 }
             }
         }

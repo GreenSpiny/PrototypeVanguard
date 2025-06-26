@@ -111,10 +111,11 @@ public class DragManager : MonoBehaviour
         {
             ChangeDMstate(DMstate.dragging);
         }
-        if (!Input.GetMouseButton(0) && dmstate == DMstate.dragging)
+        else if (!Input.GetMouseButton(0) && dmstate == DMstate.dragging)
         {
             ChangeDMstate(DMstate.open);
         }
+
         if (dmstate == DMstate.dragging)
         {
             RaycastHit dragHit;
@@ -160,7 +161,7 @@ public class DragManager : MonoBehaviour
 
                 foreach (Node node in SharedGamestate.allNodes)
                 {
-                    if (node.DefaultSelectable())
+                    if (node.CanDragTo() && draggedCard.node.PreviousNode != node)
                     {
                         node.UIState = Node.NodeUIState.available;
                     }
@@ -218,7 +219,11 @@ public class DragManager : MonoBehaviour
     public void OnNodeHoverEnter(Node node)
     {
         hoveredNode = node;
-        if (dmstate == DMstate.dragging)
+        if (dmstate == DMstate.open && node.CanSelectRaw())
+        {
+            node.UIState = Node.NodeUIState.hovered;
+        }
+        else if (dmstate == DMstate.dragging && node.UIState == Node.NodeUIState.available)
         {
             node.UIState = Node.NodeUIState.hovered;
         }

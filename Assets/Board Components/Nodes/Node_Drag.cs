@@ -14,10 +14,8 @@ public class Node_Drag : Node
             AlignCards(false);
         }
     }
-    public override bool DefaultSelectable()
-    {
-        return false;
-    }
+    public override bool CanDragTo() { return false; }
+    public override bool CanSelectRaw() { return false; }
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
         base.RecieveCard(card, parameters);

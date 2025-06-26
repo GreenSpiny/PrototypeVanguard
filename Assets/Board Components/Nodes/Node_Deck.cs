@@ -8,10 +8,8 @@ public class Node_Deck : Node
         return NodeType.deck;
     }
 
-    public override bool DefaultSelectable()
-    {
-        return true;
-    }
+    public override bool CanDragTo() { return false; }
+    public override bool CanSelectRaw() { return false; }
 
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {

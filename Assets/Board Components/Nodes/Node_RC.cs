@@ -9,10 +9,8 @@ public class Node_RC : Node
         return NodeType.RC;
     }
 
-    public override bool DefaultSelectable()
-    {
-        return true;
-    }
+    public override bool CanDragTo() { return true; }
+    public override bool CanSelectRaw() { return false; }
 
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {

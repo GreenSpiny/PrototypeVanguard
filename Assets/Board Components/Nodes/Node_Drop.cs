@@ -8,10 +8,8 @@ public class Node_Drop : Node
         return NodeType.drop;
     }
 
-    public override bool DefaultSelectable()
-    {
-        return true;
-    }
+    public override bool CanDragTo() { return true; }
+    public override bool CanSelectRaw() { return false; }
 
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
