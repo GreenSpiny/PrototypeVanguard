@@ -20,7 +20,7 @@ public class Node_Hand : Node
 
     public override void AlignCards(bool instant)
     {
-        int maxCards = 5;
+        int maxCards = 8;
 
         float spacing = 0f;
         float totalWidth = 0f;
@@ -29,10 +29,10 @@ public class Node_Hand : Node
 
         if (cards.Count >= maxCards)
         {
-            totalWidth = Card.cardWidth * 5f;
+            totalWidth = Card.cardWidth * maxCards;
             spacing = (totalWidth - Card.cardWidth) / (cards.Count - 1);
             originX = -totalWidth / 2f + Card.cardWidth / 2f;
-            if (cards.Count > maxCards )
+            if (cards.Count > maxCards)
             {
                 yOffset = -Card.cardDepth;
             }
@@ -54,7 +54,7 @@ public class Node_Hand : Node
             card.ToggleColliders(true);
             if (instant)
             {
-                card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
+                card.transform.position = cardAnchor.transform.position + card.anchoredPosition + card.anchoredPositionOffset;
             }
         }
     }

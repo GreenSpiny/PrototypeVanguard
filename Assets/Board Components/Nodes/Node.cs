@@ -15,7 +15,7 @@ public abstract class Node : MonoBehaviour
     public bool HasCard { get { return cards.Count > 0; } }     // True if the node has at least one card
 
     [SerializeField] protected List<Card> cards;        // The cards attached to this node
-    [SerializeField] protected Transform cardAnchor;    // The position and rotation cards begin to accrue on this node
+    [SerializeField] public Transform cardAnchor;    // The position and rotation cards begin to accrue on this node
     [SerializeField] protected Vector3 nudgeDistance;   // If and how far cards on this node "nudge" when hovered, as feedback
     [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
 
@@ -35,12 +35,15 @@ public abstract class Node : MonoBehaviour
         {
             cardAnchor = transform;
         }
-    }
-
-    protected virtual void Start()
-    {
-        AlignCards(true);
         animInfo.Initialize();
+        foreach (var child in GetComponentsInChildren<Card>())
+        {
+            cards.Add(child);
+            child.transform.SetParent(transform.parent, true);
+            child.transform.localScale = Vector3.one;
+            child.transform.localRotation = Quaternion.identity;
+        }
+        AlignCards(true);
     }
 
     private void Update()

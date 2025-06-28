@@ -35,7 +35,7 @@ public class Node_Drag : Node
             card.ToggleColliders(true);
             if (instant)
             {
-                card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
+                card.transform.position = cardAnchor.transform.position + card.anchoredPosition + card.anchoredPositionOffset;
             }
         }
     }

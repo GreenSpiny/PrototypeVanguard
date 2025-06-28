@@ -50,9 +50,9 @@ public class Card : MonoBehaviour
     {
         // Animate position & rotation
         // If no animation exist, do a smooth lerp
-        if (!anim)
+        if (!anim && node != null)
         {
-            transform.position = Vector3.Lerp(transform.position, node.transform.position + anchoredPosition + anchoredPositionOffset, CardMoveSpeed);  
+            transform.position = Vector3.Lerp(transform.position, node.cardAnchor.transform.position + anchoredPosition + anchoredPositionOffset, CardMoveSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetEuler), CardFlipSpeed);
         }
         // If an animation exists, follow the procedure
