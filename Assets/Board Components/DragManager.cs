@@ -192,10 +192,10 @@ public class DragManager : MonoBehaviour
 
     public void OnCardHoverEnter(Card card)
     {
-        hoveredCard = card;
         if (dmstate == DMstate.open)
         {
             card.UIState = Card.CardUIState.hovered;
+            hoveredCard = card;
         }
     }
 
@@ -218,14 +218,15 @@ public class DragManager : MonoBehaviour
 
     public void OnNodeHoverEnter(Node node)
     {
-        hoveredNode = node;
         if (dmstate == DMstate.open && node.CanSelectRaw())
         {
             node.UIState = Node.NodeUIState.hovered;
+            hoveredNode = node;
         }
         else if (dmstate == DMstate.dragging && node.UIState == Node.NodeUIState.available)
         {
             node.UIState = Node.NodeUIState.hovered;
+            hoveredNode = node;
         }
     }
 
