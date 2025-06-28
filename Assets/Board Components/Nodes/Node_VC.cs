@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Node_Deck : Node
+public class Node_VC : Node
 {
     public override NodeType GetNodeType()
     {
-        return NodeType.deck;
+        return NodeType.VC;
     }
 
-    public override bool CanDragTo() { return false; }
+    public override bool CanDragTo() { return true; }
     public override bool CanSelectRaw() { return false; }
 
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
@@ -26,7 +27,7 @@ public class Node_Deck : Node
             card.node = this;
             card.anchoredPosition = new Vector3(0f, (i * Card.cardDepth) + (Card.cardDepth / 2f), 0f);
             card.anchoredPositionOffset = Vector3.zero;
-            card.flipRotation = true;
+            card.flipRotation = false;
             card.LookAt(null);
             card.ToggleColliders(i == cards.Count - 1);
             if (instant)
@@ -35,11 +36,5 @@ public class Node_Deck : Node
                 card.transform.rotation = Quaternion.Euler(card.targetEuler);
             }
         }
-    }
-
-    public override void AutoAction(Card clickedCard)
-    {
-        Node hand = clickedCard.player.hand;
-        hand.RecieveCard(clickedCard, new string[0]);
     }
 }

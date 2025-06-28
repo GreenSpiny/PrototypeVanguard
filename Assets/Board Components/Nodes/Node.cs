@@ -121,6 +121,9 @@ public abstract class Node : MonoBehaviour
     }
     public abstract void AlignCards(bool instant);
 
+    // "Auto Action" is the default action when a card on this node is double clicked.
+    public virtual void AutoAction(Card clickedCard) { }
+
     public Vector3 NudgeDistance { get { return nudgeDistance; } }
 
     public NodeUIState UIState

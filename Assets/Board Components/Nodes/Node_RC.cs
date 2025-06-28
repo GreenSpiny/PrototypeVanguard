@@ -52,6 +52,7 @@ public class Node_RC : Node
             if (instant)
             {
                 card.transform.position = cardAnchor.transform.position + card.anchoredPosition + card.anchoredPositionOffset;
+                card.transform.rotation = Quaternion.Euler(card.targetEuler);
             }
         }
     }

@@ -36,6 +36,7 @@ public class Node_Drag : Node
             if (instant)
             {
                 card.transform.position = cardAnchor.transform.position + card.anchoredPosition + card.anchoredPositionOffset;
+                card.transform.rotation = Quaternion.Euler(card.targetEuler);
             }
         }
     }

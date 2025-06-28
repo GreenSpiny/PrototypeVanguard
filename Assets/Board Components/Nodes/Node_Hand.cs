@@ -55,6 +55,7 @@ public class Node_Hand : Node
             if (instant)
             {
                 card.transform.position = cardAnchor.transform.position + card.anchoredPosition + card.anchoredPositionOffset;
+                card.transform.rotation = Quaternion.Euler(card.targetEuler);
             }
         }
     }

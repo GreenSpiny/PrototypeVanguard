@@ -51,6 +51,7 @@ public class DragManager : MonoBehaviour
         cardMask = LayerMask.GetMask("Card Layer");
         nodeMask = LayerMask.GetMask("Node Layer");
         dragMask = LayerMask.GetMask("Board Drag Layer");
+        lastClickTime = float.MinValue;
     }
 
     protected void Update()
@@ -107,7 +108,12 @@ public class DragManager : MonoBehaviour
         bool dragDistanceMet = Vector3.Distance(clickLocation, mousePosition) > DragThreshold;
         bool doubleClick = (clickTime - lastClickTime < DoubleClickThreshold) && !dragDistanceMet;
 
-        if (Input.GetMouseButton(0) && dmstate == DMstate.open && hoveredCard != null && dragDistanceMet)
+        if (doubleClick && dmstate == DMstate.open && hoveredCard != null)
+        {
+            hoveredCard.node.AutoAction(hoveredCard);
+            lastClickTime = float.MinValue;
+        }
+        else if (Input.GetMouseButton(0) && dmstate == DMstate.open && hoveredCard != null && dragDistanceMet)
         {
             ChangeDMstate(DMstate.dragging);
         }

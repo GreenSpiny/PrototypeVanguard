@@ -17,10 +17,10 @@ public class Card : MonoBehaviour
     [NonSerialized] public Node node;
     [NonSerialized] public CardInfo cardInfo;
 
-    public Vector3 anchoredPosition;        // The intended position of the card
-    public Vector3 anchoredPositionOffset;  // Offset of the final position, i.e. on hover
-    public Vector3 lastAnchoredPosition;    // If applicable, the previous position of the card before a transition animation
-    protected Vector3 targetEuler;          // The direction the card should face
+    [NonSerialized] public Vector3 anchoredPosition;        // The intended position of the card
+    [NonSerialized] public Vector3 anchoredPositionOffset;  // Offset of the final position, i.e. on hover
+    [NonSerialized] public Vector3 lastAnchoredPosition;    // If applicable, the previous position of the card before a transition animation
+    [NonSerialized] public Vector3 targetEuler;             // The direction the card should face
 
     public bool isToken = false;
     public bool flipRotation = false;
@@ -33,7 +33,7 @@ public class Card : MonoBehaviour
 
     private bool anim = false;  // temporary
     public float CardMoveSpeed { get { return 10f * Time.deltaTime; } }
-    public float CardFlipSpeed { get { return 12f * Time.deltaTime; } }
+    public float CardFlipSpeed { get { return 14f * Time.deltaTime; } }
 
     public void ToggleColliders(bool toggle)
     {
@@ -68,6 +68,10 @@ public class Card : MonoBehaviour
         if (target != null)
         {
             targetEuler.x = Mathf.Atan(Mathf.Abs(target.transform.position.y - node.transform.position.y + anchoredPosition.y) / Mathf.Abs(target.transform.position.z - node.transform.position.z + anchoredPosition.z)) * (180f / Mathf.PI) - 90f;
+        }
+        else
+        {
+            targetEuler.x = 0f;
         }
         if (flipRotation)
         {
