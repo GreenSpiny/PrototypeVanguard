@@ -8,7 +8,7 @@ public class Node_Deck : Node
         return NodeType.deck;
     }
 
-    public override bool CanDragTo() { return false; }
+    public override bool CanDragTo() { return true; }
     public override bool CanSelectRaw() { return false; }
 
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
@@ -29,11 +29,7 @@ public class Node_Deck : Node
             card.flipRotation = true;
             card.LookAt(null);
             card.ToggleColliders(i == cards.Count - 1);
-            if (instant)
-            {
-                card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
-                card.transform.rotation = Quaternion.Euler(card.targetEuler);
-            }
+            base.AlignCards(instant);
         }
     }
 

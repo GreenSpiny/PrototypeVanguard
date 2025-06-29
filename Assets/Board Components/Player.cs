@@ -12,6 +12,11 @@ public class Player : MonoBehaviour
     public Node hand;
     public Node deck;
     public Node drop;
+    public Node bind;
+    public Node remove;
+    public Node damage;
+    public Node order;
+    public Node gzone;  // Also serves as Gauge
     public Node VC;
     public List<Node> RC;
 
@@ -26,6 +31,11 @@ public class Player : MonoBehaviour
                 case Node.NodeType.hand: hand = node; break;
                 case Node.NodeType.deck: deck = node; break;
                 case Node.NodeType.drop: drop = node; break;
+                case Node.NodeType.bind: bind = node; break;
+                case Node.NodeType.remove: remove = node; break;
+                case Node.NodeType.damage: damage = node; break;
+                case Node.NodeType.order: order = node; break;
+                case Node.NodeType.gzone: gzone = node; break;
                 case Node.NodeType.VC: VC = node; break;
                 case Node.NodeType.RC: RC.Add(node); break;
             }

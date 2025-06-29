@@ -8,15 +8,16 @@ using System.Linq;
 // Examples include the hand, deck, all zones, and all unit circles.
 public abstract class Node : MonoBehaviour
 {
-    public enum NodeType { drag, hand, deck, drop, trigger, damage, order, gauge, VC, RC, GC }
+    public enum NodeType { drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, VC, RC, GC }
     public abstract NodeType GetNodeType();
     public abstract bool CanDragTo();       // If true, this node can have cards dragged to it.
     public abstract bool CanSelectRaw();    // If true, this node can be context clicked in an open gamestate
     public bool HasCard { get { return cards.Count > 0; } }     // True if the node has at least one card
 
     [SerializeField] protected List<Card> cards;        // The cards attached to this node
-    [SerializeField] public Transform cardAnchor;    // The position and rotation cards begin to accrue on this node
-    [SerializeField] protected Vector3 nudgeDistance;   // If and how far cards on this node "nudge" when hovered, as feedback
+    [SerializeField] public Transform cardAnchor;       // The position and rotation cards begin to accrue on this node
+    [SerializeField] public Vector3 cardScale;          // The scale of cards attached to this node
+    [SerializeField] public Vector3 nudgeDistance;      // If and how far cards on this node "nudge" when hovered, as feedback
     [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
 
     // The player who owns this node
@@ -119,12 +120,21 @@ public abstract class Node : MonoBehaviour
             AlignCards(false);
         }
     }
-    public abstract void AlignCards(bool instant);
+    public virtual void AlignCards(bool instant)
+    {
+        if (instant)
+        {
+            foreach (Card card in cards)
+            {
+                card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
+                card.transform.rotation = Quaternion.Euler(card.targetEuler);
+                card.transform.localScale = cardScale;
+            }
+        }
+    }
 
     // "Auto Action" is the default action when a card on this node is double clicked.
     public virtual void AutoAction(Card clickedCard) { }
-
-    public Vector3 NudgeDistance { get { return nudgeDistance; } }
 
     public NodeUIState UIState
     {
@@ -152,7 +162,7 @@ public abstract class Node : MonoBehaviour
                 animInfo.arrowsColor = Color.red;
                 animInfo.flashColor = Color.red;
                 animInfo.arrowsColor.a = 0.5f;
-                animInfo.flashColor.a = 0.5f;
+                animInfo.flashColor.a = 0.2f;
                 animInfo.instantColor = false;
             }
             else if (state == NodeUIState.hovered)

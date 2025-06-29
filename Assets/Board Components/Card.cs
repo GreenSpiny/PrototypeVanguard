@@ -22,8 +22,8 @@ public class Card : MonoBehaviour
     [NonSerialized] public Vector3 lastAnchoredPosition;    // If applicable, the previous position of the card before a transition animation
     [NonSerialized] public Vector3 targetEuler;             // The direction the card should face
 
-    public bool isToken = false;
-    public bool flipRotation = false;
+    [NonSerialized] public bool isToken = false;
+    [NonSerialized] public bool flipRotation = false;
 
     protected Material cardFrontMaterial;
     protected Material cardBackMaterial;
@@ -54,6 +54,7 @@ public class Card : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, node.cardAnchor.transform.position + anchoredPosition + anchoredPositionOffset, CardMoveSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetEuler), CardFlipSpeed);
+            transform.localScale = Vector3.Lerp(transform.localScale, node.cardScale, CardMoveSpeed);
         }
         // If an animation exists, follow the procedure
         else
@@ -111,9 +112,9 @@ public class Card : MonoBehaviour
 
     protected void Nudge()
     {
-        Vector3 anchoredPositionOffsetX = transform.right * node.NudgeDistance.x;
-        Vector3 anchoredPositionOffsetY = transform.up * node.NudgeDistance.y;
-        Vector3 anchoredPositionOffsetZ = transform.forward * node.NudgeDistance.z;
+        Vector3 anchoredPositionOffsetX = transform.right * node.nudgeDistance.x;
+        Vector3 anchoredPositionOffsetY = transform.up * node.nudgeDistance.y;
+        Vector3 anchoredPositionOffsetZ = transform.forward * node.nudgeDistance.z;
         anchoredPositionOffset = anchoredPositionOffsetX + anchoredPositionOffsetY + anchoredPositionOffsetZ;
         nudgeCollider.enabled = anchoredPositionOffset.magnitude > 0.0001f;
     }

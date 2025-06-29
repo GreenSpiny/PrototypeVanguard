@@ -52,11 +52,7 @@ public class Node_Hand : Node
             card.flipRotation = false;
             card.LookAt(card.player.playerCamera.transform);
             card.ToggleColliders(true);
-            if (instant)
-            {
-                card.transform.position = cardAnchor.transform.position + card.anchoredPosition + card.anchoredPositionOffset;
-                card.transform.rotation = Quaternion.Euler(card.targetEuler);
-            }
+            base.AlignCards(instant);
         }
     }
 }

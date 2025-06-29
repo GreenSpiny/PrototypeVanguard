@@ -33,11 +33,7 @@ public class Node_Drag : Node
             card.anchoredPositionOffset = Vector3.zero;
             card.LookAt(null);
             card.ToggleColliders(true);
-            if (instant)
-            {
-                card.transform.position = cardAnchor.transform.position + card.anchoredPosition + card.anchoredPositionOffset;
-                card.transform.rotation = Quaternion.Euler(card.targetEuler);
-            }
+            base.AlignCards(instant);
         }
     }
 }

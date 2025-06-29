@@ -29,10 +29,7 @@ public class Node_Drop : Node
             card.flipRotation = false;
             card.LookAt(null);
             card.ToggleColliders(i == cards.Count - 1);
-            if (instant)
-            {
-                card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
-            }
+            base.AlignCards(instant);
         }
     }
 }

@@ -1,16 +1,15 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class Node_VC : Node
+public class Node_Bind : Node
 {
     public override NodeType GetNodeType()
     {
-        return NodeType.VC;
+        return NodeType.bind;
     }
 
     public override bool CanDragTo() { return true; }
-    public override bool CanSelectRaw() { return false; }
+    public override bool CanSelectRaw() { return true; }
 
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
@@ -25,11 +24,11 @@ public class Node_VC : Node
         {
             Card card = cards[i];
             card.node = this;
-            card.anchoredPosition = new Vector3(0f, (i * Card.cardDepth) + (Card.cardDepth / 2f), 0f);
+            card.anchoredPosition = Vector3.zero;
             card.anchoredPositionOffset = Vector3.zero;
             card.flipRotation = false;
             card.LookAt(null);
-            card.ToggleColliders(i == cards.Count - 1);
+            card.ToggleColliders(false);
             base.AlignCards(instant);
         }
     }
