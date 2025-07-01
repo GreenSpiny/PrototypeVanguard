@@ -68,6 +68,7 @@ public abstract class Node : MonoBehaviour
         if (cards.Contains(card))
         {
             cards.Remove(card);
+            AlignCards(false);
         }
     }
 

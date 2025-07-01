@@ -11,6 +11,7 @@ public class Node_Fan : Node
     [SerializeField] protected FanDirection fanDirection;
     [SerializeField] protected FanOrigin fanOrigin;
     [SerializeField] protected int maxCards;
+    [SerializeField] protected float maxWidth;
     [SerializeField] protected float defaultSpacing;
     [SerializeField] Transform lookTarget;
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
@@ -32,19 +33,34 @@ public class Node_Fan : Node
 
         if (cards.Count >= maxCards)
         {
-            totalWidth = scaledCardWidth * maxCards;
-            spacing = (totalWidth - scaledCardWidth) / (cards.Count - 1);
-            origin = -totalWidth / 2f + scaledCardWidth / 2f;
-            if (cards.Count > maxCards)
+            if (maxWidth < 0.1f)
             {
-                yOffset = Card.cardDepth;
+                totalWidth = scaledCardWidth * maxCards;
             }
+            else
+            {
+                totalWidth = maxWidth;
+            }
+            spacing = (totalWidth - scaledCardWidth) / (cards.Count - 1);
         }
         else
         {
             totalWidth = scaledCardWidth + scaledSpacingFactor * (cards.Count - 1);
             spacing = scaledSpacingFactor;
-            origin = -totalWidth / 2f + scaledCardWidth / 2f + scaledSpacingFactor / 2f;
+        }
+
+        if (cards.Count > maxCards || defaultSpacing < 1f)
+        {
+            yOffset = Card.cardDepth;
+        }
+
+        if (fanOrigin == FanOrigin.edge)
+        {
+            origin = scaledCardWidth / 2f;
+        }
+        else
+        {
+            origin = -totalWidth / 2f + scaledCardWidth / 2f;
         }
 
         for (int i = 0; i < cards.Count; i++)
