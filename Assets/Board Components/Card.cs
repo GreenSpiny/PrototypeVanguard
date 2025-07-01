@@ -72,11 +72,11 @@ public class Card : MonoBehaviour
         }
         else
         {
-            targetEuler.x = 0f;
+            targetEuler = node.cardRotation;
         }
         if (flipRotation)
         {
-            targetEuler.z = 180f;
+            targetEuler.z += 180f;
         }
     }
 

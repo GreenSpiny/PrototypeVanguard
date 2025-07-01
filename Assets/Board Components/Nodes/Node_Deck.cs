@@ -26,7 +26,6 @@ public class Node_Deck : Node
             card.node = this;
             card.anchoredPosition = new Vector3(0f, (i * Card.cardDepth) + (Card.cardDepth / 2f), 0f);
             card.anchoredPositionOffset = Vector3.zero;
-            card.flipRotation = true;
             card.LookAt(null);
             card.ToggleColliders(i == cards.Count - 1);
             base.AlignCards(instant);

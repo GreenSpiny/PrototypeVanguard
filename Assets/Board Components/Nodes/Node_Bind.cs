@@ -26,7 +26,6 @@ public class Node_Bind : Node
             card.node = this;
             card.anchoredPosition = Vector3.zero;
             card.anchoredPositionOffset = Vector3.zero;
-            card.flipRotation = false;
             card.LookAt(null);
             card.ToggleColliders(false);
             base.AlignCards(instant);

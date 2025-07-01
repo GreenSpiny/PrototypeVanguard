@@ -932,6 +932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 532766046}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
@@ -1016,6 +1017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 627099462}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
@@ -1053,6 +1055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 679944880}
+  cardRotation: {x: 0, y: 0, z: 180}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
@@ -1669,6 +1672,11 @@ MonoBehaviour:
   hand: {fileID: 0}
   deck: {fileID: 0}
   drop: {fileID: 0}
+  bind: {fileID: 0}
+  remove: {fileID: 0}
+  damage: {fileID: 0}
+  order: {fileID: 0}
+  gzone: {fileID: 0}
   VC: {fileID: 0}
   RC: []
 --- !u!4 &1050813229
@@ -1775,6 +1783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1139607359}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
@@ -1859,6 +1868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1169353759}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
@@ -1881,7 +1891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &1227116207
 Camera:
   m_ObjectHideFlags: 0
@@ -2453,6 +2463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1423804615}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
@@ -2815,6 +2826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1504746320}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
@@ -3451,12 +3463,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards: []
-  cardAnchor: {fileID: 0}
+  cardAnchor: {fileID: 1762377424}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
-    flashRenderer: {fileID: 0}
-    arrowsRenderer: {fileID: 0}
+    flashRenderer: {fileID: 1790702650}
+    arrowsRenderer: {fileID: 23323240}
 --- !u!1 &1790702648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3888,6 +3901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 0}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
@@ -4376,6 +4390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 1567225820}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0.2}
   animInfo:
@@ -4504,6 +4519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards: []
   cardAnchor: {fileID: 2130360747}
+  cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:

@@ -18,6 +18,7 @@ public class Node_Drag : Node
     public override bool CanSelectRaw() { return false; }
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
+        cardRotation = card.node.cardRotation;
         base.RecieveCard(card, parameters);
         cards.Add(card);
         AlignCards(false);

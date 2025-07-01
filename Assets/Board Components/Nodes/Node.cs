@@ -16,6 +16,7 @@ public abstract class Node : MonoBehaviour
 
     [SerializeField] protected List<Card> cards;        // The cards attached to this node
     [SerializeField] public Transform cardAnchor;       // The position and rotation cards begin to accrue on this node
+    [SerializeField] public Vector3 cardRotation;       // The default Euler rotation of cards attached to this node
     [SerializeField] public Vector3 cardScale;          // The scale of cards attached to this node
     [SerializeField] public Vector3 nudgeDistance;      // If and how far cards on this node "nudge" when hovered, as feedback
     [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
