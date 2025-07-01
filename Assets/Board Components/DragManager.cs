@@ -117,7 +117,7 @@ public class DragManager : MonoBehaviour
 
         if (doubleClick && dmstate == DMstate.open && hoveredCard != null)
         {
-            hoveredCard.node.CardAutoAction(hoveredCard);
+            CardAutoAction(hoveredCard);
             lastClickTime = float.MinValue;
         }
         else if (Input.GetMouseButton(0) && dmstate == DMstate.open && hoveredCard != null && dragDistanceMet)
