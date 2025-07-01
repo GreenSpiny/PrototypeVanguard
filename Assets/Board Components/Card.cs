@@ -42,7 +42,6 @@ public class Card : MonoBehaviour
 
     private void Awake()
     {
-        SharedGamestate.allCards.Add(this);
         cardFrontMaterial = meshRenderer.materials[0];
         cardBackMaterial = meshRenderer.materials[1];
     }

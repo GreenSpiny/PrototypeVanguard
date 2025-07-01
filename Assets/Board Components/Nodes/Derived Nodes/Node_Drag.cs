@@ -1,18 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node_Bind : Node
+public class Node_Drag : Node
 {
-    public override NodeType GetNodeType()
-    {
-        return NodeType.bind;
-    }
-
-    public override bool CanDragTo() { return true; }
-    public override bool CanSelectRaw() { return true; }
-
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
+        cardRotation = card.node.cardRotation;
         base.RecieveCard(card, parameters);
         cards.Add(card);
         AlignCards(false);
@@ -20,14 +13,14 @@ public class Node_Bind : Node
 
     public override void AlignCards(bool instant)
     {
-        for (int i = 0; i < cards.Count; i++)
+        if (HasCard)
         {
-            Card card = cards[i];
+            Card card = cards[0];
             card.node = this;
             card.anchoredPosition = Vector3.zero;
             card.anchoredPositionOffset = Vector3.zero;
             card.LookAt(null);
-            card.ToggleColliders(false);
+            card.ToggleColliders(true);
             base.AlignCards(instant);
         }
     }

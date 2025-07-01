@@ -9,21 +9,20 @@ using System.Linq;
 public abstract class Node : MonoBehaviour
 {
     public enum NodeType { drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, VC, RC, GC }
-    public abstract NodeType GetNodeType();
-    public abstract bool CanDragTo();       // If true, this node can have cards dragged to it.
-    public abstract bool CanSelectRaw();    // If true, this node can be context clicked in an open gamestate
-    public bool HasCard { get { return cards.Count > 0; } }     // True if the node has at least one card
+    public bool HasCard { get { return cards.Count > 0; } }     // True if the node contains at least one card
 
-    [SerializeField] protected List<Card> cards;        // The cards attached to this node
+    [NonSerialized] protected List<Card> cards;         // The cards attached to this node
+    [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
+    [NonSerialized] public Player player;               // The player who owns this node
+
+    [SerializeField] public NodeType type;
+    [SerializeField] public bool canDragTo;
+    [SerializeField] public bool canSelectRaw;
     [SerializeField] public Transform cardAnchor;       // The position and rotation cards begin to accrue on this node
     [SerializeField] public Vector3 cardRotation;       // The default Euler rotation of cards attached to this node
     [SerializeField] public Vector3 cardScale;          // The scale of cards attached to this node
     [SerializeField] public Vector3 nudgeDistance;      // If and how far cards on this node "nudge" when hovered, as feedback
-    [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
-
-    // The player who owns this node
-    [NonSerialized] public Player player;
-
+    
     // Animation properties
     [SerializeField] protected NodeAnimationInfo animInfo;
 
@@ -32,7 +31,7 @@ public abstract class Node : MonoBehaviour
 
     private void Awake()
     {
-        SharedGamestate.allNodes.Add(this);
+        cards = new List<Card>();
         if (cardAnchor == null)
         {
             cardAnchor = transform;
@@ -40,10 +39,11 @@ public abstract class Node : MonoBehaviour
         animInfo.Initialize();
         foreach (var child in GetComponentsInChildren<Card>())
         {
+            child.node = this;
             cards.Add(child);
             child.transform.SetParent(transform.parent, true);
-            child.transform.localScale = Vector3.one;
             child.transform.localRotation = Quaternion.identity;
+            child.transform.localScale = Vector3.one;
         }
         AlignCards(true);
     }
@@ -63,21 +63,31 @@ public abstract class Node : MonoBehaviour
         }
     }
 
+    private void RemoveCard(Card card)
+    {
+        if (cards.Contains(card))
+        {
+            cards.Remove(card);
+        }
+    }
+
     public virtual void SwapAllCards(Node otherNode, IEnumerable<string> parameters)
     {
+        // When swapping cards, intermediary nodes (i.e. Drag) must be accounted for
         bool drag = parameters.Contains("drag");
 
-        List<Card> selfCards = new List<Card>();
+        // Create shallow copies of the card data, then clear the original data
+        List<Card> selfCardsShallowCopy = new List<Card>();
         foreach (Card card in cards)
         {
-            selfCards.Add(card);
+            selfCardsShallowCopy.Add(card);
         }
         cards.Clear();
 
-        List<Card> otherCards = new List<Card>();
+        List<Card> otherCardsShallowCopy = new List<Card>();
         foreach (Card c in otherNode.cards)
         {
-            otherCards.Add(c);
+            otherCardsShallowCopy.Add(c);
         }
         otherNode.cards.Clear();
 
@@ -85,12 +95,13 @@ public abstract class Node : MonoBehaviour
         {
             foreach (Card c in otherNode.PreviousNode.cards)
             {
-                otherCards.Add(c);
+                otherCardsShallowCopy.Add(c);
             }
             otherNode.PreviousNode.cards.Clear();
-        } 
-        
-        foreach (Card c in selfCards)
+        }
+
+        // Assign the cards to their new nodes
+        foreach (Card c in selfCardsShallowCopy)
         {
             if (drag)
             {
@@ -102,25 +113,17 @@ public abstract class Node : MonoBehaviour
             }
         }
 
-        foreach (Card c in otherCards)
+        foreach (Card c in otherCardsShallowCopy)
         {
             cards.Add(c);
         }
 
+        // Align all nodes potentially involved
         AlignCards(false);
         otherNode.AlignCards(false);
         otherNode.PreviousNode.AlignCards(false);
     }
 
-    // RemoveCard is not to be overridden. External classes should call either RecieveCard or SwapAllCards.
-    private void RemoveCard(Card card)
-    {
-        if (cards.Contains(card))
-        {
-            cards.Remove(card);
-            AlignCards(false);
-        }
-    }
     public virtual void AlignCards(bool instant)
     {
         if (instant)
@@ -132,11 +135,17 @@ public abstract class Node : MonoBehaviour
                 card.transform.localScale = cardScale;
             }
         }
+        foreach (Card card in cards)
+        {
+            card.anchoredPositionOffset = Vector3.zero;
+        }
     }
 
     // "Auto Action" is the default action when a card on this node is double clicked.
-    public virtual void AutoAction(Card clickedCard) { }
+    public virtual void CardAutoAction(Card clickedCard) { }
 
+
+    // ===== ANIMATION SECTION ===== //
     public NodeUIState UIState
     {
         get

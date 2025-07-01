@@ -3,14 +3,6 @@ using UnityEngine;
 
 public class Node_Order : Node
 {
-    public override NodeType GetNodeType()
-    {
-        return NodeType.order;
-    }
-
-    public override bool CanDragTo() { return true; }
-    public override bool CanSelectRaw() { return false; }
-
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
         base.RecieveCard(card, parameters);

@@ -1,0 +1,68 @@
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+// Fan nodes contain a "fan" of cards, such as the Hand or Damage.
+public class Node_Fan : Node
+{
+    protected enum FanDirection { vertical, horizontal }
+    protected enum FanOrigin { center, edge }
+
+    [SerializeField] protected FanDirection fanDirection;
+    [SerializeField] protected FanOrigin fanOrigin;
+    [SerializeField] protected int maxCards;
+    [SerializeField] protected float defaultSpacing;
+    [SerializeField] Transform lookTarget;
+    public override void RecieveCard(Card card, IEnumerable<string> parameters)
+    {
+        base.RecieveCard(card, parameters);
+        cards.Add(card);
+        AlignCards(false);
+    }
+
+    public override void AlignCards(bool instant)
+    {
+        float totalWidth = 0f;
+        float spacing = 0f;
+        float origin = 0f;
+        float yOffset = 0f;
+
+        float scaledCardWidth = Card.cardWidth * cardScale.x;
+        float scaledSpacingFactor = Card.cardWidth * defaultSpacing * cardScale.x;
+
+        if (cards.Count >= maxCards)
+        {
+            totalWidth = scaledCardWidth * maxCards;
+            spacing = (totalWidth - scaledCardWidth) / (cards.Count - 1);
+            origin = -totalWidth / 2f + scaledCardWidth / 2f;
+            if (cards.Count > maxCards)
+            {
+                yOffset = Card.cardDepth;
+            }
+        }
+        else
+        {
+            totalWidth = scaledCardWidth + scaledSpacingFactor * (cards.Count - 1);
+            spacing = scaledSpacingFactor;
+            origin = -totalWidth / 2f + scaledCardWidth / 2f + scaledSpacingFactor / 2f;
+        }
+
+        for (int i = 0; i < cards.Count; i++)
+        {
+            Card card = cards[i];
+            card.node = this;
+            if (fanDirection == FanDirection.vertical)
+            {
+                card.anchoredPosition = new Vector3(0f, i * yOffset, origin + spacing * i);
+            }
+            else
+            {
+                card.anchoredPosition = new Vector3(origin + spacing * i, i * yOffset, 0f);
+            }
+            card.LookAt(lookTarget);
+            card.ToggleColliders(true);
+        }
+
+        base.AlignCards(instant);
+    }
+}

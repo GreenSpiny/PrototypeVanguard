@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         {
             nodes.Add(node);
             node.player = this;
-            switch(node.GetNodeType())
+            switch(node.type)
             {
                 case Node.NodeType.hand: hand = node; break;
                 case Node.NodeType.deck: deck = node; break;

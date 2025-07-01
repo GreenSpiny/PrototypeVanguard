@@ -32,14 +32,18 @@ public class DragManager : MonoBehaviour
     {
         open,       // Open game state
         dragging,   // The user is dragging a card
-        context,    // The user has opened a context menu and must select an option
-        targeting   // The user has chosen a context option that requires targeting a node
+        targeting,  // The user has chosen a context option that requires targeting a node
+        menu        // The user has chosen a context option that requires interacting with a menu
     }
     protected DMstate dmstate;
 
     protected float AnimationSpeed { get { return 10f * Time.deltaTime; } }
     protected float DragThreshold { get { return 5f; } }
     protected float DoubleClickThreshold { get { return 0.25f; } }
+
+    // TEMP VALUE STORAGE
+    Card[] allCards;
+    Node[] allNodes;
 
     protected void Awake()
     {
@@ -52,6 +56,9 @@ public class DragManager : MonoBehaviour
         nodeMask = LayerMask.GetMask("Node Layer");
         dragMask = LayerMask.GetMask("Board Drag Layer");
         lastClickTime = float.MinValue;
+
+        allCards = FindObjectsByType<Card>(FindObjectsSortMode.None);
+        allNodes = FindObjectsByType<Node>(FindObjectsSortMode.None);
     }
 
     protected void Update()
@@ -67,7 +74,7 @@ public class DragManager : MonoBehaviour
         {
             hitCard = cardHit.transform.GetComponent<Card>();
         }
-        foreach (Card card in SharedGamestate.allCards)
+        foreach (Card card in allCards)
         {
             if (card == hitCard)
             {
@@ -85,7 +92,7 @@ public class DragManager : MonoBehaviour
         {
             hitNode = nodeHit.transform.GetComponent<Node>();
         }
-        foreach (Node node in SharedGamestate.allNodes)
+        foreach (Node node in allNodes)
         {
             if (node == hitNode)
             {
@@ -110,7 +117,7 @@ public class DragManager : MonoBehaviour
 
         if (doubleClick && dmstate == DMstate.open && hoveredCard != null)
         {
-            hoveredCard.node.AutoAction(hoveredCard);
+            hoveredCard.node.CardAutoAction(hoveredCard);
             lastClickTime = float.MinValue;
         }
         else if (Input.GetMouseButton(0) && dmstate == DMstate.open && hoveredCard != null && dragDistanceMet)
@@ -148,14 +155,14 @@ public class DragManager : MonoBehaviour
                     hoveredNode.RecieveCard(draggedCard, new string[0]);
                 }
 
-                foreach (Node node in SharedGamestate.allNodes)
+                foreach (Node node in allNodes)
                 {
                     node.UIState = Node.NodeUIState.normal;
                 }
 
                 draggedCard = null;
                 selectedCard = null;
-                targetedNode = null;
+                selectedNode = null;
                 break;
 
             case DMstate.dragging:
@@ -165,28 +172,28 @@ public class DragManager : MonoBehaviour
                 draggedCard.UIState = Card.CardUIState.normal;
                 dragNode.RecieveCard(draggedCard, null);
 
-                foreach (Node node in SharedGamestate.allNodes)
+                foreach (Node node in allNodes)
                 {
-                    if (node.CanDragTo() && draggedCard.node.PreviousNode != node)
+                    if (node.canDragTo && draggedCard.node.PreviousNode != node)
                     {
                         node.UIState = Node.NodeUIState.available;
                     }
                 }
 
                 selectedCard = null;
-                break;
-
-            case DMstate.context:
-                dmstate = DMstate.context;
-                Debug.Log("DMstate -> context");
-
-                draggedCard = null;
-                targetedNode = null;
+                selectedNode = null;
                 break;
 
             case DMstate.targeting:
                 dmstate = DMstate.targeting;
                 Debug.Log("DMstate -> targeting");
+
+                draggedCard = null;
+                break;
+
+            case DMstate.menu:
+                dmstate = DMstate.menu;
+                Debug.Log("DMstate -> menu");
 
                 draggedCard = null;
                 break;
@@ -224,7 +231,7 @@ public class DragManager : MonoBehaviour
 
     public void OnNodeHoverEnter(Node node)
     {
-        if (dmstate == DMstate.open && node.CanSelectRaw())
+        if (dmstate == DMstate.open && node.canSelectRaw)
         {
             node.UIState = Node.NodeUIState.hovered;
             hoveredNode = node;
