@@ -142,10 +142,6 @@ public abstract class Node : MonoBehaviour
         }
     }
 
-    // "Auto Action" is the default action when a card on this node is double clicked.
-    public virtual void CardAutoAction(Card clickedCard) { }
-
-
     // ===== ANIMATION SECTION ===== //
     public NodeUIState UIState
     {

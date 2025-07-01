@@ -266,4 +266,21 @@ public class DragManager : MonoBehaviour
     {
 
     }
+
+    // === double click "Auto Actions" === //
+    protected void CardAutoAction(Card clickedCard)
+    {
+        switch (clickedCard.node.type)
+        {
+
+        }
+    }
+
+    protected void NodeAutoAction(Node clickedNode)
+    {
+        switch(clickedNode.type)
+        {
+
+        }
+    }
 }
