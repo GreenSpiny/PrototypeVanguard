@@ -20,6 +20,7 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public bool canSelectRaw;
     [SerializeField] public bool preserveRest;
     [SerializeField] public bool preserveFlip;
+    [SerializeField] public bool privateKnowledge;
     [SerializeField] public Transform cardAnchor;       // The position and rotation cards begin to accrue on this node
     [SerializeField] public Vector3 cardRotation;       // The default Euler rotation of cards attached to this node
     [SerializeField] public Vector3 cardScale;          // The scale of cards attached to this node
@@ -97,7 +98,7 @@ public abstract class Node : MonoBehaviour
             cards.Clear();
             foreach (var card in cardsShallowCopy)
             {
-                player.drop.RecieveCard(card, new string[0]);
+                card.player.drop.RecieveCard(card, new string[0]);
             }
         }
     }

@@ -11,6 +11,7 @@ public class Node_Stack : Node
         base.RecieveCard(card, parameters);
         bool toBottom = parameters.Contains("bottom");
         bool facedown = parameters.Contains("facedown");
+        bool faceup = parameters.Contains("faceup");
         if (toBottom)
         {
             cards.Insert(0, card);
@@ -19,7 +20,14 @@ public class Node_Stack : Node
         {
             cards.Add(card);
         }
-        card.flipRotation = facedown;
+        if (facedown)
+        {
+            card.flipRotation = true;
+        }
+        else if (faceup)
+        {
+            card.flipRotation = false;
+        }
         AlignCards(false);
     }
 

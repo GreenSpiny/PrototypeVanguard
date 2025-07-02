@@ -118,6 +118,7 @@ public class DragManager : MonoBehaviour
         if (doubleClick && dmstate == DMstate.open && hoveredCard != null)
         {
             CardAutoAction(hoveredCard);
+            clickTime = 0f;
             lastClickTime = float.MinValue;
         }
         else if (Input.GetMouseButton(0) && dmstate == DMstate.open && hoveredCard != null && dragDistanceMet)
@@ -190,7 +191,7 @@ public class DragManager : MonoBehaviour
                 foreach (Node node in allNodes)
                 {
                     // TODO: need exception for Prison
-                    if (node.canDragTo && draggedCard.player == node.player && draggedCard.node.PreviousNode != node)
+                    if (node.canDragTo && (draggedCard.player == node.player || node.type == Node.NodeType.GC) && draggedCard.node.PreviousNode != node)
                     {
                         node.UIState = Node.NodeUIState.available;
                     }
@@ -304,11 +305,14 @@ public class DragManager : MonoBehaviour
                 clickedCard.node.AlignCards(false);
                 break;
             case Node.NodeType.deck:
-                clickedCard.node.player.hand.RecieveCard(clickedCard, new string[0]);
+                clickedCard.player.hand.RecieveCard(clickedCard, new string[0]);
+                break;
+            case Node.NodeType.trigger:
+                clickedCard.player.hand.RecieveCard(clickedCard, new string[0]);
                 break;
             case Node.NodeType.damage:
                 clickedCard.flipRotation = !clickedCard.flipRotation;
-                clickedCard.node.AlignCards(true);
+                clickedCard.node.AlignCards(false);
                 break;
         }
     }

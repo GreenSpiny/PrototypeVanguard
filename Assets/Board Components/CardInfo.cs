@@ -17,6 +17,9 @@ public class CardInfo
     public readonly int baseCrit;               // base critical of the unit
     public readonly int maxCount;               // maxmimum number of this card allowed in a deck; usually four
 
+    public readonly string name;
+    public readonly string text;
+
     public readonly string nameLocalizationKey;
     public readonly string textLocalizationKey;
 

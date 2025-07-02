@@ -10,6 +10,8 @@ public class Node_Fan : Node
 
     [SerializeField] protected FanDirection fanDirection;
     [SerializeField] protected FanOrigin fanOrigin;
+    [SerializeField] protected bool reverse;
+    [SerializeField] protected bool descend;
     [SerializeField] protected int maxCards;
     [SerializeField] protected float maxWidth;
     [SerializeField] protected float defaultSpacing;
@@ -52,6 +54,10 @@ public class Node_Fan : Node
         if (cards.Count > maxCards || defaultSpacing < 1f)
         {
             yOffset = Card.cardDepth;
+            if (descend)
+            {
+                yOffset *= -1f;
+            }
         }
 
         if (fanOrigin == FanOrigin.edge)
@@ -69,11 +75,25 @@ public class Node_Fan : Node
             card.node = this;
             if (fanDirection == FanDirection.vertical)
             {
-                card.anchoredPosition = new Vector3(0f, i * yOffset, -origin - spacing * i);
+                if (reverse)
+                {
+                    card.anchoredPosition = new Vector3(0f, i * yOffset, origin + spacing * i);
+                }
+                else
+                {
+                    card.anchoredPosition = new Vector3(0f, i * yOffset, -origin - spacing * i);
+                }
             }
             else
             {
-                card.anchoredPosition = new Vector3(origin + spacing * i, i * yOffset, 0f);
+                if (reverse)
+                {
+                    card.anchoredPosition = new Vector3(-origin - spacing * i, i * yOffset, 0f);
+                }
+                else
+                {
+                    card.anchoredPosition = new Vector3(origin + spacing * i, i * yOffset, 0f);
+                }
             }
             card.LookAt(lookTarget);
             card.ToggleColliders(true);

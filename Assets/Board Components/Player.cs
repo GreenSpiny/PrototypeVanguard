@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     public bool isActivePlayer;
-    public int activePlayerModifier { get { if (isActivePlayer) { return 1; } return 0; } }
 
     // All entities owned by this player
     public Camera playerCamera;
@@ -21,6 +20,7 @@ public class Player : MonoBehaviour
     public Node order;
     public Node gzone;  // Also serves as Gauge
     public Node VC;
+    public Node GC;     // Special because shared - for now, assign in Inspector
     public List<Node> RC;
 
     private void Awake()
