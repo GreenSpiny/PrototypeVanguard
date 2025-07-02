@@ -18,6 +18,8 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public NodeType type;
     [SerializeField] public bool canDragTo;
     [SerializeField] public bool canSelectRaw;
+    [SerializeField] public bool preserveRest;
+    [SerializeField] public bool preserveFlip;
     [SerializeField] public Transform cardAnchor;       // The position and rotation cards begin to accrue on this node
     [SerializeField] public Vector3 cardRotation;       // The default Euler rotation of cards attached to this node
     [SerializeField] public Vector3 cardScale;          // The scale of cards attached to this node
@@ -57,6 +59,14 @@ public abstract class Node : MonoBehaviour
     {
         if (card.node != this)
         {
+            if (!preserveRest)
+            {
+                card.rest = false;
+            }
+            if (!preserveFlip)
+            {
+                card.flipRotation = false;
+            }
             PreviousNode = card.node;
             PreviousNode.RemoveCard(card);
             card.node = this;

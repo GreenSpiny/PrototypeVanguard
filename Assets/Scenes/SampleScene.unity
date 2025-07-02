@@ -373,10 +373,12 @@ MonoBehaviour:
   type: 12
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 0
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 90, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
-  nudgeDistance: {x: 0, y: 0, z: 0.2}
+  nudgeDistance: {x: 0, y: 0, z: 0}
   animInfo:
     flashRenderer: {fileID: 1878805476}
     arrowsRenderer: {fileID: 710830807}
@@ -719,6 +721,8 @@ MonoBehaviour:
   type: 8
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 0
+  preserveFlip: 0
   cardAnchor: {fileID: 2146300233}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
@@ -1546,6 +1550,8 @@ MonoBehaviour:
   type: 3
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 0
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -1626,6 +1632,8 @@ MonoBehaviour:
   type: 6
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 0
+  preserveFlip: 0
   cardAnchor: {fileID: 706290640}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
@@ -1719,6 +1727,8 @@ MonoBehaviour:
   type: 11
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 1
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -1760,6 +1770,8 @@ MonoBehaviour:
   type: 2
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 0
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 180}
   cardScale: {x: 1, y: 1, z: 1}
@@ -2876,6 +2888,8 @@ MonoBehaviour:
   type: 10
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 1
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -2964,6 +2978,8 @@ MonoBehaviour:
   type: 11
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 1
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -3043,6 +3059,8 @@ MonoBehaviour:
   type: 5
   canDragTo: 1
   canSelectRaw: 1
+  preserveRest: 0
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
@@ -3719,6 +3737,8 @@ MonoBehaviour:
   type: 9
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 0
+  preserveFlip: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 180}
   cardScale: {x: 1, y: 1, z: 1}
@@ -3807,6 +3827,8 @@ MonoBehaviour:
   type: 11
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 1
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -4173,6 +4195,8 @@ MonoBehaviour:
   type: 11
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 1
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -4303,6 +4327,8 @@ MonoBehaviour:
   type: 7
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 0
+  preserveFlip: 0
   cardAnchor: {fileID: 1995660017}
   cardRotation: {x: 0, y: 90, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -4899,6 +4925,8 @@ MonoBehaviour:
   type: 4
   canDragTo: 1
   canSelectRaw: 1
+  preserveRest: 0
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
@@ -5426,6 +5454,8 @@ MonoBehaviour:
   type: 0
   canDragTo: 0
   canSelectRaw: 0
+  preserveRest: 1
+  preserveFlip: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -6079,6 +6109,8 @@ MonoBehaviour:
   type: 1
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 0
+  preserveFlip: 0
   cardAnchor: {fileID: 1567225820}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -6172,6 +6204,8 @@ MonoBehaviour:
   type: 11
   canDragTo: 1
   canSelectRaw: 0
+  preserveRest: 1
+  preserveFlip: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
