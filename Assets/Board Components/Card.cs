@@ -82,6 +82,10 @@ public class Card : MonoBehaviour
         {
             targetEuler.z += 180f;
         }
+        if (node.type == Node.NodeType.hand && !node.player.isActivePlayer)
+        {
+            targetEuler.z += 180f;
+        }
     }
 
     public CardUIState UIState

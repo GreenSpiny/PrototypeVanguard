@@ -33,6 +33,8 @@ public abstract class Node : MonoBehaviour
 
     private void Awake()
     {
+        Player parent = GetComponentInParent<Player>();
+        player = parent;
         cards = new List<Card>();
         if (cardAnchor == null)
         {
@@ -43,9 +45,10 @@ public abstract class Node : MonoBehaviour
         {
             child.node = this;
             cards.Add(child);
-            child.transform.SetParent(transform.parent, true);
+            child.transform.SetParent(parent.transform, true);
             child.transform.localRotation = Quaternion.identity;
             child.transform.localScale = Vector3.one;
+            child.player = parent;
         }
         AlignCards(true);
     }

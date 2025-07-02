@@ -189,7 +189,8 @@ public class DragManager : MonoBehaviour
 
                 foreach (Node node in allNodes)
                 {
-                    if (node.canDragTo && draggedCard.node.PreviousNode != node)
+                    // TODO: need exception for Prison
+                    if (node.canDragTo && draggedCard.player == node.player && draggedCard.node.PreviousNode != node)
                     {
                         node.UIState = Node.NodeUIState.available;
                     }

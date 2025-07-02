@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
+    public bool isActivePlayer;
+    public int activePlayerModifier { get { if (isActivePlayer) { return 1; } return 0; } }
+
     // All entities owned by this player
     public Camera playerCamera;
     public List<Card> cards = new List<Card>();
@@ -25,7 +28,6 @@ public class Player : MonoBehaviour
         foreach (Node node in GetComponentsInChildren<Node>())
         {
             nodes.Add(node);
-            node.player = this;
             switch(node.type)
             {
                 case Node.NodeType.hand: hand = node; break;
@@ -43,7 +45,6 @@ public class Player : MonoBehaviour
         foreach (Card card in GetComponentsInChildren<Card>())
         {
             cards.Add(card);
-            card.player = this;
         }
     }
 
