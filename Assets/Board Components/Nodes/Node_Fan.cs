@@ -69,7 +69,7 @@ public class Node_Fan : Node
             card.node = this;
             if (fanDirection == FanDirection.vertical)
             {
-                card.anchoredPosition = new Vector3(0f, i * yOffset, origin + spacing * i);
+                card.anchoredPosition = new Vector3(0f, i * yOffset, -origin - spacing * i);
             }
             else
             {

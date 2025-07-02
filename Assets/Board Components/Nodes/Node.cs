@@ -72,6 +72,23 @@ public abstract class Node : MonoBehaviour
         }
     }
 
+    public virtual void RetireCards()
+    {
+        if (type != NodeType.drop)
+        {
+            List<Card> cardsShallowCopy = new List<Card>();
+            foreach (var card in cards)
+            {
+                cardsShallowCopy.Add(card);
+            }
+            cards.Clear();
+            foreach (var card in cardsShallowCopy)
+            {
+                player.drop.RecieveCard(card, new string[0]);
+            }
+        }
+    }
+
     public virtual void SwapAllCards(Node otherNode, IEnumerable<string> parameters)
     {
         // When swapping cards, intermediary nodes (i.e. Drag) must be accounted for
@@ -168,7 +185,7 @@ public abstract class Node : MonoBehaviour
                 animInfo.arrowsScale = 1f;
                 animInfo.arrowsColor = Color.red;
                 animInfo.flashColor = Color.red;
-                animInfo.arrowsColor.a = 0.5f;
+                animInfo.arrowsColor.a = 0f;
                 animInfo.flashColor.a = 0.2f;
                 animInfo.instantColor = false;
             }
@@ -229,7 +246,7 @@ public abstract class Node : MonoBehaviour
                     {
                         flashRenderer.color = Color.Lerp(flashRenderer.color, flashColor, Time.deltaTime * transitionSpeed);
                     }
-                    arrowsRenderer.color = new Color(arrowsColor.r, arrowsColor.g, arrowsColor.b, Mathf.Clamp(arrowsRenderer.transform.localScale.x * 0.5f, 0f, 0.5f));
+                    arrowsRenderer.color = new Color(arrowsColor.r, arrowsColor.g, arrowsColor.b, Mathf.Clamp(arrowsRenderer.transform.localScale.x * arrowsColor.a, 0f,arrowsColor.a));
                 }
             }
         }

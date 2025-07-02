@@ -23,6 +23,7 @@ public class Card : MonoBehaviour
     [NonSerialized] public Vector3 targetEuler;             // The direction the card should face
 
     [NonSerialized] public bool isToken = false;
+    [NonSerialized] public bool rest = false;
     [NonSerialized] public bool flipRotation = false;
 
     protected Material cardFrontMaterial;
@@ -73,6 +74,10 @@ public class Card : MonoBehaviour
         {
             targetEuler = node.cardRotation;
         }
+        if (rest)
+        {
+            targetEuler.y += 90f;
+        }
         if (flipRotation)
         {
             targetEuler.z += 180f;
@@ -111,9 +116,9 @@ public class Card : MonoBehaviour
 
     protected void Nudge()
     {
-        Vector3 anchoredPositionOffsetX = transform.right * node.nudgeDistance.x;
-        Vector3 anchoredPositionOffsetY = transform.up * node.nudgeDistance.y;
-        Vector3 anchoredPositionOffsetZ = transform.forward * node.nudgeDistance.z;
+        Vector3 anchoredPositionOffsetX = transform.right * node.nudgeDistance.x * node.cardScale.x;
+        Vector3 anchoredPositionOffsetY = transform.up * node.nudgeDistance.y * node.cardScale.y;
+        Vector3 anchoredPositionOffsetZ = transform.forward * node.nudgeDistance.z * node.cardScale.z;
         anchoredPositionOffset = anchoredPositionOffsetX + anchoredPositionOffsetY + anchoredPositionOffsetZ;
         nudgeCollider.enabled = anchoredPositionOffset.magnitude > 0.0001f;
     }

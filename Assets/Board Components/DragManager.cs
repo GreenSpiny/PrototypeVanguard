@@ -152,7 +152,22 @@ public class DragManager : MonoBehaviour
                 }
                 else if (draggedCard != null && hoveredNode != null)
                 {
-                    hoveredNode.RecieveCard(draggedCard, new string[0]);
+                    if (hoveredNode.type == Node.NodeType.RC)
+                    {
+                        if (dragNode.PreviousNode.type == Node.NodeType.RC)
+                        {
+                            hoveredNode.SwapAllCards(dragNode, new string[1] { "drag" });
+                        }
+                        else
+                        {
+                            hoveredNode.RetireCards();
+                            hoveredNode.RecieveCard(draggedCard, new string[0]);
+                        }
+                    }
+                    else
+                    {
+                        hoveredNode.RecieveCard(draggedCard, new string[0]);
+                    }
                 }
 
                 foreach (Node node in allNodes)
@@ -272,7 +287,28 @@ public class DragManager : MonoBehaviour
     {
         switch (clickedCard.node.type)
         {
-
+            case Node.NodeType.RC:
+                clickedCard.rest = !clickedCard.rest;
+                clickedCard.node.AlignCards(false);
+                break;
+            case Node.NodeType.VC:
+                clickedCard.rest = !clickedCard.rest;
+                clickedCard.node.AlignCards(false);
+                break;
+            case Node.NodeType.GC:
+                clickedCard.node.RetireCards();
+                break;
+            case Node.NodeType.order:
+                clickedCard.rest = !clickedCard.rest;
+                clickedCard.node.AlignCards(false);
+                break;
+            case Node.NodeType.deck:
+                clickedCard.node.player.hand.RecieveCard(clickedCard, new string[0]);
+                break;
+            case Node.NodeType.damage:
+                clickedCard.flipRotation = !clickedCard.flipRotation;
+                clickedCard.node.AlignCards(true);
+                break;
         }
     }
 
