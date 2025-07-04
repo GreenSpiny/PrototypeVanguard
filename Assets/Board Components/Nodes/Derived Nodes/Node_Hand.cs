@@ -1,49 +1,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node_Hand : Node
+public class Node_Hand : Node_Fan
 {
-    public override void RecieveCard(Card card, IEnumerable<string> parameters)
+    public override NodeType Type => NodeType.hand;
+
+    public override void CardAutoAction(Card clickedCard)
     {
-        base.RecieveCard(card, parameters);
-        cards.Add(card);
-        AlignCards(false);
+        base.CardAutoAction(clickedCard);
     }
 
-    public override void AlignCards(bool instant)
+    public override void NodeAutoAction()
     {
-        int maxCards = 8;
-
-        float spacing = 0f;
-        float totalWidth = 0f;
-        float originX = 0f;
-        float yOffset = 0f;
-
-        if (cards.Count >= maxCards)
-        {
-            totalWidth = Card.cardWidth * maxCards;
-            spacing = (totalWidth - Card.cardWidth) / (cards.Count - 1);
-            originX = -totalWidth / 2f + Card.cardWidth / 2f;
-            if (cards.Count > maxCards)
-            {
-                yOffset = -Card.cardDepth;
-            }
-        }
-        else
-        {
-            totalWidth = Card.cardWidth * cards.Count + 0.1f * (cards.Count - 1);
-            spacing = Card.cardWidth + Card.cardWidth * 0.1f;
-            originX = -totalWidth / 2f + Card.cardWidth / 2f + Card.cardWidth * 0.05f;
-        }
-
-        for (int i = 0; i < cards.Count; i++)
-        {
-            Card card = cards[i];
-            card.node = this;
-            card.anchoredPosition = new Vector3(originX + spacing * i, i * yOffset, 0f);
-            card.LookAt(card.player.playerCamera.transform);
-            card.ToggleColliders(true);
-            base.AlignCards(instant);
-        }
+        base.NodeAutoAction();
     }
+
+    public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
+    {
+        return new CardInfo.ActionFlag[]
+        {
+
+        };
+    }
+
+    public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
+    {
+        return new CardInfo.ActionFlag[]
+        {
+
+        };
+    }
+
 }

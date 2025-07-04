@@ -8,19 +8,18 @@ using System.Linq;
 // Examples include the hand, deck, all zones, and all unit circles.
 public abstract class Node : MonoBehaviour
 {
-    public enum NodeType { drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, VC, RC, GC }
+    public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC }
     public bool HasCard { get { return cards.Count > 0; } }     // True if the node contains at least one card
 
     [NonSerialized] protected List<Card> cards;         // The cards attached to this node
     [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
     [NonSerialized] public Player player;               // The player who owns this node
 
-    [SerializeField] public NodeType type;
+    public virtual NodeType Type { get { return NodeType.none; } }
     [SerializeField] public bool canDragTo;
     [SerializeField] public bool canSelectRaw;
     [SerializeField] public bool preserveRest;
     [SerializeField] public bool preserveFlip;
-    [SerializeField] public bool privateKnowledge;
     [SerializeField] public Transform cardAnchor;       // The position and rotation cards begin to accrue on this node
     [SerializeField] public Vector3 cardRotation;       // The default Euler rotation of cards attached to this node
     [SerializeField] public Vector3 cardScale;          // The scale of cards attached to this node
@@ -88,7 +87,7 @@ public abstract class Node : MonoBehaviour
 
     public virtual void RetireCards()
     {
-        if (type != NodeType.drop)
+        if (Type != NodeType.drop)
         {
             List<Card> cardsShallowCopy = new List<Card>();
             foreach (var card in cards)
@@ -171,6 +170,24 @@ public abstract class Node : MonoBehaviour
         {
             card.anchoredPositionOffset = Vector3.zero;
         }
+    }
+
+    public virtual void CardAutoAction(Card clickedCard) { }
+    public virtual void NodeAutoAction() { }
+    public abstract IEnumerable<CardInfo.ActionFlag> GetDefaultActions();
+    public abstract IEnumerable<CardInfo.ActionFlag> GetSpecialActions();
+    public IEnumerable<CardInfo.ActionFlag> GetActions()
+    {
+        List<CardInfo.ActionFlag> actions = new List<CardInfo.ActionFlag>();
+        foreach (var action in GetDefaultActions())
+        {
+            actions.Add(action);
+        }
+        foreach (var action in GetSpecialActions())
+        {
+            actions.Add(action);
+        }
+        return actions;
     }
 
     // ===== ANIMATION SECTION ===== //

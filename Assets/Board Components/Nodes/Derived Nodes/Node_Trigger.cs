@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node_Order : Node_Fan
+public class Node_Trigger : Node_Fan
 {
-    public override NodeType Type => NodeType.order;
+    public override NodeType Type => NodeType.trigger;
 
     public override void CardAutoAction(Card clickedCard)
     {
-        clickedCard.rest = !clickedCard.rest;
-        AlignCards(false);
+        clickedCard.player.hand.RecieveCard(clickedCard, new string[0]);
     }
 
     public override void NodeAutoAction()

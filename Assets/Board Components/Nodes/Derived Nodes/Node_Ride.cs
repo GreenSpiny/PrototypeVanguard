@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node_Order : Node_Fan
+public class Node_Ride : Node_Stack
 {
-    public override NodeType Type => NodeType.order;
+    public override NodeType Type => NodeType.ride;
 
     public override void CardAutoAction(Card clickedCard)
     {
-        clickedCard.rest = !clickedCard.rest;
-        AlignCards(false);
+        base.CardAutoAction(clickedCard);
     }
 
     public override void NodeAutoAction()

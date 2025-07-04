@@ -101,4 +101,14 @@ public class Node_Fan : Node
 
         base.AlignCards(instant);
     }
+
+    public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
+    {
+        throw new System.NotImplementedException();
+    }
 }

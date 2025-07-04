@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
         foreach (Node node in GetComponentsInChildren<Node>())
         {
             nodes.Add(node);
-            switch(node.type)
+            switch(node.Type)
             {
                 case Node.NodeType.hand: hand = node; break;
                 case Node.NodeType.deck: deck = node; break;

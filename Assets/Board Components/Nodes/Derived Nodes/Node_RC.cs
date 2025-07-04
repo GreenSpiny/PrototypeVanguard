@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node_Order : Node_Fan
+public class Node_RC : Node_Stack
 {
-    public override NodeType Type => NodeType.order;
+    public override NodeType Type => NodeType.RC;
 
     public override void CardAutoAction(Card clickedCard)
     {

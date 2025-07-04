@@ -41,6 +41,16 @@ public class CardInfo
     public readonly ActionFlag[] actionFlags;
     public enum ActionFlag
     {
+        // DEFAULT ACTIONS
+        soul,           // TO SOUL   (card)
+        topdeck,        // TOP DECK  (card)
+        botdeck,        // BOT DECK  (card)
+        reveal,         // REVEAL    (card)
+        view,           // VIEW      (node)
+        viewx,          // VIEW X    (node)
+        revealx,        // REVEAL X  (node)
+
+        // SPECIAL ACTIONS
         armLeft,        // this card offers ARM LEFT
         armRight,       // this card offers ARM RIGHT
         bindFD,         // the owner can access BIND FD
