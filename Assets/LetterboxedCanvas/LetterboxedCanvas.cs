@@ -151,7 +151,14 @@ public class LetterboxedCanvas : MonoBehaviour
         if (aspect > maxAspectRatio)
         {
             float widthReduction = maxAspectRatio / aspect;
-            verticalArea.preferredWidth = canvasScaler.referenceResolution.x * widthReduction;
+            if (aspect > 1)
+            {
+                verticalArea.preferredWidth = canvasScaler.referenceResolution.x * widthReduction;
+            }
+            else
+            {
+                verticalArea.preferredWidth = canvasScaler.referenceResolution.x * widthReduction * aspect;
+            }
             visibleArea.preferredHeight = canvasScaler.referenceResolution.y;
             foreach (CameraInfo info in assignedCameras)
             {
@@ -167,7 +174,15 @@ public class LetterboxedCanvas : MonoBehaviour
         {
             float heightReduction = aspect / minAspectRatio;
             verticalArea.preferredWidth = canvasScaler.referenceResolution.x;
-            visibleArea.preferredHeight = canvasScaler.referenceResolution.y * heightReduction;
+
+            if (aspect <= 1)
+            {
+                visibleArea.preferredHeight = canvasScaler.referenceResolution.y * heightReduction;
+            }
+            else
+            {
+                visibleArea.preferredHeight = canvasScaler.referenceResolution.y * heightReduction / aspect;
+            }
             foreach (CameraInfo info in assignedCameras)
             {
                 info.camera.rect = new Rect(
