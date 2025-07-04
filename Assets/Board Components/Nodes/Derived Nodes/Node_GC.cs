@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node_GC : Node_Stack
+public class Node_GC : Node_Fan
 {
     public override NodeType Type => NodeType.GC;
 

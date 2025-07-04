@@ -546,15 +546,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 51100599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28cb17c276948804491f21b5321f2933, type: 3}
+  m_Script: {fileID: 11500000, guid: 57ecfd4aba727d746aba06786a6223be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 12
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 90, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -562,14 +560,7 @@ MonoBehaviour:
   animInfo:
     flashRenderer: {fileID: 1878805476}
     arrowsRenderer: {fileID: 710830807}
-  fanDirection: 1
-  fanOrigin: 0
-  reverse: 0
-  descend: 0
-  maxCards: 20
-  maxWidth: 0
-  defaultSpacing: 0.25
-  lookTarget: {fileID: 0}
+  compressCards: 0
 --- !u!1 &55055769
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,15 +1070,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 222257853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28cb17c276948804491f21b5321f2933, type: 3}
+  m_Script: {fileID: 11500000, guid: 51464f3864cf9414ea3e65f3a2f8c02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 8
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 2146300233}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
@@ -1168,15 +1157,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 245607704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: c009b697ccacc954ba62871504f1e7b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 4
   canDragTo: 1
   canSelectRaw: 1
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
@@ -1259,15 +1246,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 263936962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -2012,15 +1997,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 354514537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -2407,15 +2390,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 423858175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28cb17c276948804491f21b5321f2933, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bbcfbf6190e89b4fabc5b94b992ae7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 1
   cardAnchor: {fileID: 445642105}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -2887,15 +2868,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 513954366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: e810a243b0f1374448956a23a59f46fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 9
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -2969,15 +2948,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 532766045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: f165c5f91caa6c04581834f1e26dcb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -3060,15 +3037,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 560369308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -3230,15 +3205,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 623652928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28cb17c276948804491f21b5321f2933, type: 3}
+  m_Script: {fileID: 11500000, guid: 79b789450033c06469500d9c16a4e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 6
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 706290640}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
@@ -3328,15 +3301,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 627099461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -3459,15 +3430,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 679944878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: e1b90607ff2cfaa47a42f0be022c12cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 180}
   cardScale: {x: 1, y: 1, z: 1}
@@ -4222,15 +4191,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 805663269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28cb17c276948804491f21b5321f2933, type: 3}
+  m_Script: {fileID: 11500000, guid: 79b789450033c06469500d9c16a4e687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 6
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 1018881071}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
@@ -4550,15 +4517,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 884797358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -4852,15 +4817,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 936226075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28cb17c276948804491f21b5321f2933, type: 3}
+  m_Script: {fileID: 11500000, guid: 51464f3864cf9414ea3e65f3a2f8c02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 8
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 750941949}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
@@ -5571,15 +5534,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1139607358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: eae7b2cea07887a49a3a894075b8019c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 10
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -5664,15 +5625,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1147707893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: e1b90607ff2cfaa47a42f0be022c12cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 180}
   cardScale: {x: 1, y: 1, z: 1}
@@ -5760,15 +5719,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1169353758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -5842,15 +5799,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1171738015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e76834ba9d7e4440b1a0cf6de170c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 5
   canDragTo: 1
   canSelectRaw: 1
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
@@ -6947,15 +6902,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1404934780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: e810a243b0f1374448956a23a59f46fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 9
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -7128,15 +7081,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1423804611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -7497,15 +7448,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1504746319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -7804,15 +7753,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1545803776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28cb17c276948804491f21b5321f2933, type: 3}
+  m_Script: {fileID: 11500000, guid: 41bbb826ddc50304a9a1bf7b3ad0bc7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 7
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 1995660017}
   cardRotation: {x: 0, y: 90, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -8157,15 +8104,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1574131172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -8551,15 +8496,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1616781933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28cb17c276948804491f21b5321f2933, type: 3}
+  m_Script: {fileID: 11500000, guid: 41bbb826ddc50304a9a1bf7b3ad0bc7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 7
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 1631080631}
   cardRotation: {x: 0, y: 90, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -9478,15 +9421,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1743966765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e76834ba9d7e4440b1a0cf6de170c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 5
   canDragTo: 1
   canSelectRaw: 1
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
@@ -9565,15 +9506,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1762377423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: c009b697ccacc954ba62871504f1e7b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 4
   canDragTo: 1
   canSelectRaw: 1
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
@@ -9835,15 +9774,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1836612713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: eae7b2cea07887a49a3a894075b8019c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 10
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -10172,8 +10109,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1949839314}
-  - component: {fileID: 1949839313}
-  - component: {fileID: 1949839312}
   - component: {fileID: 1949839311}
   m_Layer: 8
   m_Name: DragNode
@@ -10194,12 +10129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 130f268f88529ce448ac6f77e3e2bc59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
   canDragTo: 0
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 1
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -10207,59 +10140,6 @@ MonoBehaviour:
   animInfo:
     flashRenderer: {fileID: 0}
     arrowsRenderer: {fileID: 0}
---- !u!23 &1949839312
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949839310}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1949839313
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949839310}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1949839314
 Transform:
   m_ObjectHideFlags: 0
@@ -11076,15 +10956,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2098034533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: f165c5f91caa6c04581834f1e26dcb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -11164,15 +11042,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2104965010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28cb17c276948804491f21b5321f2933, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bbcfbf6190e89b4fabc5b94b992ae7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
-  privateKnowledge: 1
   cardAnchor: {fileID: 1567225820}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -11262,15 +11138,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2130360746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82a1b83074d5be4289583378c154f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: a2a088afc8555cc4fa06915e6ecf78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 11
   canDragTo: 1
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
-  privateKnowledge: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}

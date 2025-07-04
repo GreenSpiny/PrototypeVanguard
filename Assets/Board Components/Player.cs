@@ -19,8 +19,9 @@ public class Player : MonoBehaviour
     public Node damage;
     public Node order;
     public Node gzone;  // Also serves as Gauge
+    public Node ride;
     public Node VC;
-    public Node GC;     // Special because shared - for now, assign in Inspector
+    public Node GC;     // Special because shared - for now, assign in inspector
     public List<Node> RC;
 
     private void Awake()
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
                 case Node.NodeType.damage: damage = node; break;
                 case Node.NodeType.order: order = node; break;
                 case Node.NodeType.gzone: gzone = node; break;
+                case Node.NodeType.ride: ride = node; break;
                 case Node.NodeType.VC: VC = node; break;
                 case Node.NodeType.RC: RC.Add(node); break;
             }
