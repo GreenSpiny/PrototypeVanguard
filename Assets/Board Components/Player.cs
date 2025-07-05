@@ -50,4 +50,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Valid moves are recorded, to be passed to the other system in multiplayer.
+    public void RecordMoveAction(Card card, Node destination, IEnumerable<string> parameters)
+    {
+
+    }
+
 }

@@ -17,7 +17,7 @@ public class Node_Drag : Node
         {
             Card card = cards[0];
             card.node = this;
-            card.anchoredPosition = Vector3.zero;
+            card.anchoredPosition = Vector3.zero;       // TODO: Only change anchor for the active player.
             card.anchoredPositionOffset = Vector3.zero;
             card.LookAt(null);
             card.ToggleColliders(true);

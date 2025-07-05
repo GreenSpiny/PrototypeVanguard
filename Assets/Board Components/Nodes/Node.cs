@@ -60,6 +60,7 @@ public abstract class Node : MonoBehaviour
 
     public virtual void RecieveCard(Card card, IEnumerable<string> parameters)
     {
+        card.player.RecordMoveAction(card, this, parameters);
         if (card.node != this)
         {
             if (!preserveRest)
@@ -76,28 +77,13 @@ public abstract class Node : MonoBehaviour
         }
     }
 
-    private void RemoveCard(Card card)
-    {
-        if (cards.Contains(card))
-        {
-            cards.Remove(card);
-            AlignCards(false);
-        }
-    }
-
     public virtual void RetireCards()
     {
         if (Type != NodeType.drop)
         {
-            List<Card> cardsShallowCopy = new List<Card>();
-            foreach (var card in cards)
+            for (int i = cards.Count - 1; i >= 0; i--)
             {
-                cardsShallowCopy.Add(card);
-            }
-            cards.Clear();
-            foreach (var card in cardsShallowCopy)
-            {
-                card.player.drop.RecieveCard(card, new string[0]);
+                cards[i].player.drop.RecieveCard(cards[i], new string[0]);
             }
         }
     }
@@ -153,6 +139,15 @@ public abstract class Node : MonoBehaviour
         AlignCards(false);
         otherNode.AlignCards(false);
         otherNode.PreviousNode.AlignCards(false);
+    }
+
+    private void RemoveCard(Card card)
+    {
+        if (cards.Contains(card))
+        {
+            cards.Remove(card);
+            AlignCards(false);
+        }
     }
 
     public virtual void AlignCards(bool instant)

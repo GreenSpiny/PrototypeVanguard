@@ -42,8 +42,8 @@ public class CardInfo
     public enum ActionFlag
     {
         // DEFAULT ACTIONS
+        power,          // POWER     (card)
         soul,           // TO SOUL   (card)
-        topdeck,        // TOP DECK  (card)
         botdeck,        // BOT DECK  (card)
         reveal,         // REVEAL    (card)
         view,           // VIEW      (node)
