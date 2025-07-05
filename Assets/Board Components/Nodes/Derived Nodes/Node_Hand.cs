@@ -19,7 +19,9 @@ public class Node_Hand : Node_Fan
     {
         return new CardInfo.ActionFlag[]
         {
-
+            CardInfo.ActionFlag.reveal,
+            CardInfo.ActionFlag.soul,
+            CardInfo.ActionFlag.botdeck
         };
     }
 
@@ -27,7 +29,11 @@ public class Node_Hand : Node_Fan
     {
         return new CardInfo.ActionFlag[]
         {
-
+            CardInfo.ActionFlag.armLeft,
+            CardInfo.ActionFlag.armRight,
+            CardInfo.ActionFlag.prison,
+            CardInfo.ActionFlag.overdress,
+            CardInfo.ActionFlag.soulRC
         };
     }
 

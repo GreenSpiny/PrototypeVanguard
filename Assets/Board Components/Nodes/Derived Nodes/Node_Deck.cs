@@ -19,7 +19,10 @@ public class Node_Deck : Node_Stack
     {
         return new CardInfo.ActionFlag[]
         {
-
+            CardInfo.ActionFlag.view,
+            CardInfo.ActionFlag.viewx,
+            CardInfo.ActionFlag.revealx,
+            CardInfo.ActionFlag.soul
         };
     }
 
@@ -27,7 +30,7 @@ public class Node_Deck : Node_Stack
     {
         return new CardInfo.ActionFlag[]
         {
-
+            
         };
     }
 

@@ -57,10 +57,9 @@ public class CardInfo
         bindFDFoe,      // the opponent can access BIND FD (i.e. Blangdmire)
         gaugeZone,      // the owner obtains a Gauge Zone
         locking,        // both players can access LOCK
-        overdress,      // the owner can access OV DRESS and OG DRESS
+        overdress,      // the owner can access OV DRESS
         prison,         // the owner gains a Prison Zone and the opponent can access PRISON
-        soulRC,         // the owner's RC have SOUL access (i.e. Noblesse Gauge)
-        stride          // the owner obtains a G-Zone and access to GZONE and GZONE FD
+        soulRC          // the owner's RC have SOUL access (i.e. Noblesse Gauge)
     }
 
 }

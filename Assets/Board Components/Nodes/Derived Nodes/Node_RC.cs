@@ -20,7 +20,9 @@ public class Node_RC : Node_Stack
     {
         return new CardInfo.ActionFlag[]
         {
-
+            CardInfo.ActionFlag.power,
+            CardInfo.ActionFlag.soul,
+            CardInfo.ActionFlag.botdeck
         };
     }
 
@@ -28,7 +30,12 @@ public class Node_RC : Node_Stack
     {
         return new CardInfo.ActionFlag[]
         {
-
+            CardInfo.ActionFlag.bindFD,
+            CardInfo.ActionFlag.gaugeZone,
+            CardInfo.ActionFlag.locking,
+            CardInfo.ActionFlag.overdress,
+            CardInfo.ActionFlag.prison,
+            CardInfo.ActionFlag.soulRC
         };
     }
 

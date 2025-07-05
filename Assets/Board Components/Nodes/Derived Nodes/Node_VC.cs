@@ -20,7 +20,7 @@ public class Node_VC : Node_Stack
     {
         return new CardInfo.ActionFlag[]
         {
-
+            CardInfo.ActionFlag.power
         };
     }
 

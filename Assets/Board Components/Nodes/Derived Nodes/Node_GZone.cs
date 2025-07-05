@@ -19,7 +19,7 @@ public class Node_GZone : Node_Stack
     {
         return new CardInfo.ActionFlag[]
         {
-
+            CardInfo.ActionFlag.view,
         };
     }
 

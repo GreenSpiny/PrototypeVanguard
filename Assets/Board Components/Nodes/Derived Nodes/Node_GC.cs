@@ -19,7 +19,7 @@ public class Node_GC : Node_Fan
     {
         return new CardInfo.ActionFlag[]
         {
-
+            CardInfo.ActionFlag.soul
         };
     }
 

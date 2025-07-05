@@ -20,7 +20,7 @@ public class Node_Damage : Node_Fan
     {
         return new CardInfo.ActionFlag[]
         {
-
+            CardInfo.ActionFlag.reveal
         };
     }
 
@@ -28,7 +28,7 @@ public class Node_Damage : Node_Fan
     {
         return new CardInfo.ActionFlag[]
         {
-
+            
         };
     }
 
