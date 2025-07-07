@@ -177,6 +177,7 @@ public abstract class Node : MonoBehaviour
         foreach (var action in GetDefaultActions())
         {
             actions.Add(action);
+            Debug.Log(action.ToString());
         }
         foreach (var action in GetSpecialActions())
         {

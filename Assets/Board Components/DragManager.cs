@@ -23,6 +23,9 @@ public class DragManager : MonoBehaviour
     protected float lastClickTime;      // The time of the previous mouse press, for double click detection
     protected Vector3 clickLocation;    // The location of the most recent mouse press, for drag detection
 
+    [SerializeField] ContextRoot standardContext;
+    [SerializeField] ContextRoot powerContext;
+
     // Layer Masks
     public static LayerMask cardMask;
     public static LayerMask nodeMask;
@@ -129,6 +132,10 @@ public class DragManager : MonoBehaviour
         {
             ChangeDMstate(DMstate.open);
         }
+        else if (Input.GetMouseButtonDown(1) && dmstate == DMstate.open && hoveredCard != null)
+        {
+            ChangeDMstate(DMstate.menu);
+        }
 
         if (dmstate == DMstate.dragging)
         {
@@ -211,6 +218,11 @@ public class DragManager : MonoBehaviour
             case DMstate.menu:
                 dmstate = DMstate.menu;
                 Debug.Log("DMstate -> menu");
+                
+                if (hoveredCard != null)
+                {
+                    standardContext.DisplayButtons(hoveredCard.node.GetActions());
+                }
 
                 draggedCard = null;
                 break;
