@@ -18,6 +18,7 @@ public class DragManager : MonoBehaviour
     protected Node hoveredNode;     // The node currently being hovered
     protected Node targetedNode;    // The node currently being hovered to recieve a card or context action
     protected Node selectedNode;    // The node currently being chosen for a context action
+    protected ContextButton hoveredButton;
 
     protected float clickTime;          // The time of the most recent mouse press
     protected float lastClickTime;      // The time of the previous mouse press, for double click detection
@@ -43,6 +44,8 @@ public class DragManager : MonoBehaviour
     protected float AnimationSpeed { get { return 10f * Time.deltaTime; } }
     protected float DragThreshold { get { return 5f; } }
     protected float DoubleClickThreshold { get { return 0.25f; } }
+
+    public ContextButton HoveredButton { get { return hoveredButton; } set { hoveredButton = value; } }
 
     // TEMP VALUE STORAGE
     Card[] allCards;
@@ -115,6 +118,13 @@ public class DragManager : MonoBehaviour
             clickTime = Time.time;
             clickLocation = mousePosition;
         }
+
+        if ((Input.GetMouseButtonDown(0) && HoveredButton == null) || Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            standardContext.HideAllButtons();
+            HoveredButton = null;
+        }
+
         bool dragDistanceMet = Vector3.Distance(clickLocation, mousePosition) > DragThreshold;
         bool doubleClick = (clickTime - lastClickTime < DoubleClickThreshold) && !dragDistanceMet;
 
@@ -132,9 +142,18 @@ public class DragManager : MonoBehaviour
         {
             ChangeDMstate(DMstate.open);
         }
-        else if (Input.GetMouseButtonDown(1) && dmstate == DMstate.open && hoveredCard != null)
+        else if (Input.GetMouseButtonDown(1) && dmstate == DMstate.open)
         {
-            ChangeDMstate(DMstate.menu);
+            if (hoveredCard != null)
+            {
+                selectedCard = hoveredCard;
+                standardContext.DisplayButtons(hoveredCard.node.GetActions());
+            }
+            else if (hoveredNode != null)
+            {
+                selectedNode = hoveredNode;
+                standardContext.DisplayButtons(hoveredNode.GetActions());
+            }
         }
 
         if (dmstate == DMstate.dragging)
@@ -211,18 +230,6 @@ public class DragManager : MonoBehaviour
             case DMstate.targeting:
                 dmstate = DMstate.targeting;
                 Debug.Log("DMstate -> targeting");
-
-                draggedCard = null;
-                break;
-
-            case DMstate.menu:
-                dmstate = DMstate.menu;
-                Debug.Log("DMstate -> menu");
-                
-                if (hoveredCard != null)
-                {
-                    standardContext.DisplayButtons(hoveredCard.node.GetActions());
-                }
 
                 draggedCard = null;
                 break;
