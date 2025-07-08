@@ -197,31 +197,25 @@ public abstract class Node : MonoBehaviour
             state = value;
             if (state == NodeUIState.normal)
             {
-                animInfo.shouldFlash = false;
-                animInfo.arrowsScale = 0f;
-                animInfo.arrowsColor = Color.red;
                 animInfo.flashColor = Color.white;
-                animInfo.arrowsColor.a = 0f;
                 animInfo.flashColor.a = 0f;
                 animInfo.instantColor = false;
             }
             else if (state == NodeUIState.available)
             {
-                animInfo.shouldFlash = true;
-                animInfo.arrowsScale = 1f;
-                animInfo.arrowsColor = Color.red;
                 animInfo.flashColor = Color.red;
-                animInfo.arrowsColor.a = 0f;
                 animInfo.flashColor.a = 0.2f;
                 animInfo.instantColor = false;
             }
             else if (state == NodeUIState.hovered)
             {
-                animInfo.shouldFlash = false;
-                animInfo.arrowsScale = 1f;
-                animInfo.arrowsColor = Color.yellow;
                 animInfo.flashColor = Color.yellow;
-                animInfo.arrowsColor.a = 0.5f;
+                animInfo.flashColor.a = 0.5f;
+                animInfo.instantColor = true;
+            }
+            else if (state == NodeUIState.selected)
+            {
+                animInfo.flashColor = Color.blue;
                 animInfo.flashColor.a = 0.5f;
                 animInfo.instantColor = true;
             }
@@ -232,24 +226,17 @@ public abstract class Node : MonoBehaviour
     public class NodeAnimationInfo
     {
         [SerializeField] public SpriteRenderer flashRenderer;
-        [SerializeField] public SpriteRenderer arrowsRenderer;
-
-        [NonSerialized] public bool shouldFlash;
-        [NonSerialized] public float arrowsScale;
         [NonSerialized] public Color flashColor = new Color(1f, 1f, 1f, 0f);
-        [NonSerialized] public Color arrowsColor = new Color(1f, 1f, 1f, 0f);
         [NonSerialized] public bool instantColor = false;
 
         static float transitionSpeed = 10f;
-        static float spinSpeed = 64f;
 
-        public bool CanAnimate { get { return flashRenderer != null && arrowsRenderer != null; } }
+        public bool CanAnimate { get { return flashRenderer != null; } }
 
         public void Initialize()
         {
             if (CanAnimate)
             {
-                arrowsRenderer.transform.localScale = new Vector3(0f, 0f, 1f);
                 flashRenderer.color = flashColor;
             }
         }
@@ -258,21 +245,13 @@ public abstract class Node : MonoBehaviour
         {
             if (CanAnimate)
             {
-                float targetScale = Mathf.Lerp(arrowsRenderer.transform.localScale.x, arrowsScale, Time.deltaTime * transitionSpeed);
-                arrowsRenderer.transform.localScale = new Vector3(targetScale, targetScale, 1f);
-                arrowsRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, (Time.time * spinSpeed) % 360);
-
-                if (targetScale > 0.001f)
+                if (instantColor)
                 {
-                    if (instantColor)
-                    {
-                        flashRenderer.color = flashColor;
-                    }
-                    else
-                    {
-                        flashRenderer.color = Color.Lerp(flashRenderer.color, flashColor, Time.deltaTime * transitionSpeed);
-                    }
-                    arrowsRenderer.color = new Color(arrowsColor.r, arrowsColor.g, arrowsColor.b, Mathf.Clamp(arrowsRenderer.transform.localScale.x * arrowsColor.a, 0f,arrowsColor.a));
+                    flashRenderer.color = flashColor;
+                }
+                else
+                {
+                    flashRenderer.color = Color.Lerp(flashRenderer.color, flashColor, Time.deltaTime * transitionSpeed);
                 }
             }
         }

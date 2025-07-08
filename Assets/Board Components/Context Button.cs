@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class ContextButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] public CardInfo.ActionFlag actionFlag;
-    [SerializeField] private Button actionButton;
+    private Button actionButton;
+    public LayoutElement layoutElement;
 
     private void Awake()
     {
         actionButton = GetComponent<Button>();
+        layoutElement = GetComponent<LayoutElement>();
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)

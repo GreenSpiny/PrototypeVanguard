@@ -112,8 +112,8 @@ public class Card : MonoBehaviour
             else if (state == CardUIState.selected)
             {
                 Nudge();
-                cardFrontMaterial.color = new Color(1f, 1f, 0.5f);
-                cardBackMaterial.color = new Color(1f, 1f, 0.5f);
+                cardFrontMaterial.color = new Color(0.5f, 0.75f, 1f);
+                cardBackMaterial.color = new Color(0.5f, 0.75f, 1f);
             }
         }
     }

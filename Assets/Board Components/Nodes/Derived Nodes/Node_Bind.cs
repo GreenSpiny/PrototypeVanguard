@@ -19,9 +19,7 @@ public class Node_Bind : Node_Stack
     {
         return new CardInfo.ActionFlag[]
         {
-            CardInfo.ActionFlag.soul,
-            CardInfo.ActionFlag.botdeck,
-            CardInfo.ActionFlag.reveal
+            CardInfo.ActionFlag.view
         };
     }
 
@@ -29,7 +27,7 @@ public class Node_Bind : Node_Stack
     {
         return new CardInfo.ActionFlag[]
         {
-            CardInfo.ActionFlag.bindFD
+            
         };
     }
 

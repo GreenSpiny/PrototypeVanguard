@@ -71,12 +71,12 @@ public class DragManager : MonoBehaviour
     {
         // First, raycast all nodes and cards.
         float raycastDistance = 10f;
-        Vector3 raycastOffset = (activeCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, raycastDistance)) - activeCamera.transform.position).normalized;
-        Debug.DrawRay(activeCamera.transform.position, raycastOffset * 10f, Color.yellow);
+        Ray cameraRay = activeCamera.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(activeCamera.transform.position, cameraRay.direction, Color.yellow);
 
         RaycastHit cardHit;
         Card hitCard = null;
-        if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out cardHit, 10f, cardMask))
+        if (Physics.Raycast(cameraRay, out cardHit, raycastDistance, cardMask))
         {
             hitCard = cardHit.transform.GetComponent<Card>();
         }
@@ -94,7 +94,7 @@ public class DragManager : MonoBehaviour
 
         RaycastHit nodeHit;
         Node hitNode = null;
-        if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out nodeHit, raycastDistance, nodeMask))
+        if (Physics.Raycast(cameraRay, out nodeHit, raycastDistance, nodeMask))
         {
             hitNode = nodeHit.transform.GetComponent<Node>();
         }
@@ -116,6 +116,9 @@ public class DragManager : MonoBehaviour
         {
             lastClickTime = clickTime;
             clickTime = Time.time;
+        }
+        if (Input.GetMouseButtonDown(0) ||  Input.GetMouseButtonDown(1))
+        {
             clickLocation = mousePosition;
         }
 
@@ -123,6 +126,14 @@ public class DragManager : MonoBehaviour
         {
             standardContext.HideAllButtons();
             HoveredButton = null;
+            if (selectedCard != null)
+            {
+                selectedCard.UIState = Card.CardUIState.normal;
+            }
+            if (selectedNode != null)
+            {
+                selectedNode.UIState = Node.NodeUIState.normal;
+            }
         }
 
         bool dragDistanceMet = Vector3.Distance(clickLocation, mousePosition) > DragThreshold;
@@ -147,19 +158,21 @@ public class DragManager : MonoBehaviour
             if (hoveredCard != null)
             {
                 selectedCard = hoveredCard;
-                standardContext.DisplayButtons(hoveredCard.node.GetActions());
+                selectedCard.UIState = Card.CardUIState.selected;
+                standardContext.DisplayButtons(clickLocation, hoveredCard.node.GetActions());
             }
             else if (hoveredNode != null)
             {
                 selectedNode = hoveredNode;
-                standardContext.DisplayButtons(hoveredNode.GetActions());
+                selectedNode.UIState = Node.NodeUIState.selected;
+                standardContext.DisplayButtons(clickLocation, hoveredNode.GetActions());
             }
         }
 
         if (dmstate == DMstate.dragging)
         {
             RaycastHit dragHit;
-            if (Physics.Raycast(activeCamera.transform.position, raycastOffset, out dragHit, raycastDistance, dragMask))
+            if (Physics.Raycast(cameraRay, out dragHit, raycastDistance, dragMask))
             {
                 dragNode.transform.position = dragHit.point;
             }
@@ -243,7 +256,10 @@ public class DragManager : MonoBehaviour
     {
         if (dmstate == DMstate.open)
         {
-            card.UIState = Card.CardUIState.hovered;
+            if (card.UIState == Card.CardUIState.normal)
+            {
+                card.UIState = Card.CardUIState.hovered;
+            }
             hoveredCard = card;
         }
     }
@@ -260,16 +276,14 @@ public class DragManager : MonoBehaviour
         }
     }
 
-    public void OnCardContextClick(Card card)
-    {
-
-    }
-
     public void OnNodeHoverEnter(Node node)
     {
         if (dmstate == DMstate.open && node.canSelectRaw)
         {
-            node.UIState = Node.NodeUIState.hovered;
+            if (node.UIState == Node.NodeUIState.normal)
+            {
+                node.UIState = Node.NodeUIState.hovered;
+            }
             hoveredNode = node;
         }
         else if (dmstate == DMstate.dragging && node.UIState == Node.NodeUIState.available)
@@ -296,11 +310,6 @@ public class DragManager : MonoBehaviour
                 node.UIState = Node.NodeUIState.normal;
             }
         }
-    }
-
-    public void OnNodeContextClick(Node node)
-    {
-
     }
 
 }
