@@ -3,11 +3,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class ContextRoot : MonoBehaviour
 {
     [SerializeField] private float buttonHeight = 90f;
     [SerializeField] ContextRoot[] otherContexts;
+    [SerializeField] bool fixedHeight;
     private List<ContextButton> ContextButtons = new List<ContextButton>();
 
     private void Awake()
@@ -43,8 +45,14 @@ public class ContextRoot : MonoBehaviour
                 }
             }
         }
+
         transform.position = new Vector2(position.x, position.y);
-        transform.localPosition += new Vector3(0f, activeCount * buttonHeight - buttonHeight / 2f, 0f);
+        if (!fixedHeight)
+        {
+            float top = transform.position.y;
+            float bottom = transform.position.y - activeCount * buttonHeight;
+            transform.localPosition += new Vector3(0f, activeCount * buttonHeight - buttonHeight / 2f, 0f);
+        }
     }
 
     public void HideAllButtons()
