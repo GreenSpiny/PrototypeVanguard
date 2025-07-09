@@ -19,7 +19,6 @@ public class Card : MonoBehaviour
 
     [NonSerialized] public Vector3 anchoredPosition;        // The intended position of the card
     [NonSerialized] public Vector3 anchoredPositionOffset;  // Offset of the final position, i.e. on hover
-    [NonSerialized] public Vector3 lastAnchoredPosition;    // If applicable, the previous position of the card before a transition animation
     [NonSerialized] public Vector3 targetEuler;             // The direction the card should face
 
     [NonSerialized] public bool isToken = false;

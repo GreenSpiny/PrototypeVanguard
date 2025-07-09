@@ -12,40 +12,36 @@ public class DragManager : MonoBehaviour
     [SerializeField] Camera activeCamera;
     [SerializeField] Node_Drag dragNode;
 
-    protected Card hoveredCard;     // The card currently being hovered
-    protected Card draggedCard;     // The card currently being dragged about
-    protected Card selectedCard;    // The card currently chosen for a context action
-    protected Node hoveredNode;     // The node currently being hovered
-    protected Node targetedNode;    // The node currently being hovered to recieve a card or context action
-    protected Node selectedNode;    // The node currently being chosen for a context action
-    protected ContextButton hoveredButton;
+    public Card HoveredCard { get; private set; }       // The card currently being hovered
+    public Card DraggedCard { get; private set; }       // The card currently being dragged about
+    public Card SelectedCard { get; private set; }      // The card currently chosen for a context action
+    public Node HoveredNode { get; private set; }       // The node currently being hovered
+    public Node TargetedNode { get; private set; }      // The node currently being hovered to recieve a card or context action
+    public Node SelectedNode { get; private set; }      // The node currently being chosen for a context action
+    public ContextButton HoveredButton { get; set; }    // The button currently being hovered during a context action
 
-    protected float clickTime;          // The time of the most recent mouse press
-    protected float lastClickTime;      // The time of the previous mouse press, for double click detection
-    protected Vector3 clickLocation;    // The location of the most recent mouse press, for drag detection
+    private float clickTime;          // The time of the most recent mouse press
+    private float lastClickTime;      // The time of the previous mouse press, for double click detection
+    private Vector3 clickLocation;    // The location of the most recent mouse press, for drag detection
 
-    [SerializeField] ContextRoot standardContext;
-    [SerializeField] ContextRoot powerContext;
+    [SerializeField] public ContextRoot standardContext;
+    [SerializeField] public ContextRoot powerContext;
 
     // Layer Masks
-    public static LayerMask cardMask;
-    public static LayerMask nodeMask;
-    public static LayerMask dragMask;
+    private static LayerMask cardMask;
+    private static LayerMask nodeMask;
+    private static LayerMask dragMask;
 
     public enum DMstate
     {
         open,       // Open game state
         dragging,   // The user is dragging a card
-        targeting,  // The user has chosen a context option that requires targeting a node
-        menu        // The user has chosen a context option that requires interacting with a menu
+        targeting   // The user has chosen a context option that requires targeting a node
     }
     protected DMstate dmstate;
 
-    protected float AnimationSpeed { get { return 10f * Time.deltaTime; } }
     protected float DragThreshold { get { return 5f; } }
     protected float DoubleClickThreshold { get { return 0.25f; } }
-
-    public ContextButton HoveredButton { get { return hoveredButton; } set { hoveredButton = value; } }
 
     // TEMP VALUE STORAGE
     Card[] allCards;
@@ -65,6 +61,23 @@ public class DragManager : MonoBehaviour
 
         allCards = FindObjectsByType<Card>(FindObjectsSortMode.None);
         allNodes = FindObjectsByType<Node>(FindObjectsSortMode.None);
+    }
+
+    public void ClearSelections()
+    {
+        standardContext.HideAllButtons();
+        powerContext.HideAllButtons();
+        HoveredButton = null;
+        if (SelectedCard != null)
+        {
+            SelectedCard.UIState = Card.CardUIState.normal;
+            SelectedCard = null;
+        }
+        if (SelectedNode != null)
+        {
+            SelectedNode.UIState = Node.NodeUIState.normal;
+            SelectedNode = null;
+        }
     }
 
     protected void Update()
@@ -112,7 +125,7 @@ public class DragManager : MonoBehaviour
 
         // Second, handle input and state changes.
         Vector3 mousePosition = Input.mousePosition;
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && HoveredButton == null)
         {
             lastClickTime = clickTime;
             clickTime = Time.time;
@@ -124,28 +137,19 @@ public class DragManager : MonoBehaviour
 
         if ((Input.GetMouseButtonDown(0) && HoveredButton == null) || Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
-            standardContext.HideAllButtons();
-            HoveredButton = null;
-            if (selectedCard != null)
-            {
-                selectedCard.UIState = Card.CardUIState.normal;
-            }
-            if (selectedNode != null)
-            {
-                selectedNode.UIState = Node.NodeUIState.normal;
-            }
+            ClearSelections();
         }
 
         bool dragDistanceMet = Vector3.Distance(clickLocation, mousePosition) > DragThreshold;
         bool doubleClick = (clickTime - lastClickTime < DoubleClickThreshold) && !dragDistanceMet;
 
-        if (doubleClick && dmstate == DMstate.open && hoveredCard != null)
+        if (doubleClick && dmstate == DMstate.open && HoveredCard != null)
         {
-            hoveredCard.node.CardAutoAction(hoveredCard);
+            HoveredCard.node.CardAutoAction(HoveredCard);
             clickTime = 0f;
             lastClickTime = float.MinValue;
         }
-        else if (Input.GetMouseButton(0) && dmstate == DMstate.open && hoveredCard != null && dragDistanceMet)
+        else if (Input.GetMouseButton(0) && dmstate == DMstate.open && HoveredCard != null && dragDistanceMet)
         {
             ChangeDMstate(DMstate.dragging);
         }
@@ -155,17 +159,17 @@ public class DragManager : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1) && dmstate == DMstate.open)
         {
-            if (hoveredCard != null)
+            if (HoveredCard != null)
             {
-                selectedCard = hoveredCard;
-                selectedCard.UIState = Card.CardUIState.selected;
-                standardContext.DisplayButtons(clickLocation, hoveredCard.node.GetActions());
+                SelectedCard = HoveredCard;
+                SelectedCard.UIState = Card.CardUIState.selected;
+                standardContext.DisplayButtons(clickLocation, HoveredCard.node.GetDefaultActions()); // temp
             }
-            else if (hoveredNode != null)
+            else if (HoveredNode != null)
             {
-                selectedNode = hoveredNode;
-                selectedNode.UIState = Node.NodeUIState.selected;
-                standardContext.DisplayButtons(clickLocation, hoveredNode.GetActions());
+                SelectedNode = HoveredNode;
+                SelectedNode.UIState = Node.NodeUIState.selected;
+                standardContext.DisplayButtons(clickLocation, HoveredNode.GetDefaultActions());
             }
         }
 
@@ -179,34 +183,34 @@ public class DragManager : MonoBehaviour
         }
     }
 
-    protected void ChangeDMstate(DMstate state)
+    public void ChangeDMstate(DMstate state)
     {
         switch (state)
         {
             case DMstate.open:
                 dmstate = DMstate.open;
                 Debug.Log("DMstate -> open");
-                if (draggedCard != null && hoveredNode == null)
+                if (DraggedCard != null && HoveredNode == null)
                 {
-                    dragNode.PreviousNode.RecieveCard(draggedCard, new string[0]);
+                    dragNode.PreviousNode.RecieveCard(DraggedCard, new string[0]);
                 }
-                else if (draggedCard != null && hoveredNode != null)
+                else if (DraggedCard != null && HoveredNode != null)
                 {
-                    if (hoveredNode.Type == Node.NodeType.RC)
+                    if (HoveredNode.Type == Node.NodeType.RC)
                     {
                         if (dragNode.PreviousNode.Type == Node.NodeType.RC)
                         {
-                            hoveredNode.SwapAllCards(dragNode, new string[1] { "drag" });
+                            HoveredNode.SwapAllCards(dragNode, new string[1] { "drag" });
                         }
                         else
                         {
-                            hoveredNode.RetireCards();
-                            hoveredNode.RecieveCard(draggedCard, new string[0]);
+                            HoveredNode.RetireCards();
+                            HoveredNode.RecieveCard(DraggedCard, new string[0]);
                         }
                     }
                     else
                     {
-                        hoveredNode.RecieveCard(draggedCard, new string[0]);
+                        HoveredNode.RecieveCard(DraggedCard, new string[0]);
                     }
                 }
 
@@ -215,36 +219,34 @@ public class DragManager : MonoBehaviour
                     node.UIState = Node.NodeUIState.normal;
                 }
 
-                draggedCard = null;
-                selectedCard = null;
-                selectedNode = null;
+                DraggedCard = null;
+                ClearSelections();
                 break;
 
             case DMstate.dragging:
                 dmstate = DMstate.dragging;
                 Debug.Log("DMstate -> dragging");
-                draggedCard = hoveredCard;
-                draggedCard.UIState = Card.CardUIState.normal;
-                dragNode.RecieveCard(draggedCard, null);
+                DraggedCard = HoveredCard;
+                DraggedCard.UIState = Card.CardUIState.normal;
+                dragNode.RecieveCard(DraggedCard, null);
 
                 foreach (Node node in allNodes)
                 {
                     // TODO: need exception for Prison
-                    if (node.canDragTo && (draggedCard.player == node.player || node.Type == Node.NodeType.GC) && draggedCard.node.PreviousNode != node)
+                    if (node.canDragTo && (DraggedCard.player == node.player || node.Type == Node.NodeType.GC) && DraggedCard.node.PreviousNode != node)
                     {
                         node.UIState = Node.NodeUIState.available;
                     }
                 }
 
-                selectedCard = null;
-                selectedNode = null;
+                ClearSelections();
                 break;
 
             case DMstate.targeting:
                 dmstate = DMstate.targeting;
                 Debug.Log("DMstate -> targeting");
 
-                draggedCard = null;
+                DraggedCard = null;
                 break;
 
             default:
@@ -260,15 +262,15 @@ public class DragManager : MonoBehaviour
             {
                 card.UIState = Card.CardUIState.hovered;
             }
-            hoveredCard = card;
+            HoveredCard = card;
         }
     }
 
     public void OnCardHoverExit(Card card)
     {
-        if (hoveredCard == card)
+        if (HoveredCard == card)
         {
-            hoveredCard = null;
+            HoveredCard = null;
         }
         if (card.UIState == Card.CardUIState.hovered)
         {
@@ -284,20 +286,20 @@ public class DragManager : MonoBehaviour
             {
                 node.UIState = Node.NodeUIState.hovered;
             }
-            hoveredNode = node;
+            HoveredNode = node;
         }
         else if (dmstate == DMstate.dragging && node.UIState == Node.NodeUIState.available)
         {
             node.UIState = Node.NodeUIState.hovered;
-            hoveredNode = node;
+            HoveredNode = node;
         }
     }
 
     public void OnNodeHoverExit(Node node)
     {
-        if (hoveredNode == node)
+        if (HoveredNode == node)
         {
-            hoveredNode = null;
+            HoveredNode = null;
         }
         if (node.UIState == Node.NodeUIState.hovered)
         {

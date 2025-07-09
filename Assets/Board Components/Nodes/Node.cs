@@ -60,7 +60,10 @@ public abstract class Node : MonoBehaviour
 
     public virtual void RecieveCard(Card card, IEnumerable<string> parameters)
     {
-        card.player.RecordMoveAction(card, this, parameters);
+        if (true) // TODO: make recording logic for Drag, etc
+        {
+            card.player.RecordMoveAction(card, this, parameters);
+        }
         if (card.node != this)
         {
             if (!preserveRest)

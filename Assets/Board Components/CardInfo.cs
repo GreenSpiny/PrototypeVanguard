@@ -32,15 +32,14 @@ public class CardInfo
     public int drive { get { return baseDrive + driveModifier; } set { driveModifier = value - baseDrive; } }
     public int crit { get { return baseCrit + critModifier; } set { critModifier = value - baseCrit; } }
 
-    public enum CardState { stand, rest, facedown }
-    public CardState cardState;
-
     // Unique card elements --- o
     // Some cards have properties that necessitate additional actions be offered to either player.
     // These properties are treated as flags to keep offerings to a minimum.
     public readonly ActionFlag[] actionFlags;
     public enum ActionFlag
     {
+        none,
+
         // DEFAULT ACTIONS
         power,          // POWER     (card)
         soul,           // TO SOUL   (card)

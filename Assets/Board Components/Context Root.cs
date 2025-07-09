@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ContextRoot : MonoBehaviour
 {
     [SerializeField] private float buttonHeight = 90f;
+    [SerializeField] ContextRoot[] otherContexts;
     private List<ContextButton> ContextButtons = new List<ContextButton>();
 
     private void Awake()
@@ -17,16 +18,29 @@ public class ContextRoot : MonoBehaviour
         }
     }
 
+    // need to fix this up to more eloquently account for the two types of context menu
     public void DisplayButtons(Vector3 position, IEnumerable<CardInfo.ActionFlag> flags)
     {
+        bool showAll = flags == null;
+        foreach (var other in otherContexts)
+        {
+            other.HideAllButtons();
+        }
         int activeCount = 0;
         foreach (var button in ContextButtons)
         {
-            bool active = flags.Contains(button.actionFlag);
-            button.gameObject.SetActive(active);
-            if (active)
+            if (showAll)
             {
-                activeCount++;
+                button.gameObject.SetActive(true);
+            }
+            else
+            {
+                bool active = flags.Contains(button.actionFlag);
+                button.gameObject.SetActive(active);
+                if (active)
+                {
+                    activeCount++;
+                }
             }
         }
         transform.position = new Vector2(position.x, position.y);
