@@ -213,13 +213,13 @@ public abstract class Node : MonoBehaviour
             else if (state == NodeUIState.hovered)
             {
                 animInfo.flashColor = Color.yellow;
-                animInfo.flashColor.a = 0.5f;
+                animInfo.flashColor.a = 0.3f;
                 animInfo.instantColor = true;
             }
             else if (state == NodeUIState.selected)
             {
                 animInfo.flashColor = Color.blue;
-                animInfo.flashColor.a = 0.5f;
+                animInfo.flashColor.a = 0.4f;
                 animInfo.instantColor = true;
             }
         }
