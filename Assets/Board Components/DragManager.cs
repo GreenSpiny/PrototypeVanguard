@@ -83,9 +83,9 @@ public class DragManager : MonoBehaviour
     protected void Update()
     {
         // First, raycast all nodes and cards.
-        float raycastDistance = 10f;
+        float raycastDistance = 20f;
         Ray cameraRay = activeCamera.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(activeCamera.transform.position, cameraRay.direction, Color.yellow);
+        Debug.DrawRay(activeCamera.transform.position, cameraRay.direction * raycastDistance, Color.yellow);
 
         RaycastHit cardHit;
         Card hitCard = null;
