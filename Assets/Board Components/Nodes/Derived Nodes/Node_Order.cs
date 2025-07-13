@@ -8,7 +8,7 @@ public class Node_Order : Node_Fan
     public override void CardAutoAction(Card clickedCard)
     {
         clickedCard.rest = !clickedCard.rest;
-        AlignCards(false);
+        SetDirty();
     }
 
     public override void NodeAutoAction()

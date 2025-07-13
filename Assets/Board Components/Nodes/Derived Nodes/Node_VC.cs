@@ -7,8 +7,15 @@ public class Node_VC : Node_Stack
 
     public override void CardAutoAction(Card clickedCard)
     {
-        clickedCard.rest = !clickedCard.rest;
-        AlignCards(false);
+        if (clickedCard.flip)
+        {
+            clickedCard.flip = false;
+        }
+        else
+        {
+            clickedCard.rest = !clickedCard.rest;
+        }
+        SetDirty();
     }
 
     public override void NodeAutoAction()

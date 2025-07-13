@@ -11,44 +11,46 @@ public abstract class Node : MonoBehaviour
     public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC }
     public bool HasCard { get { return cards.Count > 0; } }     // True if the node contains at least one card
 
-    [NonSerialized] protected List<Card> cards;         // The cards attached to this node
-    [NonSerialized] public Node PreviousNode = null;    // The previous Node of the most recently attached card
-    [NonSerialized] public Player player;               // The player who owns this node
+    [NonSerialized] protected List<Card> cards = new List<Card>();  // The cards attached to this node
+    [NonSerialized] public Node PreviousNode;                       // The previous Node of the most recently attached card
+    [NonSerialized] public Player player;                           // The player who owns this node
 
     public virtual NodeType Type { get { return NodeType.none; } }
-    [SerializeField] public bool canDragTo;
-    [SerializeField] public bool canSelectRaw;
-    [SerializeField] public bool preserveRest;
-    [SerializeField] public bool preserveFlip;
-    [SerializeField] public Transform cardAnchor;       // The position and rotation cards begin to accrue on this node
-    [SerializeField] public Vector3 cardRotation;       // The default Euler rotation of cards attached to this node
-    [SerializeField] public Vector3 cardScale;          // The scale of cards attached to this node
+    [SerializeField] public bool canDragTo;             // If true, this node can accept dragged cards
+    [SerializeField] public bool canSelectRaw;          // If true, this node can be selected when empty
+    [SerializeField] public bool preserveRest;          // If true, preserve the REST state of cards moved to this node
+    [SerializeField] public bool preserveFlip;          // If true, preserve the FLIP state of cards moved to this node
+
+    [SerializeField] public Transform cardAnchor;       // The default position and rotation of cards attached to this node
+    [SerializeField] public Vector3 cardRotation;       // The default euler offset of cards attached to this node
+    [SerializeField] public Vector3 cardScale;          // The default scale offset of cards attached to this node
     [SerializeField] public Vector3 nudgeDistance;      // If and how far cards on this node "nudge" when hovered, as feedback
-    
+
+    public int nodeID { get; private set; }     // Unique node identifier for networking purposes
+
+    // Dirty nodes are realigned on the next update cycle.
+    protected bool isDirty = false;
+    public void SetDirty() { isDirty = true; }
+
     // Animation properties
     [SerializeField] protected NodeAnimationInfo animInfo;
 
     public enum NodeUIState { normal, available, hovered, selected };
     protected NodeUIState state;
 
-    private void Awake()
+    public void Init(int nodeID)
     {
-        Player parent = GetComponentInParent<Player>();
-        player = parent;
-        cards = new List<Card>();
+        this.nodeID = nodeID;
+        player = GetComponentInParent<Player>();
+        animInfo.Initialize();
         if (cardAnchor == null)
         {
             cardAnchor = transform;
         }
-        animInfo.Initialize();
         foreach (var child in GetComponentsInChildren<Card>())
         {
-            child.node = this;
             cards.Add(child);
-            child.transform.SetParent(parent.transform, true);
-            child.transform.localRotation = Quaternion.identity;
-            child.transform.localScale = Vector3.one;
-            child.player = parent;
+            child.Init(this);
         }
         AlignCards(true);
     }
@@ -56,6 +58,10 @@ public abstract class Node : MonoBehaviour
     private void Update()
     {
         animInfo.Animate();
+        if (isDirty)
+        {
+            AlignCards(false);
+        }
     }
 
     public virtual void RecieveCard(Card card, IEnumerable<string> parameters)
@@ -72,7 +78,7 @@ public abstract class Node : MonoBehaviour
             }
             if (!preserveFlip)
             {
-                card.flipRotation = false;
+                card.flip = false;
             }
             PreviousNode = card.node;
             PreviousNode.RemoveCard(card);
@@ -138,10 +144,10 @@ public abstract class Node : MonoBehaviour
             cards.Add(c);
         }
 
-        // Align all nodes potentially involved
-        AlignCards(false);
-        otherNode.AlignCards(false);
-        otherNode.PreviousNode.AlignCards(false);
+        // Flag all nodes potentially involved as dirty
+        SetDirty();
+        otherNode.SetDirty();
+        otherNode.PreviousNode.SetDirty();
     }
 
     private void RemoveCard(Card card)
@@ -149,12 +155,13 @@ public abstract class Node : MonoBehaviour
         if (cards.Contains(card))
         {
             cards.Remove(card);
-            AlignCards(false);
+            SetDirty();
         }
     }
 
     public virtual void AlignCards(bool instant)
     {
+        isDirty = false;
         if (instant)
         {
             foreach (Card card in cards)

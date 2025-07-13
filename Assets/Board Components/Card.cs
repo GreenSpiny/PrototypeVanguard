@@ -1,12 +1,13 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 // CARD represents a physical card in the game.
-public class Card : MonoBehaviour
+public class Card : NetworkBehaviour
 {
-    [SerializeField] protected BoxCollider mainCollider;
-    [SerializeField] protected BoxCollider nudgeCollider;
-    [SerializeField] protected MeshRenderer meshRenderer;
+    [SerializeField] private BoxCollider mainCollider;
+    [SerializeField] private BoxCollider nudgeCollider;
+    [SerializeField] private MeshRenderer meshRenderer;
     public bool CollidersEnabled { get { return mainCollider.enabled; } }
 
     public const float cardWidth = 0.68605f;
@@ -14,7 +15,6 @@ public class Card : MonoBehaviour
     public const float cardDepth = 0.005f;
 
     [NonSerialized] public Player player;
-    [NonSerialized] public Node node;
     [NonSerialized] public CardInfo cardInfo;
 
     [NonSerialized] public Vector3 anchoredPosition;        // The intended position of the card
@@ -22,26 +22,41 @@ public class Card : MonoBehaviour
     [NonSerialized] public Vector3 targetEuler;             // The direction the card should face
 
     [NonSerialized] public bool isToken = false;
-    [NonSerialized] public bool rest = false;
-    [NonSerialized] public bool flipRotation = false;
+    [SerializeField] public bool flip;
+    [SerializeField] public bool rest;
 
-    protected Material cardFrontMaterial;
-    protected Material cardBackMaterial;
+    private Material cardFrontMaterial;
+    private Material cardBackMaterial;
 
     public enum CardUIState { normal, hovered, selected };
-    protected CardUIState state;
+    private CardUIState state;
 
     private bool anim = false;  // temporary
     public float CardMoveSpeed { get { return 10f * Time.deltaTime; } }
     public float CardFlipSpeed { get { return 14f * Time.deltaTime; } }
+
+    NetworkVariable<int> nodeID = new NetworkVariable<int>();
+    NetworkVariable<bool> restVar = new NetworkVariable<bool>(); // TODO
+    NetworkVariable<bool> flipVar = new NetworkVariable<bool>(); // TODO
+    public Node node
+    {
+        get { return GameManager.instance.allNodes[nodeID.Value]; }
+        set { nodeID.Value = value.nodeID; }
+    }
 
     public void ToggleColliders(bool toggle)
     {
         mainCollider.enabled = toggle;
     }
 
-    private void Awake()
+    public void Init(Node node)
     {
+        this.node = node;
+        player = node.player;
+        transform.SetParent(player.transform, true);
+        transform.localRotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+
         cardFrontMaterial = meshRenderer.materials[0];
         cardBackMaterial = meshRenderer.materials[1];
     }
@@ -77,11 +92,11 @@ public class Card : MonoBehaviour
         {
             targetEuler.y += 90f;
         }
-        if (flipRotation)
+        if (flip)
         {
             targetEuler.z += 180f;
         }
-        if (node.Type == Node.NodeType.hand && !player.isActivePlayer)
+        if (node.Type == Node.NodeType.hand && player != DragManager.instance.controllingPlayer)
         {
             targetEuler.z += 180f;
         }

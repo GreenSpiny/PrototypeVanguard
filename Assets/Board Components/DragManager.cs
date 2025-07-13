@@ -8,8 +8,7 @@ public class DragManager : MonoBehaviour
 
     public static DragManager instance;
 
-    [SerializeField] Player activePlayer;
-    [SerializeField] Camera activeCamera;
+    [SerializeField] public Player controllingPlayer;
     [SerializeField] Node_Drag dragNode;
 
     public Card HoveredCard { get; private set; }       // The card currently being hovered
@@ -43,24 +42,18 @@ public class DragManager : MonoBehaviour
     protected float DragThreshold { get { return 5f; } }
     protected float DoubleClickThreshold { get { return 0.25f; } }
 
-    // TEMP VALUE STORAGE
-    Card[] allCards;
-    Node[] allNodes;
-
-    protected void Awake()
+    public void Init()
     {
-        if (instance != null)
-        {
-            gameObject.SetActive(false);
-        }
         instance = this;
         cardMask = LayerMask.GetMask("Card Layer");
         nodeMask = LayerMask.GetMask("Node Layer");
         dragMask = LayerMask.GetMask("Board Drag Layer");
         lastClickTime = float.MinValue;
-
-        allCards = FindObjectsByType<Card>(FindObjectsSortMode.None);
-        allNodes = FindObjectsByType<Node>(FindObjectsSortMode.None);
+        
+        if (controllingPlayer == null)
+        {
+            controllingPlayer = GameManager.instance.players[0];
+        }
     }
 
     public void ClearSelections()
@@ -84,8 +77,8 @@ public class DragManager : MonoBehaviour
     {
         // First, raycast all nodes and cards.
         float raycastDistance = 20f;
-        Ray cameraRay = activeCamera.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(activeCamera.transform.position, cameraRay.direction * raycastDistance, Color.yellow);
+        Ray cameraRay = controllingPlayer.playerCamera.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(controllingPlayer.playerCamera.transform.position, cameraRay.direction * raycastDistance, Color.yellow);
 
         RaycastHit cardHit;
         Card hitCard = null;
@@ -93,7 +86,7 @@ public class DragManager : MonoBehaviour
         {
             hitCard = cardHit.transform.GetComponent<Card>();
         }
-        foreach (Card card in allCards)
+        foreach (Card card in GameManager.instance.allCards)
         {
             if (card == hitCard)
             {
@@ -111,7 +104,7 @@ public class DragManager : MonoBehaviour
         {
             hitNode = nodeHit.transform.GetComponent<Node>();
         }
-        foreach (Node node in allNodes)
+        foreach (Node node in GameManager.instance.allNodes.Values)
         {
             if (node == hitNode)
             {
@@ -214,7 +207,7 @@ public class DragManager : MonoBehaviour
                     }
                 }
 
-                foreach (Node node in allNodes)
+                foreach (Node node in GameManager.instance.allNodes.Values)
                 {
                     node.UIState = Node.NodeUIState.normal;
                 }
@@ -230,7 +223,7 @@ public class DragManager : MonoBehaviour
                 DraggedCard.UIState = Card.CardUIState.normal;
                 dragNode.RecieveCard(DraggedCard, null);
 
-                foreach (Node node in allNodes)
+                foreach (Node node in GameManager.instance.allNodes.Values)
                 {
                     // TODO: need exception for Prison
                     if (node.canDragTo && (DraggedCard.player == node.player || node.Type == Node.NodeType.GC) && DraggedCard.node.PreviousNode != node)

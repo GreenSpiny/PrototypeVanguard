@@ -7,8 +7,8 @@ public class Node_Damage : Node_Fan
 
     public override void CardAutoAction(Card clickedCard)
     {
-        clickedCard.flipRotation = !clickedCard.flipRotation;
-        AlignCards(false);
+        clickedCard.flip = !clickedCard.flip;
+        SetDirty();
     }
 
     public override void NodeAutoAction()

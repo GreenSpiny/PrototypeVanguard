@@ -8,7 +8,7 @@ public class Node_Drag : Node
         cardRotation = card.node.cardRotation;
         base.RecieveCard(card, parameters);
         cards.Add(card);
-        AlignCards(false);
+        SetDirty();
     }
 
     public override void AlignCards(bool instant)

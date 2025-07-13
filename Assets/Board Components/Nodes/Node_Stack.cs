@@ -22,13 +22,13 @@ public class Node_Stack : Node
         }
         if (facedown)
         {
-            card.flipRotation = true;
+            card.flip = true;
         }
         else if (faceup)
         {
-            card.flipRotation = false;
+            card.flip = false;
         }
-        AlignCards(false);
+        SetDirty();
     }
 
     public override void AlignCards(bool instant)
