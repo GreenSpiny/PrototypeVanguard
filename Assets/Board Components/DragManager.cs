@@ -44,16 +44,12 @@ public class DragManager : MonoBehaviour
 
     public void Init()
     {
+        dmstate = DMstate.open;
         instance = this;
         cardMask = LayerMask.GetMask("Card Layer");
         nodeMask = LayerMask.GetMask("Node Layer");
         dragMask = LayerMask.GetMask("Board Drag Layer");
         lastClickTime = float.MinValue;
-        
-        if (controllingPlayer == null)
-        {
-            controllingPlayer = GameManager.instance.players[0];
-        }
     }
 
     public void ClearSelections()
@@ -75,6 +71,11 @@ public class DragManager : MonoBehaviour
 
     protected void Update()
     {
+        if (controllingPlayer == null)
+        {
+            return;
+        }
+
         // First, raycast all nodes and cards.
         float raycastDistance = 20f;
         Ray cameraRay = controllingPlayer.playerCamera.ScreenPointToRay(Input.mousePosition);

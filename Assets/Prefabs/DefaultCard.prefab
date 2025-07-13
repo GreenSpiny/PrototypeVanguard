@@ -116,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 8103720151295813601}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -164,6 +164,8 @@ MonoBehaviour:
   mainCollider: {fileID: 7445260759099763425}
   nudgeCollider: {fileID: 1103724869585877748}
   meshRenderer: {fileID: 7691940809785283037}
+  flip: 0
+  rest: 0
 --- !u!65 &7445260759099763425
 BoxCollider:
   m_ObjectHideFlags: 0

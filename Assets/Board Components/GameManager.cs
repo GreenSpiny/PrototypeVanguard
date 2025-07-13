@@ -9,15 +9,31 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] public NetworkManager networkManager;
     [SerializeField] public DragManager dragManager;
+    [SerializeField] public LetterboxedCanvas letterboxedCanvas;
 
     [NonSerialized] public Dictionary<int, Node> allNodes = new Dictionary<int, Node>();
-    [NonSerialized] public HashSet<Card> allCards = new HashSet<Card>();
+    [NonSerialized] public List<Card> allCards = new List<Card>();
 
+    [SerializeField] public List<ConnectectionStruct> connectedPlayers = new List<ConnectectionStruct>();
     [SerializeField] public Player[] players;
     [SerializeField] private Camera infoCamera;
 
+    [System.Serializable]
+    public struct ConnectectionStruct
+    {
+        public readonly ulong clientId;
+        public readonly NetworkClient client;
+        public ConnectectionStruct(ulong clientId, NetworkClient client)
+        {
+            this.clientId = clientId;
+            this.client = client;
+        }
+    }
+
     private void Awake()
     {
+        networkManager.OnConnectionEvent += OnConnectionOverride;
+
         if (instance == null)
         {
             instance = this;
@@ -31,7 +47,7 @@ public class GameManager : NetworkBehaviour
         dragManager.Init();
 
         int nodeCount = 0;
-        foreach (var node in GetComponentsInChildren<Node>(true))
+        foreach (var node in FindObjectsByType<Node>(FindObjectsSortMode.None))
         {
             allNodes.Add(nodeCount, node);
             node.Init(nodeCount);
@@ -39,13 +55,29 @@ public class GameManager : NetworkBehaviour
         }
 
         int cardCount = 0;
-        foreach (var card in GetComponentsInChildren<Card>(true))
+        foreach (var card in FindObjectsByType<Card>(FindObjectsSortMode.None))
         {
             allCards.Add(card);
             cardCount++;
         }
 
         infoCamera.gameObject.SetActive(true);
+    }
+
+    public void OnConnectionOverride(NetworkManager manager, ConnectionEventData data)
+    {
+        
+        if (manager.IsHost)
+        {
+            var clientId = data.ClientId;
+            var client = manager.ConnectedClients[clientId];
+            connectedPlayers.Add(new ConnectectionStruct(clientId, client));
+
+            PlayerPuppeteer playerPrefab = client.PlayerObject.GetComponent<PlayerPuppeteer>();
+            playerPrefab.playerIndex.Value = connectedPlayers.Count - 1;
+            playerPrefab.SetupPlayerRpc();
+        }
+        
     }
 
 }
