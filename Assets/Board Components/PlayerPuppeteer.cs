@@ -1,11 +1,10 @@
 using Unity.Netcode;
-using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 
 public class PlayerPuppeteer : NetworkBehaviour
 {
-    public NetworkVariable<int> playerIndex = new NetworkVariable<int>();
-    public Player player;
+    private int playerIndex;
+    private Player player;
 
     public override void OnNetworkSpawn()
     {
@@ -13,23 +12,27 @@ public class PlayerPuppeteer : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    public void SetupPlayerRpc()
+    public void SetupPlayerRpc(ulong clientID, int playerIndex)
     {
-        Debug.Log(playerIndex.Value);
-        foreach (var player in GameManager.instance.players)
+        if (this.NetworkManager.LocalClientId == clientID)
         {
-            player.playerCamera.gameObject.SetActive(false);
-        }
-        if (playerIndex.Value < 2)
-        {
-            player = GameManager.instance.players[playerIndex.Value];
-            player.playerCamera.gameObject.SetActive(true);
-            transform.position = player.playerCamera.transform.position;
-            DragManager.instance.controllingPlayer = player;
+            Debug.Log(playerIndex);
+            this.playerIndex = playerIndex;
+            foreach (var player in GameManager.instance.players)
+            {
+                player.playerCamera.gameObject.SetActive(false);
+            }
+            if (playerIndex < 2)
+            {
+                player = GameManager.instance.players[playerIndex];
+                player.playerCamera.gameObject.SetActive(true);
 
-            GameManager.instance.letterboxedCanvas.GetCameras()[1].camera = player.playerCamera;
-            GameManager.instance.letterboxedCanvas.Refresh();
+                transform.position = player.playerCamera.transform.position;
 
+                DragManager.instance.controllingPlayer = player;
+                GameManager.instance.letterboxedCanvas.GetCameras()[1].camera = player.playerCamera;
+                GameManager.instance.letterboxedCanvas.Refresh();
+            }
         }
     }
 

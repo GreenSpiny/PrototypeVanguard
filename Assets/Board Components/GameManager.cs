@@ -12,20 +12,22 @@ public class GameManager : NetworkBehaviour
     [SerializeField] public LetterboxedCanvas letterboxedCanvas;
 
     [NonSerialized] public Dictionary<int, Node> allNodes = new Dictionary<int, Node>();
-    [NonSerialized] public List<Card> allCards = new List<Card>();
+    [NonSerialized] public Dictionary<int, Card> allCards = new Dictionary<int, Card>();
 
     [SerializeField] public List<ConnectectionStruct> connectedPlayers = new List<ConnectectionStruct>();
     [SerializeField] public Player[] players;
     [SerializeField] private Camera infoCamera;
 
+    [SerializeField] public GameObject testSphere;
+
     [System.Serializable]
     public struct ConnectectionStruct
     {
-        public readonly ulong clientId;
+        public readonly ulong clientID;
         public readonly NetworkClient client;
-        public ConnectectionStruct(ulong clientId, NetworkClient client)
+        public ConnectectionStruct(ulong clientID, NetworkClient client)
         {
-            this.clientId = clientId;
+            this.clientID = clientID;
             this.client = client;
         }
     }
@@ -57,7 +59,7 @@ public class GameManager : NetworkBehaviour
         int cardCount = 0;
         foreach (var card in FindObjectsByType<Card>(FindObjectsSortMode.None))
         {
-            allCards.Add(card);
+            allCards.Add(cardCount, card);
             cardCount++;
         }
 
@@ -66,18 +68,38 @@ public class GameManager : NetworkBehaviour
 
     public void OnConnectionOverride(NetworkManager manager, ConnectionEventData data)
     {
-        
-        if (manager.IsHost)
+        if (manager.IsServer)
         {
-            var clientId = data.ClientId;
-            var client = manager.ConnectedClients[clientId];
-            connectedPlayers.Add(new ConnectectionStruct(clientId, client));
+            if (data.EventType == ConnectionEvent.ClientConnected)
+            {
+                var clientID = data.ClientId;
+                var client = manager.ConnectedClients[clientID];
+                connectedPlayers.Add(new ConnectectionStruct(clientID, client));
+                PlayerPuppeteer playerPrefab = client.PlayerObject.GetComponent<PlayerPuppeteer>();
+                playerPrefab.SetupPlayerRpc(clientID, connectedPlayers.Count - 1);
+                testSphere.transform.Rotate(0f, 0f, -45f);
+            }
+        }   
+    }
 
-            PlayerPuppeteer playerPrefab = client.PlayerObject.GetComponent<PlayerPuppeteer>();
-            playerPrefab.playerIndex.Value = connectedPlayers.Count - 1;
-            playerPrefab.SetupPlayerRpc();
+
+
+    // CARD STATE STRUCT
+    // This struct contains the source of truth for cards - namely, how they are positioned.
+    public struct CardStateStruct : INetworkSerializable
+    {
+        public int cardId;
+        public int nodeId;
+        public bool rest;
+        public bool flip;
+
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref cardId);
+            serializer.SerializeValue(ref nodeId);
+            serializer.SerializeValue(ref rest);
+            serializer.SerializeValue(ref flip);
         }
-        
     }
 
 }

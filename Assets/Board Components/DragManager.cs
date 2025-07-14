@@ -87,7 +87,7 @@ public class DragManager : MonoBehaviour
         {
             hitCard = cardHit.transform.GetComponent<Card>();
         }
-        foreach (Card card in GameManager.instance.allCards)
+        foreach (Card card in GameManager.instance.allCards.Values)
         {
             if (card == hitCard)
             {

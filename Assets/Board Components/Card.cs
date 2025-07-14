@@ -3,7 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 
 // CARD represents a physical card in the game.
-public class Card : NetworkBehaviour
+public class Card : MonoBehaviour
 {
     [SerializeField] private BoxCollider mainCollider;
     [SerializeField] private BoxCollider nudgeCollider;
@@ -21,6 +21,7 @@ public class Card : NetworkBehaviour
     [NonSerialized] public Vector3 anchoredPositionOffset;  // Offset of the final position, i.e. on hover
     [NonSerialized] public Vector3 targetEuler;             // The direction the card should face
 
+    [NonSerialized] public Node node;
     [NonSerialized] public bool isToken = false;
     [SerializeField] public bool flip;
     [SerializeField] public bool rest;
@@ -34,15 +35,6 @@ public class Card : NetworkBehaviour
     private bool anim = false;  // temporary
     public float CardMoveSpeed { get { return 10f * Time.deltaTime; } }
     public float CardFlipSpeed { get { return 14f * Time.deltaTime; } }
-
-    NetworkVariable<int> nodeID = new NetworkVariable<int>();
-    NetworkVariable<bool> restVar = new NetworkVariable<bool>(); // TODO
-    NetworkVariable<bool> flipVar = new NetworkVariable<bool>(); // TODO
-    public Node node
-    {
-        get { return GameManager.instance.allNodes[nodeID.Value]; }
-        set { nodeID.Value = value.nodeID; }
-    }
 
     public void ToggleColliders(bool toggle)
     {
