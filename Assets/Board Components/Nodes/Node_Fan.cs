@@ -5,6 +5,8 @@ using UnityEngine;
 // Fan nodes contain a "fan" of cards, such as the Hand or Damage.
 public class Node_Fan : Node
 {
+    public static Transform cameraTransform;
+
     protected enum FanDirection { vertical, horizontal }
     protected enum FanOrigin { center, edge }
 
@@ -15,7 +17,8 @@ public class Node_Fan : Node
     [SerializeField] protected int maxCards;
     [SerializeField] protected float maxWidth;
     [SerializeField] protected float defaultSpacing;
-    [SerializeField] Transform lookTarget;
+    [SerializeField] protected bool lookAtCamera;
+
     public override void RecieveCard(Card card, IEnumerable<string> parameters)
     {
         base.RecieveCard(card, parameters);
@@ -95,8 +98,15 @@ public class Node_Fan : Node
                     card.anchoredPosition = new Vector3(origin + spacing * i, i * yOffset, 0f);
                 }
             }
-            card.LookAt(lookTarget);
-            card.ToggleColliders(true);
+            if (lookAtCamera)
+            {
+                card.LookAt(cameraTransform);
+            }
+            else
+            {
+                card.LookAt(null);
+            }
+                card.ToggleColliders(true);
         }
 
         base.AlignCards(instant);

@@ -1119,7 +1119,7 @@ MonoBehaviour:
   maxCards: 20
   maxWidth: 20
   defaultSpacing: 0.33
-  lookTarget: {fileID: 0}
+  lookAtCamera: 0
 --- !u!1001 &72779224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2597,7 +2597,7 @@ MonoBehaviour:
   maxCards: 4
   maxWidth: 1
   defaultSpacing: 0.5
-  lookTarget: {fileID: 0}
+  lookAtCamera: 0
 --- !u!1001 &226707433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6291,7 +6291,7 @@ MonoBehaviour:
   maxCards: 2
   maxWidth: 0.68605
   defaultSpacing: 0.5
-  lookTarget: {fileID: 0}
+  lookAtCamera: 0
 --- !u!1 &623689358
 GameObject:
   m_ObjectHideFlags: 0
@@ -8378,7 +8378,7 @@ MonoBehaviour:
   maxCards: 2
   maxWidth: 0.68605
   defaultSpacing: 0.5
-  lookTarget: {fileID: 0}
+  lookAtCamera: 0
 --- !u!1001 &805837516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10689,6 +10689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d335558583aaac542a9c92b39731ad1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerIndex: 2
   playerCamera: {fileID: 1256879702}
   cards: []
   nodes: []
@@ -10984,6 +10985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d335558583aaac542a9c92b39731ad1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerIndex: 1
   playerCamera: {fileID: 330585545}
   cards: []
   nodes: []
@@ -17459,7 +17461,7 @@ MonoBehaviour:
   maxCards: 6
   maxWidth: 1.41182
   defaultSpacing: 0.21
-  lookTarget: {fileID: 0}
+  lookAtCamera: 0
 --- !u!1 &1548822453
 GameObject:
   m_ObjectHideFlags: 0
@@ -20583,7 +20585,7 @@ MonoBehaviour:
   maxCards: 6
   maxWidth: 1.41182
   defaultSpacing: 0.21
-  lookTarget: {fileID: 0}
+  lookAtCamera: 0
 --- !u!1001 &1752656732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23152,7 +23154,7 @@ MonoBehaviour:
   maxCards: 7
   maxWidth: 0
   defaultSpacing: 1.1
-  lookTarget: {fileID: 330585546}
+  lookAtCamera: 1
 --- !u!1 &2082947545
 GameObject:
   m_ObjectHideFlags: 0
@@ -23511,7 +23513,7 @@ MonoBehaviour:
   maxCards: 7
   maxWidth: 0
   defaultSpacing: 1.1
-  lookTarget: {fileID: 330585546}
+  lookAtCamera: 1
 --- !u!1 &2130360746
 GameObject:
   m_ObjectHideFlags: 0
@@ -23895,7 +23897,7 @@ MonoBehaviour:
   maxCards: 4
   maxWidth: 1
   defaultSpacing: 0.5
-  lookTarget: {fileID: 0}
+  lookAtCamera: 0
 --- !u!1 &2146300232
 GameObject:
   m_ObjectHideFlags: 0

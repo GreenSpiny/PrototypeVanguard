@@ -28,6 +28,12 @@ public class PlayerPuppeteer : NetworkBehaviour
                 player.playerCamera.gameObject.SetActive(true);
 
                 transform.position = player.playerCamera.transform.position;
+                Node_Fan.cameraTransform = player.playerCamera.transform;
+
+                foreach (var node in GameManager.instance.allNodes.Values)
+                {
+                    node.SetDirty();
+                }
 
                 DragManager.instance.controllingPlayer = player;
                 GameManager.instance.letterboxedCanvas.GetCameras()[1].camera = player.playerCamera;

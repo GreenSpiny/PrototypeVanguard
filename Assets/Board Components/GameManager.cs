@@ -18,8 +18,6 @@ public class GameManager : NetworkBehaviour
     [SerializeField] public Player[] players;
     [SerializeField] private Camera infoCamera;
 
-    [SerializeField] public GameObject testSphere;
-
     [System.Serializable]
     public struct ConnectectionStruct
     {
@@ -77,7 +75,6 @@ public class GameManager : NetworkBehaviour
                 connectedPlayers.Add(new ConnectectionStruct(clientID, client));
                 PlayerPuppeteer playerPrefab = client.PlayerObject.GetComponent<PlayerPuppeteer>();
                 playerPrefab.SetupPlayerRpc(clientID, connectedPlayers.Count - 1);
-                testSphere.transform.Rotate(0f, 0f, -45f);
             }
         }   
     }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] public int playerIndex;
+
     // All entities owned by this player
     public Camera playerCamera;
     public List<Card> cards = new List<Card>();
