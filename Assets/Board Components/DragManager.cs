@@ -191,7 +191,7 @@ public class DragManager : MonoBehaviour
                 }
                 else if (DraggedCard != null && HoveredNode != null)
                 {
-                    GameManager.instance.RequestRecieveCardRpc(HoveredNode.nodeID, DraggedCard.cardID, string.Empty);
+                    GameManager.instance.RequestRecieveCardRpc(HoveredNode.nodeID, DraggedCard.cardID, "drag");
                 }
 
                 foreach (Node node in GameManager.instance.allNodes.Values)

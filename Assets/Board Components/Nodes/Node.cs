@@ -7,9 +7,9 @@ using System;
 public abstract class Node : MonoBehaviour
 {
     public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC }
-    public bool HasCard { get { return cards.Count > 0; } }     // True if the node contains at least one card
+    public bool HasCard { get { return cards.Count > 0; } }         // True if the node contains at least one card
 
-    [NonSerialized] protected List<Card> cards = new List<Card>();  // The cards attached to this node
+    [NonSerialized] public List<Card> cards = new List<Card>();     // The cards attached to this node
     public Node PreviousNode { get; protected set; }                // The previous Node of the most recently attached card
     [NonSerialized] public Player player;                           // The player who owns this node
 
@@ -93,38 +93,6 @@ public abstract class Node : MonoBehaviour
                 cards[i].player.drop.RecieveCard(cards[i], string.Empty);
             }
         }
-    }
-
-    public virtual void SwapAllCards(Node otherNode, string parameters)
-    {
-        // Create shallow copies of the card data, then clear the original data
-        List<Card> selfCardsShallowCopy = new List<Card>();
-        foreach (Card card in cards)
-        {
-            selfCardsShallowCopy.Add(card);
-        }
-        cards.Clear();
-
-        List<Card> otherCardsShallowCopy = new List<Card>();
-        foreach (Card c in otherNode.cards)
-        {
-            otherCardsShallowCopy.Add(c);
-        }
-        otherNode.cards.Clear();
-
-        // Assign the cards to their new nodes
-        foreach (Card c in selfCardsShallowCopy)
-        {
-            otherNode.cards.Add(c);
-        }
-
-        foreach (Card c in otherCardsShallowCopy)
-        {
-            cards.Add(c);
-        }
-
-        SetDirty();
-        otherNode.SetDirty();
     }
 
     private void RemoveCard(Card card)

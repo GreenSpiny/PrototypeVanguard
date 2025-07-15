@@ -104,14 +104,6 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestSwapAllCardsRpc(int baseNodeID, int otherNodeID, string parameters)
-    {
-        Node baseNode = allNodes[baseNodeID];
-        Node otherNode = allNodes[otherNodeID];
-        baseNode.SwapAllCards(otherNode, parameters);
-    }
-
-    [Rpc(SendTo.Everyone)]
     public void RequestSetOrientationRpc(int cardID, bool flip, bool rest)
     {
         Card targetCard = allCards[cardID];

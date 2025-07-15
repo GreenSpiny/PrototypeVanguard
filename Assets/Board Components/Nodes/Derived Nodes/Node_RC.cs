@@ -19,27 +19,53 @@ public class Node_RC : Node_Stack
 
     public override void RecieveCard(Card card, string parameters)
     {
+        bool drag = parameters.Contains("drag");
         bool toSoulRC = parameters.Contains("bottom");
-        bool isFromDrag = card.node.Type == NodeType.drag;
-        bool isFromRC = card.node.Type == NodeType.RC || (isFromDrag && card.node.PreviousNode.Type == NodeType.RC);
-
-        Card additionalCard = null;
+        bool isFromRC = card.node.Type == NodeType.RC || (card.node.Type == NodeType.drag && card.node.PreviousNode.Type == NodeType.RC);
+        bool noRetire = parameters.Contains("noRetire");
 
         if (toSoulRC)
         {
             base.RecieveCard(card, parameters);
         }
-        if (isFromRC)
+        if (isFromRC && drag)
         {
-            if (isFromDrag)
+            // Account for local Drag Node
+            Node targetNode = card.node;
+            if (targetNode.Type == NodeType.drag && card.player == player)
             {
-                additionalCard = card;
+                targetNode = targetNode.PreviousNode;
             }
-            SwapAllCards(card.node, parameters);
+
+            // Create shallow copies
+            HashSet<Card> originalCards = new HashSet<Card>();
+            foreach (Card c in cards)
+            {
+                originalCards.Add(c);
+            }
+            HashSet<Card> newCards = new HashSet<Card>();
+            foreach (Card c in targetNode.cards)
+            {
+                newCards.Add(c);
+            }
+            newCards.Add(card);
+
+            // Initiate the swap
+            foreach (Card c in originalCards)
+            {
+                targetNode.RecieveCard(c, "noRetire");
+            }
+            foreach (Card c in newCards)
+            {
+                RecieveCard(c, "noRetire");
+            }
         }
         else
         {
-            RetireCards();
+            if (!noRetire)
+            {
+                RetireCards();
+            }
             base.RecieveCard(card, parameters);
         }
     }
