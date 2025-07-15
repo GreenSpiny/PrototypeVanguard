@@ -65,26 +65,23 @@ public abstract class Node : MonoBehaviour
 
     public virtual void RecieveCard(Card card, string parameters)
     {
-        if (card.node != this)
-        {
-            bool shouldFlip = card.flip;
-            bool shouldRest = card.rest;
+        bool shouldFlip = card.flip;
+        bool shouldRest = card.rest;
 
-            if (!preserveFlip)
-            {
-                shouldFlip = false;
-            }
-            if (!preserveRest)
-            {
-                shouldRest = false;
-            }
-            
-            PreviousNode = card.node;
-            PreviousNode.RemoveCard(card);
-            card.node = this;
-            card.SetOrientation(shouldFlip, shouldRest);
-            SetDirty();
+        if (!preserveFlip)
+        {
+            shouldFlip = false;
         }
+        if (!preserveRest)
+        {
+            shouldRest = false;
+        }
+            
+        PreviousNode = card.node;
+        PreviousNode.RemoveCard(card);
+        card.node = this;
+        card.SetOrientation(shouldFlip, shouldRest);
+        SetDirty();
     }
 
     public virtual void RetireCards()
@@ -100,9 +97,6 @@ public abstract class Node : MonoBehaviour
 
     public virtual void SwapAllCards(Node otherNode, string parameters)
     {
-        // When swapping cards, intermediary nodes (i.e. Drag) must be accounted for
-        bool drag = parameters.Contains("drag");
-
         // Create shallow copies of the card data, then clear the original data
         List<Card> selfCardsShallowCopy = new List<Card>();
         foreach (Card card in cards)
@@ -118,26 +112,10 @@ public abstract class Node : MonoBehaviour
         }
         otherNode.cards.Clear();
 
-        if (drag)
-        {
-            foreach (Card c in otherNode.PreviousNode.cards)
-            {
-                otherCardsShallowCopy.Add(c);
-            }
-            otherNode.PreviousNode.cards.Clear();
-        }
-
         // Assign the cards to their new nodes
         foreach (Card c in selfCardsShallowCopy)
         {
-            if (drag)
-            {
-                otherNode.PreviousNode.cards.Add(c);
-            }
-            else
-            {
-                otherNode.cards.Add(c);
-            }
+            otherNode.cards.Add(c);
         }
 
         foreach (Card c in otherCardsShallowCopy)
@@ -145,10 +123,8 @@ public abstract class Node : MonoBehaviour
             cards.Add(c);
         }
 
-        // Flag all nodes potentially involved as dirty
         SetDirty();
         otherNode.SetDirty();
-        otherNode.PreviousNode.SetDirty();
     }
 
     private void RemoveCard(Card card)
@@ -163,18 +139,21 @@ public abstract class Node : MonoBehaviour
     public virtual void AlignCards(bool instant)
     {
         isDirty = false;
-        if (instant)
+        if (cards.Count > 0)
         {
+            if (instant)
+            {
+                foreach (Card card in cards)
+                {
+                    card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
+                    card.transform.rotation = Quaternion.Euler(card.targetEuler);
+                    card.transform.localScale = cardScale;
+                }
+            }
             foreach (Card card in cards)
             {
-                card.transform.position = transform.position + card.anchoredPosition + card.anchoredPositionOffset;
-                card.transform.rotation = Quaternion.Euler(card.targetEuler);
-                card.transform.localScale = cardScale;
+                card.anchoredPositionOffset = Vector3.zero;
             }
-        }
-        foreach (Card card in cards)
-        {
-            card.anchoredPositionOffset = Vector3.zero;
         }
     }
 

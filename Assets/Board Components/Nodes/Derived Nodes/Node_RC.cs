@@ -9,7 +9,7 @@ public class Node_RC : Node_Stack
     {
         if (clickedCard.flip)
         {
-            GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, !clickedCard.flip, clickedCard.rest);
+            GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, false, clickedCard.rest);
         }
         else
         {
@@ -19,27 +19,27 @@ public class Node_RC : Node_Stack
 
     public override void RecieveCard(Card card, string parameters)
     {
+        bool toSoulRC = parameters.Contains("bottom");
         bool isFromDrag = card.node.Type == NodeType.drag;
         bool isFromRC = card.node.Type == NodeType.RC || (isFromDrag && card.node.PreviousNode.Type == NodeType.RC);
-        bool toSoulRC = parameters.Contains("bottom");
+
+        Card additionalCard = null;
+
+        if (toSoulRC)
+        {
+            base.RecieveCard(card, parameters);
+        }
         if (isFromRC)
         {
             if (isFromDrag)
             {
-                SwapAllCards(card.node, parameters + ",drag");
+                additionalCard = card;
             }
-            else
-            {
-                SwapAllCards(card.node, parameters);
-            }
-        }
-        else if (!toSoulRC)
-        {
-            RetireCards();
-            base.RecieveCard(card, parameters);
+            SwapAllCards(card.node, parameters);
         }
         else
         {
+            RetireCards();
             base.RecieveCard(card, parameters);
         }
     }

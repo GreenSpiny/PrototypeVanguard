@@ -16,7 +16,6 @@ public class PlayerPuppeteer : NetworkBehaviour
     {
         if (this.NetworkManager.LocalClientId == clientID)
         {
-            Debug.Log(playerIndex);
             this.playerIndex = playerIndex;
             foreach (var player in GameManager.instance.players)
             {

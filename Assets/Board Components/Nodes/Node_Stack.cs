@@ -7,7 +7,6 @@ public class Node_Stack : Node
     [SerializeField] protected bool compressCards;
     public override void RecieveCard(Card card, string parameters)
     {
-        base.RecieveCard(card, parameters);
         bool toBottom = parameters.Contains("bottom");
         bool facedown = parameters.Contains("facedown");
         bool faceup = parameters.Contains("faceup");
@@ -20,7 +19,6 @@ public class Node_Stack : Node
             foreach (Card c in cards)
             {
                 card.SetOrientation(c.flip, false);
-                Debug.Log("rest = false!!!!!");
             }
             cards.Add(card);
         }
@@ -37,20 +35,24 @@ public class Node_Stack : Node
 
     public override void AlignCards(bool instant)
     {
-        for (int i = 0; i < cards.Count; i++)
+        if (cards.Count > 0)
         {
-            Card card = cards[i];
-            card.node = this;
-            if (compressCards)
+            Card topCard = cards[cards.Count - 1];
+            for (int i = 0; i < cards.Count; i++)
             {
-                card.anchoredPosition = Vector3.zero;
+                Card card = cards[i];
+                if (compressCards)
+                {
+                    card.anchoredPosition = Vector3.zero;
+                }
+                else
+                {
+                    card.anchoredPosition = new Vector3(0f, (Card.cardDepth / 2f) + (i * Card.cardDepth), 0f);
+                }
+                card.SetOrientation(card.flip, topCard.rest);
+                card.LookAt(null);
+                card.ToggleColliders(i == cards.Count - 1 && !compressCards);
             }
-            else
-            {
-                card.anchoredPosition = new Vector3(0f, (Card.cardDepth / 2f) + (i * Card.cardDepth), 0f);
-            }
-            card.LookAt(null);
-            card.ToggleColliders(i == cards.Count - 1 && !compressCards);
         }
         base.AlignCards(instant);
     }
