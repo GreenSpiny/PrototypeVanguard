@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Rendering.Universal;
 
 public class DragManager : MonoBehaviour
 {
@@ -186,26 +187,12 @@ public class DragManager : MonoBehaviour
                 Debug.Log("DMstate -> open");
                 if (DraggedCard != null && HoveredNode == null)
                 {
-                    dragNode.PreviousNode.RecieveCard(DraggedCard, new string[0]);
+                    // DragNode is intentionally not synced across clients
+                    dragNode.PreviousNode.RecieveCard(DraggedCard, string.Empty);
                 }
                 else if (DraggedCard != null && HoveredNode != null)
                 {
-                    if (HoveredNode.Type == Node.NodeType.RC)
-                    {
-                        if (dragNode.PreviousNode.Type == Node.NodeType.RC)
-                        {
-                            HoveredNode.SwapAllCards(dragNode, new string[1] { "drag" });
-                        }
-                        else
-                        {
-                            HoveredNode.RetireCards();
-                            HoveredNode.RecieveCard(DraggedCard, new string[0]);
-                        }
-                    }
-                    else
-                    {
-                        HoveredNode.RecieveCard(DraggedCard, new string[0]);
-                    }
+                    GameManager.instance.RequestRecieveCardRpc(HoveredNode.nodeID, DraggedCard.cardID, string.Empty);
                 }
 
                 foreach (Node node in GameManager.instance.allNodes.Values)
@@ -222,6 +209,8 @@ public class DragManager : MonoBehaviour
                 Debug.Log("DMstate -> dragging");
                 DraggedCard = HoveredCard;
                 DraggedCard.UIState = Card.CardUIState.normal;
+
+                // DragNode is intentionally not synced across clients
                 dragNode.RecieveCard(DraggedCard, null);
 
                 foreach (Node node in GameManager.instance.allNodes.Values)

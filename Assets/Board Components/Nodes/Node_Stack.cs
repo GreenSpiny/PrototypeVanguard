@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 // Stack nodes contain a "stack" of cards, such as the Deck or Drop.
 public class Node_Stack : Node
 {
     [SerializeField] protected bool compressCards;
-    public override void RecieveCard(Card card, IEnumerable<string> parameters)
+    public override void RecieveCard(Card card, string parameters)
     {
         base.RecieveCard(card, parameters);
         bool toBottom = parameters.Contains("bottom");
@@ -18,17 +17,22 @@ public class Node_Stack : Node
         }
         else
         {
+            foreach (Card c in cards)
+            {
+                card.SetOrientation(c.flip, false);
+                Debug.Log("rest = false!!!!!");
+            }
             cards.Add(card);
         }
         if (facedown)
         {
-            card.flip = true;
+            card.SetOrientation(true, false);
         }
         else if (faceup)
         {
-            card.flip = false;
+            card.SetOrientation(false, false);
         }
-        SetDirty();
+        base.RecieveCard(card, parameters);
     }
 
     public override void AlignCards(bool instant)

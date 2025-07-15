@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 // Fan nodes contain a "fan" of cards, such as the Hand or Damage.
 public class Node_Fan : Node
 {
     public static Transform cameraTransform;
-
     protected enum FanDirection { vertical, horizontal }
     protected enum FanOrigin { center, edge }
 
@@ -19,11 +17,10 @@ public class Node_Fan : Node
     [SerializeField] protected float defaultSpacing;
     [SerializeField] protected bool lookAtCamera;
 
-    public override void RecieveCard(Card card, IEnumerable<string> parameters)
+    public override void RecieveCard(Card card, string parameters)
     {
         base.RecieveCard(card, parameters);
         cards.Add(card);
-        SetDirty();
     }
 
     public override void AlignCards(bool instant)

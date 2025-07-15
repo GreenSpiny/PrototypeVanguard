@@ -9,13 +9,12 @@ public class Node_VC : Node_Stack
     {
         if (clickedCard.flip)
         {
-            clickedCard.flip = false;
+            GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, !clickedCard.flip, clickedCard.rest);
         }
         else
         {
-            clickedCard.rest = !clickedCard.rest;
+            GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, clickedCard.flip, !clickedCard.rest);
         }
-        SetDirty();
     }
 
     public override void NodeAutoAction()

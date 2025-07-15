@@ -1,7 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using System;
-using System.Linq;
 
 // Nodes are locations on the board that cards are anchored to. They recieve and arrange cards by their own devices.
 // Examples include the hand, deck, all zones, and all unit circles.
@@ -11,7 +10,7 @@ public abstract class Node : MonoBehaviour
     public bool HasCard { get { return cards.Count > 0; } }     // True if the node contains at least one card
 
     [NonSerialized] protected List<Card> cards = new List<Card>();  // The cards attached to this node
-    [NonSerialized] public Node PreviousNode;                       // The previous Node of the most recently attached card
+    public Node PreviousNode { get; protected set; }                // The previous Node of the most recently attached card
     [NonSerialized] public Player player;                           // The player who owns this node
 
     public virtual NodeType Type { get { return NodeType.none; } }
@@ -19,6 +18,7 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public bool canSelectRaw;          // If true, this node can be selected when empty
     [SerializeField] public bool preserveRest;          // If true, preserve the REST state of cards moved to this node
     [SerializeField] public bool preserveFlip;          // If true, preserve the FLIP state of cards moved to this node
+    [SerializeField] public bool initialFlip;           // If true, cards are initially flipped on this node
 
     [SerializeField] public Transform cardAnchor;       // The default position and rotation of cards attached to this node
     [SerializeField] public Vector3 cardRotation;       // The default euler offset of cards attached to this node
@@ -63,25 +63,27 @@ public abstract class Node : MonoBehaviour
         }
     }
 
-    public virtual void RecieveCard(Card card, IEnumerable<string> parameters)
+    public virtual void RecieveCard(Card card, string parameters)
     {
-        if (true) // TODO: make recording logic for Drag, etc
-        {
-            card.player.RecordMoveAction(card, this, parameters);
-        }
         if (card.node != this)
         {
-            if (!preserveRest)
-            {
-                card.rest = false;
-            }
+            bool shouldFlip = card.flip;
+            bool shouldRest = card.rest;
+
             if (!preserveFlip)
             {
-                card.flip = false;
+                shouldFlip = false;
             }
+            if (!preserveRest)
+            {
+                shouldRest = false;
+            }
+            
             PreviousNode = card.node;
             PreviousNode.RemoveCard(card);
             card.node = this;
+            card.SetOrientation(shouldFlip, shouldRest);
+            SetDirty();
         }
     }
 
@@ -91,12 +93,12 @@ public abstract class Node : MonoBehaviour
         {
             for (int i = cards.Count - 1; i >= 0; i--)
             {
-                cards[i].player.drop.RecieveCard(cards[i], new string[0]);
+                cards[i].player.drop.RecieveCard(cards[i], string.Empty);
             }
         }
     }
 
-    public virtual void SwapAllCards(Node otherNode, IEnumerable<string> parameters)
+    public virtual void SwapAllCards(Node otherNode, string parameters)
     {
         // When swapping cards, intermediary nodes (i.e. Drag) must be accounted for
         bool drag = parameters.Contains("drag");

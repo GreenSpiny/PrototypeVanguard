@@ -7,8 +7,7 @@ public class Node_Damage : Node_Fan
 
     public override void CardAutoAction(Card clickedCard)
     {
-        clickedCard.flip = !clickedCard.flip;
-        SetDirty();
+        GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, !clickedCard.flip, clickedCard.rest);
     }
 
     public override void NodeAutoAction()

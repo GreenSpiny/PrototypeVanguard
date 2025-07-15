@@ -7,7 +7,7 @@ public class Node_Trigger : Node_Fan
 
     public override void CardAutoAction(Card clickedCard)
     {
-        clickedCard.player.hand.RecieveCard(clickedCard, new string[0]);
+        GameManager.instance.RequestRecieveCardRpc(clickedCard.player.hand.nodeID, clickedCard.cardID, string.Empty);
     }
 
     public override void NodeAutoAction()

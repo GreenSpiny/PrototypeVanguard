@@ -23,11 +23,21 @@ public class Card : MonoBehaviour
 
     [NonSerialized] public Node node;
     [NonSerialized] public bool isToken = false;
-    [SerializeField] public bool flip;
-    [SerializeField] public bool rest;
+
+    public bool flip { get; private set; }
+    public bool rest { get; private set; }
 
     private Material cardFrontMaterial;
     private Material cardBackMaterial;
+
+    public void SetOrientation(bool flip, bool rest)
+    {
+        this.flip = flip;
+        this.rest = rest;
+        node.SetDirty();
+    }
+
+    public int cardID { get; set; }     // Unique card identifier for networking purposes
 
     public enum CardUIState { normal, hovered, selected };
     private CardUIState state;
@@ -48,6 +58,7 @@ public class Card : MonoBehaviour
         transform.SetParent(player.transform, true);
         transform.localRotation = Quaternion.identity;
         transform.localScale = Vector3.one;
+        SetOrientation(node.initialFlip, false);
 
         cardFrontMaterial = meshRenderer.materials[0];
         cardBackMaterial = meshRenderer.materials[1];

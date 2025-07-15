@@ -45,11 +45,11 @@ public class ContextButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 DragManager.instance.powerContext.DisplayButtons(Input.mousePosition, null);
                 break;
             case CardInfo.ActionFlag.soul:
-                selectedCard.player.VC.RecieveCard(selectedCard, new string[1] { "bottom" });
+                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.VC.nodeID, selectedCard.cardID, "bottom");
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.botdeck:
-                selectedCard.player.deck.RecieveCard(selectedCard, new string[1] { "bottom" });
+                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.deck.nodeID, selectedCard.cardID, "bottom");
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.reveal:
