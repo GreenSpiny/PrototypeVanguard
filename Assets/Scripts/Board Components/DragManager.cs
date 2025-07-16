@@ -210,7 +210,7 @@ public class DragManager : MonoBehaviour
                 DraggedCard.UIState = Card.CardUIState.normal;
 
                 // DragNode is intentionally not synced across clients
-                dragNode.RecieveCard(DraggedCard, null);
+                dragNode.RecieveCard(DraggedCard, string.Empty);
 
                 foreach (Node node in GameManager.instance.allNodes.Values)
                 {

@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Node_RC : Node_Stack
 {
     public override NodeType Type => NodeType.RC;
-    [SerializeField] bool isBackRC;
+    [SerializeField] public bool isBackRC;
 
     public override void CardAutoAction(Card clickedCard)
     {
@@ -69,13 +70,11 @@ public class Node_RC : Node_Stack
                 RetireCards();
             }
             base.RecieveCard(card, parameters);
-            if (!noRetire && !cancel)
+            if (!cancel)
             {
-                card.ResetPower();
-                card.cardInfo.drive = 0;
-                if (isBackRC)
+                if (!noRetire)
                 {
-                    card.cardInfo.crit = 0;
+                    card.ResetPower();
                 }
             }
         }

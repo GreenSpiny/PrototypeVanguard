@@ -28,10 +28,12 @@ public class NodeUI : MonoBehaviour
 
     private float currentPulse = MathF.PI;
     const float pulseScale = 0.15f;
+
     private float FadeAnimationSpeed { get { return 5f * Time.deltaTime; } }
     private float PowerAnimationSpeed { get { return 2.5f * Time.deltaTime; } }
 
     private Node node;
+    private Card lastAttachedCard;
 
     private void Awake()
     {
@@ -46,14 +48,21 @@ public class NodeUI : MonoBehaviour
         transform.localScale = new Vector3(node.cardScale.x, node.cardScale.z, 1f);
     }
 
-    public void ResetPower()
-    {
-        currentPower = 0;
-        currentPulse = Mathf.PI;
-    }
-
     public void Refresh(float verticalOffset)
     {
+        bool newCardAssigned = false;
+        Card targetCard = null;
+        if (node.HasCard)
+        {
+            targetCard = node.cards[node.cards.Count - 1];
+            if (lastAttachedCard == null || targetCard != lastAttachedCard)
+            {
+                newCardAssigned = true;
+            }
+        }
+        lastAttachedCard = targetCard;
+
+
         // Set vertical offset
         rootTranform.localPosition = new Vector3(rootTranform.localPosition.x, rootTranform.localPosition.y, -verticalOffset);
 
@@ -65,16 +74,22 @@ public class NodeUI : MonoBehaviour
         {
             if (node.HasCard)
             {
-                Card targetCard = node.cards[node.cards.Count - 1];
                 CardInfo cardInfo = targetCard.cardInfo;
                 if (cardInfo != null && !targetCard.flip)
                 {
                     criticalText.text = String.Concat(Enumerable.Repeat('□', cardInfo.crit));
                     driveText.text = String.Concat(Enumerable.Repeat('↑', cardInfo.drive));
-                    targetPower = cardInfo.power;
-                    powerStep = Mathf.Abs(currentPower - targetPower);
-                    currentPulse = 0;
                     targetAlpha = 1;
+                    targetPower = cardInfo.power;
+                    if (!newCardAssigned)
+                    {
+                        powerStep = Mathf.Abs(currentPower - targetPower);
+                        currentPulse = 0;
+                    }
+                    else
+                    {
+                        currentPower = targetPower;
+                    }
                 }
                 else
                 {

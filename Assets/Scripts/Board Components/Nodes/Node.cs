@@ -76,16 +76,21 @@ public abstract class Node : MonoBehaviour
 
     public virtual void RecieveCard(Card card, string parameters)
     {
+        bool cancel = parameters.Contains("cancel");
+
         bool shouldFlip = card.flip;
         bool shouldRest = card.rest;
 
-        if (!preserveFlip)
+        if (!cancel)
         {
-            shouldFlip = false;
-        }
-        if (!preserveRest)
-        {
-            shouldRest = false;
+            if (!preserveFlip)
+            {
+                shouldFlip = false;
+            }
+            if (!preserveRest)
+            {
+                shouldRest = false;
+            }
         }
             
         PreviousNode = card.node;

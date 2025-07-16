@@ -156,19 +156,24 @@ public class Card : MonoBehaviour
 
     public void ResetPower()
     {
-        cardInfo.powerModifier = 0;
-        cardInfo.critModifier = 0;
-        cardInfo.driveModifier = 0;
-        node.NodeUI.ResetPower();
-        node.SetDirty();
+        if (cardInfo.powerModifier != 0 || cardInfo.critModifier != 0 || cardInfo.driveModifier != 0)
+        {
+            cardInfo.powerModifier = 0;
+            cardInfo.critModifier = 0;
+            cardInfo.driveModifier = 0;
+            node.SetDirty();
+        }
     }
 
     public void EditPower(int powerModifier, int critModifier, int driveModifier)
     {
-        cardInfo.powerModifier += powerModifier;
-        cardInfo.critModifier += critModifier;
-        cardInfo.driveModifier += driveModifier;
-        node.SetDirty();
+        if (powerModifier != 0 || critModifier != 0 || driveModifier != 0)
+        {
+            cardInfo.powerModifier += powerModifier;
+            cardInfo.critModifier += critModifier;
+            cardInfo.driveModifier += driveModifier;
+            node.SetDirty();
+        }
     }
     
 }

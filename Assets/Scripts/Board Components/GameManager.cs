@@ -108,7 +108,20 @@ public class GameManager : NetworkBehaviour
     {
         Card targetCard = allCards[cardID];
         targetCard.SetOrientation(flip, rest);
+    }
 
+    [Rpc(SendTo.Everyone)]
+    public void RequestEditPowerRpc(int cardID, int powerModifier, int critModifier, int driveModifier)
+    {
+        Card targetCard = allCards[cardID];
+        targetCard.EditPower(powerModifier, critModifier, driveModifier);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void RequestResetPowerRpc(int cardID)
+    {
+        Card targetCard = allCards[cardID];
+        targetCard.ResetPower();
     }
 
     // CARD STATE STRUCT

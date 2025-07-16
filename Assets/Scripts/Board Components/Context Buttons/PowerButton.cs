@@ -12,11 +12,11 @@ public class PowerButton : ContextButton
     {
         if (resetPower)
         {
-            DragManager.instance.SelectedCard.ResetPower();
+            GameManager.instance.RequestResetPowerRpc(DragManager.instance.SelectedCard.cardID);
         }
         else
         {
-            DragManager.instance.SelectedCard.EditPower(powerModifier, critModifier, driveModifier);
+            GameManager.instance.RequestEditPowerRpc(DragManager.instance.SelectedCard.cardID, powerModifier, critModifier, driveModifier);
         }
         DragManager.instance.ClearSelections();
     }
