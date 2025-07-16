@@ -594,6 +594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 558243370785926568}
   - component: {fileID: 7227420796897707429}
+  - component: {fileID: 3946681570543459662}
   m_Layer: 5
   m_Name: NodeUI
   m_TagString: Untagged
@@ -642,6 +643,18 @@ MonoBehaviour:
   driveText: {fileID: 9091616691304447757}
   countText: {fileID: 5605040809591288746}
   nameText: {fileID: 7553316031398490108}
+--- !u!225 &3946681570543459662
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7938711441854885783}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &9205406519529578101
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class Card : MonoBehaviour
         cardFrontMaterial = meshRenderer.materials[0];
         cardBackMaterial = meshRenderer.materials[1];
 
-        cardInfo = CardInfo.GenerateDefaultCardInfo(); // FOR TESTING PURPOSES
+        cardInfo = CardInfo.GenerateDefaultCardInfo(); // For testing purposes
     }
     private void Update()
     {

@@ -64,6 +64,10 @@ public abstract class Node : MonoBehaviour
     private void Update()
     {
         animInfo.Animate();
+        if (NodeUI != null)
+        {
+            NodeUI.Animate();
+        }
         if (isDirty)
         {
             AlignCards(false);

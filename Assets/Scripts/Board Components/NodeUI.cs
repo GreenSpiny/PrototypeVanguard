@@ -30,6 +30,8 @@ public class NodeUI : MonoBehaviour
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0;
+        targetAlpha = 0;
     }
     public void Init(Node node)
     {
@@ -54,10 +56,11 @@ public class NodeUI : MonoBehaviour
                     criticalText.text = Convert.ToString(cardInfo.crit);
                     driveText.text = Convert.ToString(cardInfo.drive);
                 }
+                targetAlpha = 1;
             }
             else
             {
-                // hide text
+                targetAlpha = 0;
             }
         }
 
@@ -71,6 +74,16 @@ public class NodeUI : MonoBehaviour
         // Set name
         nameText.gameObject.SetActive(displayName && !node.HasCard);
     }
-
+    public void Animate()
+    {
+        if (targetAlpha == 0 && canvasGroup.alpha > 0)
+        {
+            canvasGroup.alpha = Math.Clamp(canvasGroup.alpha - FadeAnimationSpeed, 0f, 1f);
+        }
+        else if (targetAlpha == 1 && canvasGroup.alpha < 1)
+        {
+            canvasGroup.alpha = Math.Clamp(canvasGroup.alpha + FadeAnimationSpeed, 0f, 1f);
+        }
+    }
 
 }
