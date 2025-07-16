@@ -137,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCollider: {fileID: 7445260759099763425}
   nudgeCollider: {fileID: 1103724869585877748}
-  meshRenderer: {fileID: 0}
+  meshRenderer: {fileID: 7200458520356611720}
 --- !u!65 &7445260759099763425
 BoxCollider:
   m_ObjectHideFlags: 0

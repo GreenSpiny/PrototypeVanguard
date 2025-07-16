@@ -4,7 +4,7 @@ using UnityEngine;
 public class CardInfo
 {
     // Standard card elements --- o
-    public enum UnitType { normalUnit, triggerUnit, gUnit, normalOrder, blitzOrder, setOrder };
+    public enum UnitType { normalUnit, triggerUnit, gUnit, normalOrder, blitzOrder, setOrder, crest };
     public enum TriggerType { none, critical, heal, draw, front, over };
 
     public readonly UnitType unitType;          // unit type
