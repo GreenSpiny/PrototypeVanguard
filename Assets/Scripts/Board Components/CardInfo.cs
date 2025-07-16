@@ -20,8 +20,8 @@ public class CardInfo
     public readonly string name;
     public readonly string text;
 
-    public readonly string nameLocalizationKey;
-    public readonly string textLocalizationKey;
+    //public readonly string nameLocalizationKey;
+    //public readonly string textLocalizationKey;
 
     public int powerModifier;
     public int shieldModifier;
@@ -59,6 +59,26 @@ public class CardInfo
         overdress,      // the owner can access OV DRESS
         prison,         // the owner gains a Prison Zone and the opponent can access PRISON
         soulRC          // the owner's RC have SOUL access (i.e. Noblesse Gauge)
+    }
+
+    public CardInfo(UnitType unitType, TriggerType triggerType, int grade, bool persona, int basePower, int baseShield, int baseDrive, int baseCrit, int maxCount, string name, string text)
+    {
+        this.unitType = unitType;
+        this.triggerType = triggerType;
+        this.grade = grade;
+        this.persona = persona;
+        this.basePower = basePower;
+        this.baseShield = baseShield;
+        this.baseDrive = baseDrive;
+        this.baseCrit = baseCrit;
+        this.maxCount = maxCount;
+        this.name = name;
+        this.text = text;
+    }
+
+    public static CardInfo GenerateDefaultCardInfo()
+    {
+        return new CardInfo(UnitType.normalUnit, TriggerType.none, 1, false, 8000, 5000, 1, 1, 4, "Default Card", "This is a default card effect.");
     }
 
 }

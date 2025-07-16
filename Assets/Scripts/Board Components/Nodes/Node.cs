@@ -25,6 +25,9 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public Vector3 cardScale;          // The default scale offset of cards attached to this node
     [SerializeField] public Vector3 nudgeDistance;      // If and how far cards on this node "nudge" when hovered, as feedback
 
+    [SerializeField] private NodeUI NodeUI;
+    protected float verticalOffset;
+
     public int nodeID { get; private set; }     // Unique node identifier for networking purposes
 
     // Dirty nodes are realigned on the next update cycle.
@@ -50,6 +53,10 @@ public abstract class Node : MonoBehaviour
         {
             cards.Add(child);
             child.Init(this);
+        }
+        if (NodeUI != null) // TODO: remove check
+        {
+            NodeUI.Init(this);
         }
         AlignCards(true);
     }
@@ -122,6 +129,11 @@ public abstract class Node : MonoBehaviour
             {
                 card.anchoredPositionOffset = Vector3.zero;
             }
+        }
+        if (NodeUI != null)
+        {
+
+            NodeUI.Refresh(verticalOffset);
         }
     }
 

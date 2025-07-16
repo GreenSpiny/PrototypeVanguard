@@ -52,6 +52,10 @@ public class Node_Stack : Node
                 card.SetOrientation(card.flip, topCard.rest);
                 card.LookAt(null);
                 card.ToggleColliders(i == cards.Count - 1 && !compressCards);
+                if (i == cards.Count - 1)
+                {
+                    verticalOffset = (i + 1) * Card.cardDepth;
+                }
             }
         }
         base.AlignCards(instant);
