@@ -54,7 +54,7 @@ public class Node_Stack : Node
                 card.ToggleColliders(i == cards.Count - 1 && !compressCards);
                 if (i == cards.Count - 1)
                 {
-                    verticalOffset = (i + 1) * Card.cardDepth;
+                    verticalOffsetUI = (i + 1) * Card.cardDepth;
                 }
             }
         }

@@ -36,7 +36,7 @@ public class ContextRoot : MonoBehaviour
             }
             else
             {
-                bool active = flags.Contains(button.actionFlag);
+                bool active = button.ShowByActionFlag(flags);
                 button.gameObject.SetActive(active);
                 if (active)
                 {

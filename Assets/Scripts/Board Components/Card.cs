@@ -153,5 +153,21 @@ public class Card : MonoBehaviour
         anchoredPositionOffset = Vector3.zero;
         nudgeCollider.enabled = false;
     }
+
+    public void ResetPower()
+    {
+        cardInfo.powerModifier = 0;
+        cardInfo.critModifier = 0;
+        cardInfo.driveModifier = 0;
+        node.SetDirty();
+    }
+
+    public void EditPower(int powerModifier, int critModifier, int driveModifier)
+    {
+        cardInfo.powerModifier += powerModifier;
+        cardInfo.critModifier += critModifier;
+        cardInfo.driveModifier += driveModifier;
+        node.SetDirty();
+    }
     
 }

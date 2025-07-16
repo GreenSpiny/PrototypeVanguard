@@ -26,7 +26,7 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public Vector3 nudgeDistance;      // If and how far cards on this node "nudge" when hovered, as feedback
 
     [SerializeField] private NodeUI NodeUI;
-    protected float verticalOffset;
+    protected float verticalOffsetUI;
 
     public int nodeID { get; private set; }     // Unique node identifier for networking purposes
 
@@ -136,8 +136,7 @@ public abstract class Node : MonoBehaviour
         }
         if (NodeUI != null)
         {
-
-            NodeUI.Refresh(verticalOffset);
+            NodeUI.Refresh(verticalOffsetUI);
         }
     }
 

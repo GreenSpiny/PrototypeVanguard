@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -19,11 +20,11 @@ public class NodeUI : MonoBehaviour
     private CanvasGroup canvasGroup;
     private int targetAlpha;
 
-    private int currentPower;
+    private float currentPower;
     private int targetPower;
-
-    private float PowerAnimationSpeed { get { return 100f * Time.deltaTime; } }
+    private float powerStep;
     private float FadeAnimationSpeed { get { return 10f * Time.deltaTime; } }
+    private float PowerAnimationSpeed { get { return 2f * Time.deltaTime; } }
     private float PulseTime { get { return 0.5f; } }
 
     private Node node;
@@ -33,6 +34,7 @@ public class NodeUI : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
         targetAlpha = 0;
+        currentPower = 0;
     }
     public void Init(Node node)
     {
@@ -49,19 +51,26 @@ public class NodeUI : MonoBehaviour
         powerText.gameObject.SetActive(displayPower);
         criticalText.gameObject.SetActive(displayPower);
         driveText.gameObject.SetActive(displayPower);
+
         if (displayPower)
         {
             if (node.HasCard)
             {
-                CardInfo cardInfo = node.cards[0].cardInfo;
-                if (cardInfo != null)
+                Card targetCard = node.cards[node.cards.Count - 1];
+                CardInfo cardInfo = targetCard.cardInfo;
+                if (cardInfo != null && !targetCard.flip)
                 {
-                    powerText.text = Convert.ToString(cardInfo.power);
                     criticalText.text = String.Concat(Enumerable.Repeat('□', cardInfo.crit));
                     driveText.text = String.Concat(Enumerable.Repeat('↑', cardInfo.drive));
+                    targetPower = cardInfo.power;
+                    powerStep = Mathf.Abs(currentPower - targetPower);
+                    targetAlpha = 1;
                 }
-                targetAlpha = 1;
-                targetPower = cardInfo.power;
+                else
+                {
+                    targetAlpha = 0;
+                    currentPower = 0;
+                }
             }
             else
             {
@@ -82,6 +91,7 @@ public class NodeUI : MonoBehaviour
             else
             {
                 targetAlpha = 0;
+                countText.text = "0";
             }
         }
 
@@ -90,13 +100,27 @@ public class NodeUI : MonoBehaviour
     }
     public void Animate()
     {
+        // Animate power changes
+        if (currentPower < targetPower)
+        {
+            currentPower += powerStep * PowerAnimationSpeed;
+            if (currentPower > targetPower) { currentPower = targetPower; }
+        }
+        else if (currentPower > targetPower)
+        {
+            currentPower -= powerStep * PowerAnimationSpeed;
+            if (currentPower < targetPower) { currentPower = targetPower; }
+        }
+        powerText.text = Convert.ToString((int) currentPower);
+
+        // Animate appearance / disappearance
         if (targetAlpha == 0 && canvasGroup.alpha > 0)
         {
-            canvasGroup.alpha = Math.Clamp(canvasGroup.alpha - FadeAnimationSpeed, 0f, 1f);
+            canvasGroup.alpha = Mathf.Clamp(canvasGroup.alpha - FadeAnimationSpeed, 0f, 1f);
         }
         else if (targetAlpha == 1 && canvasGroup.alpha < 1)
         {
-            canvasGroup.alpha = Math.Clamp(canvasGroup.alpha + FadeAnimationSpeed, 0f, 1f);
+            canvasGroup.alpha = Mathf.Clamp(canvasGroup.alpha + FadeAnimationSpeed, 0f, 1f);
         }
     }
 
