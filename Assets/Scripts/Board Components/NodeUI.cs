@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -36,6 +37,7 @@ public class NodeUI : MonoBehaviour
     public void Init(Node node)
     {
         this.node = node;
+        transform.localScale = new Vector3(node.cardScale.x, node.cardScale.z, 1f);
     }
 
     public void Refresh(float verticalOffset)
@@ -45,6 +47,8 @@ public class NodeUI : MonoBehaviour
 
         // Set power
         powerText.gameObject.SetActive(displayPower);
+        criticalText.gameObject.SetActive(displayPower);
+        driveText.gameObject.SetActive(displayPower);
         if (displayPower)
         {
             if (node.HasCard)
@@ -53,14 +57,16 @@ public class NodeUI : MonoBehaviour
                 if (cardInfo != null)
                 {
                     powerText.text = Convert.ToString(cardInfo.power);
-                    criticalText.text = Convert.ToString(cardInfo.crit);
-                    driveText.text = Convert.ToString(cardInfo.drive);
+                    criticalText.text = String.Concat(Enumerable.Repeat('□', cardInfo.crit));
+                    driveText.text = String.Concat(Enumerable.Repeat('↑', cardInfo.drive));
                 }
                 targetAlpha = 1;
+                targetPower = cardInfo.power;
             }
             else
             {
                 targetAlpha = 0;
+                currentPower = 0;
             }
         }
 
@@ -68,7 +74,15 @@ public class NodeUI : MonoBehaviour
         countText.gameObject.SetActive(displayCount);
         if (displayCount)
         {
-            countText.text = Convert.ToString(node.cards.Count);
+            if (node.HasCard)
+            {
+                targetAlpha = 1;
+                countText.text = Convert.ToString(node.cards.Count);
+            }
+            else
+            {
+                targetAlpha = 0;
+            }
         }
 
         // Set name

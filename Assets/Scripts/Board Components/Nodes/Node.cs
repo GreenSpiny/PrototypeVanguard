@@ -54,7 +54,7 @@ public abstract class Node : MonoBehaviour
             cards.Add(child);
             child.Init(this);
         }
-        if (NodeUI != null) // TODO: remove check
+        if (NodeUI != null)
         {
             NodeUI.Init(this);
         }

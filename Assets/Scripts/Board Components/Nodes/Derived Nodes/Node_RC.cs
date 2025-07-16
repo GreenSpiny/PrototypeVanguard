@@ -68,6 +68,13 @@ public class Node_RC : Node_Stack
             }
             base.RecieveCard(card, parameters);
         }
+
+        // Rearguards have no drive checks by default
+        if (HasCard)
+        {
+            cards[cards.Count - 1].cardInfo.drive = 0;
+        }
+
     }
 
     public override void NodeAutoAction()
