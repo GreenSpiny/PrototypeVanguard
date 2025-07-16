@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class NodeUI : MonoBehaviour
@@ -23,9 +25,11 @@ public class NodeUI : MonoBehaviour
     private float currentPower;
     private int targetPower;
     private float powerStep;
-    private float FadeAnimationSpeed { get { return 10f * Time.deltaTime; } }
-    private float PowerAnimationSpeed { get { return 2f * Time.deltaTime; } }
-    private float PulseTime { get { return 0.5f; } }
+
+    private float currentPulse = MathF.PI;
+    const float pulseScale = 0.15f;
+    private float FadeAnimationSpeed { get { return 5f * Time.deltaTime; } }
+    private float PowerAnimationSpeed { get { return 2.5f * Time.deltaTime; } }
 
     private Node node;
 
@@ -42,6 +46,12 @@ public class NodeUI : MonoBehaviour
         transform.localScale = new Vector3(node.cardScale.x, node.cardScale.z, 1f);
     }
 
+    public void ResetPower()
+    {
+        currentPower = 0;
+        currentPulse = Mathf.PI;
+    }
+
     public void Refresh(float verticalOffset)
     {
         // Set vertical offset
@@ -51,7 +61,6 @@ public class NodeUI : MonoBehaviour
         powerText.gameObject.SetActive(displayPower);
         criticalText.gameObject.SetActive(displayPower);
         driveText.gameObject.SetActive(displayPower);
-
         if (displayPower)
         {
             if (node.HasCard)
@@ -64,18 +73,17 @@ public class NodeUI : MonoBehaviour
                     driveText.text = String.Concat(Enumerable.Repeat('↑', cardInfo.drive));
                     targetPower = cardInfo.power;
                     powerStep = Mathf.Abs(currentPower - targetPower);
+                    currentPulse = 0;
                     targetAlpha = 1;
                 }
                 else
                 {
                     targetAlpha = 0;
-                    currentPower = 0;
                 }
             }
             else
             {
                 targetAlpha = 0;
-                currentPower = 0;
             }
         }
 
@@ -112,6 +120,11 @@ public class NodeUI : MonoBehaviour
             if (currentPower < targetPower) { currentPower = targetPower; }
         }
         powerText.text = Convert.ToString((int) currentPower);
+
+        // Animate pulse
+        currentPulse = Mathf.Clamp(currentPulse + Mathf.PI * PowerAnimationSpeed, 0f, Mathf.PI);
+        float sineValue = Mathf.Sin(currentPulse) * pulseScale;
+        rootTranform.localScale = new Vector3(1 + sineValue, 1 + sineValue, 1f);
 
         // Animate appearance / disappearance
         if (targetAlpha == 0 && canvasGroup.alpha > 0)

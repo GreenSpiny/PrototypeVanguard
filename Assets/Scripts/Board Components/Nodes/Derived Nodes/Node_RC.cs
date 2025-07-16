@@ -20,6 +20,7 @@ public class Node_RC : Node_Stack
 
     public override void RecieveCard(Card card, string parameters)
     {
+        bool cancel = parameters.Contains("cancel");
         bool drag = parameters.Contains("drag");
         bool toSoulRC = parameters.Contains("bottom");
         bool isFromRC = card.node.Type == NodeType.RC || (card.node.Type == NodeType.drag && card.node.PreviousNode.Type == NodeType.RC);
@@ -29,7 +30,7 @@ public class Node_RC : Node_Stack
         {
             base.RecieveCard(card, parameters);
         }
-        if (isFromRC && drag)
+        else if (isFromRC && drag)
         {
             // Account for local Drag Node
             Node targetNode = card.node;
@@ -68,6 +69,15 @@ public class Node_RC : Node_Stack
                 RetireCards();
             }
             base.RecieveCard(card, parameters);
+            if (!noRetire && !cancel)
+            {
+                card.ResetPower();
+                card.cardInfo.drive = 0;
+                if (isBackRC)
+                {
+                    card.cardInfo.crit = 0;
+                }
+            }
         }
     }
 

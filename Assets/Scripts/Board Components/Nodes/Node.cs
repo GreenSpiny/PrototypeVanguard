@@ -25,7 +25,7 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public Vector3 cardScale;          // The default scale offset of cards attached to this node
     [SerializeField] public Vector3 nudgeDistance;      // If and how far cards on this node "nudge" when hovered, as feedback
 
-    [SerializeField] private NodeUI NodeUI;
+    [SerializeField] public NodeUI NodeUI;
     protected float verticalOffsetUI;
 
     public int nodeID { get; private set; }     // Unique node identifier for networking purposes

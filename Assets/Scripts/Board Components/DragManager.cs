@@ -187,7 +187,7 @@ public class DragManager : MonoBehaviour
                 if (DraggedCard != null && HoveredNode == null)
                 {
                     // DragNode is intentionally not synced across clients
-                    dragNode.PreviousNode.RecieveCard(DraggedCard, string.Empty);
+                    dragNode.PreviousNode.RecieveCard(DraggedCard, "cancel");
                 }
                 else if (DraggedCard != null && HoveredNode != null)
                 {

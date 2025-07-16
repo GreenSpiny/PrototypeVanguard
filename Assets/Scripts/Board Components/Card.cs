@@ -159,6 +159,7 @@ public class Card : MonoBehaviour
         cardInfo.powerModifier = 0;
         cardInfo.critModifier = 0;
         cardInfo.driveModifier = 0;
+        node.NodeUI.ResetPower();
         node.SetDirty();
     }
 
