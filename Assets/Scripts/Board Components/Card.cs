@@ -104,7 +104,7 @@ public class Card : MonoBehaviour
         {
             targetEuler.z += 180f;
         }
-        if (node.Type == Node.NodeType.hand && player != DragManager.instance.controllingPlayer)
+        if (node.privateKnowledge && player != DragManager.instance.controllingPlayer)
         {
             targetEuler.z += 180f;
         }
