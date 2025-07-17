@@ -10174,7 +10174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519e404a33bec4a4c87af46bb8b3d7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionFlag: 2
+  actionFlag: 17
 --- !u!222 &837036093
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26458,7 +26458,7 @@ MonoBehaviour:
   canDragTo: 0
   canSelectRaw: 0
   preserveRest: 0
-  preserveFlip: 0
+  preserveFlip: 1
   initialFlip: 0
   privateKnowledge: 1
   cardAnchor: {fileID: 0}
@@ -28004,7 +28004,7 @@ MonoBehaviour:
   canDragTo: 0
   canSelectRaw: 0
   preserveRest: 0
-  preserveFlip: 0
+  preserveFlip: 1
   initialFlip: 0
   privateKnowledge: 1
   cardAnchor: {fileID: 0}

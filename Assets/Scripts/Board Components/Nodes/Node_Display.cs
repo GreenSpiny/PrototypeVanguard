@@ -97,7 +97,12 @@ public class Node_Display : Node
     {
         for (int i = cards.Count - 1; i >= 0; i--)
         {
-            lastAcceptedNode.RecieveCard(cards[i], string.Empty);
+            string paramaters = string.Empty;
+            if (cards[i].flip)
+            {
+                paramaters += "facedown";
+            }
+            lastAcceptedNode.RecieveCard(cards[i], paramaters);
         }
     }
 }

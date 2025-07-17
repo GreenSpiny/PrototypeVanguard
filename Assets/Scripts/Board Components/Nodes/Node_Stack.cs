@@ -16,12 +16,11 @@ public class Node_Stack : Node
         }
         else
         {
-            foreach (Card c in cards)
-            {
-                card.SetOrientation(c.flip, false);
-            }
             cards.Add(card);
         }
+        
+        base.RecieveCard(card, parameters);
+        
         if (facedown)
         {
             card.SetOrientation(true, false);
@@ -30,7 +29,6 @@ public class Node_Stack : Node
         {
             card.SetOrientation(false, false);
         }
-        base.RecieveCard(card, parameters);
     }
 
     public override void AlignCards(bool instant)
