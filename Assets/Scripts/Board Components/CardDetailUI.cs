@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,9 @@ public class CardDetailUI : MonoBehaviour
     // UI components
     [SerializeField] private RectTransform imageContainer;
     [SerializeField] private Image cardImage;
+    [SerializeField] private TextMeshProUGUI cardNameText;
+    [SerializeField] private TextMeshProUGUI cardInfoText;
+    [SerializeField] private TextMeshProUGUI cardDescriptionText;
 
     private float parentHeight;
     private void Awake()
@@ -31,8 +35,38 @@ public class CardDetailUI : MonoBehaviour
             float calculatedPosition = squarePictureHeight * 0.5f - parentHeight * 0.5f;
             cardImage.rectTransform.anchoredPosition = new Vector2(cardImage.rectTransform.anchoredPosition.x, calculatedPosition);
 
+            // Set the card info and text
+            cardNameText.text = card.cardInfo.name;
 
-            
+            string cardInfoString = string.Empty;
+            cardInfoString += "G" + card.cardInfo.grade.ToString() + " / ";
+            cardInfoString += card.cardInfo.power.ToString() + " / ";
+            cardInfoString += card.cardInfo.shield.ToString() + " / ";
+            cardInfoString += card.cardInfo.crit.ToString() + "C";
+            if (card.cardInfo.drive == 2)
+            {
+                cardInfoString += " / Twin Drive";
+            }
+            else if (card.cardInfo.drive == 3)
+            {
+                cardInfoString += " / Triple Drive";
+            }
+            cardInfoString += "\n" + card.cardInfo.unitType.ToString();
+            if (card.cardInfo.persona)
+            {
+                cardInfoString += " / Persona Ride";
+            }
+            cardInfoString += "\n" + card.cardInfo.nation + " / ";
+            cardInfoString += card.cardInfo.race;
+            if (!string.IsNullOrEmpty(card.cardInfo.group))
+            {
+                cardInfoString += " / " + card.cardInfo.group;
+            }
+            print(cardInfoString);
+            cardInfoText.text = cardInfoString;
+
+            cardDescriptionText.text = card.cardInfo.text;
+
         }
     }
 

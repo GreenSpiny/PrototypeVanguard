@@ -70,6 +70,9 @@ public class CardInfo
         this.unitType = unitType;
         this.triggerType = triggerType;
         this.grade = grade;
+        this.nation = nation;
+        this.race = race;
+        this.group = group;
         this.persona = persona;
         this.basePower = basePower;
         this.baseShield = baseShield;
@@ -88,14 +91,14 @@ public class CardInfo
             1,
             "Stoicheia",
             "Dryad",
-            "none",
+            "",
             false,
             8000,
             5000,
             1,
             1,
             4,
-            "Burrow Mushrooms [default]",
+            "Burrow Mushrooms",
             "[ACT](RC):[COST][Put this unit into soul], call up to two Plant tokens to (RC), if you have a grade 3 or greater vanguard with \"Granfia\" in its card name, choose one of your rear-guards, and it gets [Power] +5000 until end of turn. (Plant tokens are grade 0/[Power] 5000/[Critical] 1 and have boost)");
     }
 
