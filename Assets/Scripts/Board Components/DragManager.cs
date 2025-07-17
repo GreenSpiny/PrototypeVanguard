@@ -26,6 +26,7 @@ public class DragManager : MonoBehaviour
     [SerializeField] public ContextRoot standardContext;
     [SerializeField] public ContextRoot powerContext;
     [SerializeField] public ContextRoot viewContext;
+    [SerializeField] public CardDetailUI cardDetailUI;
 
     // Layer Masks
     private static LayerMask cardMask;
@@ -259,6 +260,7 @@ public class DragManager : MonoBehaviour
                 card.UIState = Card.CardUIState.hovered;
             }
             HoveredCard = card;
+            cardDetailUI.InspectCard(card);
         }
     }
 

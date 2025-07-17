@@ -70,6 +70,11 @@ public class Card : MonoBehaviour
         cardInfo = CardInfo.GenerateDefaultCardInfo(); // For testing purposes
     }
 
+    public Texture GetTexture()
+    {
+        return cardFrontMaterial.mainTexture;
+    }
+
     public void SetRevealed(bool reveal, float revealDuration)
     {
         if (reveal)

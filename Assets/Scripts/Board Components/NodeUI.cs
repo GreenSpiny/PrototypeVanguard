@@ -51,19 +51,17 @@ public class NodeUI : MonoBehaviour
 
     public void Refresh(float verticalOffset)
     {
-        bool newCardAssigned = false;
+        // Disable pulse if a new card was assigned
         Card targetCard = null;
         if (node.HasCard)
         {
             targetCard = node.cards[node.cards.Count - 1];
             if (lastAttachedCard == null || targetCard != lastAttachedCard)
             {
-                newCardAssigned = true;
                 needsPulse = false;
             }
         }
         lastAttachedCard = targetCard;
-
 
         // Set rotation
         if (DragManager.instance.controllingPlayer != null)

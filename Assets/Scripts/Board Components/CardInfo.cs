@@ -10,6 +10,9 @@ public class CardInfo
     public readonly UnitType unitType;          // unit type
     public readonly TriggerType triggerType;    // trigger type; 'none' if not a trigger
     public readonly int grade;                  // grade of the unit
+    public readonly string nation;              // nation, i.e. Keter Sanctuary
+    public readonly string race;                // race, i.e. Human
+    public readonly string group;               // group, i.e. Shadow Paladin
     public readonly bool persona;               // if the unit has Persona Ride
     public readonly int basePower;              // base power of the unit
     public readonly int baseShield;             // base shield of the unit
@@ -62,7 +65,7 @@ public class CardInfo
         soulRC          // the owner's RC have SOUL access (i.e. Noblesse Gauge)
     }
 
-    public CardInfo(UnitType unitType, TriggerType triggerType, int grade, bool persona, int basePower, int baseShield, int baseDrive, int baseCrit, int maxCount, string name, string text)
+    public CardInfo(UnitType unitType, TriggerType triggerType, int grade, string nation, string race, string group, bool persona, int basePower, int baseShield, int baseDrive, int baseCrit, int maxCount, string name, string text)
     {
         this.unitType = unitType;
         this.triggerType = triggerType;
@@ -79,7 +82,21 @@ public class CardInfo
 
     public static CardInfo GenerateDefaultCardInfo()
     {
-        return new CardInfo(UnitType.normalUnit, TriggerType.none, 1, false, 8000, 5000, 1, 1, 4, "Default Card", "This is a default card effect.");
+        return new CardInfo
+            (UnitType.normalUnit,
+            TriggerType.none,
+            1,
+            "Stoicheia",
+            "Dryad",
+            "none",
+            false,
+            8000,
+            5000,
+            1,
+            1,
+            4,
+            "Burrow Mushrooms [default]",
+            "[ACT](RC):[COST][Put this unit into soul], call up to two Plant tokens to (RC), if you have a grade 3 or greater vanguard with \"Granfia\" in its card name, choose one of your rear-guards, and it gets [Power] +5000 until end of turn. (Plant tokens are grade 0/[Power] 5000/[Critical] 1 and have boost)");
     }
 
 }
