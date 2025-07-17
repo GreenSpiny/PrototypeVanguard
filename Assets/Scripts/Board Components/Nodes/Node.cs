@@ -99,6 +99,7 @@ public abstract class Node : MonoBehaviour
         PreviousNode.RemoveCard(card);
         card.node = this;
         card.SetOrientation(shouldFlip, shouldRest);
+        card.SetRevealed(false, 0f);
         SetDirty();
     }
 

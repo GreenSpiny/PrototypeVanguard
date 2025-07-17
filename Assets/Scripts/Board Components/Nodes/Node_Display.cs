@@ -54,15 +54,25 @@ public class Node_Display : Node
 
     public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
     {
-        throw new System.NotImplementedException();
+        return new CardInfo.ActionFlag[]
+        {
+            CardInfo.ActionFlag.reveal,
+            CardInfo.ActionFlag.soul,
+            CardInfo.ActionFlag.botdeck
+        };
     }
 
     public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
     {
-        throw new System.NotImplementedException();
+        return new CardInfo.ActionFlag[]
+        {
+            CardInfo.ActionFlag.armLeft,
+            CardInfo.ActionFlag.armRight,
+            CardInfo.ActionFlag.soulRC
+        };
     }
 
-    public void OpenDisplay(Node node, int cardCount)
+    public void OpenDisplay(Node node, int cardCount, bool revealCards)
     {
         CloseDisplay();
         lastAcceptedNode = node;
@@ -71,6 +81,10 @@ public class Node_Display : Node
         for (int i = initialCount - 1; i >= initialCount - cardCount;)
         {
             RecieveCard(c, string.Empty);
+            if (revealCards)
+            {
+                c.SetRevealed(true, float.MaxValue);
+            }
             i--;
             if (i >= 0)
             {

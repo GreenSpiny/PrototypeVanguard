@@ -131,10 +131,8 @@ public class DragManager : MonoBehaviour
             clickLocation = mousePosition;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || (Input.GetMouseButtonDown(1) && (HoveredCard == null || HoveredCard.node.Type != Node.NodeType.display)))
         {
-            ClearSelections();
-
             // DisplayNode is selectively synced across clients
             if (controllingPlayer.display.LastNodeWasDeck)
             {
@@ -145,8 +143,7 @@ public class DragManager : MonoBehaviour
                 CloseDisplay(controllingPlayer.playerIndex);
             }
         }
-
-        if ((Input.GetMouseButtonDown(0) && HoveredButton == null) || Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1) || (Input.GetMouseButtonDown(0) && HoveredButton == null))
         {
             ClearSelections();
         }
@@ -318,9 +315,9 @@ public class DragManager : MonoBehaviour
         GameManager.instance.players[playerID].display.CloseDisplay();
     }
 
-    public void OpenDisplay(int playerID, Node node, int cardAmount)
+    public void OpenDisplay(int playerID, Node node, int cardAmount, bool revealCards)
     {
-        GameManager.instance.players[playerID].display.OpenDisplay(node, cardAmount);
+        GameManager.instance.players[playerID].display.OpenDisplay(node, cardAmount, revealCards);
     }
 
 }

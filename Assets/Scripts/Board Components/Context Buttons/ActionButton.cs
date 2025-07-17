@@ -30,25 +30,27 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.reveal:
+                GameManager.instance.RequestRevealCardRpc(selectedCard.cardID, 1f);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.view:
                 Node targetNode = selectedCard.node;
                 if (targetNode.Type == Node.NodeType.deck)
                 {
-                    GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, targetNode.nodeID, targetNode.cards.Count);
+                    GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, targetNode.nodeID, targetNode.cards.Count, false);
                 }
                 else
                 {
-                    DragManager.instance.OpenDisplay(activePlayer.playerIndex, targetNode, targetNode.cards.Count);
+                    // Viewing non-deck nodes is client side
+                    DragManager.instance.OpenDisplay(activePlayer.playerIndex, targetNode, targetNode.cards.Count, false);
                 }
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.viewx:
-                DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, null);                
+                DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, new CardInfo.ActionFlag[] { CardInfo.ActionFlag.view });                
                 break;
             case CardInfo.ActionFlag.revealx:
-                DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, null);
+                DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, new CardInfo.ActionFlag[] { CardInfo.ActionFlag.reveal });
                 break;
             case CardInfo.ActionFlag.armLeft:
                 DragManager.instance.ClearSelections();

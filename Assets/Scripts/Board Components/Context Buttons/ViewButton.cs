@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ViewButton : ContextButton
 {
     [SerializeField] int amount;
+    [SerializeField] CardInfo.ActionFlag actionFlag;
     protected override void ButtonAction()
     {
         Player activePlayer = DragManager.instance.controllingPlayer;
@@ -16,11 +18,11 @@ public class ViewButton : ContextButton
 
         if (selectedNode.Type == Node.NodeType.deck)
         {
-            GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedNode.nodeID, amount);
+            GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedNode.nodeID, amount, actionFlag == CardInfo.ActionFlag.reveal);
         }
         else
         {
-            DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedNode, amount);
+            DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedNode, amount, actionFlag == CardInfo.ActionFlag.reveal);
         }
 
         DragManager.instance.ClearSelections();
@@ -28,6 +30,6 @@ public class ViewButton : ContextButton
 
     public override bool ShowByActionFlag(IEnumerable<CardInfo.ActionFlag> flags)
     {
-        return true;
+        return flags.Contains(actionFlag);
     }
 }

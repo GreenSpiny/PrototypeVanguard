@@ -125,16 +125,23 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestDisplayCardsRpc(int playerID, int nodeID, int cardCount)
+    public void RequestDisplayCardsRpc(int playerID, int nodeID, int cardCount, bool revealCards)
     {
         Node targetNode = allNodes[nodeID];
-        DragManager.instance.OpenDisplay(playerID, targetNode, cardCount);
+        DragManager.instance.OpenDisplay(playerID, targetNode, cardCount, revealCards);
     }
 
     [Rpc(SendTo.Everyone)]
     public void RequestCloseDisplayRpc(int playerID)
     {
         DragManager.instance.CloseDisplay(playerID);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void RequestRevealCardRpc(int cardID, float revealDuration)
+    {
+        Card targetCard = allCards[cardID];
+        targetCard.SetRevealed(true, revealDuration);
     }
 
     // CARD STATE STRUCT

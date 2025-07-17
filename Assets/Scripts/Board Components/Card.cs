@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 // CARD represents a physical card in the game.
@@ -25,6 +26,10 @@ public class Card : MonoBehaviour
 
     public bool flip { get; private set; }
     public bool rest { get; private set; }
+
+    private bool revealed = false;
+    private float revealTime = 0f;
+    private Coroutine revealCoroutine;
 
     private Material cardFrontMaterial;
     private Material cardBackMaterial;
@@ -64,6 +69,38 @@ public class Card : MonoBehaviour
 
         cardInfo = CardInfo.GenerateDefaultCardInfo(); // For testing purposes
     }
+
+    public void SetRevealed(bool reveal, float revealDuration)
+    {
+        if (reveal)
+        {
+            revealTime = Mathf.Max(revealDuration, revealTime);
+            revealCoroutine = StartCoroutine(RevealCoroutine());
+        }
+        else
+        {
+            if (revealCoroutine != null)
+            {
+                StopCoroutine(revealCoroutine);
+            }
+            revealed = false;
+            revealTime = 0;
+        }
+        node.SetDirty();
+    }
+
+    private IEnumerator RevealCoroutine()
+    {
+        revealed = true;
+        while (revealTime > 0f)
+        {
+            yield return null;
+            revealTime -= Time.deltaTime;
+        }
+        revealed = false;
+        node.SetDirty();
+    }
+
     private void Update()
     {
         // Animate position & rotation
@@ -104,7 +141,9 @@ public class Card : MonoBehaviour
         {
             targetEuler.z += 180f;
         }
-        if (node.privateKnowledge && player != DragManager.instance.controllingPlayer)
+
+        // Face cards away from players who should not see them
+        if (!revealed && node.privateKnowledge && player != DragManager.instance.controllingPlayer)
         {
             targetEuler.z += 180f;
         }
