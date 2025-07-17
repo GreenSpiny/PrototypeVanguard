@@ -98,7 +98,7 @@ public class Card : MonoBehaviour
         }
         if (DragManager.instance.controllingPlayer != null)
         {
-            targetEuler.y += 180f * (DragManager.instance.controllingPlayer.playerIndex - 1);
+            targetEuler.y += 180f * (DragManager.instance.controllingPlayer.playerIndex);
         }
         if (flip)
         {

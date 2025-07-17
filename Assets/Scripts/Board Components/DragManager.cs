@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class DragManager : MonoBehaviour
 {
@@ -25,6 +25,7 @@ public class DragManager : MonoBehaviour
 
     [SerializeField] public ContextRoot standardContext;
     [SerializeField] public ContextRoot powerContext;
+    [SerializeField] public ContextRoot viewContext;
 
     // Layer Masks
     private static LayerMask cardMask;
@@ -56,6 +57,7 @@ public class DragManager : MonoBehaviour
     {
         standardContext.HideAllButtons();
         powerContext.HideAllButtons();
+        viewContext.HideAllButtons();
         HoveredButton = null;
         if (SelectedCard != null)
         {
@@ -132,7 +134,16 @@ public class DragManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ClearSelections();
-            CloseDisplay();
+
+            // DisplayNode is selectively synced across clients
+            if (controllingPlayer.display.LastNodeWasDeck)
+            {
+                GameManager.instance.RequestCloseDisplayRpc(controllingPlayer.playerIndex);
+            }
+            else
+            {
+                CloseDisplay(controllingPlayer.playerIndex);
+            }
         }
 
         if ((Input.GetMouseButtonDown(0) && HoveredButton == null) || Input.GetMouseButtonDown(1))
@@ -302,14 +313,14 @@ public class DragManager : MonoBehaviour
         }
     }
 
-    public void CloseDisplay()
+    public void CloseDisplay(int playerID)
     {
-        controllingPlayer.display.CloseDisplay();
+        GameManager.instance.players[playerID].display.CloseDisplay();
     }
 
-    public void OpenDisplay(Node node, int cardAmount)
+    public void OpenDisplay(int playerID, Node node, int cardAmount)
     {
-        controllingPlayer.display.OpenDisplay(node, cardAmount);
+        GameManager.instance.players[playerID].display.OpenDisplay(node, cardAmount);
     }
 
 }

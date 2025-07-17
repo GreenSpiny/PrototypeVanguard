@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public abstract class ContextButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Button actionButton;
-
     private void Awake()
     {
         actionButton = GetComponent<Button>();

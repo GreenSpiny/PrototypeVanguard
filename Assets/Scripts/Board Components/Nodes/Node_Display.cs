@@ -6,6 +6,7 @@ public class Node_Display : Node
     public override NodeType Type => NodeType.display;
     private Node lastAcceptedNode;
 
+    public bool LastNodeWasDeck { get { return lastAcceptedNode != null && lastAcceptedNode.Type == NodeType.deck; } }
     public override void RecieveCard(Card card, string parameters)
     {
         cards.Add(card);
@@ -14,16 +15,24 @@ public class Node_Display : Node
 
     public override void AlignCards(bool instant)
     {
+        // If the number of cards is greater than the max cards per row, align left. Otherwise, align center.
+
         int row = 0;
         int column = 0;
         int maxCardsPerRow = 16;
 
         float cardWidth = Card.cardWidth * cardScale.x;
-        float totalWidth = cardWidth * maxCardsPerRow; ;
-        float origin = totalWidth / 2f - cardWidth * 0.5f;
-
         float xSpacing = cardWidth;
         float ySpacing = 0.33f;
+
+        bool leftAlign = cards.Count > maxCardsPerRow;
+
+        float totalWidth = cardWidth * cards.Count; ;
+        if (leftAlign)
+        {
+            totalWidth = cardWidth * maxCardsPerRow;
+        }
+        float origin = totalWidth / 2f - cardWidth * 0.5f;
 
         for (int i = 0; i < cards.Count; i++)
         {
@@ -39,6 +48,7 @@ public class Node_Display : Node
             card.LookAt(cameraTransform);
             card.ToggleColliders(true);
         }
+
         base.AlignCards(instant);
     }
 
@@ -56,8 +66,9 @@ public class Node_Display : Node
     {
         CloseDisplay();
         lastAcceptedNode = node;
+        int initialCount = node.cards.Count;
         Card c = node.cards[node.cards.Count - 1];
-        for (int i = node.cards.Count - 1; i >= node.cards.Count - cardCount;)
+        for (int i = initialCount - 1; i >= initialCount - cardCount;)
         {
             RecieveCard(c, string.Empty);
             i--;
@@ -72,8 +83,7 @@ public class Node_Display : Node
     {
         for (int i = cards.Count - 1; i >= 0; i--)
         {
-            lastAcceptedNode.RecieveCard(cards[i], "cancel");
-            // This could put a card in the deck face up if revealed? Be careful. TODO
+            lastAcceptedNode.RecieveCard(cards[i], string.Empty);
         }
     }
 }

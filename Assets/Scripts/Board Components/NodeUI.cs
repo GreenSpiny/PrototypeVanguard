@@ -62,6 +62,11 @@ public class NodeUI : MonoBehaviour
         }
         lastAttachedCard = targetCard;
 
+        // Set rotation
+        if (DragManager.instance.controllingPlayer != null)
+        {
+            rootTranform.localRotation = Quaternion.Euler(0f, 0f, 180f * DragManager.instance.controllingPlayer.playerIndex);
+        }
 
         // Set vertical offset
         rootTranform.localPosition = new Vector3(rootTranform.localPosition.x, rootTranform.localPosition.y, -verticalOffset);

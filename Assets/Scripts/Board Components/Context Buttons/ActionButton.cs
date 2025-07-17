@@ -8,10 +8,13 @@ public class ActionButton : ContextButton
     [SerializeField] public CardInfo.ActionFlag actionFlag;
     protected override void ButtonAction()
     {
+        Player activePlayer = DragManager.instance.controllingPlayer;
         Card selectedCard = DragManager.instance.SelectedCard;
-        Card hoveredCard = DragManager.instance.HoveredCard;
         Node selectedNode = DragManager.instance.SelectedNode;
-        Node hoveredNode = DragManager.instance.HoveredNode;
+        if (selectedNode == null)
+        {
+            selectedNode = selectedCard.node;
+        }
 
         switch (actionFlag)
         {
@@ -30,14 +33,22 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.view:
-                DragManager.instance.OpenDisplay(selectedCard.node, selectedCard.node.cards.Count);
+                Node targetNode = selectedCard.node;
+                if (targetNode.Type == Node.NodeType.deck)
+                {
+                    GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, targetNode.nodeID, targetNode.cards.Count);
+                }
+                else
+                {
+                    DragManager.instance.OpenDisplay(activePlayer.playerIndex, targetNode, targetNode.cards.Count);
+                }
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.viewx:
-                DragManager.instance.ClearSelections();
+                DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, null);                
                 break;
             case CardInfo.ActionFlag.revealx:
-                DragManager.instance.ClearSelections();
+                DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, null);
                 break;
             case CardInfo.ActionFlag.armLeft:
                 DragManager.instance.ClearSelections();

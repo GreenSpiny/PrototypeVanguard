@@ -124,6 +124,19 @@ public class GameManager : NetworkBehaviour
         targetCard.ResetPower();
     }
 
+    [Rpc(SendTo.Everyone)]
+    public void RequestDisplayCardsRpc(int playerID, int nodeID, int cardCount)
+    {
+        Node targetNode = allNodes[nodeID];
+        DragManager.instance.OpenDisplay(playerID, targetNode, cardCount);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void RequestCloseDisplayRpc(int playerID)
+    {
+        DragManager.instance.CloseDisplay(playerID);
+    }
+
     // CARD STATE STRUCT
     // This struct contains the source of truth for cards - namely, how they are positioned.
     // (not used yet)
