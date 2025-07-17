@@ -129,7 +129,13 @@ public class DragManager : MonoBehaviour
             clickLocation = mousePosition;
         }
 
-        if ((Input.GetMouseButtonDown(0) && HoveredButton == null) || Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ClearSelections();
+            CloseDisplay();
+        }
+
+        if ((Input.GetMouseButtonDown(0) && HoveredButton == null) || Input.GetMouseButtonDown(1))
         {
             ClearSelections();
         }
@@ -294,6 +300,16 @@ public class DragManager : MonoBehaviour
                 node.UIState = Node.NodeUIState.normal;
             }
         }
+    }
+
+    public void CloseDisplay()
+    {
+        controllingPlayer.display.CloseDisplay();
+    }
+
+    public void OpenDisplay(Node node, int cardAmount)
+    {
+        controllingPlayer.display.OpenDisplay(node, cardAmount);
     }
 
 }

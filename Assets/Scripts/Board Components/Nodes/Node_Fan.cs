@@ -4,7 +4,6 @@ using UnityEngine;
 // Fan nodes contain a "fan" of cards, such as the Hand or Damage.
 public class Node_Fan : Node
 {
-    public static Transform cameraTransform;
     protected enum FanDirection { vertical, horizontal }
     protected enum FanOrigin { center, edge }
 

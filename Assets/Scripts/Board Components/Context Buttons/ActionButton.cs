@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.Rendering.GPUSort;
 
 public class ActionButton : ContextButton
 {
@@ -29,6 +30,7 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.view:
+                DragManager.instance.OpenDisplay(selectedCard.node, selectedCard.node.cards.Count);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.viewx:

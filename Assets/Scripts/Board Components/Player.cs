@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
     public Node gzone;  // Also serves as Gauge
     public Node ride;
     public Node VC;
-    public Node GC;     // Special because shared - for now, assign in inspector
+    public Node_Display display;
+    public Node GC;                 // Special because shared - for now, assign in inspector
     public List<Node> RC;
 
     private void Awake()
@@ -47,12 +48,6 @@ public class Player : MonoBehaviour
         {
             cards.Add(card);
         }
-    }
-
-    // Valid moves are recorded, to be passed to the other system in multiplayer.
-    public void RecordMoveAction(Card card, Node destination, IEnumerable<string> parameters)
-    {
-
     }
 
 }

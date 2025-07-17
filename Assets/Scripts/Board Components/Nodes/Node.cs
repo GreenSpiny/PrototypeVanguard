@@ -6,7 +6,8 @@ using System;
 // Examples include the hand, deck, all zones, and all unit circles.
 public abstract class Node : MonoBehaviour
 {
-    public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC }
+    public static Transform cameraTransform;
+    public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC, display }
     public bool HasCard { get { return cards.Count > 0; } }         // True if the node contains at least one card
 
     [NonSerialized] public List<Card> cards = new List<Card>();     // The cards attached to this node
