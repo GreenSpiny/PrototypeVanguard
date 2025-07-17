@@ -26,6 +26,7 @@ public class NodeUI : MonoBehaviour
     private int targetPower;
     private float powerStep;
 
+    public bool needsPulse;
     private float currentPulse = MathF.PI;
     const float pulseScale = 0.15f;
 
@@ -58,9 +59,11 @@ public class NodeUI : MonoBehaviour
             if (lastAttachedCard == null || targetCard != lastAttachedCard)
             {
                 newCardAssigned = true;
+                needsPulse = false;
             }
         }
         lastAttachedCard = targetCard;
+
 
         // Set rotation
         if (DragManager.instance.controllingPlayer != null)
@@ -86,10 +89,11 @@ public class NodeUI : MonoBehaviour
                     driveText.text = String.Concat(Enumerable.Repeat('↑', cardInfo.drive));
                     targetAlpha = 1;
                     targetPower = cardInfo.power;
-                    if (!newCardAssigned)
+                    if (needsPulse)
                     {
                         powerStep = Mathf.Abs(currentPower - targetPower);
                         currentPulse = 0;
+                        needsPulse = false;
                     }
                     else
                     {
