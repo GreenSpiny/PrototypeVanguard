@@ -45,9 +45,10 @@ public class CardInfo
         soul,           // TO SOUL   (card)
         botdeck,        // BOT DECK  (card)
         reveal,         // REVEAL    (card)
-        view,           // VIEW      (node)
+        view,           // SEARCH    (node)
         viewx,          // VIEW X    (node)
         revealx,        // REVEAL X  (node)
+        ride,           // RIDE      (card)
 
         // SPECIAL ACTIONS
         armLeft,        // this card offers ARM LEFT

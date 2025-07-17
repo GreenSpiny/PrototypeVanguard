@@ -19,7 +19,8 @@ public class Node_Ride : Node_Stack
     {
         return new CardInfo.ActionFlag[]
         {
-            CardInfo.ActionFlag.view
+            CardInfo.ActionFlag.view,
+            CardInfo.ActionFlag.ride
         };
     }
 

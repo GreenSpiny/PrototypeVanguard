@@ -52,6 +52,10 @@ public class ActionButton : ContextButton
             case CardInfo.ActionFlag.revealx:
                 DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, new CardInfo.ActionFlag[] { CardInfo.ActionFlag.reveal });
                 break;
+            case CardInfo.ActionFlag.ride:
+                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.VC.nodeID, selectedCard.cardID, string.Empty);
+                DragManager.instance.ClearSelections();
+                break;
             case CardInfo.ActionFlag.armLeft:
                 DragManager.instance.ClearSelections();
                 break;
