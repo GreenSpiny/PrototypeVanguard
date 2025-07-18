@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 // CARD represents a physical card in the game.
 public class Card : MonoBehaviour
@@ -30,6 +31,7 @@ public class Card : MonoBehaviour
     private bool revealed = false;
     private float revealTime = 0f;
     private Coroutine revealCoroutine;
+    [NonSerialized] public bool wasRevealed;    // If a card is revealed, this flag remains true until it changes nodes
 
     private Material cardFrontMaterial;
     private Material cardBackMaterial;
@@ -97,6 +99,7 @@ public class Card : MonoBehaviour
     private IEnumerator RevealCoroutine()
     {
         revealed = true;
+        wasRevealed = true;
         while (revealTime > 0f)
         {
             yield return null;
@@ -134,21 +137,21 @@ public class Card : MonoBehaviour
         {
             targetEuler = node.cardRotation;
         }
-        if (rest)
+        if (rest) // rotate resting cards
         {
             targetEuler.y += 90f;
         }
-        if (DragManager.instance.controllingPlayer != null)
+        if (DragManager.instance.controllingPlayer != null) // rotate cards to face the active player
         {
             targetEuler.y += 180f * (DragManager.instance.controllingPlayer.playerIndex);
         }
-        if (flip)
+        if (flip) // if a card is in the flip state, turn it upside down from its node's normal orientation
         {
             targetEuler.z += 180f;
         }
 
         // Face cards away from players who should not see them
-        if (!revealed && node.privateKnowledge && player != DragManager.instance.controllingPlayer)
+        else if (!revealed && node.privateKnowledge && player != DragManager.instance.controllingPlayer)
         {
             targetEuler.z += 180f;
         }

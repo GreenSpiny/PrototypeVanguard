@@ -4,7 +4,7 @@ using UnityEngine;
 public class CardInfo
 {
     // Standard card elements --- o
-    public enum UnitType { normalUnit, triggerUnit, gUnit, normalOrder, blitzOrder, setOrder, crest };
+    public enum UnitType { normalUnit, triggerUnit, gUnit, normalOrder, setOrder, blitzOrder, crest, token, ticket };
     public enum TriggerType { none, critical, heal, draw, front, over };
 
     public readonly UnitType unitType;          // unit type
@@ -100,6 +100,23 @@ public class CardInfo
             4,
             "Burrow Mushrooms",
             "[ACT](RC):[COST][Put this unit into soul], call up to two Plant tokens to (RC), if you have a grade 3 or greater vanguard with \"Granfia\" in its card name, choose one of your rear-guards, and it gets [Power] +5000 until end of turn. (Plant tokens are grade 0/[Power] 5000/[Critical] 1 and have boost)");
+    }
+
+    public static string GetUnitTypeName(UnitType type)
+    {
+        switch (type)
+        {
+            case UnitType.normalUnit: return "Normal Unit";
+            case UnitType.triggerUnit: return "Trigger Unit";
+            case UnitType.gUnit: return "G Unit";
+            case UnitType.normalOrder: return "Normal Order";
+            case UnitType.setOrder: return "Set Order";
+            case UnitType.blitzOrder: return "Blitz Order";
+            case UnitType.crest: return "Crest";
+            case UnitType.token: return "Token";
+            case UnitType.ticket: return "Ticket";
+            default: return "[missing]";
+        }
     }
 
 }
