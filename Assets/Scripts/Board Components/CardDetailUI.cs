@@ -12,7 +12,6 @@ public class CardDetailUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cardNameText;
     [SerializeField] private TextMeshProUGUI cardInfoText;
     [SerializeField] private TextMeshProUGUI cardDescriptionText;
-    [SerializeField] private RectTransform cardDescriptionContent;
 
     private float parentHeight;
     private void Awake()
@@ -40,7 +39,7 @@ public class CardDetailUI : MonoBehaviour
             cardNameText.text = card.cardInfo.name;
             cardInfoText.text = GenerateCardInfoString(card);
             cardDescriptionText.text = card.cardInfo.text;
-            LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionContent);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionText.rectTransform);
 
         }
     }

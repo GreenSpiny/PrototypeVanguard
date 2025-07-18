@@ -6,7 +6,6 @@ public class Player : MonoBehaviour
 
     // All entities owned by this player
     public Camera playerCamera;
-    public List<Card> cards = new List<Card>();
     public List<Node> nodes = new List<Node>();
 
     // Specific entities owned by this player
@@ -43,10 +42,6 @@ public class Player : MonoBehaviour
                 case Node.NodeType.VC: VC = node; break;
                 case Node.NodeType.RC: RC.Add(node); break;
             }
-        }
-        foreach (Card card in GetComponentsInChildren<Card>())
-        {
-            cards.Add(card);
         }
     }
 

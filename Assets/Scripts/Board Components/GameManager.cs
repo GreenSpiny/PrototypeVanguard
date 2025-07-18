@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
-    private int cardCount = 0;
-    private int nodeCount = 0;
 
     [SerializeField] public NetworkManager networkManager;
     [SerializeField] public DragManager dragManager;
@@ -15,10 +14,12 @@ public class GameManager : NetworkBehaviour
 
     [NonSerialized] public Dictionary<int, Node> allNodes = new Dictionary<int, Node>();
     [NonSerialized] public Dictionary<int, Card> allCards = new Dictionary<int, Card>();
+    [NonSerialized] public int turnPlayer;
 
     [SerializeField] public List<ConnectectionStruct> connectedPlayers = new List<ConnectectionStruct>();
     [SerializeField] public Player[] players;
     [SerializeField] private Camera infoCamera;
+    [SerializeField] private Chatbox chatbox;
 
     [System.Serializable]
     public struct ConnectectionStruct
@@ -53,7 +54,6 @@ public class GameManager : NetworkBehaviour
             int cardID = Convert.ToInt32(card.name.Split('_')[1]);
             card.cardID = cardID;
             allCards.Add(cardID, card);
-            cardCount++;
         }
 
         foreach (var node in FindObjectsByType<Node>(FindObjectsSortMode.None))
@@ -61,7 +61,6 @@ public class GameManager : NetworkBehaviour
             int nodeID = Convert.ToInt32(node.name.Split('_')[2]);
             node.Init(nodeID);
             allNodes.Add(nodeID, node);
-            nodeCount++;
         }
         foreach (var node in allNodes.Values)
         {
@@ -142,6 +141,12 @@ public class GameManager : NetworkBehaviour
     {
         Card targetCard = allCards[cardID];
         targetCard.SetRevealed(true, revealDuration);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void RequestSendChatMessageRpc(int playerID, string message)
+    {
+        chatbox.RecieveMessage(playerID, message);
     }
 
     // CARD STATE STRUCT
