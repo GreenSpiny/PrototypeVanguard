@@ -6618,7 +6618,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 2}
+  m_SizeDelta: {x: 0, y: 1}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &545018728
 PrefabInstance:
@@ -8229,11 +8229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4ce37cf4cd9444aba7a35a92c8d882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &686585282 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2825144970334159610, guid: 0d1ab79c942c55b4a96180cd05c72b91, type: 3}
-  m_PrefabInstance: {fileID: 4438529327176314210}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &695207364
 GameObject:
   m_ObjectHideFlags: 0
@@ -9096,7 +9091,6 @@ MonoBehaviour:
   cardNameText: {fileID: 1656480839}
   cardInfoText: {fileID: 699588305}
   cardDescriptionText: {fileID: 2136910995}
-  cardDescriptionContent: {fileID: 686585282}
 --- !u!1 &751157709
 GameObject:
   m_ObjectHideFlags: 0
@@ -17819,7 +17813,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 528.1, y: 0}
+  m_SizeDelta: {x: 565, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1278971480
 MonoBehaviour:
@@ -23622,7 +23616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1609883965
 Transform:
   m_ObjectHideFlags: 0
