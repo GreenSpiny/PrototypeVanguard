@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.options import Options
 def GetCardInformation(driver, url):
 
 	# get card information
-	driver.get('https://en.cf-vanguard.com/cardlist/?cardno=D-LTD01/001EN')
+	driver.get(url)
 	content = driver.find_element(By.CLASS_NAME, 'cardlist_detail')
 
 	v_name = content.find_element(By.CLASS_NAME, 'face').get_attribute('innerHTML').strip()
@@ -26,21 +26,25 @@ def GetCardInformation(driver, url):
 	# parse additional information
 	v_id = "".join(x for x in v_name if x.isalnum())
 	v_id = v_id.lower()
+
 	if ' ' in v_grade:
 		v_grade = v_grade.split(' ')[1]
-	else:
+	if not v_grade.isnumeric():
 		v_grade = '0'
+
 	if ' ' in v_power:
 		v_power = v_power.split(' ')[1]
-	else:
+	if not v_power.isnumeric():
 		v_power = '0'
+
 	if ' ' in v_critical:
 		v_critical = v_critical.split(' ')[1]
-	else:
+	if not v_critical.isnumeric():
 		v_critical = '0'
+		
 	if ' ' in v_shield:
 		v_shield = v_shield.split(' ')[1]
-	else:
+	if not v_shield.isnumeric():
 		v_shield = '0'
 
 	cardData = {
@@ -61,34 +65,42 @@ def GetCardInformation(driver, url):
 
 	return cardData;
 
-def mainfunction():
+if __name__ == "__main__":
+
+	# parse the results file
+	resultsFile = open('allCardsSingleton.json', 'r+')
+	resultsData = json.loads(resultsFile.read())
+
+	# parse the card URLs file
+	# accepts start and / or end indicies 
+	urlsFile = open('allCards.json', 'r')
+	urlsData = json.loads(urlsFile.read())
+	urlsFile.close()
+	startIndex = 0;
+	endIndex = len(urlsData);
+	if len(sys.argv) >= 2:
+		startIndex = int(sys.argv[1])
+	if len(sys.argv) >= 3:
+		endIndex = int(sys.argv[2])
+
 	# open the driver
 	options = Options()
 	options.add_argument("--headless=new")
 	driver = webdriver.Chrome(options=options)
 
 	# get card information
-	cardData = GetCardInformation(driver, "https://en.cf-vanguard.com/cardlist/?cardno=D-LTD01/001EN")
-	print (json.dumps(cardData, indent=1))
+	for i in range (startIndex, endIndex):
+		cardData = GetCardInformation(driver, urlsData[i])
+		print(cardData['id'])
+		if cardData['id'] not in resultsData:
+			resultsData[cardData['id']] = cardData
 
 	# close the driver
 	driver.close()
 
-if __name__ == "__main__":
-
-	# parse the card URLs file
-	urlsFile = open('allCards.json', 'r')
-	urlsData = json.loads(urlsFile.read())
-	urlsFile.close()
-	startIndex = 0;
-	endIndex = len(urlsData);
-	if len(sys.argv) == 2:
-		startIndex = int(sys.argv[0])
-		endIndex = int(sys.argv[1])
-
-	for i in range (startIndex, endIndex):
-		print (urlsData[i])
-
-	
-
-
+	# write the results to disk
+	resultsJSON = json.dumps(resultsData, indent=1)
+	resultsFile.seek(0)
+	resultsFile.truncate(0)
+	resultsFile.write(resultsJSON);
+	resultsFile.close()
