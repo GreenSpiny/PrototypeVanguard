@@ -41,7 +41,7 @@ def GetCardInformation(driver, url):
 		v_critical = v_critical.split(' ')[1]
 	if not v_critical.isnumeric():
 		v_critical = '0'
-		
+
 	if ' ' in v_shield:
 		v_shield = v_shield.split(' ')[1]
 	if not v_shield.isnumeric():
@@ -99,7 +99,7 @@ if __name__ == "__main__":
 	driver.close()
 
 	# write the results to disk
-	resultsJSON = json.dumps(resultsData, indent=1)
+	resultsJSON = json.dumps(resultsData, sort_keys=True, indent=1)
 	resultsFile.seek(0)
 	resultsFile.truncate(0)
 	resultsFile.write(resultsJSON);
