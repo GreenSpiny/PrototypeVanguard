@@ -4,8 +4,8 @@ dataFile = open('allCardsSingleton.json', 'r+')
 data = json.loads(dataFile.read())
 cards = data['cards']
 
-index = 0 # first use
-# index = len(cards.keys()) # later uses
+# index = 0 # first use
+index = len(cards.keys()) # subsequent uses
 
 for c in cards.values():
 	if c['effect'] == '-':
@@ -17,6 +17,10 @@ for c in cards.values():
 		for i in range(len(skillArray)):
 			skillArray[i] = skillArray[i].strip()
 		c['skill'] = skillArray
+
+	if 'index' not in c.keys():
+		c['index'] = index
+		index += 1
 
 
 dataFile.seek(0)
