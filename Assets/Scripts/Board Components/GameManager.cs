@@ -11,7 +11,6 @@ public class GameManager : NetworkBehaviour
     [SerializeField] public NetworkManager networkManager;
     [SerializeField] public DragManager dragManager;
     [SerializeField] public LetterboxedCanvas letterboxedCanvas;
-    // [SerializeField] public CardLoader cardLoader;
 
     [NonSerialized] public Dictionary<int, Node> allNodes = new Dictionary<int, Node>();
     [NonSerialized] public Dictionary<int, Card> allCards = new Dictionary<int, Card>();
@@ -48,6 +47,7 @@ public class GameManager : NetworkBehaviour
             return;
         }
 
+        //CardLoader.Initialize();
         dragManager.Init();
 
         foreach (var card in FindObjectsByType<Card>(FindObjectsSortMode.None))

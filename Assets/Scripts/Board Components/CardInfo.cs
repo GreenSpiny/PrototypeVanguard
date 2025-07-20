@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 // CARDINFO contains detailed card information. It is purely for data storage.
 public class CardInfo
@@ -94,23 +95,23 @@ public class CardInfo
     public static CardInfo FromIDictionary(IDictionary dictionary)
     {
         return new CardInfo(
-            (int) dictionary["count"],
-            (int) dictionary["crit"],
-            (int) dictionary["drive"],
-            (string) dictionary["effect"],
-            (string) dictionary["gift"],
-            (int) dictionary["grade"],
-            (string) dictionary["group"],
-            (string) dictionary["id"],
-            (int) dictionary["index"],
-            (string) dictionary["name"],
-            (string) dictionary["nation"],
-            (int) dictionary["power"],
-            (string) dictionary["race"],
-            (int) dictionary["shield"],
-            (string[]) dictionary["skills"],
-            (string) dictionary["type"],
-            (int) dictionary["version"]
+            Convert.ToInt16(dictionary["count"]),
+            Convert.ToInt16(dictionary["crit"]),
+            Convert.ToInt16(dictionary["drive"]),
+            Convert.ToString(dictionary["effect"]),
+            Convert.ToString(dictionary["gift"]),
+            Convert.ToInt16(dictionary["grade"]),
+            Convert.ToString(dictionary["group"]),
+            Convert.ToString(dictionary["id"]),
+            Convert.ToInt16(dictionary["index"]),
+            Convert.ToString(dictionary["name"]),
+            Convert.ToString(dictionary["nation"]),
+            Convert.ToInt16(dictionary["power"]),
+            Convert.ToString(dictionary["race"]),
+            Convert.ToInt16(dictionary["shield"]),
+            dictionary["skills"] as string[],
+            Convert.ToString(dictionary["type"]),
+            Convert.ToInt16(dictionary["version"])
             );
     }
 
