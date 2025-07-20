@@ -29,6 +29,8 @@ def GetCardInformation(driver, url):
 	try:
 		group = content.find_element(By.CLASS_NAME, 'group')
 		v_group = group.get_attribute('innerHTML').strip()
+	except NoSuchElementException:
+		pass
 
 	# parse additional information
 	v_id = "".join(x for x in v_name if x.isalnum())
