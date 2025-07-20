@@ -11,12 +11,13 @@ public class GameManager : NetworkBehaviour
     [SerializeField] public NetworkManager networkManager;
     [SerializeField] public DragManager dragManager;
     [SerializeField] public LetterboxedCanvas letterboxedCanvas;
+    // [SerializeField] public CardLoader cardLoader;
 
     [NonSerialized] public Dictionary<int, Node> allNodes = new Dictionary<int, Node>();
     [NonSerialized] public Dictionary<int, Card> allCards = new Dictionary<int, Card>();
-    [NonSerialized] public int turnPlayer;
 
-    [SerializeField] public List<ConnectectionStruct> connectedPlayers = new List<ConnectectionStruct>();
+    [NonSerialized] public int turnPlayer;
+    [NonSerialized] public List<ConnectectionStruct> connectedPlayers = new List<ConnectectionStruct>();
     [SerializeField] public Player[] players;
     [SerializeField] private Camera infoCamera;
     [SerializeField] private Chatbox chatbox;

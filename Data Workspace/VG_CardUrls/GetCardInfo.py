@@ -3,6 +3,7 @@ import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import NoSuchElementException
 
 def GetCardInformation(driver, url):
 
@@ -22,6 +23,12 @@ def GetCardInformation(driver, url):
 	v_skill = content.find_element(By.CLASS_NAME, 'skill').get_attribute('innerHTML').strip()
 	v_effect = content.find_element(By.CLASS_NAME, 'effect').get_attribute('innerHTML').strip()
 	v_regulation = content.find_element(By.CLASS_NAME, 'regulation').get_attribute('innerHTML').strip()
+	v_gift = content.find_element(By.CLASS_NAME, 'gift').get_attribute('innerHTML').strip()
+
+	v_group = ''
+	try:
+		group = content.find_element(By.CLASS_NAME, 'group')
+		v_group = group.get_attribute('innerHTML').strip()
 
 	# parse additional information
 	v_id = "".join(x for x in v_name if x.isalnum())
@@ -54,13 +61,18 @@ def GetCardInformation(driver, url):
 		"type": v_type,
 		"nation": v_nation,
 		"race": v_race,
+		"group": v_group,
 		"grade": int(v_grade),
 		"power": int(v_power),
 		"critical": int(v_critical),
 		"shield": int(v_shield),
 		"skill": v_skill,
 		"effect": v_effect,
-		"regulation": v_regulation
+		"regulation": v_regulation,
+		"gift": v_gift,
+		"url": url,
+		"count": 4,
+		"version": 0
 	}
 
 	return cardData;

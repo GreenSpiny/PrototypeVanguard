@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +39,7 @@ public class CardDetailUI : MonoBehaviour
             // Set the card info and text
             cardNameText.text = card.cardInfo.name;
             cardInfoText.text = GenerateCardInfoString(card);
-            cardDescriptionText.text = card.cardInfo.text;
+            cardDescriptionText.text = card.cardInfo.effect;
             LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionText.rectTransform);
 
         }
@@ -59,10 +60,14 @@ public class CardDetailUI : MonoBehaviour
         {
             cardInfoString += " / Triple Drive";
         }
-        cardInfoString += "\n" + CardInfo.GetUnitTypeName(card.cardInfo.unitType);
-        if (card.cardInfo.persona)
+        cardInfoString += "\n" + card.cardInfo.unitType;
+        if (card.cardInfo.skills.Count() > 0)
         {
-            cardInfoString += " / Persona Ride";
+            cardInfoString += " / ";
+            foreach (string skill in card.cardInfo.skills)
+            {
+                cardInfoString += skill;
+            }
         }
         cardInfoString += "\n" + card.cardInfo.nation + " / ";
         cardInfoString += card.cardInfo.race;

@@ -11674,7 +11674,6 @@ MonoBehaviour:
   networkManager: {fileID: 176991953}
   dragManager: {fileID: 1566091970}
   letterboxedCanvas: {fileID: 1678573311}
-  connectedPlayers: []
   players:
   - {fileID: 1050813228}
   - {fileID: 1029953935}
@@ -13505,6 +13504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 1
+  deckList: {fileID: 0}
   playerCamera: {fileID: 1256879702}
   nodes: []
   hand: {fileID: 0}
@@ -13804,6 +13804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerIndex: 0
+  deckList: {fileID: 0}
   playerCamera: {fileID: 330585545}
   nodes: []
   hand: {fileID: 0}
@@ -20700,6 +20701,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8800308232764921909, guid: 0d1ab79c942c55b4a96180cd05c72b91, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24372,6 +24377,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8800308232764921909, guid: 0d1ab79c942c55b4a96180cd05c72b91, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8800308232764921909, guid: 0d1ab79c942c55b4a96180cd05c72b91, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -32472,6 +32481,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8800308232764921909, guid: 0d1ab79c942c55b4a96180cd05c72b91, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8800308232764921909, guid: 0d1ab79c942c55b4a96180cd05c72b91, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

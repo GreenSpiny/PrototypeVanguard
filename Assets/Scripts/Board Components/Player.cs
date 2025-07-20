@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     [SerializeField] public int playerIndex;
+    [SerializeField] public Deck_ScriptableObject deckList;
 
     // All entities owned by this player
     public Camera playerCamera;

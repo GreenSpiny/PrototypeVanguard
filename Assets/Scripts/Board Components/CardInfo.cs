@@ -1,30 +1,30 @@
+using System.Collections;
 using UnityEngine;
 
 // CARDINFO contains detailed card information. It is purely for data storage.
 public class CardInfo
 {
     // Standard card elements --- o
-    public enum UnitType { normalUnit, triggerUnit, gUnit, normalOrder, setOrder, blitzOrder, crest, token, ticket };
-    public enum TriggerType { none, critical, heal, draw, front, over };
-
-    public readonly UnitType unitType;          // unit type
-    public readonly TriggerType triggerType;    // trigger type; 'none' if not a trigger
-    public readonly int grade;                  // grade of the unit
-    public readonly string nation;              // nation, i.e. Keter Sanctuary
-    public readonly string race;                // race, i.e. Human
-    public readonly string group;               // group, i.e. Shadow Paladin
-    public readonly bool persona;               // if the unit has Persona Ride
-    public readonly int basePower;              // base power of the unit
-    public readonly int baseShield;             // base shield of the unit
-    public readonly int baseDrive;              // base drive of the unit
-    public readonly int baseCrit;               // base critical of the unit
-    public readonly int maxCount;               // maxmimum number of this card allowed in a deck; usually four
-
+    public readonly int count;
+    public readonly int baseCrit;
+    public readonly int baseDrive;
+    public readonly string effect;
+    public readonly string gift;
+    public readonly int grade;
+    public readonly string group;
+    public readonly string id;
+    // public readonly string image;
+    public readonly int index;
     public readonly string name;
-    public readonly string text;
-
-    //public readonly string nameLocalizationKey;
-    //public readonly string textLocalizationKey;
+    public readonly string nation;
+    public readonly int basePower;
+    public readonly string race;
+    // public readonly string regulation;
+    public readonly int baseShield;
+    public readonly string[] skills;
+    public readonly string unitType;
+    // public readonly string url;
+    public readonly int version;
 
     public int powerModifier;
     public int shieldModifier;
@@ -65,43 +65,56 @@ public class CardInfo
         soulRC          // the owner's RC have SOUL access (i.e. Noblesse Gauge)
     }
 
-    public CardInfo(UnitType unitType, TriggerType triggerType, int grade, string nation, string race, string group, bool persona, int basePower, int baseShield, int baseDrive, int baseCrit, int maxCount, string name, string text)
+    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string nation, int basePower, string race, int baseShield, string[] skills, string unitType, int version)
     {
-        this.unitType = unitType;
-        this.triggerType = triggerType;
-        this.grade = grade;
-        this.nation = nation;
-        this.race = race;
-        this.group = group;
-        this.persona = persona;
-        this.basePower = basePower;
-        this.baseShield = baseShield;
-        this.baseDrive = baseDrive;
+        this.count = count;
         this.baseCrit = baseCrit;
-        this.maxCount = maxCount;
+        this.baseDrive = baseDrive;
+        this.effect = effect;
+        this.gift = gift;
+        this.grade = grade;
+        this.group = group;
+        this.id = id;
+        this.index = index;
         this.name = name;
-        this.text = text;
+        this.nation = nation;
+        this.basePower = basePower;
+        this.race = race;
+        this.baseShield = baseShield;
+        this.skills = skills;
+        this.unitType = unitType;
+        this.version = version;
     }
 
     public static CardInfo GenerateDefaultCardInfo()
     {
-        return new CardInfo
-            (UnitType.normalUnit,
-            TriggerType.none,
-            1,
-            "Stoicheia",
-            "Dryad",
-            "",
-            false,
-            8000,
-            5000,
-            1,
-            1,
-            4,
-            "Burrow Mushrooms",
-            "[ACT](RC):[COST][Put this unit into soul], call up to two Plant tokens to (RC), if you have a grade 3 or greater vanguard with \"Granfia\" in its card name, choose one of your rear-guards, and it gets [Power] +5000 until end of turn. (Plant tokens are grade 0/[Power] 5000/[Critical] 1 and have boost)");
+        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", "Dark States", 8000, "Human", 5000, new string[0], "Normal Unit", 0);
     }
 
+    public static CardInfo FromIDictionary(IDictionary dictionary)
+    {
+        return new CardInfo(
+            (int) dictionary["count"],
+            (int) dictionary["crit"],
+            (int) dictionary["drive"],
+            (string) dictionary["effect"],
+            (string) dictionary["gift"],
+            (int) dictionary["grade"],
+            (string) dictionary["group"],
+            (string) dictionary["id"],
+            (int) dictionary["index"],
+            (string) dictionary["name"],
+            (string) dictionary["nation"],
+            (int) dictionary["power"],
+            (string) dictionary["race"],
+            (int) dictionary["shield"],
+            (string[]) dictionary["skills"],
+            (string) dictionary["type"],
+            (int) dictionary["version"]
+            );
+    }
+
+    /*
     public static string GetUnitTypeName(UnitType type)
     {
         switch (type)
@@ -118,5 +131,6 @@ public class CardInfo
             default: return "[missing]";
         }
     }
+    */
 
 }

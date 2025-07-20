@@ -27,8 +27,6 @@ for c in cards.values():
 	else:
 		c['drive'] = 1
 
-
-
 dataFile.seek(0)
 dataFile.truncate(0)
 dataFile.write(json.dumps(data, sort_keys=True, indent=1))
