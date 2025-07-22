@@ -21,10 +21,6 @@ public class Node_VC : Node_Stack
     {
         bool cancel = parameters.Contains("cancel");
         base.RecieveCard(card, parameters);
-        if (!cancel)
-        {
-            card.ResetPower();
-        }
     }
 
     public override void NodeAutoAction()

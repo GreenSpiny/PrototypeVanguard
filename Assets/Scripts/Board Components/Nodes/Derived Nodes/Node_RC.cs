@@ -70,13 +70,6 @@ public class Node_RC : Node_Stack
                 RetireCards();
             }
             base.RecieveCard(card, parameters);
-            if (!cancel)
-            {
-                if (!noRetire)
-                {
-                    card.ResetPower();
-                }
-            }
         }
     }
 

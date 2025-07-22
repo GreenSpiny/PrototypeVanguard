@@ -29,18 +29,33 @@ public class Player : MonoBehaviour
     public void AssignDeck(CardInfo.DeckList deckList)
     {
         this.deckList = deckList;
+        
         for (int i = 0; i < deck.cards.Count(); i++)
         {
-            deck.cards[i].cardInfo = CardLoader.GetCardInfo(deckList.mainDeck[i]);
+            CardInfo c = CardLoader.GetCardInfo(deckList.mainDeck[i]);
+            deck.cards[i].cardInfo = c;
+            deck.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
         }
-        VC.cards[0].cardInfo = CardLoader.GetCardInfo(deckList.rideDeck[0]);
+
+        for (int i = 0; i < VC.cards.Count(); i++)
+        {
+            CardInfo c = CardLoader.GetCardInfo(deckList.rideDeck[i]);
+            VC.cards[i].cardInfo = c;
+            VC.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+        }
+
         for (int i = 0; i < ride.cards.Count(); i++)
         {
-            ride.cards[i].cardInfo = CardLoader.GetCardInfo(deckList.rideDeck[i+1]);
+            CardInfo c = CardLoader.GetCardInfo(deckList.rideDeck[i]);
+            ride.cards[i].cardInfo = c;
+            ride.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
         }
+        
         for (int i = 0; i < gzone.cards.Count(); i++)
         {
-            gzone.cards[i].cardInfo = CardLoader.GetCardInfo(deckList.strideDeck[i]);
+            CardInfo c = CardLoader.GetCardInfo(deckList.strideDeck[i]);
+            gzone.cards[i].cardInfo = c;
+            gzone.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
         }
     }
 

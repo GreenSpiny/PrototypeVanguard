@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 // CARD represents a physical card in the game.
 public class Card : MonoBehaviour
@@ -35,7 +35,20 @@ public class Card : MonoBehaviour
 
     private Material cardFrontMaterial;
     private Material cardBackMaterial;
+    private Material cardSideMaterial;
 
+    public void SetTexture(Material mat, bool front)
+    {
+        if (front)
+        {
+            cardFrontMaterial = mat;
+        }
+        else
+        {
+            cardBackMaterial = mat;
+        }
+        meshRenderer.SetMaterials(new List<Material> { cardFrontMaterial, cardBackMaterial, cardSideMaterial });
+    }
     public void SetOrientation(bool flip, bool rest)
     {
         this.flip = flip;
@@ -68,6 +81,7 @@ public class Card : MonoBehaviour
 
         cardFrontMaterial = meshRenderer.materials[0];
         cardBackMaterial = meshRenderer.materials[1];
+        cardSideMaterial = meshRenderer.materials[2];
 
         cardInfo = CardInfo.GenerateDefaultCardInfo(); // For testing purposes
     }
