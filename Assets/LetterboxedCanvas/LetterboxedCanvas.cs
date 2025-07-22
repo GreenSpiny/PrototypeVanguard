@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,8 @@ public class LetterboxedCanvas : MonoBehaviour
     [SerializeField] protected LayoutElement verticalArea;
     [SerializeField] protected LayoutElement visibleArea;
     [NonSerialized] protected Image visibleAreaImage;
+
+    Vector2 baseResolution;
 
     // Internal variables
     protected Vector2Int lastStoredResolution;
@@ -103,6 +106,7 @@ public class LetterboxedCanvas : MonoBehaviour
     protected void Awake()
     {
         canvasScaler = GetComponent<CanvasScaler>();
+        baseResolution = canvasScaler.referenceResolution;
         visibleAreaImage = visibleArea.GetComponent<Image>();
         visibleAreaImage.enabled = showVisibleArea;
 
@@ -151,15 +155,8 @@ public class LetterboxedCanvas : MonoBehaviour
         if (aspect > maxAspectRatio)
         {
             float widthReduction = maxAspectRatio / aspect;
-            if (aspect > 1)
-            {
-                verticalArea.preferredWidth = canvasScaler.referenceResolution.x * widthReduction;
-            }
-            else
-            {
-                verticalArea.preferredWidth = canvasScaler.referenceResolution.x * widthReduction * aspect;
-            }
-            visibleArea.preferredHeight = canvasScaler.referenceResolution.y;
+            verticalArea.preferredWidth = baseResolution.x * widthReduction;
+            visibleArea.preferredHeight = baseResolution.y;
             foreach (CameraInfo info in assignedCameras)
             {
                 info.camera.rect = new Rect(
@@ -173,15 +170,15 @@ public class LetterboxedCanvas : MonoBehaviour
         else if (aspect < minAspectRatio)
         {
             float heightReduction = aspect / minAspectRatio;
-            verticalArea.preferredWidth = canvasScaler.referenceResolution.x;
-
-            if (aspect <= 1)
+            verticalArea.preferredWidth = baseResolution.x;
+            visibleArea.preferredHeight = baseResolution.y * heightReduction;
+            if (aspect > 1)
             {
-                visibleArea.preferredHeight = canvasScaler.referenceResolution.y * heightReduction;
+                canvasScaler.referenceResolution = baseResolution;
             }
             else
             {
-                visibleArea.preferredHeight = canvasScaler.referenceResolution.y * heightReduction / aspect;
+                canvasScaler.referenceResolution = new Vector2(baseResolution.x, baseResolution.y / aspect);
             }
             foreach (CameraInfo info in assignedCameras)
             {
@@ -196,7 +193,8 @@ public class LetterboxedCanvas : MonoBehaviour
         else
         {
             verticalArea.preferredWidth = canvasScaler.referenceResolution.x;
-            visibleArea.preferredHeight = canvasScaler.referenceResolution.y;
+            visibleArea.preferredHeight = canvasScaler.referenceResolution.y * aspect;
+            canvasScaler.referenceResolution = baseResolution;
             foreach (CameraInfo info in assignedCameras)
             {
                 info.camera.rect = info.viewportRect;

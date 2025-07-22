@@ -54,20 +54,15 @@ public class CardDetailUI : MonoBehaviour
         cardInfoString += card.cardInfo.power.ToString() + " / ";
         cardInfoString += card.cardInfo.shield.ToString() + " / ";
         cardInfoString += card.cardInfo.crit.ToString() + "C";
-        if (card.cardInfo.drive == 2)
-        {
-            cardInfoString += " / Twin Drive";
-        }
-        else if (card.cardInfo.drive == 3)
-        {
-            cardInfoString += " / Triple Drive";
-        }
         cardInfoString += "\n" + card.cardInfo.unitType;
         if (card.cardInfo.skills != null && card.cardInfo.skills.Count() > 0)
         {
             foreach (string skill in card.cardInfo.skills)
             {
-                cardInfoString += " / " + skill;
+                if (!string.IsNullOrEmpty(skill))
+                {
+                    cardInfoString += " / " + skill;
+                }
             }
         }
         cardInfoString += "\n" + card.cardInfo.nation + " / ";
