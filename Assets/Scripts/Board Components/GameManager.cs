@@ -47,7 +47,7 @@ public class GameManager : NetworkBehaviour
             return;
         }
 
-        //CardLoader.Initialize();
+        CardLoader.Initialize();
         dragManager.Init();
 
         foreach (var card in FindObjectsByType<Card>(FindObjectsSortMode.None))
@@ -69,6 +69,11 @@ public class GameManager : NetworkBehaviour
         }
 
         infoCamera.gameObject.SetActive(true);
+
+        // Temporary deck initialization test
+        players[0].AssignDeck(CardInfo.CreateRandomDeck());
+        players[1].AssignDeck(CardInfo.CreateRandomDeck());
+
     }
 
     public void OnConnectionOverride(NetworkManager manager, ConnectionEventData data)

@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Linq;
 
 // CARDINFO contains detailed card information. It is purely for data storage.
 public class CardInfo
@@ -92,26 +95,26 @@ public class CardInfo
         return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", "Dark States", 8000, "Human", 5000, new string[0], "Normal Unit", 0);
     }
 
-    public static CardInfo FromIDictionary(IDictionary dictionary)
+    public static CardInfo FromDictionary(Dictionary<string, object> dictionary)
     {
         return new CardInfo(
-            Convert.ToInt16(dictionary["count"]),
-            Convert.ToInt16(dictionary["crit"]),
-            Convert.ToInt16(dictionary["drive"]),
+            Convert.ToInt32(dictionary["count"]),
+            Convert.ToInt32(dictionary["critical"]),
+            Convert.ToInt32(dictionary["drive"]),
             Convert.ToString(dictionary["effect"]),
             Convert.ToString(dictionary["gift"]),
-            Convert.ToInt16(dictionary["grade"]),
+            Convert.ToInt32(dictionary["grade"]),
             Convert.ToString(dictionary["group"]),
             Convert.ToString(dictionary["id"]),
-            Convert.ToInt16(dictionary["index"]),
+            Convert.ToInt32(dictionary["index"]),
             Convert.ToString(dictionary["name"]),
             Convert.ToString(dictionary["nation"]),
-            Convert.ToInt16(dictionary["power"]),
+            Convert.ToInt32(dictionary["power"]),
             Convert.ToString(dictionary["race"]),
-            Convert.ToInt16(dictionary["shield"]),
-            dictionary["skills"] as string[],
+            Convert.ToInt32(dictionary["shield"]),
+            dictionary["skill"] as string[],
             Convert.ToString(dictionary["type"]),
-            Convert.ToInt16(dictionary["version"])
+            Convert.ToInt32(dictionary["version"])
             );
     }
 
@@ -133,5 +136,51 @@ public class CardInfo
         }
     }
     */
+
+    [System.Serializable]
+    public class DeckList
+    {
+        public string deckName;     // Name of the deck.
+        public int cardSleeves;     // ID linking to the card sleeves.
+
+        public int[] mainDeck;      // MAIN DECK.                   50 cards max
+        public int[] rideDeck;      // RIDE DECK.                   5  cards max
+        public int[] strideDeck;    // STRIDE DECK.                 16 cards max
+        public int[] toolBox;       // TOKENS, TICKETS, MARKERS.    30 cards max
+                                    //                            = 101 total
+    }
+
+    public static DeckList CreateDeck(string JSON)
+    {
+       return JsonConvert.DeserializeObject<DeckList>(JSON);
+    }
+
+    public static DeckList CreateRandomDeck()
+    {
+        DeckList deck = new DeckList();
+        deck.deckName = "random deck";
+        deck.cardSleeves = 0;
+        deck.mainDeck = new int[50];
+        deck.rideDeck = new int[5];
+        deck.strideDeck = new int[16];
+        deck.toolBox = new int[30];
+        for (int i = 0; i < deck.mainDeck.Count(); i++)
+        {
+            deck.mainDeck[i] = UnityEngine.Random.Range(0, 4000);
+        }
+        for (int i = 0; i < deck.rideDeck.Count(); i++)
+        {
+            deck.rideDeck[i] = UnityEngine.Random.Range(0, 4000);
+        }
+        for (int i = 0; i < deck.strideDeck.Count(); i++)
+        {
+            deck.strideDeck[i] = UnityEngine.Random.Range(0, 4000);
+        }
+        for (int i = 0; i < deck.toolBox.Count(); i++)
+        {
+            deck.toolBox[i] = UnityEngine.Random.Range(0, 4000);
+        }
+        return deck;
+    }
 
 }

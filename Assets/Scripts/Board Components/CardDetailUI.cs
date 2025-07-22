@@ -61,7 +61,7 @@ public class CardDetailUI : MonoBehaviour
             cardInfoString += " / Triple Drive";
         }
         cardInfoString += "\n" + card.cardInfo.unitType;
-        if (card.cardInfo.skills.Count() > 0)
+        if (card.cardInfo.skills != null && card.cardInfo.skills.Count() > 0) // TODO: not reading in correctly
         {
             cardInfoString += " / ";
             foreach (string skill in card.cardInfo.skills)

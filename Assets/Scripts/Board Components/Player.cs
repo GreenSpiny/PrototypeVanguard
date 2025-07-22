@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 public class Player : MonoBehaviour
 {
     [SerializeField] public int playerIndex;
-    [SerializeField] public Deck_ScriptableObject deckList;
+    [NonSerialized] public CardInfo.DeckList deckList;
 
     // All entities owned by this player
     public Camera playerCamera;
@@ -24,25 +26,21 @@ public class Player : MonoBehaviour
     public Node GC;                 // Special because shared - for now, assign in inspector
     public List<Node> RC;
 
-    private void Awake()
+    public void AssignDeck(CardInfo.DeckList deckList)
     {
-        foreach (Node node in GetComponentsInChildren<Node>())
+        this.deckList = deckList;
+        for (int i = 0; i < deck.cards.Count(); i++)
         {
-            nodes.Add(node);
-            switch(node.Type)
-            {
-                case Node.NodeType.hand: hand = node; break;
-                case Node.NodeType.deck: deck = node; break;
-                case Node.NodeType.drop: drop = node; break;
-                case Node.NodeType.bind: bind = node; break;
-                case Node.NodeType.remove: remove = node; break;
-                case Node.NodeType.damage: damage = node; break;
-                case Node.NodeType.order: order = node; break;
-                case Node.NodeType.gzone: gzone = node; break;
-                case Node.NodeType.ride: ride = node; break;
-                case Node.NodeType.VC: VC = node; break;
-                case Node.NodeType.RC: RC.Add(node); break;
-            }
+            deck.cards[i].cardInfo = CardLoader.GetCardInfo(deckList.mainDeck[i]);
+        }
+        VC.cards[0].cardInfo = CardLoader.GetCardInfo(deckList.rideDeck[0]);
+        for (int i = 0; i < ride.cards.Count(); i++)
+        {
+            ride.cards[i].cardInfo = CardLoader.GetCardInfo(deckList.rideDeck[i+1]);
+        }
+        for (int i = 0; i < gzone.cards.Count(); i++)
+        {
+            gzone.cards[i].cardInfo = CardLoader.GetCardInfo(deckList.strideDeck[i]);
         }
     }
 

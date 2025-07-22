@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System;
+using Newtonsoft.Json.Linq;
 
 public static class CardLoader
 {
@@ -18,15 +19,13 @@ public static class CardLoader
             allCardsData.Clear();
             allCardsJSON = Resources.Load<TextAsset>("JSON/allCardsSingleton");
             var parsedJSON = JsonConvert.DeserializeObject<IDictionary<string, object>>(allCardsJSON.text);
-
-            Debug.Log(parsedJSON.Count);
-            allCardsVersion = Convert.ToInt16(parsedJSON["_version"]);
-            Debug.Log(parsedJSON["cards"].GetType());
-            IDictionary<string, object> parsedCards = parsedJSON["cards"] as IDictionary<string, object>;
-            foreach (object card in parsedCards.Values)
+            allCardsVersion = Convert.ToInt32(parsedJSON["_version"]);
+            JObject token = parsedJSON["cards"] as JObject;
+            Dictionary<string, JObject> parsedCards = token.ToObject<Dictionary<string, JObject>>();
+            foreach (JObject card in parsedCards.Values)
             {
-                IDictionary<string, object> cardData = card as IDictionary<string, object>;
-                CardInfo newEntry = CardInfo.FromIDictionary((System.Collections.IDictionary)cardData);
+                Dictionary<string, object> cardData = card.ToObject<Dictionary<string, object>>();
+                CardInfo newEntry = CardInfo.FromDictionary(cardData);
                 allCardsData[newEntry.index] = newEntry;
             }
             allCardsLoaded = true;
