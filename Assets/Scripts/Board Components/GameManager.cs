@@ -47,7 +47,6 @@ public class GameManager : NetworkBehaviour
             return;
         }
 
-        CardLoader.Initialize();
         dragManager.Init();
 
         foreach (var card in FindObjectsByType<Card>(FindObjectsSortMode.None))
@@ -69,10 +68,6 @@ public class GameManager : NetworkBehaviour
         }
 
         infoCamera.gameObject.SetActive(true);
-
-        // Temporary deck initialization test
-        players[0].AssignDeck(CardInfo.CreateRandomDeck());
-        players[1].AssignDeck(CardInfo.CreateRandomDeck());
 
     }
 
@@ -171,6 +166,16 @@ public class GameManager : NetworkBehaviour
             serializer.SerializeValue(ref nodeId);
             serializer.SerializeValue(ref rest);
             serializer.SerializeValue(ref flip);
+        }
+    }
+
+    private void Update()
+    {
+        // Temporary deck initialization test
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            players[0].AssignDeck(CardInfo.CreateRandomDeck());
+            players[1].AssignDeck(CardInfo.CreateRandomDeck());
         }
     }
 

@@ -1,81 +1,134 @@
-using System.Collections.Generic;
-using UnityEngine;
 using Newtonsoft.Json;
-using System;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEngine;
 
-public static class CardLoader
+public class CardLoader : MonoBehaviour
 {
-    private const string cardDataPath = "JSON/allCardsSingleton";
-    private const string cardMaterialPath = "Materials/DefaultCardMaterial";
-    private const string cardImagePath = "Card_Images/";
+    public static CardLoader instance = null;
+    private const string localVersionJSONPath = "JSON/dataVersion";
+    private const string localCardsJSONPath = "JSON/allCardsSingleton";
+    private const string localCardImagesPath = "CardImages";
 
-    // Material Loading
-    private static Material defaultCardMaterial;
+    [SerializeField] Material cardMaterial;
 
     // Card Loading
-    private static TextAsset allCardsJSON;
-    private static Dictionary<int, CardInfo> allCardsData = new Dictionary<int, CardInfo>();
-    private static int allCardsVersion;
-    private static bool allCardsLoaded;
+    private DataVersionObject versionObject;
+    private Dictionary<int, CardInfo> allCardsData = new Dictionary<int, CardInfo>();
+    public Dictionary<int, AssetBundle> allImagesBundles = new Dictionary<int, AssetBundle>();
+    public Dictionary<int, Material> allImagesData = new Dictionary<int, Material>();
 
-    public static void Initialize()
+    private void Awake()
     {
-        if (!allCardsLoaded)
+        if (instance == null)
         {
-            allCardsData.Clear();
-            allCardsJSON = Resources.Load<TextAsset>(cardDataPath);
-            var parsedJSON = JsonConvert.DeserializeObject<IDictionary<string, object>>(allCardsJSON.text);
-            allCardsVersion = Convert.ToInt32(parsedJSON["_version"]);
-            JObject token = parsedJSON["cards"] as JObject;
-            Dictionary<string, JObject> parsedCards = token.ToObject<Dictionary<string, JObject>>();
-            foreach (JObject card in parsedCards.Values)
-            {
-                Dictionary<string, object> cardData = card.ToObject<Dictionary<string, object>>();
-                CardInfo newEntry = CardInfo.FromDictionary(cardData);
-                allCardsData[newEntry.index] = newEntry;
-            }
-            allCardsLoaded = true;
-
-            defaultCardMaterial = Resources.Load<Material>(cardMaterialPath);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
+        else
+        {
+            DestroyImmediate(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        if (instance == this)
+        {
+            StartCoroutine(Initialize());
+        }
+    }
+
+    public IEnumerator Initialize()
+    {
+        Debug.Log("Initializing asset download...");
+
+        allCardsData.Clear();
+        allImagesData.Clear();
+
+        // Download the Data Version Object. This determines whether mew asset bundles must be downloaded.
+        // It must be checked against the locally saved copy.
+        TextAsset versionJSON = Resources.Load<TextAsset>(localVersionJSONPath);
+        Debug.Log(versionJSON.text);
+        versionObject = JsonConvert.DeserializeObject<DataVersionObject>(versionJSON.text);
+
+        // Grab the existing card data JSON, or download an updated version if needed.
+        TextAsset allCardsJSON = Resources.Load<TextAsset>(localCardsJSONPath);
+        var parsedJSON = JsonConvert.DeserializeObject<IDictionary<string, object>>(allCardsJSON.text);
+        JObject token = parsedJSON["cards"] as JObject;
+        Dictionary<string, JObject> parsedCards = token.ToObject<Dictionary<string, JObject>>();
+        foreach (JObject card in parsedCards.Values)
+        {
+            Dictionary<string, object> cardData = card.ToObject<Dictionary<string, object>>();
+            CardInfo newEntry = CardInfo.FromDictionary(cardData);
+            allCardsData[newEntry.index] = newEntry;
+        }
+
+        // Download the card image assets.
+        int bundleCount = versionObject.imageBundleVersions.Count();
+        for (int i = 0; i < bundleCount; i++)
+        {
+            Debug.Log("Downloading texture bundle " + (i+1).ToString() + " of " + bundleCount.ToString());
+            var bundleLoadRequest = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, "AssetBundles", "cardimages", i.ToString()));
+            yield return bundleLoadRequest;
+            var bundle = bundleLoadRequest.assetBundle;
+            instance.allImagesBundles[i] = bundle;
+        }
+        Debug.Log("Asset download complete.");
     }
 
     public static CardInfo GetCardInfo(int cardIndex)
     {
-        if (!allCardsData.ContainsKey(cardIndex))
+        if (instance == null || !instance.allCardsData.ContainsKey(cardIndex))
         {
             return null;
         }
-        return allCardsData[cardIndex];
+        return instance.allCardsData[cardIndex];
     }
 
-    // Image Loading
-    public static Dictionary<int, Material> allImagesData = new Dictionary<int, Material>();
-
+    // Synchronous version
     public static Material GetCardImage(int cardIndex)
     {
-        if (allImagesData.ContainsKey(cardIndex))
+        if (instance == null)
         {
-            return allImagesData[cardIndex];
+            return null;
+        }
+        if (instance.allImagesData.ContainsKey(cardIndex))
+        {
+            return instance.allImagesData[cardIndex];
         }
         else
         {
+            Material newMaterial = new Material(instance.cardMaterial);
             int folderIndex = Mathf.FloorToInt(cardIndex / 100f);
-            string texturePath = cardImagePath + folderIndex.ToString() + '/' + cardIndex.ToString();
-            Texture cardTexture = Resources.Load<Texture>(texturePath);
-            if (cardTexture != null)
+            if (folderIndex < instance.allImagesBundles.Count)
             {
-                Material newMaterial = new Material(defaultCardMaterial);
-                newMaterial.mainTexture = cardTexture;
-                allImagesData[cardIndex] = newMaterial;
-                return newMaterial;
+                AssetBundle targetBundle = instance.allImagesBundles[folderIndex];
+                if (targetBundle != null)
+                {
+                    Texture desiredTexture = targetBundle.LoadAsset<Texture>(cardIndex.ToString());
+                    
+                    newMaterial.mainTexture = desiredTexture;
+                }
             }
-            else
-            {
-                Debug.LogError("Failed to load card image with index: " + cardIndex.ToString());
-                return null;
-            }
+            instance.allImagesData[cardIndex] = newMaterial;
+            return newMaterial;
+        }
+    }
+
+    [System.Serializable]
+    private class DataVersionObject
+    {
+        public int cardsFileVersion;
+        public int[] imageBundleVersions;
+
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 
