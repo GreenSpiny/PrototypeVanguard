@@ -1023,6 +1023,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 0}
@@ -1114,6 +1115,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 1878805475}
@@ -1701,6 +1703,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 1
   privateKnowledge: 0
   cardAnchor: {fileID: 1160026666}
@@ -3030,6 +3033,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 2146300233}
@@ -5780,6 +5784,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 0}
@@ -6931,6 +6936,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 1380682999}
@@ -8024,6 +8030,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 706290640}
@@ -8257,6 +8264,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 0}
@@ -8781,6 +8789,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 1919531639}
@@ -9138,7 +9147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -356}
+  m_AnchoredPosition: {x: 0, y: -510}
   m_SizeDelta: {x: -64, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &699588305
@@ -10275,6 +10284,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 285140863}
@@ -10974,6 +10984,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 10481254}
@@ -11966,6 +11977,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
   cardAnchor: {fileID: 1105254161}
@@ -13250,6 +13262,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 12820226}
@@ -13847,8 +13860,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 16, y: -468}
-  m_SizeDelta: {x: -32, y: -484}
+  m_AnchoredPosition: {x: 16, y: -628}
+  m_SizeDelta: {x: -32, y: -644}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &976129643
 MonoBehaviour:
@@ -14536,6 +14549,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 1277294296}
@@ -15322,6 +15336,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 243512507}
@@ -15489,6 +15504,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 106062058}
@@ -15892,6 +15908,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
   cardAnchor: {fileID: 1806164645}
@@ -16256,6 +16273,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 1
   privateKnowledge: 0
   cardAnchor: {fileID: 930395740}
@@ -16974,6 +16992,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 0}
@@ -17056,6 +17075,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 695207365}
@@ -21235,6 +21255,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
   cardAnchor: {fileID: 1662500156}
@@ -21520,7 +21541,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 300}
+  m_SizeDelta: {x: 0, y: 450}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1384616558
 MonoBehaviour:
@@ -22410,6 +22431,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 2132235754}
@@ -22558,6 +22580,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
   cardAnchor: {fileID: 442159675}
@@ -23309,6 +23332,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 1520209632}
@@ -23399,6 +23423,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 712757970}
@@ -23949,6 +23974,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 1995660017}
@@ -26272,7 +26298,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -309}
+  m_AnchoredPosition: {x: 0, y: -460}
   m_SizeDelta: {x: -32, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1656480839
@@ -28204,6 +28230,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 1955289774}
@@ -28835,6 +28862,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 1790702649}
@@ -30110,6 +30138,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 1
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
   cardAnchor: {fileID: 0}
@@ -30421,6 +30450,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 0}
@@ -31641,6 +31671,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 1
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 0}
@@ -31854,6 +31885,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 1
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
   cardAnchor: {fileID: 0}
@@ -33361,6 +33393,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
   cardAnchor: {fileID: 423040484}
@@ -33880,6 +33913,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
   cardAnchor: {fileID: 1567225820}
@@ -34043,6 +34077,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 1
   preserveFlip: 0
+  preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 0}
@@ -34484,6 +34519,7 @@ MonoBehaviour:
   canSelectRaw: 0
   preserveRest: 0
   preserveFlip: 0
+  preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
   cardAnchor: {fileID: 12393745}

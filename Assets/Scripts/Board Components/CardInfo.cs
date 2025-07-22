@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
+using Newtonsoft.Json.Linq;
+using Unity.VisualScripting;
 
 // CARDINFO contains detailed card information. It is purely for data storage.
 public class CardInfo
@@ -97,6 +99,12 @@ public class CardInfo
 
     public static CardInfo FromDictionary(Dictionary<string, object> dictionary)
     {
+        JArray skillJArray = (JArray)dictionary["skill"];
+        string[] skillArray = new string[skillJArray.Count];
+        for (int i = 0; i < skillArray.Count(); i++)
+        {
+            skillArray[i] = skillJArray[i].ToObject<string>();
+        }
         return new CardInfo(
             Convert.ToInt32(dictionary["count"]),
             Convert.ToInt32(dictionary["critical"]),
@@ -112,7 +120,7 @@ public class CardInfo
             Convert.ToInt32(dictionary["power"]),
             Convert.ToString(dictionary["race"]),
             Convert.ToInt32(dictionary["shield"]),
-            dictionary["skill"] as string[],
+            skillArray,
             Convert.ToString(dictionary["type"]),
             Convert.ToInt32(dictionary["version"])
             );

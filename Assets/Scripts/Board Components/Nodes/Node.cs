@@ -19,6 +19,7 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public bool canSelectRaw;          // If true, this node can be selected when empty
     [SerializeField] public bool preserveRest;          // If true, preserve the REST state of cards moved to this node
     [SerializeField] public bool preserveFlip;          // If true, preserve the FLIP state of cards moved to this node
+    [SerializeField] public bool preservePower;         // If true, preserves the power / crit / drive of cards moved to this node
     [SerializeField] public bool initialFlip;           // If true, cards are initially flipped on this node
     [SerializeField] public bool privateKnowledge;      // If true, cards are flipped in the opponent's eyes only
 
@@ -92,6 +93,10 @@ public abstract class Node : MonoBehaviour
             if (!preserveRest)
             {
                 shouldRest = false;
+            }
+            if (!preservePower)
+            {
+                card.ResetPower();
             }
         }
             

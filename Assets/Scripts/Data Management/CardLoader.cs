@@ -63,7 +63,6 @@ public static class CardLoader
         {
             int folderIndex = Mathf.FloorToInt(cardIndex / 100f);
             string texturePath = cardImagePath + folderIndex.ToString() + '/' + cardIndex.ToString();
-            Debug.Log(texturePath);
             Texture cardTexture = Resources.Load<Texture>(texturePath);
             if (cardTexture != null)
             {

@@ -78,7 +78,7 @@ public class NetworkCommandLine : MonoBehaviour
         }
         else
         {
-            StatusLabels();
+            // StatusLabels();
         }
 
         GUILayout.EndArea();

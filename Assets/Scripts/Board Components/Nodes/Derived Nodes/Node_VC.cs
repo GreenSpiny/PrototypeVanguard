@@ -19,7 +19,6 @@ public class Node_VC : Node_Stack
 
     public override void RecieveCard(Card card, string parameters)
     {
-        bool cancel = parameters.Contains("cancel");
         base.RecieveCard(card, parameters);
     }
 

@@ -32,9 +32,11 @@ public class CardDetailUI : MonoBehaviour
             cardImage.sprite = Sprite.Create(targetTexture, new Rect(0, 0, targetTexture.width, targetTexture.height), Vector2.zero);
 
             // Move the image upward to be centered in the frame
+            /*
             float squarePictureHeight = targetHeight * Card.cardWidth;
             float calculatedPosition = squarePictureHeight * 0.5f - parentHeight * 0.5f;
             cardImage.rectTransform.anchoredPosition = new Vector2(cardImage.rectTransform.anchoredPosition.x, calculatedPosition);
+            */
 
             // Set the card info and text
             cardNameText.text = card.cardInfo.name;
@@ -61,12 +63,11 @@ public class CardDetailUI : MonoBehaviour
             cardInfoString += " / Triple Drive";
         }
         cardInfoString += "\n" + card.cardInfo.unitType;
-        if (card.cardInfo.skills != null && card.cardInfo.skills.Count() > 0) // TODO: not reading in correctly
+        if (card.cardInfo.skills != null && card.cardInfo.skills.Count() > 0)
         {
-            cardInfoString += " / ";
             foreach (string skill in card.cardInfo.skills)
             {
-                cardInfoString += skill;
+                cardInfoString += " / " + skill;
             }
         }
         cardInfoString += "\n" + card.cardInfo.nation + " / ";

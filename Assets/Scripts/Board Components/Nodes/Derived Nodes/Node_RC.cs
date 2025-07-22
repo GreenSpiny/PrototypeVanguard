@@ -21,7 +21,6 @@ public class Node_RC : Node_Stack
 
     public override void RecieveCard(Card card, string parameters)
     {
-        bool cancel = parameters.Contains("cancel");
         bool drag = parameters.Contains("drag");
         bool toSoulRC = parameters.Contains("bottom");
         bool isFromRC = card.node.Type == NodeType.RC || (card.node.Type == NodeType.drag && card.node.PreviousNode.Type == NodeType.RC);

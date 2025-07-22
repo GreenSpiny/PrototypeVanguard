@@ -222,8 +222,11 @@ public class Card : MonoBehaviour
             cardInfo.powerModifier = 0;
             cardInfo.critModifier = 0;
             cardInfo.driveModifier = 0;
-            node.NodeUI.needsPulse = true;
-            node.SetDirty();
+            if (node.NodeUI != null)
+            {
+                node.NodeUI.needsPulse = true;
+                node.SetDirty();
+            }
         }
     }
 
@@ -234,8 +237,11 @@ public class Card : MonoBehaviour
             cardInfo.powerModifier += powerModifier;
             cardInfo.critModifier += critModifier;
             cardInfo.driveModifier += driveModifier;
-            node.NodeUI.needsPulse = true;
-            node.SetDirty();
+            if (node.NodeUI != null)
+            {
+                node.NodeUI.needsPulse = true;
+                node.SetDirty();
+            }
         }
     }
     
