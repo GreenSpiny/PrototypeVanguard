@@ -15,12 +15,12 @@ public class CreateAssetBundles
         BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
     }
 
-    [MenuItem("Assets/AssetBundles/Assign Asset Bundle Names")]
-    static void AssignAssetBundleNames()
+    [MenuItem("Assets/AssetBundles/Configure AssetBundles")]
+    static void ConfigureAssetBundles()
     {
         string bundlePrefix = "cardimages/";
         int bundleProgress = 0;
-        string AssetBundleFolder = "Assets/Sprites/Card_Images";
+        string AssetBundleFolder = "Assets/Resources/cardimages";
         string[] folderGuids = AssetDatabase.FindAssets("t:defaultasset", new string[] { AssetBundleFolder });
         foreach (string folderGuid in folderGuids)
         {
@@ -33,7 +33,21 @@ public class CreateAssetBundles
                 string texturePath = AssetDatabase.GUIDToAssetPath(textureGuid);
                 TextureImporter importer = TextureImporter.GetAtPath(texturePath) as TextureImporter;
                 importer.assetBundleName = bundlePrefix + folderName;
+
+                importer.alphaSource = TextureImporterAlphaSource.None;
+                importer.maxTextureSize = 512;
+                importer.crunchedCompression = true;
+                importer.compressionQuality = 100;
+                var settings = importer.GetPlatformTextureSettings("Standalone");
+                settings.overridden = false;
+                importer.alphaSource = TextureImporterAlphaSource.None;
+                settings.maxTextureSize = 256;
+                settings.crunchedCompression = true;
+                settings.compressionQuality = 50;
+                importer.SetPlatformTextureSettings(settings);
+
                 AssetDatabase.SaveAssetIfDirty(importer);
+                AssetDatabase.WriteImportSettingsIfDirty(texturePath);
                 bundleProgress++;
             }
         }
