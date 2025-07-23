@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -162,8 +163,21 @@ public class GameManager : NetworkBehaviour
     {
         dieRollWinner = result;
         animationProperties.UIAnimator.gameObject.SetActive(true);
+
+        int gzoneCount = DragManager.instance.OpposingPlayer.gzone.cards.Count;
+        string gzoneResult;
+        if (gzoneCount == 1)
+        {
+            gzoneResult = gzoneCount.ToString() + " card";
+        }
+        else
+        {
+            gzoneResult = gzoneCount.ToString() + " cards";
+        }
+        animationProperties.gZoneCountText.text = animationProperties.gZoneCountText.text.Replace("[x]", gzoneResult);
         animationProperties.UIAnimator.anim.SetBool("WinRoll", dieRollWinner == DragManager.instance.controllingPlayer.playerIndex);
         animationProperties.UIAnimator.anim.Play("Game Start");
+        
     }
 
     [Rpc(SendTo.Everyone)]
@@ -178,7 +192,15 @@ public class GameManager : NetworkBehaviour
             turnPlayer = (dieRollWinner + 1) % 2;
         }
 
-        turnPlayer = choice;
+        if (turnPlayer == DragManager.instance.controllingPlayer.playerIndex)
+        {
+            animationProperties.firstSecondText.text = animationProperties.firstSecondText.text.Replace("[x]", "first");
+        }
+        else
+        {
+            animationProperties.firstSecondText.text = animationProperties.firstSecondText.text.Replace("[x]", "second");
+        }
+
         animationProperties.UIAnimator.anim.SetBool("RollChoice", turnPlayer == DragManager.instance.controllingPlayer.playerIndex);
         animationProperties.UIAnimator.anim.SetBool("RollDecided", true);
     }
@@ -187,10 +209,17 @@ public class GameManager : NetworkBehaviour
     public void RequestGameStartRpc()
     {
         gameState = GameState.mulligan;
+        DragManager.instance.ChangeDMstate(DragManager.DMstate.open);
         for (int i = 0; i < 2; i++)
         {
             players[i].VC.cards[0].SetOrientation(false, false);
+            for (int j = 1; j <= 5; j++)
+            {
+                Node targetDeck = players[i].deck;
+                players[i].hand.RecieveCard(targetDeck.cards[targetDeck.cards.Count - j], string.Empty);
+            }
         }
+        animationProperties.UIAnimator.Close();
     }
 
     [Rpc(SendTo.Everyone)]
@@ -247,6 +276,8 @@ public class GameManager : NetworkBehaviour
     private class AnimationProperties
     {
         public AnimatorEventUtility UIAnimator;
+        public TextMeshProUGUI gZoneCountText;
+        public TextMeshProUGUI firstSecondText;
     }
 
 }

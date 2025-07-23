@@ -74,9 +74,13 @@ public class DragManager : MonoBehaviour
         }
     }
 
+    public Player OpposingPlayer
+    {
+        get { return GameManager.instance.players[(controllingPlayer.playerIndex + 1) % 2]; }
+    }
     protected void Update()
     {
-        if (controllingPlayer == null || dmstate != DMstate.closed)
+        if (controllingPlayer == null || dmstate == DMstate.closed)
         {
             return;
         }
