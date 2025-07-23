@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -177,7 +178,6 @@ public class GameManager : NetworkBehaviour
         animationProperties.gZoneCountText.text = animationProperties.gZoneCountText.text.Replace("[x]", gzoneResult);
         animationProperties.UIAnimator.anim.SetBool("WinRoll", dieRollWinner == DragManager.instance.controllingPlayer.playerIndex);
         animationProperties.UIAnimator.anim.Play("Game Start");
-        
     }
 
     [Rpc(SendTo.Everyone)]
@@ -222,11 +222,26 @@ public class GameManager : NetworkBehaviour
         animationProperties.UIAnimator.Close();
     }
 
-    [Rpc(SendTo.Everyone)]
-    public void SubmitDeckListRpc(int playerIndex, string deckName, int cardSleeves, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
+    [Rpc(SendTo.Server)]
+    public void SubmitDeckListToServerRpc(int playerIndex, string deckName, int cardSleeves, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
     {
         CardInfo.DeckList submittedDeck = new CardInfo.DeckList(deckName, cardSleeves, mainDeck, rideDeck, strideDeck, toolbox);
         players[playerIndex].AssignDeck(submittedDeck);
+        for (int i = 0; i < 2; i++)
+        {
+            CardInfo.DeckList targetList = players[i].deckList;
+            if (targetList != null)
+            {
+                BroadcastDeckListToClientRpc(i, targetList.deckName, targetList.cardSleeves, targetList.mainDeck, targetList.rideDeck, targetList.strideDeck, targetList.toolbox);
+            }
+        }
+    }
+
+    [Rpc(SendTo.NotServer)]
+    public void BroadcastDeckListToClientRpc(int playerIndex, string deckName, int cardSleeves, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
+    {
+        CardInfo.DeckList broadcastedDeck = new CardInfo.DeckList(deckName, cardSleeves, mainDeck, rideDeck, strideDeck, toolbox);
+        players[playerIndex].AssignDeck(broadcastedDeck);
     }
 
     // CARD STATE STRUCT
