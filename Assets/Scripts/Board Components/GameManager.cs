@@ -15,11 +15,17 @@ public class GameManager : NetworkBehaviour
     [NonSerialized] public Dictionary<int, Node> allNodes = new Dictionary<int, Node>();
     [NonSerialized] public Dictionary<int, Card> allCards = new Dictionary<int, Card>();
 
+    [NonSerialized] private int dieRollWinner;
     [NonSerialized] public int turnPlayer;
+
     [NonSerialized] public List<ConnectectionStruct> connectedPlayers = new List<ConnectectionStruct>();
     [SerializeField] public Player[] players;
     [SerializeField] private Camera infoCamera;
     [SerializeField] private Chatbox chatbox;
+    [SerializeField] private AnimationProperties animationProperties;
+
+    private enum GameState { setup, dieroll, mulligan, draw, ride, battle, end, finished }
+    private GameState gameState = GameState.setup;
 
     [System.Serializable]
     public struct ConnectectionStruct
@@ -68,7 +74,6 @@ public class GameManager : NetworkBehaviour
         }
 
         infoCamera.gameObject.SetActive(true);
-
     }
 
     public void OnConnectionOverride(NetworkManager manager, ConnectionEventData data)
@@ -150,6 +155,51 @@ public class GameManager : NetworkBehaviour
         chatbox.RecieveMessage(playerID, message);
     }
 
+    // === SETUP NETWORK REQUESTS === //
+
+    [Rpc(SendTo.Everyone)]
+    public void RequestDieRollEventRpc(int result)
+    {
+        dieRollWinner = result;
+        animationProperties.UIAnimator.gameObject.SetActive(true);
+        animationProperties.UIAnimator.anim.SetBool("WinRoll", dieRollWinner == DragManager.instance.controllingPlayer.playerIndex);
+        animationProperties.UIAnimator.anim.Play("Game Start");
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void RequestGoFirstSecondRpc(int choice)
+    {
+        if (choice == 0)
+        {
+            turnPlayer = dieRollWinner;
+        }
+        else
+        {
+            turnPlayer = (dieRollWinner + 1) % 2;
+        }
+
+        turnPlayer = choice;
+        animationProperties.UIAnimator.anim.SetBool("RollChoice", turnPlayer == DragManager.instance.controllingPlayer.playerIndex);
+        animationProperties.UIAnimator.anim.SetBool("RollDecided", true);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void RequestGameStartRpc()
+    {
+        gameState = GameState.mulligan;
+        for (int i = 0; i < 2; i++)
+        {
+            players[i].VC.cards[0].SetOrientation(false, false);
+        }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void SubmitDeckListRpc(int playerIndex, string deckName, int cardSleeves, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
+    {
+        CardInfo.DeckList submittedDeck = new CardInfo.DeckList(deckName, cardSleeves, mainDeck, rideDeck, strideDeck, toolbox);
+        players[playerIndex].AssignDeck(submittedDeck);
+    }
+
     // CARD STATE STRUCT
     // This struct contains the source of truth for cards - namely, how they are positioned.
     // (not used yet)
@@ -171,12 +221,32 @@ public class GameManager : NetworkBehaviour
 
     private void Update()
     {
-        // Temporary deck initialization test
-        if (Input.GetKeyDown(KeyCode.P))
+        if (gameState == GameState.setup)
         {
-            players[0].AssignDeck(CardInfo.CreateRandomDeck());
-            players[1].AssignDeck(CardInfo.CreateRandomDeck());
+            bool readyToStart = false;
+            if (Application.isEditor)
+            {
+                readyToStart = players[0].deckList != null;
+            }
+            else
+            {
+                readyToStart = players[0].deckList != null && players[1].deckList != null;
+            }
+            if (readyToStart)
+            {
+                Debug.Log("go!");
+                gameState = GameState.dieroll;
+                int dieRoll = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
+                dieRoll = 0; // testing
+                RequestDieRollEventRpc(dieRoll);
+            }
         }
+    }
+
+    [System.Serializable]
+    private class AnimationProperties
+    {
+        public AnimatorEventUtility UIAnimator;
     }
 
 }

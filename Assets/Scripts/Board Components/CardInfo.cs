@@ -154,8 +154,21 @@ public class CardInfo
         public int[] mainDeck;      // MAIN DECK.                   50 cards max
         public int[] rideDeck;      // RIDE DECK.                   5  cards max
         public int[] strideDeck;    // STRIDE DECK.                 16 cards max
-        public int[] toolBox;       // TOKENS, TICKETS, MARKERS.    30 cards max
+        public int[] toolbox;       // TOKENS, TICKETS, MARKERS.    30 cards max
                                     //                            = 101 total
+        public DeckList()
+        {
+
+        }
+        public DeckList(string deckName, int cardSleeves, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
+        {
+            this.deckName = deckName;
+            this.cardSleeves = cardSleeves;
+            this.mainDeck = mainDeck;
+            this.rideDeck = rideDeck;
+            this.strideDeck = strideDeck;
+            this.toolbox = toolbox;
+        }
     }
 
     public static DeckList CreateDeck(string JSON)
@@ -171,7 +184,7 @@ public class CardInfo
         deck.mainDeck = new int[50];
         deck.rideDeck = new int[5];
         deck.strideDeck = new int[16];
-        deck.toolBox = new int[30];
+        deck.toolbox = new int[30];
         for (int i = 0; i < deck.mainDeck.Count(); i++)
         {
             deck.mainDeck[i] = UnityEngine.Random.Range(0, 4000);
@@ -184,9 +197,9 @@ public class CardInfo
         {
             deck.strideDeck[i] = UnityEngine.Random.Range(0, 4000);
         }
-        for (int i = 0; i < deck.toolBox.Count(); i++)
+        for (int i = 0; i < deck.toolbox.Count(); i++)
         {
-            deck.toolBox[i] = UnityEngine.Random.Range(0, 4000);
+            deck.toolbox[i] = UnityEngine.Random.Range(0, 4000);
         }
         return deck;
     }

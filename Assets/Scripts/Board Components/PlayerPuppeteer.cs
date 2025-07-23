@@ -23,6 +23,7 @@ public class PlayerPuppeteer : NetworkBehaviour
             }
             if (playerIndex < 2)
             {
+                // Align player and set control
                 player = GameManager.instance.players[playerIndex];
                 player.playerCamera.gameObject.SetActive(true);
 
@@ -37,6 +38,10 @@ public class PlayerPuppeteer : NetworkBehaviour
                 DragManager.instance.controllingPlayer = player;
                 GameManager.instance.letterboxedCanvas.GetCameras()[1].camera = player.playerCamera;
                 GameManager.instance.letterboxedCanvas.Refresh();
+
+                // Submit decklist
+                CardInfo.DeckList randomDeck = CardInfo.CreateRandomDeck();
+                GameManager.instance.SubmitDeckListRpc(playerIndex, "Random Deck", randomDeck.cardSleeves, randomDeck.mainDeck, randomDeck.rideDeck, randomDeck.strideDeck, randomDeck.toolbox);
             }
         }
     }

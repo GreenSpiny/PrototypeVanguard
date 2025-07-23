@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DragManager : MonoBehaviour
@@ -35,6 +36,7 @@ public class DragManager : MonoBehaviour
 
     public enum DMstate
     {
+        closed,     // Closed game state
         open,       // Open game state
         dragging,   // The user is dragging a card
         targeting   // The user has chosen a context option that requires targeting a node
@@ -46,7 +48,7 @@ public class DragManager : MonoBehaviour
 
     public void Init()
     {
-        dmstate = DMstate.open;
+        dmstate = DMstate.closed;
         instance = this;
         cardMask = LayerMask.GetMask("Card Layer");
         nodeMask = LayerMask.GetMask("Node Layer");
@@ -74,7 +76,7 @@ public class DragManager : MonoBehaviour
 
     protected void Update()
     {
-        if (controllingPlayer == null)
+        if (controllingPlayer == null || dmstate != DMstate.closed)
         {
             return;
         }
