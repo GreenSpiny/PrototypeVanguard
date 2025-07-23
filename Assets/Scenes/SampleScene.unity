@@ -6355,7 +6355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You win the die roll.
+  m_text: 'You won the die roll.
 
     Would you like to go first or second?'
   m_isRightToLeft: 0

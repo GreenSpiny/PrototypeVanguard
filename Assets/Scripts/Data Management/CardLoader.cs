@@ -140,13 +140,14 @@ public class CardLoader : MonoBehaviour
         {
             Material newMaterial = new Material(instance.cardMaterial);
             int folderIndex = Mathf.FloorToInt(cardIndex / 100f);
-            if (folderIndex < instance.allImagesData.Count)
+            Texture targetTexture = Resources.Load<Texture>("cardimages/" + folderIndex +  '/' + cardIndex.ToString());
+            if (targetTexture != null)
             {
-                Texture targetTexture = Resources.Load<Texture>("cardimages/" + folderIndex +  '/' + cardIndex.ToString());
-                if (targetTexture != null)
-                {
-                    newMaterial.mainTexture = targetTexture;
-                }
+                newMaterial.mainTexture = targetTexture;
+            }
+            else
+            {
+                Debug.Log("Failed to load card with index: " + cardIndex.ToString());
             }
             instance.allImagesData[cardIndex] = newMaterial;
             return newMaterial;

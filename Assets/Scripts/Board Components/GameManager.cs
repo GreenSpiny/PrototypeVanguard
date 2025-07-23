@@ -253,6 +253,7 @@ public class GameManager : NetworkBehaviour
         if (gameState == GameState.setup)
         {
             bool readyToStart = false;
+            int dieRoll = 0;
             if (Application.isEditor)
             {
                 readyToStart = players[0].deckList != null;
@@ -260,13 +261,11 @@ public class GameManager : NetworkBehaviour
             else
             {
                 readyToStart = players[0].deckList != null && players[1].deckList != null;
+                dieRoll = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
             }
             if (readyToStart)
             {
-                Debug.Log("go!");
                 gameState = GameState.dieroll;
-                int dieRoll = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
-                dieRoll = 0; // testing
                 RequestDieRollEventRpc(dieRoll);
             }
         }

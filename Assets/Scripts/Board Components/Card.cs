@@ -42,6 +42,7 @@ public class Card : MonoBehaviour
         if (front)
         {
             cardFrontMaterial = mat;
+            name = cardFrontMaterial.mainTexture.name;
         }
         else
         {

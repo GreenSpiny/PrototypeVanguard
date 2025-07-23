@@ -14,7 +14,7 @@ public class PlayerPuppeteer : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void SetupPlayerRpc(ulong clientID, int playerIndex)
     {
-        if (this.NetworkManager.LocalClientId == clientID)
+        if (NetworkManager.LocalClientId == clientID)
         {
             this.playerIndex = playerIndex;
             foreach (var player in GameManager.instance.players)
