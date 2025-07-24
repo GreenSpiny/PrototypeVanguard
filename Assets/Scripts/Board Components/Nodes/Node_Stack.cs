@@ -33,9 +33,8 @@ public class Node_Stack : Node
 
     public override void AlignCards(bool instant)
     {
-        if (cards.Count > 0)
+        if (HasCard)
         {
-            Card topCard = cards[cards.Count - 1];
             for (int i = 0; i < cards.Count; i++)
             {
                 Card card = cards[i];
@@ -47,7 +46,7 @@ public class Node_Stack : Node
                 {
                     card.anchoredPosition = new Vector3(0f, (Card.cardDepth / 2f) + (i * Card.cardDepth), 0f);
                 }
-                card.SetOrientation(card.flip, topCard.rest);
+                card.SetOrientation(card.flip, TopCard.rest);
                 card.LookAt(null);
                 card.ToggleColliders(i == cards.Count - 1 && !compressCards);
                 if (i == cards.Count - 1)

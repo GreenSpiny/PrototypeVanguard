@@ -236,12 +236,13 @@ public class DragManager : MonoBehaviour
                 foreach (Node node in GameManager.instance.allNodes.Values)
                 {
                     // TODO: need exception for Prison
-                    if (node.canDragTo && (DraggedCard.player == node.player || node.Type == Node.NodeType.GC) && DraggedCard.node.PreviousNode != node)
+                    if (node.canDragTo && (DraggedCard.player == node.player || node.Type == Node.NodeType.GC) && dragNode.PreviousNode != node)
                     {
                         node.UIState = Node.NodeUIState.available;
                     }
                 }
 
+                HoveredNode = null;
                 ClearSelections();
                 break;
 
@@ -307,7 +308,7 @@ public class DragManager : MonoBehaviour
         }
         if (node.UIState == Node.NodeUIState.hovered)
         {
-            if (dmstate == DMstate.dragging)
+            if (dmstate == DMstate.dragging && node != dragNode.PreviousNode)
             {
                 node.UIState = Node.NodeUIState.available;
             }

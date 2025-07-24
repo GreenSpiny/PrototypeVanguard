@@ -77,7 +77,7 @@ public class Node_Display : Node
         CloseDisplay();
         lastAcceptedNode = node;
         int initialCount = node.cards.Count;
-        Card c = node.cards[node.cards.Count - 1];
+        Card c = node.TopCard;
         for (int i = initialCount - 1; i >= initialCount - cardCount;)
         {
             RecieveCard(c, string.Empty);

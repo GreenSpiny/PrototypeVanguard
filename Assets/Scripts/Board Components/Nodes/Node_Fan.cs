@@ -24,7 +24,7 @@ public class Node_Fan : Node
 
     public override void AlignCards(bool instant)
     {
-        if (cards.Count > 0)
+        if (HasCard)
         {
             float totalWidth = 0f;
             float spacing = 0f;

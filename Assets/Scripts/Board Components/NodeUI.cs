@@ -55,7 +55,7 @@ public class NodeUI : MonoBehaviour
         Card targetCard = null;
         if (node.HasCard)
         {
-            targetCard = node.cards[node.cards.Count - 1];
+            targetCard = node.TopCard;
             if (lastAttachedCard == null || targetCard != lastAttachedCard)
             {
                 needsPulse = false;

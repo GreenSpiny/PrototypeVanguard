@@ -9,6 +9,8 @@ public abstract class Node : MonoBehaviour
     public static Transform cameraTransform;
     public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC, display }
     public bool HasCard { get { return cards.Count > 0; } }         // True if the node contains at least one card
+    public Card BottomCard {  get { return cards[0]; } }
+    public Card TopCard { get { return cards[cards.Count - 1]; } }
 
     [NonSerialized] public List<Card> cards = new List<Card>();     // The cards attached to this node
     public Node PreviousNode { get; protected set; }                // The previous Node of the most recently attached card
@@ -132,7 +134,7 @@ public abstract class Node : MonoBehaviour
     public virtual void AlignCards(bool instant)
     {
         isDirty = false;
-        if (cards.Count > 0)
+        if (HasCard)
         {
             if (instant)
             {
