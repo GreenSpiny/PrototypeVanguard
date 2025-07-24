@@ -17648,7 +17648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519e404a33bec4a4c87af46bb8b3d7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionFlag: 21
+  actionFlag: 22
 --- !u!222 &1120594583
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -36862,7 +36862,7 @@ MonoBehaviour:
   descend: 0
   maxCards: 7
   maxWidth: 0
-  defaultSpacing: 1.1
+  defaultSpacing: 1
   lookAtCamera: 1
 --- !u!1 &2082947545
 GameObject:

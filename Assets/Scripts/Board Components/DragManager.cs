@@ -302,7 +302,7 @@ public class DragManager : MonoBehaviour
         {
             node.UIState = Node.NodeUIState.normal;
         }
-        else if (dmstate == DMstate.open && node.canSelectRaw)
+        else if (dmstate == DMstate.open && node.canSelectRaw && node.nodeActionFlags.Count > 0)
         {
             if (node.UIState == Node.NodeUIState.normal)
             {
