@@ -294,7 +294,7 @@ public class DragManager : MonoBehaviour
 
     public void OnNodeHoverEnter(Node node)
     {
-        if (dmstate != DMstate.dragging && HoveredCard != null && HoveredCard.node == node)
+        if (dmstate != DMstate.dragging && HoveredCard != null)
         {
             node.UIState = Node.NodeUIState.normal;
         }
@@ -302,7 +302,7 @@ public class DragManager : MonoBehaviour
         {
             node.UIState = Node.NodeUIState.normal;
         }
-        else if (dmstate == DMstate.open && node.canSelectRaw && node.nodeActionFlags.Count > 0 && !node.HasCard)
+        else if (dmstate == DMstate.open && node.canSelectRaw && node.nodeActionFlags.Count > 0)
         {
             if (node.UIState == Node.NodeUIState.normal)
             {
