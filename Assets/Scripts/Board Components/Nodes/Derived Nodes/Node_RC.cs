@@ -77,27 +77,24 @@ public class Node_RC : Node_Stack
         base.NodeAutoAction();
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
             CardInfo.ActionFlag.power,
             CardInfo.ActionFlag.soul,
             CardInfo.ActionFlag.botdeck
         };
+        return toReturn;
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-            CardInfo.ActionFlag.bindFD,
-            CardInfo.ActionFlag.gaugeZone,
-            CardInfo.ActionFlag.locking,
-            CardInfo.ActionFlag.overdress,
-            CardInfo.ActionFlag.prison,
-            CardInfo.ActionFlag.soulRC
+            CardInfo.ActionFlag.token
         };
+        return toReturn;
     }
 
 }

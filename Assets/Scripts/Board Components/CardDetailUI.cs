@@ -51,9 +51,9 @@ public class CardDetailUI : MonoBehaviour
     {
         string cardInfoString = string.Empty;
         cardInfoString += "G" + card.cardInfo.grade.ToString() + " / ";
-        cardInfoString += card.cardInfo.power.ToString() + " / ";
-        cardInfoString += card.cardInfo.shield.ToString() + " / ";
-        cardInfoString += card.cardInfo.crit.ToString() + "C";
+        cardInfoString += card.cardInfo.basePower.ToString() + " / ";
+        cardInfoString += card.cardInfo.baseShield.ToString() + " / ";
+        cardInfoString += card.cardInfo.baseCrit.ToString() + "C";
         cardInfoString += "\n" + card.cardInfo.unitType;
         if (card.cardInfo.skills != null && card.cardInfo.skills.Count() > 0)
         {

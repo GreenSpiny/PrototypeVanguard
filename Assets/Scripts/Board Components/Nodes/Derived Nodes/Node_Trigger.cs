@@ -7,7 +7,14 @@ public class Node_Trigger : Node_Fan
 
     public override void CardAutoAction(Card clickedCard)
     {
-        GameManager.instance.RequestRecieveCardRpc(clickedCard.player.hand.nodeID, clickedCard.cardID, string.Empty);
+        if (GameManager.instance.turnPlayer == player.playerIndex)
+        {
+            GameManager.instance.RequestRecieveCardRpc(clickedCard.player.hand.nodeID, clickedCard.cardID, string.Empty);
+        }
+        else
+        {
+            GameManager.instance.RequestRecieveCardRpc(clickedCard.player.damage.nodeID, clickedCard.cardID, string.Empty);
+        }
     }
 
     public override void NodeAutoAction()
@@ -15,20 +22,22 @@ public class Node_Trigger : Node_Fan
         base.NodeAutoAction();
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
 
         };
+        return toReturn;
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
 
         };
+        return toReturn;
     }
 
 }

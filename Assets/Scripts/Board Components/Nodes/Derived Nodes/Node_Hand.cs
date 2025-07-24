@@ -15,26 +15,24 @@ public class Node_Hand : Node_Fan
         base.NodeAutoAction();
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
             CardInfo.ActionFlag.reveal,
             CardInfo.ActionFlag.soul,
             CardInfo.ActionFlag.botdeck
         };
+        return toReturn;
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-            CardInfo.ActionFlag.armLeft,
-            CardInfo.ActionFlag.armRight,
-            CardInfo.ActionFlag.prison,
-            CardInfo.ActionFlag.overdress,
-            CardInfo.ActionFlag.soulRC
+            CardInfo.ActionFlag.ticket
         };
+        return toReturn;
     }
 
 }

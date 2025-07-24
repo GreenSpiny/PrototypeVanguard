@@ -68,7 +68,14 @@ public class CardInfo
         locking,        // both players can access LOCK
         overdress,      // the owner can access OV DRESS
         prison,         // the owner gains a Prison Zone and the opponent can access PRISON
-        soulRC          // the owner's RC have SOUL access (i.e. Noblesse Gauge)
+        soulRC,          // the owner's RC have SOUL access (i.e. Noblesse Gauge)
+
+        // MORE
+        search,
+        token,
+        marker,
+        ticket,
+        crest
     }
 
     public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string nation, int basePower, string race, int baseShield, string[] skills, string unitType, int version)

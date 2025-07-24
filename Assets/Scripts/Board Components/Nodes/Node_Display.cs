@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,24 +53,24 @@ public class Node_Display : Node
         base.AlignCards(instant);
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
             CardInfo.ActionFlag.reveal,
             CardInfo.ActionFlag.soul,
             CardInfo.ActionFlag.botdeck
         };
+        return toReturn;
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-            CardInfo.ActionFlag.armLeft,
-            CardInfo.ActionFlag.armRight,
-            CardInfo.ActionFlag.soulRC
+            
         };
+        return toReturn;
     }
 
     public void OpenDisplay(Node node, int cardCount, bool revealCards)

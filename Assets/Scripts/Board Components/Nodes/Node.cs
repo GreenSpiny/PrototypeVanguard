@@ -34,6 +34,9 @@ public abstract class Node : MonoBehaviour
     protected float verticalOffsetUI;
 
     public int nodeID { get; private set; }     // Unique node identifier for networking purposes
+    
+    public List<CardInfo.ActionFlag> cardActionFlags = new List<CardInfo.ActionFlag>();
+    public List<CardInfo.ActionFlag> nodeActionFlags = new List<CardInfo.ActionFlag>();
 
     // Dirty nodes are realigned on the next update cycle.
     protected bool isDirty = false;
@@ -50,6 +53,8 @@ public abstract class Node : MonoBehaviour
         this.nodeID = nodeID;
         player = GetComponentInParent<Player>();
         animInfo.Initialize();
+        cardActionFlags = GenerateDefaultCardActions();
+        nodeActionFlags = GenerateDefaultNodeActions();
         if (cardAnchor == null)
         {
             cardAnchor = transform;
@@ -158,16 +163,16 @@ public abstract class Node : MonoBehaviour
 
     public virtual void CardAutoAction(Card clickedCard) { }
     public virtual void NodeAutoAction() { }
-    public abstract IEnumerable<CardInfo.ActionFlag> GetDefaultActions();
-    public abstract IEnumerable<CardInfo.ActionFlag> GetSpecialActions();
+    protected abstract List<CardInfo.ActionFlag> GenerateDefaultCardActions();
+    protected abstract List<CardInfo.ActionFlag> GenerateDefaultNodeActions();
     public IEnumerable<CardInfo.ActionFlag> GetActions()
     {
         List<CardInfo.ActionFlag> actions = new List<CardInfo.ActionFlag>();
-        foreach (var action in GetDefaultActions())
+        foreach (var action in GenerateDefaultCardActions())
         {
             actions.Add(action);
         }
-        foreach (var action in GetSpecialActions())
+        foreach (var action in GenerateDefaultNodeActions())
         {
             actions.Add(action);
         }

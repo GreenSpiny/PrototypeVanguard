@@ -15,23 +15,25 @@ public class Node_Deck : Node_Stack
         base.NodeAutoAction();
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-            CardInfo.ActionFlag.view,
+            CardInfo.ActionFlag.search,
             CardInfo.ActionFlag.viewx,
             CardInfo.ActionFlag.revealx,
             CardInfo.ActionFlag.soul
         };
+        return toReturn;
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
     {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
             
         };
+        return toReturn;
     }
 
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -176,15 +177,23 @@ public class DragManager : MonoBehaviour
         {
             if (HoveredCard != null)
             {
-                SelectedCard = HoveredCard;
-                SelectedCard.UIState = Card.CardUIState.selected;
-                standardContext.DisplayButtons(clickLocation, HoveredCard.node.GetDefaultActions()); // temp
+                List<CardInfo.ActionFlag> availableActions = HoveredCard.node.cardActionFlags;
+                if (availableActions.Count > 0)
+                {
+                    SelectedCard = HoveredCard;
+                    SelectedCard.UIState = Card.CardUIState.selected;
+                    standardContext.DisplayButtons(clickLocation, availableActions);
+                }
             }
-            else if (HoveredNode != null)
+            else if (HoveredNode != null && HoveredNode.canSelectRaw)
             {
-                SelectedNode = HoveredNode;
-                SelectedNode.UIState = Node.NodeUIState.selected;
-                standardContext.DisplayButtons(clickLocation, HoveredNode.GetDefaultActions());
+                List<CardInfo.ActionFlag> availableActions = HoveredNode.nodeActionFlags;
+                if (availableActions.Count > 0)
+                {
+                    SelectedNode = HoveredNode;
+                    SelectedNode.UIState = Node.NodeUIState.selected;
+                    standardContext.DisplayButtons(clickLocation, availableActions);
+                }
             }
         }
 
@@ -266,9 +275,9 @@ public class DragManager : MonoBehaviour
             {
                 card.UIState = Card.CardUIState.hovered;
             }
-            HoveredCard = card;
-            cardDetailUI.InspectCard(card);
         }
+        HoveredCard = card;
+        cardDetailUI.InspectCard(card);
     }
 
     public void OnCardHoverExit(Card card)
@@ -285,19 +294,26 @@ public class DragManager : MonoBehaviour
 
     public void OnNodeHoverEnter(Node node)
     {
-        if (dmstate == DMstate.open && node.canSelectRaw)
+        if (dmstate != DMstate.dragging && HoveredCard != null && HoveredCard.node == node)
+        {
+            node.UIState = Node.NodeUIState.normal;
+        }
+        else if (dmstate == DMstate.dragging && DraggedCard != null && DraggedCard.node.PreviousNode == node)
+        {
+            node.UIState = Node.NodeUIState.normal;
+        }
+        else if (dmstate == DMstate.open && node.canSelectRaw)
         {
             if (node.UIState == Node.NodeUIState.normal)
             {
                 node.UIState = Node.NodeUIState.hovered;
             }
-            HoveredNode = node;
         }
-        else if (dmstate == DMstate.dragging && node.UIState == Node.NodeUIState.available)
+        else if (dmstate == DMstate.dragging && node.UIState == Node.NodeUIState.available && node != DraggedCard.node)
         {
             node.UIState = Node.NodeUIState.hovered;
-            HoveredNode = node;
         }
+        HoveredNode = node;
     }
 
     public void OnNodeHoverExit(Node node)

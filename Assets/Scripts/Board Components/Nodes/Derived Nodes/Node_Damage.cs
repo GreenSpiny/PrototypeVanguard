@@ -15,20 +15,22 @@ public class Node_Damage : Node_Fan
         base.NodeAutoAction();
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
-        return new CardInfo.ActionFlag[]
-        {
-            CardInfo.ActionFlag.reveal
-        };
-    }
-
-    public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
-    {
-        return new CardInfo.ActionFlag[]
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
             
         };
+        return toReturn;
+    }
+
+    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
+    {
+        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
+        {
+            
+        };
+        return toReturn;
     }
 
 }

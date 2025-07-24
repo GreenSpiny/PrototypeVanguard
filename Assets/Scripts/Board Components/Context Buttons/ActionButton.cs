@@ -33,17 +33,12 @@ public class ActionButton : ContextButton
                 GameManager.instance.RequestRevealCardRpc(selectedCard.cardID, 1f);
                 DragManager.instance.ClearSelections();
                 break;
+            case CardInfo.ActionFlag.search:
+                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false);
+                DragManager.instance.ClearSelections();
+                break;
             case CardInfo.ActionFlag.view:
-                Node targetNode = selectedCard.node;
-                if (targetNode.Type == Node.NodeType.deck)
-                {
-                    GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, targetNode.nodeID, targetNode.cards.Count, false);
-                }
-                else
-                {
-                    // Viewing non-deck nodes is client side
-                    DragManager.instance.OpenDisplay(activePlayer.playerIndex, targetNode, targetNode.cards.Count, false);
-                }
+                DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedCard.node, selectedCard.node.cards.Count, false);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.viewx:

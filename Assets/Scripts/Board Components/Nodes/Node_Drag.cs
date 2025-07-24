@@ -25,13 +25,13 @@ public class Node_Drag : Node
         }
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetDefaultActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
-        throw new System.NotImplementedException();
+        return new List<CardInfo.ActionFlag>();
     }
 
-    public override IEnumerable<CardInfo.ActionFlag> GetSpecialActions()
+    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
     {
-        throw new System.NotImplementedException();
+        return new List<CardInfo.ActionFlag>();
     }
 }
