@@ -83,7 +83,8 @@ public class Node_RC : Node_Stack
         {
             CardInfo.ActionFlag.power,
             CardInfo.ActionFlag.soul,
-            CardInfo.ActionFlag.botdeck
+            CardInfo.ActionFlag.botdeck,
+            CardInfo.ActionFlag.token
         };
         return toReturn;
     }

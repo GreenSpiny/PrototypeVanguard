@@ -19,7 +19,7 @@ public class Node_Order : Node_Fan
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-
+            CardInfo.ActionFlag.token
         };
         return toReturn;
     }

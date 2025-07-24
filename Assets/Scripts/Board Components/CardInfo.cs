@@ -194,7 +194,7 @@ public class CardInfo
         DeckList deck = new DeckList();
         deck.deckName = "random deck";
         deck.cardSleeves = 0;
-        deck.mainDeck = new int[20]; // temp
+        deck.mainDeck = new int[DeckList.maxMain];
         deck.rideDeck = new int[DeckList.maxRide];
         deck.strideDeck = new int[DeckList.maxStride];
         deck.toolbox = new int[DeckList.maxToolbox];
