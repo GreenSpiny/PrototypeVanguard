@@ -214,7 +214,7 @@ public class DragManager : MonoBehaviour
             case DMstate.open:
                 dmstate = DMstate.open;
                 Debug.Log("DMstate -> open");
-                if (DraggedCard != null && HoveredNode == null)
+                if (DraggedCard != null && (HoveredNode == null || !HoveredNode.canDragTo))
                 {
                     // DragNode is intentionally not synced across clients
                     dragNode.PreviousNode.RecieveCard(DraggedCard, "cancel");

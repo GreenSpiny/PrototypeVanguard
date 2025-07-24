@@ -113,7 +113,7 @@ public class NodeUI : MonoBehaviour
         countText.gameObject.SetActive(displayCount);
         if (displayCount)
         {
-            if (node.HasCard)
+            if (node.HasCard && node.TopCard.gameObject.activeSelf)
             {
                 targetAlpha = 1;
                 countText.text = Convert.ToString(node.cards.Count);

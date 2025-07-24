@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node_Deck : Node_Stack
+public class Node_Abyss : Node_Stack
 {
-    public override NodeType Type => NodeType.deck;
+    public override NodeType Type => NodeType.abyss;
 
     public override void CardAutoAction(Card clickedCard)
     {
-        GameManager.instance.RequestRecieveCardRpc(clickedCard.player.hand.nodeID, clickedCard.cardID, string.Empty);
+        base.CardAutoAction(clickedCard);
     }
 
     public override void NodeAutoAction()
@@ -19,11 +19,7 @@ public class Node_Deck : Node_Stack
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-            CardInfo.ActionFlag.search,
-            CardInfo.ActionFlag.viewx,
-            CardInfo.ActionFlag.revealx,
-            CardInfo.ActionFlag.soul,
-            CardInfo.ActionFlag.shuffle
+           
         };
         return toReturn;
     }

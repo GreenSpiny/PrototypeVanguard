@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Unity.VisualScripting;
 public class Player : MonoBehaviour
 {
     [SerializeField] public int playerIndex;
@@ -23,7 +24,10 @@ public class Player : MonoBehaviour
     public Node ride;
     public Node VC;
     public Node_Display display;
-    public Node GC;                 // Special because shared - for now, assign in inspector
+    public Node GC;             // shared
+    public Node crest;
+    public Node toolbox;
+    public Node abyss;          // shared
     public List<Node> RC;
 
     public void AssignDeck(CardInfo.DeckList deckList)
@@ -32,33 +36,75 @@ public class Player : MonoBehaviour
         {
             this.deckList = deckList;
 
-            for (int i = 0; i < deck.cards.Count(); i++)
+            for (int i = deck.cards.Count() - 1; i >= 0; i--)
             {
-                CardInfo c = CardLoader.GetCardInfo(deckList.mainDeck[i]);
-                deck.cards[i].cardInfo = c;
-                deck.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                if (i < deckList.mainDeck.Count())
+                {
+                    CardInfo c = CardLoader.GetCardInfo(deckList.mainDeck[i]);
+                    deck.cards[i].cardInfo = c;
+                    deck.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                    deck.cards[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    abyss.RecieveCard(deck.cards[i], string.Empty);
+                }
             }
+            deck.AlignCards(true);
 
-            for (int i = 0; i < VC.cards.Count(); i++)
+            CardInfo vanguard = CardLoader.GetCardInfo(deckList.rideDeck[0]);
+            VC.cards[0].cardInfo = vanguard;
+            VC.cards[0].SetTexture(CardLoader.GetCardImage(vanguard.index), true);
+            VC.cards[0].gameObject.SetActive(true);
+            for (int i = ride.cards.Count() - 1; i >= 0; i--)
             {
-                CardInfo c = CardLoader.GetCardInfo(deckList.rideDeck[i]);
-                VC.cards[i].cardInfo = c;
-                VC.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                if (i < deckList.rideDeck.Count())
+                {
+                    CardInfo c = CardLoader.GetCardInfo(deckList.rideDeck[i]);
+                    ride.cards[i].cardInfo = c;
+                    ride.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                    ride.cards[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    abyss.RecieveCard(ride.cards[i], string.Empty);
+                }
             }
+            ride.AlignCards(true);
 
-            for (int i = 0; i < ride.cards.Count(); i++)
+            for (int i = gzone.cards.Count() - 1; i >= 0; i--)
             {
-                CardInfo c = CardLoader.GetCardInfo(deckList.rideDeck[i]);
-                ride.cards[i].cardInfo = c;
-                ride.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                if (i < deckList.strideDeck.Count())
+                {
+                    CardInfo c = CardLoader.GetCardInfo(deckList.strideDeck[i]);
+                    gzone.cards[i].cardInfo = c;
+                    gzone.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                    gzone.cards[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    abyss.RecieveCard(gzone.cards[i], string.Empty);
+                }
             }
+            gzone.AlignCards(true);
 
-            for (int i = 0; i < gzone.cards.Count(); i++)
+            for (int i = toolbox.cards.Count() - 1; i >= 0; i--)
             {
-                CardInfo c = CardLoader.GetCardInfo(deckList.strideDeck[i]);
-                gzone.cards[i].cardInfo = c;
-                gzone.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                if (i < deckList.toolbox.Count())
+                {
+                    CardInfo c = CardLoader.GetCardInfo(deckList.toolbox[i]);
+                    toolbox.cards[i].cardInfo = c;
+                    toolbox.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                    toolbox.cards[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    abyss.RecieveCard(toolbox.cards[i], string.Empty);
+                }
             }
+            toolbox.AlignCards(true);
+
+            abyss.AlignCards(true);
         }
     }
 

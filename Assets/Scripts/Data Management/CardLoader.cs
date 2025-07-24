@@ -55,7 +55,6 @@ public class CardLoader : MonoBehaviour
         // Download the Data Version Object. This determines whether mew asset bundles must be downloaded.
         // It must be checked against the locally saved copy.
         TextAsset versionJSON = Resources.Load<TextAsset>(localVersionJSONPath);
-        Debug.Log(versionJSON.text);
         versionObject = JsonConvert.DeserializeObject<DataVersionObject>(versionJSON.text);
 
         // Grab the existing card data JSON, or download an updated version if needed.

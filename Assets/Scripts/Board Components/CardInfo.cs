@@ -75,7 +75,8 @@ public class CardInfo
         token,
         marker,
         ticket,
-        crest
+        crest,
+        shuffle
     }
 
     public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string nation, int basePower, string race, int baseShield, string[] skills, string unitType, int version)
@@ -155,14 +156,19 @@ public class CardInfo
     [System.Serializable]
     public class DeckList
     {
+        public const int maxMain = 50;
+        public const int maxRide = 5;
+        public const int maxStride = 16;
+        public const int maxToolbox = 30;
+
         public string deckName;     // Name of the deck.
         public int cardSleeves;     // ID linking to the card sleeves.
 
-        public int[] mainDeck;      // MAIN DECK.                   50 cards max
-        public int[] rideDeck;      // RIDE DECK.                   5  cards max
-        public int[] strideDeck;    // STRIDE DECK.                 16 cards max
-        public int[] toolbox;       // TOKENS, TICKETS, MARKERS.    30 cards max
-                                    //                            = 101 total
+        public int[] mainDeck;      // MAIN DECK.
+        public int[] rideDeck;      // RIDE DECK.
+        public int[] strideDeck;    // STRIDE DECK.
+        public int[] toolbox;       // TOKENS, TICKETS, MARKERS.
+
         public DeckList()
         {
 
@@ -188,25 +194,25 @@ public class CardInfo
         DeckList deck = new DeckList();
         deck.deckName = "random deck";
         deck.cardSleeves = 0;
-        deck.mainDeck = new int[50];
-        deck.rideDeck = new int[5];
-        deck.strideDeck = new int[16];
-        deck.toolbox = new int[30];
+        deck.mainDeck = new int[20]; // temp
+        deck.rideDeck = new int[DeckList.maxRide];
+        deck.strideDeck = new int[DeckList.maxStride];
+        deck.toolbox = new int[DeckList.maxToolbox];
         for (int i = 0; i < deck.mainDeck.Count(); i++)
         {
-            deck.mainDeck[i] = UnityEngine.Random.Range(0, 4000);
+            deck.mainDeck[i] = UnityEngine.Random.Range(0, 100);
         }
         for (int i = 0; i < deck.rideDeck.Count(); i++)
         {
-            deck.rideDeck[i] = UnityEngine.Random.Range(0, 4000);
+            deck.rideDeck[i] = UnityEngine.Random.Range(0, 100);
         }
         for (int i = 0; i < deck.strideDeck.Count(); i++)
         {
-            deck.strideDeck[i] = UnityEngine.Random.Range(0, 4000);
+            deck.strideDeck[i] = UnityEngine.Random.Range(0, 100);
         }
         for (int i = 0; i < deck.toolbox.Count(); i++)
         {
-            deck.toolbox[i] = UnityEngine.Random.Range(0, 4000);
+            deck.toolbox[i] = UnityEngine.Random.Range(0, 100);
         }
         return deck;
     }

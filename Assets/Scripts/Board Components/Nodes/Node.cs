@@ -7,7 +7,7 @@ using System;
 public abstract class Node : MonoBehaviour
 {
     public static Transform cameraTransform;
-    public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC, display }
+    public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC, display, toolbox, crest, abyss }
     public bool HasCard { get { return cards.Count > 0; } }         // True if the node contains at least one card
     public Card BottomCard {  get { return cards[0]; } }
     public Card TopCard { get { return cards[cards.Count - 1]; } }
@@ -34,9 +34,9 @@ public abstract class Node : MonoBehaviour
     protected float verticalOffsetUI;
 
     public int nodeID { get; private set; }     // Unique node identifier for networking purposes
-    
-    public List<CardInfo.ActionFlag> cardActionFlags = new List<CardInfo.ActionFlag>();
-    public List<CardInfo.ActionFlag> nodeActionFlags = new List<CardInfo.ActionFlag>();
+
+    [NonSerialized] public List<CardInfo.ActionFlag> cardActionFlags = new List<CardInfo.ActionFlag>();
+    [NonSerialized] public List<CardInfo.ActionFlag> nodeActionFlags = new List<CardInfo.ActionFlag>();
 
     // Dirty nodes are realigned on the next update cycle.
     protected bool isDirty = false;
@@ -223,7 +223,7 @@ public abstract class Node : MonoBehaviour
         [NonSerialized] public Color flashColor = new Color(1f, 1f, 1f, 0f);
         [NonSerialized] public bool instantColor = false;
 
-        static float transitionSpeed = 10f;
+        static float transitionSpeed = 20f;
 
         public bool CanAnimate { get { return flashRenderer != null; } }
 

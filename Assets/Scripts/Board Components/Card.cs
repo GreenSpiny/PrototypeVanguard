@@ -73,6 +73,7 @@ public class Card : MonoBehaviour
 
     public void Init(Node node)
     {
+        gameObject.SetActive(false);
         this.node = node;
         player = node.player;
         transform.SetParent(player.transform, true);
