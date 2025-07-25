@@ -1,9 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Dynamic;
 using System.Linq;
 using TMPro;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class NodeUI : MonoBehaviour
@@ -18,6 +15,7 @@ public class NodeUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI driveText;     // Unit drive
     [SerializeField] TextMeshProUGUI countText;     // Number of cards in the stack / fan
     [SerializeField] TextMeshProUGUI nameText;      // Name of the node, if applicable
+    [SerializeField] RectTransform powerBackdrop;
 
     private CanvasGroup canvasGroup;
     private int targetAlpha;
@@ -76,6 +74,7 @@ public class NodeUI : MonoBehaviour
         powerText.gameObject.SetActive(displayPower);
         criticalText.gameObject.SetActive(displayPower);
         driveText.gameObject.SetActive(displayPower);
+        powerBackdrop.gameObject.SetActive(displayPower);
         if (displayPower)
         {
             if (node.HasCard)
