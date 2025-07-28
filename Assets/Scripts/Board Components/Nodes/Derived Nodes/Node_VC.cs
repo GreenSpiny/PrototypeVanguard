@@ -33,6 +33,10 @@ public class Node_VC : Node_Stack
         {
             CardInfo.ActionFlag.power
         };
+        if (cards.Count > 1)
+        {
+            toReturn.Add(CardInfo.ActionFlag.viewsoul);
+        }
         return toReturn;
     }
 

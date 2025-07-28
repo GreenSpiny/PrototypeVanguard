@@ -79,6 +79,11 @@ public class ActionButton : ContextButton
             case CardInfo.ActionFlag.soulRC:
                 DragManager.instance.ClearSelections();
                 break;
+            case CardInfo.ActionFlag.viewsoul:
+                // TODO: add start index paramater
+                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false, true);
+                DragManager.instance.ClearSelections();
+                break;
             default:
                 DragManager.instance.ClearSelections();
                 break;

@@ -19,8 +19,7 @@ public class Node_Ride : Node_Stack
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-            CardInfo.ActionFlag.view,
-            CardInfo.ActionFlag.ride
+            CardInfo.ActionFlag.view
         };
         return toReturn;
     }

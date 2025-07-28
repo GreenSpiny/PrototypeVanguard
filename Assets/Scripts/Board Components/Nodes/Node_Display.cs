@@ -84,10 +84,6 @@ public class Node_Display : Node
         for (int i = initialCount - 1; i >= initialCount - cardCount;)
         {
             RecieveCard(c, string.Empty);
-            if (revealCards)
-            {
-                c.SetRevealed(true, float.MaxValue);
-            }
             i--;
             if (i >= 0)
             {
@@ -97,6 +93,13 @@ public class Node_Display : Node
         if (sortCards)
         {
             cards.Sort(new Card.CardComparer());
+        }
+        if (revealCards)
+        {
+            foreach (Card card in cards)
+            {
+                c.SetRevealed(true, float.MaxValue);
+            }
         }
     }
 

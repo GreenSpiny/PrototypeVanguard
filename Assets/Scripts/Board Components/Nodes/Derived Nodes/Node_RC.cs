@@ -86,6 +86,10 @@ public class Node_RC : Node_Stack
             CardInfo.ActionFlag.botdeck,
             CardInfo.ActionFlag.token
         };
+        if (cards.Count > 1)
+        {
+            toReturn.Add(CardInfo.ActionFlag.viewsoul);
+        }
         return toReturn;
     }
 

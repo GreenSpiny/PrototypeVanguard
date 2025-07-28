@@ -76,7 +76,8 @@ public class CardInfo : IComparable<CardInfo>
         marker,
         ticket,
         crest,
-        shuffle
+        shuffle,
+        viewsoul
     }
 
     public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string nation, int basePower, string race, int baseShield, string[] skills, string unitType, int version)
