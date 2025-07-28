@@ -1366,6 +1366,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -1458,6 +1459,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1878805475}
   cardRotation: {x: 0, y: 90, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -2046,6 +2048,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 1
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 1160026666}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -3892,6 +3895,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 2146300233}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -7270,6 +7274,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -8548,6 +8553,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1380682999}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -8660,7 +8666,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ff786871df5e34840a430e4e4494a1c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8695,7 +8701,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &545018728
 PrefabInstance:
@@ -9281,6 +9287,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1358867449}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -9988,6 +9995,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 706290640}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
@@ -10222,6 +10230,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -11137,6 +11146,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1919531639}
   cardRotation: {x: 0, y: 0, z: 180}
   cardScale: {x: 1, y: 1, z: 1}
@@ -12824,6 +12834,7 @@ MonoBehaviour:
   inspectedCard: {fileID: 0}
   imageContainer: {fileID: 1384616557}
   cardImage: {fileID: 542889659}
+  imageArea: {fileID: 1384616558}
   cardNameText: {fileID: 1656480839}
   cardInfoText: {fileID: 699588305}
   cardDescriptionText: {fileID: 2136910995}
@@ -13334,6 +13345,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 285140863}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -14100,6 +14112,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 10481254}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
@@ -15319,6 +15332,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1105254161}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -16235,6 +16249,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 159844814}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
@@ -16900,6 +16915,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 12820226}
   cardRotation: {x: 0, y: 0, z: 180}
   cardScale: {x: 1, y: 1, z: 1}
@@ -18332,6 +18348,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1277294296}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -19346,6 +19363,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 243512507}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -19514,6 +19532,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 106062058}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -19918,6 +19937,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1806164645}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -20571,6 +20591,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 1
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 930395740}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -21365,6 +21386,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -21448,6 +21470,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 695207365}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -27142,6 +27165,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1662500156}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -28392,6 +28416,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 2132235754}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -28541,6 +28566,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 442159675}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -29036,13 +29062,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1549933728}
+      - m_Target: {fileID: 1447898277}
         m_TargetAssemblyTypeName: ToggleButton, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -29640,6 +29666,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1520209632}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -29731,6 +29758,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 712757970}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -30017,6 +30045,75 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1520468734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1520468735}
+  - component: {fileID: 1520468736}
+  - component: {fileID: 1520468737}
+  m_Layer: 5
+  m_Name: Card HUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1520468735
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520468734}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2119464224}
+  m_Father: {fileID: 1686401582}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -260}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1520468736
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520468734}
+  m_Enabled: 1
+  m_Alpha: 0.8
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &1520468737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520468734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf93e74c309f31468dd91b99f71b53b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alpha: 0.85
+  yOffset: 0
+  alphaCeiling: 3
+  fadeSpeed: 3
+  displayThreshold: 0.1
+  text: {fileID: 1925961791}
+  cardDetailUI: {fileID: 751031997}
 --- !u!1001 &1523590004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30348,6 +30445,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 1995660017}
   cardRotation: {x: 0, y: 90, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -34914,6 +35012,7 @@ RectTransform:
   - {fileID: 1079282188}
   - {fileID: 1524171123}
   - {fileID: 651966707}
+  - {fileID: 1520468735}
   m_Father: {fileID: 1596834334}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0}
@@ -35131,6 +35230,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 729812136}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
@@ -35922,6 +36022,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 1955289774}
   cardRotation: {x: 0, y: 90, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -36554,6 +36655,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1790702649}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -36614,6 +36716,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 1775445685}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0, y: 1, z: 0}
@@ -37890,6 +37993,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
+  previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -38202,6 +38306,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -39102,6 +39207,157 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8880502694349454683, guid: eed9def299080fe4fa2288d077638845, type: 3}
   m_PrefabInstance: {fileID: 1924238558}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1925961788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1925961789}
+  - component: {fileID: 1925961792}
+  - component: {fileID: 1925961791}
+  - component: {fileID: 1925961790}
+  m_Layer: 5
+  m_Name: Card HUD Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1925961789
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925961788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2119464224}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 166.375, y: -14}
+  m_SizeDelta: {x: 316.75, y: 28}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1925961790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925961788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
+--- !u!114 &1925961791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925961788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: This Card Name Is Very Long
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1925961792
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925961788}
+  m_CullTransparentMesh: 1
 --- !u!1 &1930140225
 GameObject:
   m_ObjectHideFlags: 0
@@ -39555,6 +39811,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -40074,6 +40331,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
+  previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -42200,6 +42458,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
+  previewText: 1
   cardAnchor: {fileID: 423040484}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -42213,7 +42472,7 @@ MonoBehaviour:
   descend: 0
   maxCards: 7
   maxWidth: 0
-  defaultSpacing: 1
+  defaultSpacing: 1.1
   lookAtCamera: 1
 --- !u!1 &2082947545
 GameObject:
@@ -43007,6 +43266,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
+  previewText: 1
   cardAnchor: {fileID: 1567225820}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -43020,7 +43280,7 @@ MonoBehaviour:
   descend: 1
   maxCards: 7
   maxWidth: 0
-  defaultSpacing: 1
+  defaultSpacing: 1.1
   lookAtCamera: 1
 --- !u!1001 &2110658600
 PrefabInstance:
@@ -43088,6 +43348,124 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8880502694349454683, guid: eed9def299080fe4fa2288d077638845, type: 3}
   m_PrefabInstance: {fileID: 2110658600}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2119464223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119464224}
+  - component: {fileID: 2119464228}
+  - component: {fileID: 2119464227}
+  - component: {fileID: 2119464226}
+  - component: {fileID: 2119464225}
+  m_Layer: 5
+  m_Name: Card HUD BG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2119464224
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119464223}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1925961789}
+  m_Father: {fileID: 1520468735}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 28}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2119464225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119464223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
+--- !u!114 &2119464226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119464223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 8
+    m_Right: 8
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &2119464227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119464223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2119464228
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119464223}
+  m_CullTransparentMesh: 1
 --- !u!1 &2130360746
 GameObject:
   m_ObjectHideFlags: 0
@@ -43171,6 +43549,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 1, y: 1, z: 1}
@@ -43353,6 +43732,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 0
   cardAnchor: {fileID: 331919712}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
@@ -44033,6 +44413,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  previewText: 1
   cardAnchor: {fileID: 12393745}
   cardRotation: {x: 0, y: 0, z: 0}
   cardScale: {x: 0.588178, y: 1, z: 0.588178}

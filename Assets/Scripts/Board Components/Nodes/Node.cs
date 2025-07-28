@@ -24,6 +24,7 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public bool preservePower;         // If true, preserves the power / crit / drive of cards moved to this node
     [SerializeField] public bool initialFlip;           // If true, cards are initially flipped on this node
     [SerializeField] public bool privateKnowledge;      // If true, cards are flipped in the opponent's eyes only
+    [SerializeField] public bool previewText;
 
     [SerializeField] public Transform cardAnchor;       // The default position and rotation of cards attached to this node
     [SerializeField] public Vector3 cardRotation;       // The default euler offset of cards attached to this node

@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 using Unity.VisualScripting;
 
 // CARDINFO contains detailed card information. It is purely for data storage.
-public class CardInfo
+public class CardInfo : IComparable<CardInfo>
 {
     // Standard card elements --- o
     public readonly int count;
@@ -198,9 +198,15 @@ public class CardInfo
         deck.rideDeck = new int[DeckList.maxRide];
         deck.strideDeck = new int[DeckList.maxStride];
         deck.toolbox = new int[DeckList.maxToolbox];
+        int cycle = UnityEngine.Random.Range(0, 90);
         for (int i = 0; i < deck.mainDeck.Count(); i++)
         {
-            deck.mainDeck[i] = UnityEngine.Random.Range(0, 100);
+            deck.mainDeck[i] = cycle;
+            cycle++;
+            if (cycle > 5)
+            {
+                cycle = 0;
+            }
         }
         for (int i = 0; i < deck.rideDeck.Count(); i++)
         {
@@ -215,6 +221,13 @@ public class CardInfo
             deck.toolbox[i] = UnityEngine.Random.Range(0, 100);
         }
         return deck;
+    }
+
+    public int CompareTo(CardInfo other)
+    {
+       if (grade != other.grade) { return grade.CompareTo(other.grade); }
+       if (name != other.name) { return name.CompareTo(other.name); }
+       return index.CompareTo(other.index);
     }
 
 }

@@ -10,25 +10,30 @@ public class CardDetailUI : MonoBehaviour
     // UI components
     [SerializeField] private RectTransform imageContainer;
     [SerializeField] private Image cardImage;
+    [SerializeField] private Image imageArea;
     [SerializeField] private TextMeshProUGUI cardNameText;
     [SerializeField] private TextMeshProUGUI cardInfoText;
     [SerializeField] private TextMeshProUGUI cardDescriptionText;
+
+    private string defaultName;
+    private string defaultInfo;
 
     private float parentHeight;
     private void Awake()
     {
         parentHeight = imageContainer.rect.height;
+        defaultName = cardNameText.text;
+        defaultInfo = cardInfoText.text;
     }
-    public void InspectCard(Card card)
+    public void InspectCard(Card card, bool show)
     {
-        if (inspectedCard != card)
+        if (show)
         {
-            inspectedCard = card;
-            
             // Set the card image
             Texture2D targetTexture = card.GetTexture() as Texture2D;
             float targetHeight = cardImage.rectTransform.rect.width / Card.cardWidth;
             cardImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
+            cardImage.color = Color.white;
             cardImage.sprite = Sprite.Create(targetTexture, new Rect(0, 0, targetTexture.width, targetTexture.height), Vector2.zero);
 
             // Move the image upward to be centered in the frame
@@ -43,7 +48,15 @@ public class CardDetailUI : MonoBehaviour
             cardInfoText.text = GenerateCardInfoString(card);
             cardDescriptionText.text = card.cardInfo.effect;
             LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionText.rectTransform);
-
+        }
+        else
+        {
+            cardImage.color = imageArea.color;
+            cardImage.sprite = null;
+            cardNameText.text = defaultName;
+            cardInfoText.text = defaultInfo;
+            cardDescriptionText.text = string.Empty;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionText.rectTransform);
         }
     }
 

@@ -7,7 +7,7 @@ public class Node_Bind : Node_Stack
 
     public override void CardAutoAction(Card clickedCard)
     {
-        DragManager.instance.OpenDisplay(player.playerIndex, this, cards.Count, false);
+        DragManager.instance.OpenDisplay(player.playerIndex, this, cards.Count, false, true);
     }
 
     public override void NodeAutoAction()

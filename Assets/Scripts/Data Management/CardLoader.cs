@@ -133,7 +133,7 @@ public class CardLoader : MonoBehaviour
         }
         if (instance.allImagesData.ContainsKey(cardIndex))
         {
-            return instance.allImagesData[cardIndex];
+            return new Material(instance.allImagesData[cardIndex]);
         }
         else if (!instance.loadRemoteAssets)
         {

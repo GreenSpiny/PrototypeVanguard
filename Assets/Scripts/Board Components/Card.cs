@@ -37,6 +37,8 @@ public class Card : MonoBehaviour
     private Material cardBackMaterial;
     private Material cardSideMaterial;
 
+    public float PositionDistance { get; private set; }
+
     public void SetTexture(Material mat, bool front)
     {
         if (front)
@@ -93,6 +95,23 @@ public class Card : MonoBehaviour
         return cardFrontMaterial.mainTexture;
     }
 
+    public bool IsPublic(Player viewingPlayer)
+    {
+        if (wasRevealed)
+        {
+            return true;
+        }
+        if (node.Type == Node.NodeType.deck)
+        {
+            return false;
+        }
+        if (viewingPlayer == node.player || (!node.privateKnowledge && !flip))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void SetRevealed(bool reveal, float revealDuration)
     {
         if (reveal)
@@ -129,6 +148,7 @@ public class Card : MonoBehaviour
     {
         // Animate position & rotation
         // If no animation exist, do a smooth lerp
+        PositionDistance = Vector3.Distance(transform.position, node.cardAnchor.transform.position + anchoredPosition + anchoredPositionOffset);
         if (!anim && node != null)
         {
             transform.position = Vector3.Lerp(transform.position, node.cardAnchor.transform.position + anchoredPosition + anchoredPositionOffset, CardMoveSpeed);
@@ -247,4 +267,12 @@ public class Card : MonoBehaviour
         }
     }
     
+    public class CardComparer : Comparer<Card>
+    {
+        public override int Compare(Card x, Card y)
+        {
+            return x.cardInfo.CompareTo(y.cardInfo);
+        }
+    }
+
 }

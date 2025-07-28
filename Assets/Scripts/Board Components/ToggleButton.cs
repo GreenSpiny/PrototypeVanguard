@@ -8,7 +8,6 @@ public class ToggleButton : MonoBehaviour
 
     private void Awake()
     {
-        Image i;
         Refresh();
     }
 

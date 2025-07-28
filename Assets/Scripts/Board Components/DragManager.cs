@@ -185,7 +185,8 @@ public class DragManager : MonoBehaviour
                     standardContext.DisplayButtons(clickLocation, availableActions);
                 }
             }
-            else if (HoveredNode != null && HoveredNode.canSelectRaw)
+            else if (false) // For now, disabling the ability to select nodes raw
+            //else if (HoveredNode != null && HoveredNode.canSelectRaw)
             {
                 List<CardInfo.ActionFlag> availableActions = HoveredNode.nodeActionFlags;
                 if (availableActions.Count > 0)
@@ -195,6 +196,10 @@ public class DragManager : MonoBehaviour
                     standardContext.DisplayButtons(clickLocation, availableActions);
                 }
             }
+        }
+        else if (Input.GetMouseButtonDown(2) && dmstate == DMstate.open)
+        {
+            OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, controllingPlayer.toolbox.cards.Count, false, true);
         }
 
         if (dmstate == DMstate.dragging)
@@ -277,7 +282,6 @@ public class DragManager : MonoBehaviour
             }
         }
         HoveredCard = card;
-        cardDetailUI.InspectCard(card);
     }
 
     public void OnCardHoverExit(Card card)
@@ -302,7 +306,8 @@ public class DragManager : MonoBehaviour
         {
             node.UIState = Node.NodeUIState.normal;
         }
-        else if (dmstate == DMstate.open && node.canSelectRaw && node.nodeActionFlags.Count > 0)
+        else if (false) // For now, removing the ability to select nodes raw.
+        //else if (dmstate == DMstate.open && node.canSelectRaw && node.nodeActionFlags.Count > 0)
         {
             if (node.UIState == Node.NodeUIState.normal)
             {
@@ -340,9 +345,9 @@ public class DragManager : MonoBehaviour
         GameManager.instance.players[playerID].display.CloseDisplay();
     }
 
-    public void OpenDisplay(int playerID, Node node, int cardAmount, bool revealCards)
+    public void OpenDisplay(int playerID, Node node, int cardAmount, bool revealCards, bool sortCards)
     {
-        GameManager.instance.players[playerID].display.OpenDisplay(node, cardAmount, revealCards);
+        GameManager.instance.players[playerID].display.OpenDisplay(node, cardAmount, revealCards, sortCards);
     }
 
 }

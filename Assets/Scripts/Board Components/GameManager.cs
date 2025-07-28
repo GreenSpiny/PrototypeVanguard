@@ -133,10 +133,10 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestDisplayCardsRpc(int playerID, int nodeID, int cardCount, bool revealCards)
+    public void RequestDisplayCardsRpc(int playerID, int nodeID, int cardCount, bool revealCards, bool sortCards)
     {
         Node targetNode = allNodes[nodeID];
-        DragManager.instance.OpenDisplay(playerID, targetNode, cardCount, revealCards);
+        DragManager.instance.OpenDisplay(playerID, targetNode, cardCount, revealCards, sortCards);
     }
 
     [Rpc(SendTo.Everyone)]
