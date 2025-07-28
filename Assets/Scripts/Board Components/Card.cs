@@ -31,7 +31,7 @@ public class Card : MonoBehaviour
     private bool revealed = false;
     private float revealTime = 0f;
     private Coroutine revealCoroutine;
-    [NonSerialized] public bool wasRevealed;    // If a card is revealed, this flag remains true until it changes nodes
+    public bool WasRevealed { get; private set; }    // If a card is revealed, this flag remains true until it changes nodes
 
     private Material cardFrontMaterial;
     private Material cardBackMaterial;
@@ -97,7 +97,7 @@ public class Card : MonoBehaviour
 
     public bool IsPublic(Player viewingPlayer)
     {
-        if (wasRevealed)
+        if (WasRevealed)
         {
             return true;
         }
@@ -105,7 +105,7 @@ public class Card : MonoBehaviour
         {
             return false;
         }
-        if (viewingPlayer == node.player || (!node.privateKnowledge && !flip))
+        if (viewingPlayer == player || (!node.privateKnowledge && !flip))
         {
             return true;
         }
@@ -134,13 +134,14 @@ public class Card : MonoBehaviour
     private IEnumerator RevealCoroutine()
     {
         revealed = true;
-        wasRevealed = true;
+        WasRevealed = true;
         while (revealTime > 0f)
         {
             yield return null;
             revealTime -= Time.deltaTime;
         }
         revealed = false;
+        WasRevealed = false;
         node.SetDirty();
     }
 

@@ -30,7 +30,14 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.reveal:
-                GameManager.instance.RequestRevealCardRpc(selectedCard.cardID, 1f);
+                if (selectedNode.Type == Node.NodeType.hand)
+                {
+                    GameManager.instance.RequestRevealCardRpc(selectedCard.cardID, 1f);
+                }
+                else
+                {
+                    GameManager.instance.RequestRevealCardRpc(selectedCard.cardID, float.MaxValue);
+                }
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.search:

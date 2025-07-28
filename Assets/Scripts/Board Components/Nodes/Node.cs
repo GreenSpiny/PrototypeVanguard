@@ -111,9 +111,8 @@ public abstract class Node : MonoBehaviour
         PreviousNode = card.node;
         PreviousNode.RemoveCard(card);
         card.node = this;
-        card.wasRevealed = false;
         card.SetOrientation(shouldFlip, shouldRest);
-        card.SetRevealed(false, 0f);
+        ResetRevealed();
         SetDirty();
     }
 
@@ -134,6 +133,14 @@ public abstract class Node : MonoBehaviour
         {
             cards.Remove(card);
             SetDirty();
+        }
+    }
+
+    private void ResetRevealed()
+    {
+        foreach (Card card in cards)
+        {
+            card.SetRevealed(false, 0f);
         }
     }
 

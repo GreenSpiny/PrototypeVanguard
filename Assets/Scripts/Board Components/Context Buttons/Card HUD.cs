@@ -23,10 +23,10 @@ public class CardHUD : MonoBehaviour
 
     public void DisplayCardInfo(Card card)
     {
-        if (lastCardIndex != card.cardInfo.index || lastCardRevealed != card.wasRevealed)
+        if (lastCardIndex != card.cardInfo.index || lastCardRevealed != card.WasRevealed)
         {
             lastCardIndex = card.cardInfo.index;
-            lastCardRevealed = card.wasRevealed;
+            lastCardRevealed = card.WasRevealed;
             if (card.IsPublic(DragManager.instance.controllingPlayer))
             {
                 cardDetailUI.InspectCard(card, true);
