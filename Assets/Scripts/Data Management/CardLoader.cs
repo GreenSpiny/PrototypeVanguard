@@ -22,7 +22,17 @@ public class CardLoader : MonoBehaviour
     public Dictionary<int, AssetBundle> allBundles = new Dictionary<int, AssetBundle>();
     public Dictionary<int, AssetBundleRequest> allBundleRequests = new Dictionary<int, AssetBundleRequest>();
     public Dictionary<int, Material> allImagesData = new Dictionary<int, Material>();
+
+    // Card Parameter Tracking
+    List<string> allCardGifts = new List<string>();
+    List<int> allCardGrades = new List<int>();
+    List<string> allCardGroups = new List<string>();
+    List<string> allCardNations = new List<string>();
+    List<string> allCardRaces = new List<string>();
+    List<string> allCardUnitTypes = new List<string>();
+
     public bool CardsLoaded { get; private set; }
+    public bool JSONLoaded { get; private set; }
 
     private void Awake()
     {
@@ -57,6 +67,14 @@ public class CardLoader : MonoBehaviour
         TextAsset versionJSON = Resources.Load<TextAsset>(localVersionJSONPath);
         versionObject = JsonConvert.DeserializeObject<DataVersionObject>(versionJSON.text);
 
+        // Track all data types, for deckbuilder sorting purposes
+        HashSet<string> giftSet = new HashSet<string>();
+        HashSet<int> gradeSet = new HashSet<int>();
+        HashSet<string> groupSet = new HashSet<string>();
+        HashSet<string> nationSet = new HashSet<string>();
+        HashSet<string> raceSet = new HashSet<string>();
+        HashSet<string> unitTypeSet = new HashSet<string>();
+
         // Grab the existing card data JSON, or download an updated version if needed.
         TextAsset allCardsJSON = Resources.Load<TextAsset>(localCardsJSONPath);
         var parsedJSON = JsonConvert.DeserializeObject<IDictionary<string, object>>(allCardsJSON.text);
@@ -67,7 +85,27 @@ public class CardLoader : MonoBehaviour
             Dictionary<string, object> cardData = card.ToObject<Dictionary<string, object>>();
             CardInfo newEntry = CardInfo.FromDictionary(cardData);
             allCardsData[newEntry.index] = newEntry;
+
+            giftSet.Add(newEntry.gift);
+            gradeSet.Add(newEntry.grade);
+            groupSet.Add(newEntry.group);
+            nationSet.Add(newEntry.nation);
+            raceSet.Add(newEntry.race);
+            unitTypeSet.Add(newEntry.unitType);
         }
+
+        allCardGifts = new List<string>(giftSet);
+        allCardGrades = new List<int>(gradeSet);
+        allCardGroups = new List<string>(giftSet);
+        allCardNations = new List<string>(nationSet);
+        allCardRaces = new List<string>(raceSet);
+        allCardUnitTypes = new List<string>(unitTypeSet);
+
+        JSONLoaded = true;
+
+        Debug.Log("JSON download complete.");
+
+        yield return null;
 
         if (loadRemoteAssets)
         {
@@ -109,10 +147,13 @@ public class CardLoader : MonoBehaviour
                 }
             }
 
+            CardsLoaded = true;
             Debug.Log("Texture extraction complete.");
         }
-
-        CardsLoaded = true;
+        else
+        {
+            CardsLoaded = true;
+        }
     }
 
     public static CardInfo GetCardInfo(int cardIndex)
@@ -137,6 +178,8 @@ public class CardLoader : MonoBehaviour
         }
         else if (!instance.loadRemoteAssets)
         {
+            // If we are not downloading remote assets, load the assets from the Resources folder.
+            // This is mainly for fast editor testing.
             Material newMaterial = new Material(instance.cardMaterial);
             int folderIndex = Mathf.FloorToInt(cardIndex / 100f);
             Texture targetTexture = Resources.Load<Texture>("cardimages/" + folderIndex +  '/' + cardIndex.ToString());
