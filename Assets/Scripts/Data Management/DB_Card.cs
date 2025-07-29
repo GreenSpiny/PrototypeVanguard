@@ -1,11 +1,14 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DB_Card : MonoBehaviour
+public class DB_Card : MonoBehaviour, IComparable<DB_Card>
 {
     Image cardImage;
     RectTransform rectTransform;
     public Vector3 moveTarget = Vector3.zero;
+    public CardInfo cardInfo;
 
     private void Awake()
     {
@@ -16,9 +19,23 @@ public class DB_Card : MonoBehaviour
     public void SetWidth(float width)
     {
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, width / Card.cardWidth);
     }
-    public void SetHeight(float height)
+
+    public void Load(int cardIndex)
     {
-        rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+        cardInfo = CardLoader.GetCardInfo(cardIndex);
+        name = cardInfo.index.ToString();
+        Material targetMaterial = CardLoader.GetCardImage(cardInfo.index);
+        Texture2D targetTexture = targetMaterial.mainTexture as Texture2D;
+        cardImage.sprite = Sprite.Create(targetTexture, new Rect(0, 0, targetTexture.width, targetTexture.height), Vector2.zero);
+    }
+    public int CompareTo(DB_Card other)
+    {
+        if (cardInfo == null || other.cardInfo == null)
+        {
+            return 0;
+        }
+        return cardInfo.CompareTo(other.cardInfo);
     }
 }

@@ -7,7 +7,7 @@ public class DeckBuilder : MonoBehaviour
     CardInfo.DeckList activeDeckList;
 
     // Prefabs
-    [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private DB_Card cardPrefab;
 
     // Linkages
     [SerializeField] DB_CardReciever rideReceiver;
@@ -28,5 +28,49 @@ public class DeckBuilder : MonoBehaviour
             yield return null;
         }
         activeDeckList = CardInfo.CreateRandomDeck();
+        LoadDeck(activeDeckList);
+    }
+
+    private void LoadDeck(CardInfo.DeckList deckList)
+    {
+        Debug.Log("Loading deck: " + deckList.deckName);
+
+        rideReceiver.RemoveAllCards();
+        for (int i = 0; i < CardInfo.DeckList.maxRide; i++)
+        {
+            DB_Card card = Instantiate<DB_Card>(cardPrefab, rideReceiver.transform);
+            card.Load(deckList.rideDeck[i]);
+            rideReceiver.ReceiveCard(card);
+        }
+        rideReceiver.AlignCards(true);
+
+        mainReceiver.RemoveAllCards();
+        for (int i = 0; i < CardInfo.DeckList.maxMain; i++)
+        {
+            DB_Card card = Instantiate<DB_Card>(cardPrefab, mainReceiver.transform);
+            card.Load(deckList.mainDeck[i]);
+            mainReceiver.ReceiveCard(card);
+        }
+        mainReceiver.AlignCards(true);
+
+        strideReceiver.RemoveAllCards();
+        for (int i = 0; i < CardInfo.DeckList.maxStride; i++)
+        {
+            DB_Card card = Instantiate<DB_Card>(cardPrefab, strideReceiver.transform);
+            card.Load(deckList.strideDeck[i]);
+            strideReceiver.ReceiveCard(card);
+        }
+        strideReceiver.AlignCards(true);
+
+        toolboxReceiver.RemoveAllCards();
+        for (int i = 0; i < CardInfo.DeckList.maxToolbox; i++)
+        {
+            DB_Card card = Instantiate<DB_Card>(cardPrefab, toolboxReceiver.transform);
+            card.Load(deckList.toolbox[i]);
+            toolboxReceiver.ReceiveCard(card);
+        }
+        toolboxReceiver.AlignCards(true);
+
+
     }
 }

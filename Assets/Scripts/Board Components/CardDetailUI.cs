@@ -17,8 +17,8 @@ public class CardDetailUI : MonoBehaviour
 
     private string defaultName;
     private string defaultInfo;
-
     private float parentHeight;
+
     private void Awake()
     {
         parentHeight = imageContainer.rect.height;
@@ -27,37 +27,32 @@ public class CardDetailUI : MonoBehaviour
     }
     public void InspectCard(Card card, bool show)
     {
+        float targetHeight = cardImage.rectTransform.rect.width / Card.cardWidth;
+        cardImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
+        Material targetMaterial;
+
         if (show)
         {
-            // Set the card image
-            Texture2D targetTexture = card.GetTexture() as Texture2D;
-            float targetHeight = cardImage.rectTransform.rect.width / Card.cardWidth;
-            cardImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
-            cardImage.color = Color.white;
-            cardImage.sprite = Sprite.Create(targetTexture, new Rect(0, 0, targetTexture.width, targetTexture.height), Vector2.zero);
+            cardImage.rectTransform.anchoredPosition = Vector2.zero;
 
-            // Move the image upward to be centered in the frame
-            /*
-            float squarePictureHeight = targetHeight * Card.cardWidth;
-            float calculatedPosition = squarePictureHeight * 0.5f - parentHeight * 0.5f;
-            cardImage.rectTransform.anchoredPosition = new Vector2(cardImage.rectTransform.anchoredPosition.x, calculatedPosition);
-            */
-
-            // Set the card info and text
+            targetMaterial = CardLoader.GetCardImage(card.cardInfo.index);
             cardNameText.text = card.cardInfo.name;
             cardInfoText.text = GenerateCardInfoString(card);
             cardDescriptionText.text = card.cardInfo.effect;
-            LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionText.rectTransform);
         }
         else
         {
-            cardImage.color = imageArea.color;
-            cardImage.sprite = null;
+            cardImage.rectTransform.anchoredPosition = new Vector2(cardImage.rectTransform.anchoredPosition.x, parentHeight / 2f);
+
+            targetMaterial = CardLoader.GetDefaultCardBack();
             cardNameText.text = defaultName;
             cardInfoText.text = defaultInfo;
             cardDescriptionText.text = string.Empty;
-            LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionText.rectTransform);
         }
+
+        Texture2D targetTexture = targetMaterial.mainTexture as Texture2D;
+        cardImage.sprite = Sprite.Create(targetTexture, new Rect(0, 0, targetTexture.width, targetTexture.height), Vector2.zero);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionText.rectTransform);
     }
 
     private string GenerateCardInfoString(Card card)

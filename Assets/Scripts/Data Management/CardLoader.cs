@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardLoader : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class CardLoader : MonoBehaviour
     private const string localCardsJSONPath = "JSON/allCardsSingleton";
 
     [SerializeField] bool loadRemoteAssets;
-    [SerializeField] Material cardMaterial;
+    [SerializeField] private Material cardMaterial;
+    [SerializeField] private Material defaultCardBackMaterial;
 
     // Card Loading
     private DataVersionObject versionObject;
@@ -156,6 +158,15 @@ public class CardLoader : MonoBehaviour
         }
     }
 
+    public static Material GetDefaultCardBack()
+    {
+        if (instance == null)
+        {
+            return null;
+        }
+        return instance.defaultCardBackMaterial;
+    }
+
     public static CardInfo GetCardInfo(int cardIndex)
     {
         if (instance == null || !instance.allCardsData.ContainsKey(cardIndex))
@@ -165,12 +176,12 @@ public class CardLoader : MonoBehaviour
         return instance.allCardsData[cardIndex];
     }
 
-    // TODO: handle asynchronous version
+    // TODO: Handle asynchronous version
     public static Material GetCardImage(int cardIndex)
     {
         if (instance == null)
         {
-            return null;
+            return new Material(instance.defaultCardBackMaterial);
         }
         if (instance.allImagesData.ContainsKey(cardIndex))
         {
@@ -194,7 +205,7 @@ public class CardLoader : MonoBehaviour
             instance.allImagesData[cardIndex] = newMaterial;
             return newMaterial;
         }
-        return null;
+        return new Material(instance.defaultCardBackMaterial);
     }
 
     [System.Serializable]
