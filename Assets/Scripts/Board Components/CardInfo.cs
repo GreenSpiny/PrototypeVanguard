@@ -160,7 +160,7 @@ public class CardInfo : IComparable<CardInfo>
         public const int maxMain = 50;
         public const int maxRide = 5;
         public const int maxStride = 16;
-        public const int maxToolbox = 30;
+        public const int maxToolbox = 34;
 
         public string deckName;     // Name of the deck.
         public int cardSleeves;     // ID linking to the card sleeves.
@@ -227,6 +227,7 @@ public class CardInfo : IComparable<CardInfo>
     public int CompareTo(CardInfo other)
     {
        if (grade != other.grade) { return grade.CompareTo(other.grade); }
+       if (unitType != other.unitType) { return unitType.CompareTo(other.unitType); }
        if (name != other.name) { return name.CompareTo(other.name); }
        return index.CompareTo(other.index);
     }
