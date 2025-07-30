@@ -29,11 +29,28 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] TMP_InputField queryInputField;
 
     [SerializeField] VerticalLayoutGroup searchResultsArea;
+    [SerializeField] TextMeshProUGUI deckValidText;
+    [SerializeField] TextMeshProUGUI deckErrorText;
+    [SerializeField] Color deckValidColor;
+    [SerializeField] Color deckWarningColor;
+    [SerializeField] Color deckErrorColor;
+
+    [NonSerialized] public bool deckValid = false;
+    [NonSerialized] public bool needsRefresh = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(LoadInitialDeck());
+    }
+
+    private void Update()
+    {
+        if (needsRefresh)
+        {
+            RefreshInfo();
+            needsRefresh = false;
+        }
     }
 
     private IEnumerator LoadInitialDeck()
@@ -70,6 +87,7 @@ public class DeckBuilder : MonoBehaviour
         {
             unitTypeDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
         }
+        RefreshInfo();
     }
 
     private void LoadDeck(CardInfo.DeckList deckList)
@@ -278,5 +296,52 @@ public class DeckBuilder : MonoBehaviour
         // End coroutine
         searchCoroutine = null;
 
+    }
+
+    private void RefreshInfo()
+    {
+        rideReceiver.label.text = rideReceiver.templateLabelText.Replace("[x]", rideReceiver.CardCount.ToString());
+        mainReceiver.label.text = mainReceiver.templateLabelText.Replace("[x]", mainReceiver.CardCount.ToString());
+        strideReceiver.label.text = strideReceiver.templateLabelText.Replace("[x]", strideReceiver.CardCount.ToString());
+        toolboxReceiver.label.text = toolboxReceiver.templateLabelText.Replace("[x]", toolboxReceiver.CardCount.ToString());
+        deckValid = CheckDeckValidity();
+        if (deckValid)
+        {
+            deckValidText.text = "Deck is Valid.";
+            deckValidText.color = deckValidColor;
+        }
+        else
+        {
+            deckValidText.text = "Deck is invalid.";
+            deckValidText.color = deckErrorColor;
+        }
+        rideReceiver.AlignCards(false);
+        mainReceiver.AlignCards(false);
+        strideReceiver.AlignCards(false);
+        toolboxReceiver.AlignCards(false);
+    }
+
+    private bool CheckDeckValidity()
+    {
+        if (rideReceiver.CardCount < 4  || rideReceiver.CardCount > 5)
+        {
+            deckErrorText.text = "Invalid number of cards in the Ride Deck.";
+            deckErrorText.color = deckErrorColor;
+            return false;
+        }
+        if (rideReceiver.CardCount == 5 && rideReceiver.GetCards()[0].cardInfo.index != 1676)
+        {
+            deckErrorText.text = "Only 'Griphosid' rideline may have 5 cards in the Ride Deck.";
+            deckErrorText.color = deckErrorColor;
+            return false;
+        }
+        if (mainReceiver.CardCount != 50)
+        {
+            deckErrorText.text = "Invalid number of cards in the Main Deck.";
+            deckErrorText.color = deckErrorColor;
+            return false;
+        }
+        deckErrorText.text = string.Empty;
+        return true;
     }
 }

@@ -60,7 +60,7 @@ public class DB_CardDragger : MonoBehaviour
         }
         else if (!Input.GetMouseButton(0))
         {
-            if (draggedCard != null && hoveredReceiver != null)
+            if (draggedCard != null && hoveredReceiver != null && hoveredReceiver.CanAcceptCard(draggedCard))
             {
                 hoveredReceiver.ReceiveCard(draggedCard);
                 draggedCard = null;

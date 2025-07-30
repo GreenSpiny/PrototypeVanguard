@@ -37,7 +37,12 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
         {
             return 0;
         }
-        return cardInfo.CompareTo(other.cardInfo);
+        int comparator = cardInfo.CompareTo(other.cardInfo);
+        if (comparator != 0)
+        {
+            return comparator;
+        }
+        return GetInstanceID().CompareTo(other.GetInstanceID());
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
+using System.Collections;
 
 public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -14,6 +16,10 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField] private float cardHeight;
     [SerializeField] private float alignSpeed;
     [SerializeField] private float padding;
+
+    [SerializeField] public DeckBuilder builder;
+    [SerializeField] public TextMeshProUGUI label;
+    [NonSerialized] public string templateLabelText;
     
     private RectTransform rectTransform;
     private LayoutElement layoutElement;
@@ -28,6 +34,14 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         layoutElement = GetComponent<LayoutElement>();
         receiverImage = GetComponent<Image>();
         baseColor = receiverImage.color;
+        templateLabelText = label.text;
+    }
+
+    public int CardCount {  get { return cards.Count; } }
+
+    public List<DB_Card> GetCards()
+    {
+        return cards;
     }
 
     private void Start()
@@ -36,14 +50,18 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             cards.Add(card);
         }
-        AlignCards(true);
+        if (cards.Count > 0)
+        {
+            AlignCards(true);
+        }
     }
     public void ReceiveCard(DB_Card card)
     {
         cards.Add(card);
         card.transform.SetParent(transform, true);
         card.cardImage.raycastTarget = true;
-        AlignCards(false);
+        builder.needsRefresh = true;
+        receiverImage.color = baseColor;
     }
 
     public void RemoveCard(DB_Card card, bool destroy)
@@ -53,7 +71,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             Destroy(card.gameObject);
         }
-        AlignCards(false);
+        builder.needsRefresh = true;
     }
 
     public void RemoveAllCards()
@@ -63,7 +81,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
             Destroy(cards[i].gameObject);
         }
         cards.Clear();
-        AlignCards(false);
+        builder.needsRefresh = true;
     }
 
     public void AlignCards(bool instant)
@@ -103,6 +121,11 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
     }
 
+    public bool CanAcceptCard(DB_Card card)
+    {
+        return true;
+    }
+
     public void ToggleCardRaycasting(bool toggle)
     {
         foreach (DB_Card card in cards)
@@ -116,7 +139,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (DB_CardDragger.instance.draggedCard != null)
         {
             DB_CardDragger.instance.hoveredReceiver = this;
-            receiverImage.color = new Color(1f, 1f, 0.5f);
+            receiverImage.color = new Color(0.5f, 0.5f, 0.25f);
         }
     }
 
