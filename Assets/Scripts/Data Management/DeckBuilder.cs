@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using UnityEngine.UI;
+using UnityEditor.Rendering;
 
 public class DeckBuilder : MonoBehaviour
 {
@@ -23,6 +26,9 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] TMP_Dropdown nationDropdown;
     [SerializeField] TMP_Dropdown raceDropdown;
     [SerializeField] TMP_Dropdown unitTypeDropdown;
+    [SerializeField] TMP_InputField queryInputField;
+
+    [SerializeField] VerticalLayoutGroup searchResultsArea;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -106,6 +112,159 @@ public class DeckBuilder : MonoBehaviour
         }
         toolboxReceiver.AlignCards(true);
 
+    }
+
+    public void OnFilterChanged()
+    {
+        string type = unitTypeDropdown.options[unitTypeDropdown.value].text;
+        bool searchUnits = unitTypeDropdown.value == 0 || type.Contains("Unit", StringComparison.InvariantCultureIgnoreCase);
+        if (!searchUnits)
+        {
+            raceDropdown.value = 0;
+            groupDropdown.value = 0;
+        }
+        raceDropdown.interactable = searchUnits;
+        groupDropdown.interactable = searchUnits;
+        bool searchTriggers = unitTypeDropdown.value == 0 || type.Contains("Trigger", StringComparison.InvariantCultureIgnoreCase);
+        if (!searchTriggers)
+        {
+            giftDropdown.value = 0;
+        }
+        giftDropdown.interactable = searchTriggers;
+
+        // Initiate search automatically on parameters changed
+        if (searchCoroutine != null)
+        {
+            StopCoroutine(searchCoroutine);
+        }
+        searchCoroutine = StartCoroutine(Search());
+    }
+
+    private Coroutine searchCoroutine;
+    private const int actionsPerFrame = 25;
+    private List<CardInfo> searchResults = new List<CardInfo>();
+    private List<DB_Card> searchCardObjects = new List<DB_Card>();
+    private IEnumerator Search()
+    {
+        // Get search parameters
+        string nation = nationDropdown.options[nationDropdown.value].text;
+        bool searchNation = nationDropdown.value != 0;
+
+        string type = unitTypeDropdown.options[unitTypeDropdown.value].text;
+        bool searchType = unitTypeDropdown.value != 0;
+
+        int grade = 0;
+        bool searchGrade = gradeDropdown.value != 0;
+        if (searchGrade)
+        {
+            grade = Convert.ToInt32(gradeDropdown.options[gradeDropdown.value].text);
+        }
+
+        string race = raceDropdown.options[raceDropdown.value].text;
+        bool searchRace = raceDropdown.value != 0;
+
+        string group = groupDropdown.options[groupDropdown.value].text;
+        bool searchGroup = groupDropdown.value != 0;
+
+        string gift = giftDropdown.options[giftDropdown.value].text;
+        bool searchGift = giftDropdown.value != 0;
+
+        string query = queryInputField.text.Trim();
+        bool searchQuery = query.Length > 2;
+
+        // Dig through the cards data. Do not do it all in one frame!
+        searchResults.Clear();
+        Dictionary<int, CardInfo> allCardsData = CardLoader.instance.allCardsData;
+        int currentStep = 0;
+
+        if (searchNation || searchType || searchGrade || searchRace || searchGroup || searchGift || searchQuery)
+        {
+            foreach (CardInfo cardInfo in allCardsData.Values)
+            {
+                currentStep++;
+                if (currentStep > actionsPerFrame)
+                {
+                    currentStep = 0;
+                    yield return null;
+                }
+
+                if (searchQuery)
+                {
+                    if (!cardInfo.name.Contains(query, StringComparison.InvariantCultureIgnoreCase) && !cardInfo.effect.Contains(query, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        continue;
+                    }
+                }
+                if (searchNation && cardInfo.nation != nation)
+                {
+                    continue;
+                }
+                if (searchType && cardInfo.unitType != type)
+                {
+                    continue;
+                }
+                if (searchGrade && cardInfo.grade != grade)
+                {
+                    continue;
+                }
+                if (searchRace && cardInfo.race != race)
+                {
+                    continue;
+                }
+                if (searchGroup && cardInfo.group != group)
+                {
+                    continue;
+                }
+                if (searchGift && cardInfo.gift != gift)
+                {
+                    continue;
+                }
+                searchResults.Add(cardInfo);
+            }
+        }
+
+        currentStep = 0;
+
+        // Display results
+        float targetWidth = searchResultsArea.GetComponent<RectTransform>().rect.width - searchResultsArea.padding.left - searchResultsArea.padding.right;
+        while (searchCardObjects.Count < searchResults.Count)
+        {
+            currentStep++;
+            if (currentStep > actionsPerFrame)
+            {
+                currentStep = 0;
+                yield return null;
+            }
+            DB_Card newCardObject = Instantiate<DB_Card>(cardPrefab, searchResultsArea.transform);
+            searchCardObjects.Add(newCardObject);
+            newCardObject.SetWidth(targetWidth);
+        }
+        while (searchCardObjects.Count > searchResults.Count)
+        {
+            currentStep++;
+            if (currentStep > actionsPerFrame)
+            {
+                currentStep = 0;
+                yield return null;
+            }
+            DB_Card existingCard = searchCardObjects[searchCardObjects.Count - 1];
+            searchCardObjects.RemoveAt(searchCardObjects.Count - 1);
+            Destroy(existingCard.gameObject);
+        }
+        for (int i = 0; i < searchResults.Count; i++)
+        {
+            currentStep++;
+            if (currentStep > actionsPerFrame)
+            {
+                currentStep = 0;
+                yield return null;
+            }
+            CardInfo currentCardInfo = searchResults[i];
+            searchCardObjects[i].Load(currentCardInfo.index);
+        }
+
+        // End coroutine
+        searchCoroutine = null;
 
     }
 }

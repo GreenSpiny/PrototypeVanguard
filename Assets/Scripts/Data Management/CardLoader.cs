@@ -20,7 +20,7 @@ public class CardLoader : MonoBehaviour
 
     // Card Loading
     private DataVersionObject versionObject;
-    private Dictionary<int, CardInfo> allCardsData = new Dictionary<int, CardInfo>();
+    public Dictionary<int, CardInfo> allCardsData = new Dictionary<int, CardInfo>();
     public Dictionary<int, AssetBundle> allBundles = new Dictionary<int, AssetBundle>();
     public Dictionary<int, AssetBundleRequest> allBundleRequests = new Dictionary<int, AssetBundleRequest>();
     public Dictionary<int, Material> allImagesData = new Dictionary<int, Material>();
