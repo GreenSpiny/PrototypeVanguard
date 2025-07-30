@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DeckBuilder : MonoBehaviour
 {
@@ -15,6 +17,13 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] DB_CardReciever strideReceiver;
     [SerializeField] DB_CardReciever toolboxReceiver;
 
+    [SerializeField] TMP_Dropdown giftDropdown;
+    [SerializeField] TMP_Dropdown gradeDropdown;
+    [SerializeField] TMP_Dropdown groupDropdown;
+    [SerializeField] TMP_Dropdown nationDropdown;
+    [SerializeField] TMP_Dropdown raceDropdown;
+    [SerializeField] TMP_Dropdown unitTypeDropdown;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,6 +38,32 @@ public class DeckBuilder : MonoBehaviour
         }
         activeDeckList = CardInfo.CreateRandomDeck();
         LoadDeck(activeDeckList);
+
+        // Populate dropdown options
+        foreach (string option in CardLoader.instance.allCardGifts)
+        {
+            giftDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+        }
+        foreach (int option in CardLoader.instance.allCardGrades)
+        {
+            gradeDropdown.options.Add(new TMP_Dropdown.OptionData(option.ToString(), null, Color.white));
+        }
+        foreach (string option in CardLoader.instance.allCardGroups)
+        {
+            groupDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+        }
+        foreach (string option in CardLoader.instance.allCardNations)
+        {
+            nationDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+        }
+        foreach (string option in CardLoader.instance.allCardRaces)
+        {
+            raceDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+        }
+        foreach (string option in CardLoader.instance.allCardUnitTypes)
+        {
+            unitTypeDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+        }
     }
 
     private void LoadDeck(CardInfo.DeckList deckList)

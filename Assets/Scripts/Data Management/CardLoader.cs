@@ -26,12 +26,12 @@ public class CardLoader : MonoBehaviour
     public Dictionary<int, Material> allImagesData = new Dictionary<int, Material>();
 
     // Card Parameter Tracking
-    List<string> allCardGifts = new List<string>();
-    List<int> allCardGrades = new List<int>();
-    List<string> allCardGroups = new List<string>();
-    List<string> allCardNations = new List<string>();
-    List<string> allCardRaces = new List<string>();
-    List<string> allCardUnitTypes = new List<string>();
+    public List<string> allCardGifts;
+    public List<int> allCardGrades;
+    public List<string> allCardGroups;
+    public List<string> allCardNations;
+    public List<string> allCardRaces;
+    public List<string> allCardUnitTypes;
 
     public bool CardsLoaded { get; private set; }
     public bool JSONLoaded { get; private set; }
@@ -88,20 +88,31 @@ public class CardLoader : MonoBehaviour
             CardInfo newEntry = CardInfo.FromDictionary(cardData);
             allCardsData[newEntry.index] = newEntry;
 
-            giftSet.Add(newEntry.gift);
+            if (!string.IsNullOrEmpty(newEntry.gift))
+                giftSet.Add(newEntry.gift);
             gradeSet.Add(newEntry.grade);
-            groupSet.Add(newEntry.group);
-            nationSet.Add(newEntry.nation);
-            raceSet.Add(newEntry.race);
-            unitTypeSet.Add(newEntry.unitType);
+            if (!string.IsNullOrEmpty(newEntry.group))
+                groupSet.Add(newEntry.group);
+            if (!string.IsNullOrEmpty(newEntry.nation))
+                nationSet.Add(newEntry.nation);
+            if (!string.IsNullOrEmpty(newEntry.race))
+                raceSet.Add(newEntry.race);
+            if (!string.IsNullOrEmpty(newEntry.unitType))
+                unitTypeSet.Add(newEntry.unitType);
         }
 
         allCardGifts = new List<string>(giftSet);
+        allCardGifts.Sort();
         allCardGrades = new List<int>(gradeSet);
-        allCardGroups = new List<string>(giftSet);
+        allCardGrades.Sort();
+        allCardGroups = new List<string>(groupSet);
+        allCardGroups.Sort();
         allCardNations = new List<string>(nationSet);
+        allCardNations.Sort();
         allCardRaces = new List<string>(raceSet);
+        allCardRaces.Sort();
         allCardUnitTypes = new List<string>(unitTypeSet);
+        allCardUnitTypes.Sort();
 
         JSONLoaded = true;
 
