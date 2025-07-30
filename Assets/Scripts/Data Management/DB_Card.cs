@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -61,5 +63,19 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
             DB_CardDragger.instance.hoveredCard = null;
         }
         cardImage.color = Color.white;
+    }
+
+    public IEnumerator DestroySelf(Vector3 position)
+    {
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        transform.position = position;
+        cardImage.raycastTarget = false;
+        float shrinkSpeed = 4f * Time.deltaTime;
+        while (transform.localScale.x > 0.00001)
+        {
+            transform.localScale = new Vector3(Mathf.Max(transform.localScale.x - shrinkSpeed, 0f), Mathf.Max(transform.localScale.y - shrinkSpeed, 0f), 0f);
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }

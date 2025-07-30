@@ -60,11 +60,18 @@ public class DB_CardDragger : MonoBehaviour
         }
         else if (!Input.GetMouseButton(0))
         {
-            if (draggedCard != null && hoveredReceiver != null && hoveredReceiver.CanAcceptCard(draggedCard))
+            if (draggedCard != null)
             {
-                hoveredReceiver.ReceiveCard(draggedCard);
-                draggedCard = null;
+                if (hoveredReceiver != null && hoveredReceiver.CanAcceptCard(draggedCard))
+                {
+                    hoveredReceiver.ReceiveCard(draggedCard);
+                }
+                else
+                {
+                    StartCoroutine(draggedCard.DestroySelf(transform.position));
+                }
                 ToggleCardRaycasting(true);
+                draggedCard = null;
             }
         }
 

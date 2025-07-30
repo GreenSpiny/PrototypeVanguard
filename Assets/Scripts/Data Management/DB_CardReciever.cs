@@ -69,7 +69,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         cards.Remove(card);
         if (destroy)
         {
-            Destroy(card.gameObject);
+            StartCoroutine(card.DestroySelf(transform.position));
         }
         builder.needsRefresh = true;
     }
