@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DB_Card : MonoBehaviour, IComparable<DB_Card>
+public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler, IPointerExitHandler
 {
-    Image cardImage;
-    RectTransform rectTransform;
+    public Image cardImage;
+    public RectTransform rectTransform;
     public Vector3 moveTarget = Vector3.zero;
     public CardInfo cardInfo;
 
@@ -37,5 +38,23 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>
             return 0;
         }
         return cardInfo.CompareTo(other.cardInfo);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (DB_CardDragger.instance.draggedCard != this)
+        {
+            DB_CardDragger.instance.hoveredCard = this;
+            cardImage.color = new Color(1f, 1f, 0.5f);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (DB_CardDragger.instance.hoveredCard == this)
+        {
+            DB_CardDragger.instance.hoveredCard = null;
+        }
+        cardImage.color = Color.white;
     }
 }

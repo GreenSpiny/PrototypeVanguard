@@ -114,6 +114,18 @@ public class DeckBuilder : MonoBehaviour
 
     }
 
+    public void ResetFilters()
+    {
+        nationDropdown.value = 0;
+        unitTypeDropdown.value = 0;
+        gradeDropdown.value = 0;
+        raceDropdown.value = 0;
+        groupDropdown.value = 0;
+        giftDropdown.value = 0;
+        queryInputField.text = string.Empty;
+        OnFilterChanged();
+    }
+
     public void OnFilterChanged()
     {
         string type = unitTypeDropdown.options[unitTypeDropdown.value].text;

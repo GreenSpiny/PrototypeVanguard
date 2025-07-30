@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class DB_CardReciever : MonoBehaviour
+public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public enum AreaType { ride, main, stride, toolbox }
     [SerializeField] public AreaType areaType;
@@ -18,11 +19,15 @@ public class DB_CardReciever : MonoBehaviour
     private LayoutElement layoutElement;
     private List<DB_Card> cards = new List<DB_Card>();
     private List<Vector3> cardPositions = new List<Vector3>();
+    private Image receiverImage;
+    private Color baseColor;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         layoutElement = GetComponent<LayoutElement>();
+        receiverImage = GetComponent<Image>();
+        baseColor = receiverImage.color;
     }
 
     private void Start()
@@ -36,21 +41,29 @@ public class DB_CardReciever : MonoBehaviour
     public void ReceiveCard(DB_Card card)
     {
         cards.Add(card);
+        card.transform.SetParent(transform, true);
+        card.cardImage.raycastTarget = true;
+        AlignCards(false);
     }
 
-    public void RemoveCard(DB_Card card)
+    public void RemoveCard(DB_Card card, bool destroy)
     {
         cards.Remove(card);
-        Destroy(card);
+        if (destroy)
+        {
+            Destroy(card.gameObject);
+        }
+        AlignCards(false);
     }
 
     public void RemoveAllCards()
     {
         for (int i = cards.Count - 1; i >= 0; i--)
         {
-            Destroy(cards[i]);
+            Destroy(cards[i].gameObject);
         }
         cards.Clear();
+        AlignCards(false);
     }
 
     public void AlignCards(bool instant)
@@ -90,5 +103,29 @@ public class DB_CardReciever : MonoBehaviour
         }
     }
 
+    public void ToggleCardRaycasting(bool toggle)
+    {
+        foreach (DB_Card card in cards)
+        {
+            card.cardImage.raycastTarget = toggle;
+        }
+    }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (DB_CardDragger.instance.draggedCard != null)
+        {
+            DB_CardDragger.instance.hoveredReceiver = this;
+            receiverImage.color = new Color(1f, 1f, 0.5f);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (DB_CardDragger.instance.hoveredReceiver == this)
+        {
+            DB_CardDragger.instance.hoveredReceiver = null;
+        }
+        receiverImage.color = baseColor;
+    }
 }
