@@ -183,11 +183,16 @@ public class CardInfo : IComparable<CardInfo>
             this.strideDeck = strideDeck;
             this.toolbox = toolbox;
         }
-    }
 
-    public static DeckList CreateDeck(string JSON)
-    {
-       return JsonConvert.DeserializeObject<DeckList>(JSON);
+        public DeckList FromJSON(string JSON)
+        {
+            return JsonConvert.DeserializeObject<DeckList>(JSON);
+        }
+
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 
     public static DeckList CreateRandomDeck()

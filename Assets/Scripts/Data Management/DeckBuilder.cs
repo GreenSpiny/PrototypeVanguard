@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using System;
-using UnityEngine.UI;
 using UnityEditor.Rendering;
+using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class DeckBuilder : MonoBehaviour
 {
@@ -65,6 +66,15 @@ public class DeckBuilder : MonoBehaviour
         {
             RefreshInfo();
             needsRefresh = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (CheckDeckValidity())
+            {
+                var deck = CreateDeck();
+                SaveDataManager.SaveDeck(deck);
+            }
         }
     }
 
@@ -329,10 +339,10 @@ public class DeckBuilder : MonoBehaviour
 
     private void RefreshInfo()
     {
-        rideReceiver.label.text = rideReceiver.templateLabelText.Replace("[x]", rideReceiver.CardCount.ToString());
-        mainReceiver.label.text = mainReceiver.templateLabelText.Replace("[x]", mainReceiver.CardCount.ToString());
-        strideReceiver.label.text = strideReceiver.templateLabelText.Replace("[x]", strideReceiver.CardCount.ToString());
-        toolboxReceiver.label.text = toolboxReceiver.templateLabelText.Replace("[x]", toolboxReceiver.CardCount.ToString());
+        rideReceiver.label.text = rideReceiver.templateLabelText.Replace("[x]", rideReceiver.cards.Count.ToString());
+        mainReceiver.label.text = mainReceiver.templateLabelText.Replace("[x]", mainReceiver.cards.Count.ToString());
+        strideReceiver.label.text = strideReceiver.templateLabelText.Replace("[x]", strideReceiver.cards.Count.ToString());
+        toolboxReceiver.label.text = toolboxReceiver.templateLabelText.Replace("[x]", toolboxReceiver.cards.Count.ToString());
         deckValid = CheckDeckValidity();
         if (deckValid)
         {
@@ -352,31 +362,31 @@ public class DeckBuilder : MonoBehaviour
 
     private bool CheckDeckValidity()
     {
-        if (rideReceiver.CardCount < 4  || rideReceiver.CardCount > CardInfo.DeckList.maxRide)
+        if (rideReceiver.cards.Count < 4  || rideReceiver.cards.Count > CardInfo.DeckList.maxRide)
         {
             deckErrorText.text = "Invalid number of cards in the Ride Deck.";
             deckErrorText.color = deckErrorColor;
             return false;
         }
-        if (rideReceiver.CardCount == 5 && rideReceiver.GetCards()[0].cardInfo.index != 1676)
+        if (rideReceiver.cards.Count == 5 && rideReceiver.cards[0].cardInfo.index != 1676)
         {
             deckErrorText.text = "Only 'Griphosid' rideline may have 5 cards in the Ride Deck.";
             deckErrorText.color = deckErrorColor;
             return false;
         }
-        if (mainReceiver.CardCount != CardInfo.DeckList.maxMain)
+        if (mainReceiver.cards.Count != CardInfo.DeckList.maxMain)
         {
             deckErrorText.text = "Invalid number of cards in the Main Deck.";
             deckErrorText.color = deckErrorColor;
             return false;
         }
-        if (strideReceiver.CardCount > CardInfo.DeckList.maxStride)
+        if (strideReceiver.cards.Count > CardInfo.DeckList.maxStride)
         {
             deckErrorText.text = "Invalid number of cards in the Stride Deck.";
             deckErrorText.color = deckErrorColor;
             return false;
         }
-        if (toolboxReceiver.CardCount > CardInfo.DeckList.maxToolbox)
+        if (toolboxReceiver.cards.Count > CardInfo.DeckList.maxToolbox)
         {
             deckErrorText.text = "Invalid number of cards in the Main Deck.";
             deckErrorText.color = deckErrorColor;
@@ -384,5 +394,33 @@ public class DeckBuilder : MonoBehaviour
         }
         deckErrorText.text = string.Empty;
         return true;
+    }
+
+    private CardInfo.DeckList CreateDeck()
+    {
+        CardInfo.DeckList deck = new CardInfo.DeckList();
+        deck.deckName = "test deck";
+        deck.cardSleeves = 0;
+        deck.rideDeck = new int[rideReceiver.cards.Count];
+        for (int i = 0; i < rideReceiver.cards.Count; i++)
+        {
+            deck.rideDeck[i] = rideReceiver.cards[i].cardInfo.index;
+        }
+        deck.mainDeck = new int[mainReceiver.cards.Count];
+        for (int i = 0; i < mainReceiver.cards.Count; i++)
+        {
+            deck.mainDeck[i] = mainReceiver.cards[i].cardInfo.index;
+        }
+        deck.strideDeck = new int[strideReceiver.cards.Count];
+        for (int i = 0; i < strideReceiver.cards.Count; i++)
+        {
+            deck.strideDeck[i] = strideReceiver.cards[i].cardInfo.index;
+        }
+        deck.toolbox = new int[toolboxReceiver.cards.Count];
+        for (int i = 0; i < toolboxReceiver.cards.Count; i++)
+        {
+            deck.toolbox[i] = toolboxReceiver.cards[i].cardInfo.index;
+        }
+        return deck;
     }
 }

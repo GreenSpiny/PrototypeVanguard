@@ -23,7 +23,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     
     private RectTransform rectTransform;
     private LayoutElement layoutElement;
-    private List<DB_Card> cards = new List<DB_Card>();
+    [NonSerialized] public List<DB_Card> cards = new List<DB_Card>();
     private List<Vector3> cardPositions = new List<Vector3>();
     private Image receiverImage;
     private Color baseColor;
@@ -35,13 +35,6 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         receiverImage = GetComponent<Image>();
         baseColor = receiverImage.color;
         templateLabelText = label.text;
-    }
-
-    public int CardCount {  get { return cards.Count; } }
-
-    public List<DB_Card> GetCards()
-    {
-        return cards;
     }
 
     private void Start()
