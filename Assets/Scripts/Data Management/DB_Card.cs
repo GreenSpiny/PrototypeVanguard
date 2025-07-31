@@ -12,6 +12,7 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
     public RectTransform rectTransform;
     public Vector3 moveTarget = Vector3.zero;
     public CardInfo cardInfo;
+    public DB_CardReciever reciever;
 
     private void Awake()
     {
@@ -59,6 +60,7 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
             DB_CardDragger.instance.hoveredCard = this;
             cardImage.color = new Color(1f, 1f, 0.5f);
         }
+        DeckBuilder.instance.cardDetailUI.InspectCard(cardInfo);
     }
 
     public void OnPointerExit(PointerEventData eventData)

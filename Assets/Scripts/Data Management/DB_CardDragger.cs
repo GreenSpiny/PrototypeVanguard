@@ -57,6 +57,15 @@ public class DB_CardDragger : MonoBehaviour
                 draggedCard = cloneCard;
                 ToggleCardRaycasting(false);
             }
+            else if (hoveredCard.reciever != null)
+            {
+                hoveredCard.reciever.RemoveCard(hoveredCard, false);
+                draggedCard = hoveredCard;
+                draggedCard.transform.SetParent(transform, true);
+                draggedCard.transform.localPosition = new Vector3(draggedCard.rectTransform.rect.width / -2f, draggedCard.rectTransform.rect.height / 2f, 0f);
+                draggedCard.cardImage.raycastTarget = false;
+                ToggleCardRaycasting(false);
+            }
         }
         // End dragging
         else if (draggedCard != null && !Input.GetMouseButton(0))
@@ -98,10 +107,9 @@ public class DB_CardDragger : MonoBehaviour
             // Right click
             if (Input.GetMouseButtonDown(1) && hoveredCard != null)
             {
-                DB_CardReciever receiver = hoveredCard.transform.parent.GetComponent<DB_CardReciever>();
-                if (receiver != null)
+                if (hoveredCard.reciever != null)
                 {
-                    receiver.RemoveCard(hoveredCard, true);
+                    hoveredCard.reciever.RemoveCard(hoveredCard, true);
                     hoveredCard = null;
                 }
             }

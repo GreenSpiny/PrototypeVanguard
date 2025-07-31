@@ -8,7 +8,7 @@ public class CardDetailUI : MonoBehaviour
     [SerializeField] public Card inspectedCard;
 
     // UI components
-    [SerializeField] private RectTransform imageContainer;
+    [SerializeField] private RectMask2D imageContainer;
     [SerializeField] private Image cardImage;
     [SerializeField] private Image imageArea;
     [SerializeField] private TextMeshProUGUI cardNameText;
@@ -17,33 +17,32 @@ public class CardDetailUI : MonoBehaviour
 
     private string defaultName;
     private string defaultInfo;
-    private float parentHeight;
+    private RectTransform imageContainerRect;
 
     private void Awake()
     {
-        parentHeight = imageContainer.rect.height;
+        imageContainerRect = imageContainer.GetComponent<RectTransform>();
         defaultName = cardNameText.text;
         defaultInfo = cardInfoText.text;
     }
-    public void InspectCard(Card card, bool show)
+    public void InspectCard(CardInfo cardInfo)
     {
         float targetHeight = cardImage.rectTransform.rect.width / Card.cardWidth;
         cardImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
         Material targetMaterial;
 
-        if (show)
+        if (cardInfo != null)
         {
             cardImage.rectTransform.anchoredPosition = Vector2.zero;
 
-            targetMaterial = CardLoader.GetCardImage(card.cardInfo.index);
-            cardNameText.text = card.cardInfo.name;
-            cardInfoText.text = GenerateCardInfoString(card);
-            cardDescriptionText.text = card.cardInfo.effect;
+            targetMaterial = CardLoader.GetCardImage(cardInfo.index);
+            cardNameText.text = cardInfo.name;
+            cardInfoText.text = GenerateCardInfoString(cardInfo);
+            cardDescriptionText.text = cardInfo.effect;
         }
         else
         {
-            cardImage.rectTransform.anchoredPosition = new Vector2(cardImage.rectTransform.anchoredPosition.x, parentHeight / 2f);
-
+            cardImage.rectTransform.anchoredPosition = new Vector2(cardImage.rectTransform.anchoredPosition.x, (Mathf.Abs(imageContainerRect.rect.height - targetHeight) - imageContainer.padding.w) / 2f);
             targetMaterial = CardLoader.GetDefaultCardBack();
             cardNameText.text = defaultName;
             cardInfoText.text = defaultInfo;
@@ -55,17 +54,17 @@ public class CardDetailUI : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionText.rectTransform);
     }
 
-    private string GenerateCardInfoString(Card card)
+    private string GenerateCardInfoString(CardInfo cardInfo)
     {
         string cardInfoString = string.Empty;
-        cardInfoString += "G" + card.cardInfo.grade.ToString() + " / ";
-        cardInfoString += card.cardInfo.basePower.ToString() + " / ";
-        cardInfoString += card.cardInfo.baseShield.ToString() + " / ";
-        cardInfoString += card.cardInfo.baseCrit.ToString() + "C";
-        cardInfoString += "\n" + card.cardInfo.unitType;
-        if (card.cardInfo.skills != null && card.cardInfo.skills.Count() > 0)
+        cardInfoString += "G" + cardInfo.grade.ToString() + " / ";
+        cardInfoString += cardInfo.basePower.ToString() + " / ";
+        cardInfoString += cardInfo.baseShield.ToString() + " / ";
+        cardInfoString += cardInfo.baseCrit.ToString() + "C";
+        cardInfoString += "\n" + cardInfo.unitType;
+        if (cardInfo.skills != null && cardInfo.skills.Count() > 0)
         {
-            foreach (string skill in card.cardInfo.skills)
+            foreach (string skill in cardInfo.skills)
             {
                 if (!string.IsNullOrEmpty(skill))
                 {
@@ -73,11 +72,11 @@ public class CardDetailUI : MonoBehaviour
                 }
             }
         }
-        cardInfoString += "\n" + card.cardInfo.nation + " / ";
-        cardInfoString += card.cardInfo.race;
-        if (!string.IsNullOrEmpty(card.cardInfo.group))
+        cardInfoString += "\n" + cardInfo.nation + " / ";
+        cardInfoString += cardInfo.race;
+        if (!string.IsNullOrEmpty(cardInfo.group))
         {
-            cardInfoString += " / " + card.cardInfo.group;
+            cardInfoString += " / " + cardInfo.group;
         }
         return cardInfoString;
     }

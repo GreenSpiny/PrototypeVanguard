@@ -29,7 +29,7 @@ public class CardHUD : MonoBehaviour
             lastCardRevealed = card.WasRevealed;
             if (card.IsPublic(DragManager.instance.controllingPlayer))
             {
-                cardDetailUI.InspectCard(card, true);
+                cardDetailUI.InspectCard(card.cardInfo);
                 if (card.node.previewText)
                 {
                     currentAlpha = alphaCeiling;
@@ -37,8 +37,8 @@ public class CardHUD : MonoBehaviour
                 }
             }
             else
-            {;
-                cardDetailUI.InspectCard(card, false);
+            {
+                cardDetailUI.InspectCard(null);
                 currentAlpha = 0;
             }
         }

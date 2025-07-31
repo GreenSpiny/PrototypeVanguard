@@ -8,11 +8,13 @@ using UnityEditor.Rendering;
 
 public class DeckBuilder : MonoBehaviour
 {
+    public static DeckBuilder instance;
     string activeDeckName;
     CardInfo.DeckList activeDeckList;
 
     // Prefabs
     [SerializeField] private DB_Card cardPrefab;
+    [SerializeField] public CardDetailUI cardDetailUI;
 
     // Linkages
     [SerializeField] DB_CardReciever rideReceiver;
@@ -27,6 +29,7 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] TMP_Dropdown raceDropdown;
     [SerializeField] TMP_Dropdown unitTypeDropdown;
     [SerializeField] TMP_InputField queryInputField;
+    [SerializeField] Button resetFiltersButton;
 
     [SerializeField] VerticalLayoutGroup searchResultsArea;
     [SerializeField] TextMeshProUGUI deckValidText;
@@ -38,7 +41,19 @@ public class DeckBuilder : MonoBehaviour
     [NonSerialized] public bool deckValid = false;
     [NonSerialized] public bool needsRefresh = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+    }
+
     void Start()
     {
         StartCoroutine(LoadInitialDeck());
@@ -88,6 +103,18 @@ public class DeckBuilder : MonoBehaviour
             unitTypeDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
         }
         RefreshInfo();
+
+        giftDropdown.interactable = true;
+        gradeDropdown.interactable = true;
+        groupDropdown.interactable = true;
+        nationDropdown.interactable = true;
+        raceDropdown.interactable = true;
+        unitTypeDropdown.interactable = true;
+        queryInputField.interactable = true;
+        resetFiltersButton.interactable = true;
+
+        yield return new WaitForEndOfFrame();
+        cardDetailUI.InspectCard(null);
     }
 
     private void LoadDeck(CardInfo.DeckList deckList)

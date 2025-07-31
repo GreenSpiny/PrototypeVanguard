@@ -60,6 +60,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         cards.Add(card);
         card.transform.SetParent(transform, true);
         card.cardImage.raycastTarget = true;
+        card.reciever = this;
         builder.needsRefresh = true;
         receiverImage.color = baseColor;
     }
@@ -67,9 +68,10 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void RemoveCard(DB_Card card, bool destroy)
     {
         cards.Remove(card);
+        card.reciever = null;
         if (destroy)
         {
-            StartCoroutine(card.DestroySelf(transform.position));
+            StartCoroutine(card.DestroySelf(card.transform.position));
         }
         builder.needsRefresh = true;
     }
@@ -78,6 +80,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         for (int i = cards.Count - 1; i >= 0; i--)
         {
+            cards[i].reciever = null;
             Destroy(cards[i].gameObject);
         }
         cards.Clear();
