@@ -18,6 +18,13 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] public CardDetailUI cardDetailUI;
 
     // Linkages
+    [SerializeField] TMP_Dropdown deckDropdown;
+    [SerializeField] TMP_InputField deckInputField;
+    [SerializeField] Button saveButton;
+    [SerializeField] Button saveAsButton;
+    [SerializeField] Button renameButton;
+    [SerializeField] Button resetButton;
+
     [SerializeField] DB_CardReciever rideReceiver;
     [SerializeField] DB_CardReciever mainReceiver;
     [SerializeField] DB_CardReciever strideReceiver;
@@ -67,15 +74,6 @@ public class DeckBuilder : MonoBehaviour
             RefreshInfo();
             needsRefresh = false;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (CheckDeckValidity())
-            {
-                var deck = CreateDeck();
-                SaveDataManager.SaveDeck(deck);
-            }
-        }
     }
 
     private IEnumerator LoadInitialDeck()
@@ -84,10 +82,29 @@ public class DeckBuilder : MonoBehaviour
         {
             yield return null;
         }
-        activeDeckList = CardInfo.CreateRandomDeck();
-        LoadDeck(activeDeckList);
 
-        // Populate dropdown options
+        // Populate deck dropdown options
+        List<string> deckOptions = SaveDataManager.GetAvailableDecks();
+        foreach (string deckOption in deckOptions)
+        {
+            deckDropdown.options.Add(new TMP_Dropdown.OptionData(deckOption));
+        }
+        if (deckDropdown.options.Count > 0)
+        {
+            string targetDeck = deckDropdown.options[0].text;
+            deckDropdown.value = 0;
+            deckDropdown.RefreshShownValue();
+            deckInputField.text = targetDeck;
+            CardInfo.DeckList deckList = SaveDataManager.LoadDeck(targetDeck);
+            LoadDeck(deckList);
+        }
+        else
+        {
+            CardInfo.DeckList newDeck = new CardInfo.DeckList();
+            newDeck.deckName = "blank deck";
+        }
+
+        // Populate search dropdown options
         foreach (string option in CardLoader.instance.allCardGifts)
         {
             giftDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
@@ -112,8 +129,12 @@ public class DeckBuilder : MonoBehaviour
         {
             unitTypeDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
         }
-        RefreshInfo();
 
+        // Enable interaction
+        deckDropdown.interactable = true;
+        deckInputField.interactable = true;
+        renameButton.interactable = true;
+        resetButton.interactable = true;
         giftDropdown.interactable = true;
         gradeDropdown.interactable = true;
         groupDropdown.interactable = true;
@@ -123,8 +144,12 @@ public class DeckBuilder : MonoBehaviour
         queryInputField.interactable = true;
         resetFiltersButton.interactable = true;
 
+        // Inspect default card
         yield return new WaitForEndOfFrame();
         cardDetailUI.InspectCard(null);
+
+        // Refresh info
+        RefreshInfo();
     }
 
     private void LoadDeck(CardInfo.DeckList deckList)
@@ -132,7 +157,7 @@ public class DeckBuilder : MonoBehaviour
         Debug.Log("Loading deck: " + deckList.deckName);
 
         rideReceiver.RemoveAllCards();
-        for (int i = 0; i < CardInfo.DeckList.maxRide; i++)
+        for (int i = 0; i < Mathf.Min(deckList.rideDeck.Length, CardInfo.DeckList.maxRide); i++)
         {
             DB_Card card = Instantiate<DB_Card>(cardPrefab, rideReceiver.transform);
             card.Load(deckList.rideDeck[i]);
@@ -141,7 +166,7 @@ public class DeckBuilder : MonoBehaviour
         rideReceiver.AlignCards(true);
 
         mainReceiver.RemoveAllCards();
-        for (int i = 0; i < CardInfo.DeckList.maxMain; i++)
+        for (int i = 0; i < Mathf.Min(deckList.mainDeck.Length, CardInfo.DeckList.maxMain); i++)
         {
             DB_Card card = Instantiate<DB_Card>(cardPrefab, mainReceiver.transform);
             card.Load(deckList.mainDeck[i]);
@@ -150,7 +175,7 @@ public class DeckBuilder : MonoBehaviour
         mainReceiver.AlignCards(true);
 
         strideReceiver.RemoveAllCards();
-        for (int i = 0; i < CardInfo.DeckList.maxStride; i++)
+        for (int i = 0; i < Mathf.Min(deckList.strideDeck.Length, CardInfo.DeckList.maxStride); i++)
         {
             DB_Card card = Instantiate<DB_Card>(cardPrefab, strideReceiver.transform);
             card.Load(deckList.strideDeck[i]);
@@ -159,7 +184,7 @@ public class DeckBuilder : MonoBehaviour
         strideReceiver.AlignCards(true);
 
         toolboxReceiver.RemoveAllCards();
-        for (int i = 0; i < CardInfo.DeckList.maxToolbox; i++)
+        for (int i = 0; i < Mathf.Min(deckList.toolbox.Length, CardInfo.DeckList.maxToolbox); i++)
         {
             DB_Card card = Instantiate<DB_Card>(cardPrefab, toolboxReceiver.transform);
             card.Load(deckList.toolbox[i]);
@@ -294,8 +319,6 @@ public class DeckBuilder : MonoBehaviour
 
         // Display results
         float targetWidth = searchResultsArea.GetComponent<RectTransform>().rect.width - searchResultsArea.padding.left - searchResultsArea.padding.right;
-        Debug.Log(targetWidth);
-        Debug.Log(targetWidth / Card.cardWidth);
         while (searchCardObjects.Count < searchResults.Count)
         {
             currentStep++;
@@ -348,11 +371,15 @@ public class DeckBuilder : MonoBehaviour
         {
             deckValidText.text = "Deck is Valid.";
             deckValidText.color = deckValidColor;
+            saveButton.interactable = true;
+            saveAsButton.interactable = true;
         }
         else
         {
             deckValidText.text = "Deck is invalid.";
             deckValidText.color = deckErrorColor;
+            saveButton.interactable = false;
+            saveAsButton.interactable = false;
         }
         rideReceiver.AlignCards(false);
         mainReceiver.AlignCards(false);
@@ -422,5 +449,33 @@ public class DeckBuilder : MonoBehaviour
             deck.toolbox[i] = toolboxReceiver.cards[i].cardInfo.index;
         }
         return deck;
+    }
+
+    public void SaveDeck()
+    {
+        if (CheckDeckValidity())
+        {
+            var deck = CreateDeck();
+            deck.deckName = deckDropdown.options[deckDropdown.value].text;
+            SaveDataManager.SaveDeck(deck);
+        }
+    }
+
+    public void SaveDeckAs()
+    {
+        if (CheckDeckValidity())
+        {
+            var deck = CreateDeck();
+            deck.deckName = deckDropdown.options[deckDropdown.value].text;
+            SaveDataManager.SaveDeck(deck);
+        }
+    }
+
+    public void ResetDeck()
+    {
+        rideReceiver.RemoveAllCards();
+        mainReceiver.RemoveAllCards();
+        strideReceiver.RemoveAllCards();
+        toolboxReceiver.RemoveAllCards();
     }
 }

@@ -184,7 +184,7 @@ public class CardInfo : IComparable<CardInfo>
             this.toolbox = toolbox;
         }
 
-        public DeckList FromJSON(string JSON)
+        public static DeckList FromJSON(string JSON)
         {
             return JsonConvert.DeserializeObject<DeckList>(JSON);
         }

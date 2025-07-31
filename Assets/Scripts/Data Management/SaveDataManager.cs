@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 using System.IO;
-using System.Globalization;
+using System.Collections.Generic;
 
 public class SaveDataManager : MonoBehaviour
 {
@@ -20,14 +20,42 @@ public class SaveDataManager : MonoBehaviour
             DestroyImmediate(gameObject);
         }
     }
+    
+    public static List<string> GetAvailableDecks()
+    {
+        List<string> result = new List<string>();
+        if (Directory.Exists(DeckSaveLocation))
+        {
+            DirectoryInfo dInfo = new DirectoryInfo(DeckSaveLocation);
+            var fInfos = dInfo.GetFiles();
+            foreach (var fInfo in fInfos)
+            {
+                if (fInfo.Extension == ".json")
+                {
+                    result.Add(fInfo.Name.Substring(0, fInfo.Name.Length - 5));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static CardInfo.DeckList LoadDeck(string deckName)
+    {
+        string filePath = Path.Join(DeckSaveLocation, deckName + ".json");
+        if (File.Exists(filePath))
+        {
+            string fileText = File.ReadAllText(filePath);
+            return CardInfo.DeckList.FromJSON(fileText);
+        }
+        return null;
+    }
 
     public static void SaveDeck(CardInfo.DeckList deck)
     {
-        string directory = DeckSaveLocation;
         string filePath = Path.Join(DeckSaveLocation, deck.deckName + ".json");
-        if (!Directory.Exists(directory))
+        if (!Directory.Exists(DeckSaveLocation))
         {
-            Directory.CreateDirectory(directory);
+            Directory.CreateDirectory(DeckSaveLocation);
         }
         File.WriteAllText(filePath, deck.ToJSON());
         Debug.Log("Saving deck to: " + filePath);
