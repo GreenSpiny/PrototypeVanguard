@@ -61,5 +61,21 @@ public class SaveDataManager : MonoBehaviour
         Debug.Log("Saving deck to: " + filePath);
     }
 
+    public static void DeleteDeck(string deckName)
+    {
+        string filePath = Path.Join(DeckSaveLocation, deckName + ".json");
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+        }
+        Debug.Log("Deleting deck at: " + filePath);
+    }
+
+    public static void RenameDeck(CardInfo.DeckList deck, string oldDeckName)
+    {
+        SaveDeck(deck);
+        DeleteDeck(oldDeckName);
+    }
+
 
 }

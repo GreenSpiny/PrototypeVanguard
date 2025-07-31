@@ -10,8 +10,6 @@ using UnityEngine.UI;
 public class DeckBuilder : MonoBehaviour
 {
     public static DeckBuilder instance;
-    string activeDeckName;
-    CardInfo.DeckList activeDeckList;
 
     // Prefabs
     [SerializeField] private DB_Card cardPrefab;
@@ -22,7 +20,7 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] TMP_InputField deckInputField;
     [SerializeField] Button saveButton;
     [SerializeField] Button saveAsButton;
-    [SerializeField] Button renameButton;
+    [SerializeField] Button deleteButton;
     [SerializeField] Button resetButton;
 
     [SerializeField] DB_CardReciever rideReceiver;
@@ -102,6 +100,7 @@ public class DeckBuilder : MonoBehaviour
         {
             CardInfo.DeckList newDeck = new CardInfo.DeckList();
             newDeck.deckName = "blank deck";
+            LoadDeck(newDeck);
         }
 
         // Populate search dropdown options
@@ -133,7 +132,9 @@ public class DeckBuilder : MonoBehaviour
         // Enable interaction
         deckDropdown.interactable = true;
         deckInputField.interactable = true;
-        renameButton.interactable = true;
+        saveButton.interactable = true;
+        saveAsButton.interactable = true;
+        deleteButton.interactable = true;
         resetButton.interactable = true;
         giftDropdown.interactable = true;
         gradeDropdown.interactable = true;
@@ -371,15 +372,11 @@ public class DeckBuilder : MonoBehaviour
         {
             deckValidText.text = "Deck is Valid.";
             deckValidText.color = deckValidColor;
-            saveButton.interactable = true;
-            saveAsButton.interactable = true;
         }
         else
         {
             deckValidText.text = "Deck is invalid.";
             deckValidText.color = deckErrorColor;
-            saveButton.interactable = false;
-            saveAsButton.interactable = false;
         }
         rideReceiver.AlignCards(false);
         mainReceiver.AlignCards(false);
@@ -453,21 +450,46 @@ public class DeckBuilder : MonoBehaviour
 
     public void SaveDeck()
     {
-        if (CheckDeckValidity())
-        {
-            var deck = CreateDeck();
-            deck.deckName = deckDropdown.options[deckDropdown.value].text;
-            SaveDataManager.SaveDeck(deck);
-        }
+        var deck = CreateDeck();
+        deck.deckName = deckDropdown.options[deckDropdown.value].text;
+        SaveDataManager.SaveDeck(deck);
     }
 
     public void SaveDeckAs()
     {
-        if (CheckDeckValidity())
+        var deck = CreateDeck();
+        deck.deckName = deckInputField.text;
+        SaveDataManager.SaveDeck(deck);
+
+        bool found = false;
+        for (int i = 0; i < deckDropdown.options.Count; i++)
         {
-            var deck = CreateDeck();
-            deck.deckName = deckDropdown.options[deckDropdown.value].text;
-            SaveDataManager.SaveDeck(deck);
+            var currentOption = deckDropdown.options[i];
+            if (currentOption.text == deck.deckName)
+            {
+                deckDropdown.value = i;
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            deckDropdown.options.Add(new TMP_Dropdown.OptionData(deck.deckName));
+            deckDropdown.value = deckDropdown.options.Count - 1;
+        }
+        deckDropdown.RefreshShownValue();
+    }
+
+    public void SwapDecks(int deckIndex)
+    {
+        if (deckIndex >= 0 && deckIndex < deckDropdown.options.Count)
+        {
+            string targetDeck = deckDropdown.options[deckIndex].text;
+            deckDropdown.value = deckIndex;
+            deckDropdown.RefreshShownValue();
+            deckInputField.text = targetDeck;
+            CardInfo.DeckList deckList = SaveDataManager.LoadDeck(targetDeck);
+            LoadDeck(deckList);
         }
     }
 
