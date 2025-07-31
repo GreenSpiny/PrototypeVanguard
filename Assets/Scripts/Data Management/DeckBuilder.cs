@@ -100,6 +100,9 @@ public class DeckBuilder : MonoBehaviour
         {
             CardInfo.DeckList newDeck = new CardInfo.DeckList();
             newDeck.deckName = "blank deck";
+            deckDropdown.options.Add(new TMP_Dropdown.OptionData(newDeck.deckName));
+            deckDropdown.RefreshShownValue();
+            deckInputField.text = newDeck.deckName;
             LoadDeck(newDeck);
         }
 
@@ -491,6 +494,31 @@ public class DeckBuilder : MonoBehaviour
             CardInfo.DeckList deckList = SaveDataManager.LoadDeck(targetDeck);
             LoadDeck(deckList);
         }
+    }
+
+    public void DeleteDeck()
+    {
+        int currentValue = deckDropdown.value;
+        SaveDataManager.DeleteDeck(deckDropdown.options[currentValue].text);
+        deckDropdown.options.RemoveAt(currentValue);
+        if (currentValue != 0)
+        {
+            string targetDeck = deckDropdown.options[currentValue - 1].text;
+            deckDropdown.value = currentValue - 1;
+            deckDropdown.RefreshShownValue();
+            deckInputField.text = targetDeck;
+            CardInfo.DeckList deckList = SaveDataManager.LoadDeck(targetDeck);
+        }
+        else
+        {
+            CardInfo.DeckList newDeck = new CardInfo.DeckList();
+            newDeck.deckName = "blank deck";
+            deckDropdown.options.Add(new TMP_Dropdown.OptionData(newDeck.deckName));
+            deckDropdown.RefreshShownValue();
+            deckInputField.text = newDeck.deckName;
+            LoadDeck(newDeck);
+        }
+
     }
 
     public void ResetDeck()

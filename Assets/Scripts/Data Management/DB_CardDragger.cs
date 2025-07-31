@@ -84,8 +84,8 @@ public class DB_CardDragger : MonoBehaviour
 
         if (draggedCard == null)
         {
-            // Double click
-            if ((doubleClick && hoveredCard != null) || Input.GetMouseButtonDown(2))
+            // Double click or middle mouse click
+            if ((doubleClick || Input.GetMouseButtonDown(2)) && hoveredCard != null)
             {
                 clickTime = 0f;
                 lastClickTime = float.MinValue;
@@ -93,7 +93,7 @@ public class DB_CardDragger : MonoBehaviour
                 {
                     foreach (DB_CardReciever receiver in receivers)
                     {
-                        if (receiver.CanAcceptCard(hoveredCard))
+                        if (receiver.areaType != DB_CardReciever.AreaType.ride && receiver.CanAcceptCard(hoveredCard))
                         {
                             DB_Card cloneCard = Instantiate(hoveredCard, receiver.transform);
                             cloneCard.Load(hoveredCard.cardInfo.index);
@@ -101,6 +101,17 @@ public class DB_CardDragger : MonoBehaviour
                             receiver.ReceiveCard(cloneCard);
                             break;
                         }
+                    }
+                }
+                else
+                {
+                    DB_CardReciever parentReceiver = hoveredCard.transform.parent.GetComponent<DB_CardReciever>();
+                    if (parentReceiver != null && parentReceiver.CanAcceptCard(hoveredCard))
+                    {
+                        DB_Card cloneCard = Instantiate(hoveredCard, parentReceiver.transform);
+                        cloneCard.Load(hoveredCard.cardInfo.index);
+                        cloneCard.SetWidth(cloneCard.rectTransform.rect.height * Card.cardWidth);
+                        parentReceiver.ReceiveCard(cloneCard);
                     }
                 }
             }
