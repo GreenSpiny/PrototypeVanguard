@@ -58,20 +58,52 @@ public class DB_CardDragger : MonoBehaviour
                 ToggleCardRaycasting(false);
             }
         }
-        else if (!Input.GetMouseButton(0))
+        // End dragging
+        else if (draggedCard != null && !Input.GetMouseButton(0))
         {
-            if (draggedCard != null)
+            if (hoveredReceiver != null && hoveredReceiver.CanAcceptCard(draggedCard))
             {
-                if (hoveredReceiver != null && hoveredReceiver.CanAcceptCard(draggedCard))
+                hoveredReceiver.ReceiveCard(draggedCard);
+            }
+            else
+            {
+                StartCoroutine(draggedCard.DestroySelf(transform.position));
+            }
+            ToggleCardRaycasting(true);
+            draggedCard = null;
+        }
+
+        if (draggedCard == null)
+        {
+            // Double click
+            if ((doubleClick && hoveredCard != null) || Input.GetMouseButtonDown(2))
+            {
+                clickTime = 0f;
+                lastClickTime = float.MinValue;
+                if (hoveredCard.transform.parent == searchContainer)
                 {
-                    hoveredReceiver.ReceiveCard(draggedCard);
+                    foreach (DB_CardReciever receiver in receivers)
+                    {
+                        if (receiver.CanAcceptCard(hoveredCard))
+                        {
+                            DB_Card cloneCard = Instantiate(hoveredCard, receiver.transform);
+                            cloneCard.Load(hoveredCard.cardInfo.index);
+                            cloneCard.SetWidth(cloneCard.rectTransform.rect.height * Card.cardWidth);
+                            receiver.ReceiveCard(cloneCard);
+                            break;
+                        }
+                    }
                 }
-                else
+            }
+            // Right click
+            if (Input.GetMouseButtonDown(1) && hoveredCard != null)
+            {
+                DB_CardReciever receiver = hoveredCard.transform.parent.GetComponent<DB_CardReciever>();
+                if (receiver != null)
                 {
-                    StartCoroutine(draggedCard.DestroySelf(transform.position));
+                    receiver.RemoveCard(hoveredCard, true);
+                    hoveredCard = null;
                 }
-                ToggleCardRaycasting(true);
-                draggedCard = null;
             }
         }
 

@@ -123,6 +123,30 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public bool CanAcceptCard(DB_Card card)
     {
+        bool isGUnit = card.cardInfo.unitType == "G Unit";
+        bool isToolboxCard = card.cardInfo.unitType == "Token" || card.cardInfo.unitType == "Crest";
+        bool isOrder = card.cardInfo.unitType.Contains("Order", StringComparison.InvariantCultureIgnoreCase);
+
+        if (cards.Count >= maxCards)
+        {
+            return false;
+        }
+        if (areaType == AreaType.stride)
+        {
+            return isGUnit;
+        }
+        if (areaType == AreaType.toolbox)
+        {
+            return isToolboxCard;
+        }
+        if (areaType == AreaType.ride)
+        {
+            return !isGUnit && !isToolboxCard && !isOrder;
+        }
+        if (areaType == AreaType.main)
+        {
+            return !isGUnit && !isToolboxCard;
+        }
         return true;
     }
 
@@ -136,7 +160,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (DB_CardDragger.instance.draggedCard != null)
+        if (DB_CardDragger.instance.draggedCard != null && CanAcceptCard(DB_CardDragger.instance.draggedCard))
         {
             DB_CardDragger.instance.hoveredReceiver = this;
             receiverImage.color = new Color(0.5f, 0.5f, 0.25f);

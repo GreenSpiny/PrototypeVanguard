@@ -257,6 +257,8 @@ public class DeckBuilder : MonoBehaviour
 
         // Display results
         float targetWidth = searchResultsArea.GetComponent<RectTransform>().rect.width - searchResultsArea.padding.left - searchResultsArea.padding.right;
+        Debug.Log(targetWidth);
+        Debug.Log(targetWidth / Card.cardWidth);
         while (searchCardObjects.Count < searchResults.Count)
         {
             currentStep++;
@@ -323,7 +325,7 @@ public class DeckBuilder : MonoBehaviour
 
     private bool CheckDeckValidity()
     {
-        if (rideReceiver.CardCount < 4  || rideReceiver.CardCount > 5)
+        if (rideReceiver.CardCount < 4  || rideReceiver.CardCount > CardInfo.DeckList.maxRide)
         {
             deckErrorText.text = "Invalid number of cards in the Ride Deck.";
             deckErrorText.color = deckErrorColor;
@@ -335,7 +337,19 @@ public class DeckBuilder : MonoBehaviour
             deckErrorText.color = deckErrorColor;
             return false;
         }
-        if (mainReceiver.CardCount != 50)
+        if (mainReceiver.CardCount != CardInfo.DeckList.maxMain)
+        {
+            deckErrorText.text = "Invalid number of cards in the Main Deck.";
+            deckErrorText.color = deckErrorColor;
+            return false;
+        }
+        if (strideReceiver.CardCount > CardInfo.DeckList.maxStride)
+        {
+            deckErrorText.text = "Invalid number of cards in the Stride Deck.";
+            deckErrorText.color = deckErrorColor;
+            return false;
+        }
+        if (toolboxReceiver.CardCount > CardInfo.DeckList.maxToolbox)
         {
             deckErrorText.text = "Invalid number of cards in the Main Deck.";
             deckErrorText.color = deckErrorColor;

@@ -19,6 +19,11 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
         rectTransform = GetComponent<RectTransform>();
     }
 
+    private void Start()
+    {
+        cardImage.color = Color.white;
+    }
+
     public void SetWidth(float width)
     {
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
