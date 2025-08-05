@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -25,6 +26,8 @@ public class CardLoader : MonoBehaviour
     public Dictionary<int, AssetBundle> allBundles = new Dictionary<int, AssetBundle>();
     public Dictionary<int, AssetBundleRequest> allBundleRequests = new Dictionary<int, AssetBundleRequest>();
     public Dictionary<int, Material> allImagesData = new Dictionary<int, Material>();
+
+    public List<CardInfo> alLCardsDataSorted = new List<CardInfo>();
 
     // Card Parameter Tracking
     public List<string> allCardGifts;
@@ -83,14 +86,14 @@ public class CardLoader : MonoBehaviour
 
         // Grab the existing card data JSON, or download an updated version if needed.
         TextAsset allCardsJSON = Resources.Load<TextAsset>(localCardsJSONPath);
-        var parsedJSON = JsonConvert.DeserializeObject<IDictionary<string, object>>(allCardsJSON.text);
-        JObject token = parsedJSON["cards"] as JObject;
-        Dictionary<string, JObject> parsedCards = token.ToObject<Dictionary<string, JObject>>();
+        var parsedCards = JsonConvert.DeserializeObject<Dictionary<string, object>>(allCardsJSON.text);
+
         foreach (JObject card in parsedCards.Values)
         {
             Dictionary<string, object> cardData = card.ToObject<Dictionary<string, object>>();
             CardInfo newEntry = CardInfo.FromDictionary(cardData);
             allCardsData[newEntry.index] = newEntry;
+            alLCardsDataSorted.Add(newEntry);
 
             if (!string.IsNullOrEmpty(newEntry.gift))
                 giftSet.Add(newEntry.gift);
@@ -104,7 +107,7 @@ public class CardLoader : MonoBehaviour
             if (!string.IsNullOrEmpty(newEntry.unitType))
                 unitTypeSet.Add(newEntry.unitType);
         }
-
+        
         allCardGifts = new List<string>(giftSet);
         allCardGifts.Sort();
         allCardGrades = new List<int>(gradeSet);
@@ -117,6 +120,8 @@ public class CardLoader : MonoBehaviour
         allCardRaces.Sort();
         allCardUnitTypes = new List<string>(unitTypeSet);
         allCardUnitTypes.Sort();
+
+        alLCardsDataSorted.Sort();
 
         Debug.Log("JSON download complete.");
 
@@ -194,7 +199,6 @@ public class CardLoader : MonoBehaviour
         return instance.allCardsData[cardIndex];
     }
 
-    // TODO: Handle asynchronous version
     public static Material GetCardImage(int cardIndex)
     {
         if (instance == null)
@@ -205,10 +209,9 @@ public class CardLoader : MonoBehaviour
         {
             return new Material(instance.allImagesData[cardIndex]);
         }
+        // If we are not downloading remote assets, load the assets from the Resources folder.
         else if (Application.isEditor && instance.downloadMode == DownloadMode.localResources)
         {
-            // If we are not downloading remote assets, load the assets from the Resources folder.
-            // This is mainly for fast editor testing.
             Material newMaterial = new Material(instance.cardMaterial);
             int folderIndex = Mathf.FloorToInt(cardIndex / 100f);
             Texture targetTexture = Resources.Load<Texture>("cardimages/" + folderIndex +  '/' + cardIndex.ToString());
