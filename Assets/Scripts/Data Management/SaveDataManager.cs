@@ -6,7 +6,9 @@ using System.Collections.Generic;
 public class SaveDataManager : MonoBehaviour
 {
     private static SaveDataManager instance;
-    public static string DeckSaveLocation { get { return Path.Join(Application.persistentDataPath, "Decks"); } }
+    private static string DeckSaveLocation { get { return Path.Join(Application.persistentDataPath, "Decks"); } }
+    private static string VersionJSONSaveLocation { get { return Path.Join(Application.dataPath, "dataVersion.json"); } }
+    private static string CardsJSONSaveLocation { get { return Path.Join(Application.dataPath, "allCardsSingleton.json"); } }
 
     private void Awake()
     {
@@ -20,7 +22,57 @@ public class SaveDataManager : MonoBehaviour
             DestroyImmediate(gameObject);
         }
     }
-    
+
+    // === UTILITY === ///
+
+    public static void SaveVersionJSON(CardLoader.DataVersionObject data)
+    {
+        if (!Directory.Exists(Application.dataPath))
+        {
+            Directory.CreateDirectory(Application.dataPath);
+        }
+        string fileText = data.ToJSON();
+        File.WriteAllText(VersionJSONSaveLocation, fileText);
+    }
+
+    public static CardLoader.DataVersionObject LoadVersionJSON()
+    {
+        string filePath = VersionJSONSaveLocation;
+        if (File.Exists(filePath))
+        {
+            string fileText = File.ReadAllText(filePath);
+            return CardLoader.DataVersionObject.FromJSON(fileText);
+        }
+        else
+        {
+            return new CardLoader.DataVersionObject();
+        }
+    }
+
+    public static void SaveCardsJSON(string cardsJSON)
+    {
+        if (!Directory.Exists(Application.dataPath))
+        {
+            Directory.CreateDirectory(Application.dataPath);
+        }
+        File.WriteAllText(CardsJSONSaveLocation, cardsJSON);
+    }
+
+    public static string LoadCardsJSON()
+    {
+        string filePath = VersionJSONSaveLocation;
+        if (File.Exists(filePath))
+        {
+            return File.ReadAllText(filePath);
+        }
+        else
+        {
+            return "{}";
+        }
+    }
+
+    // === DECKS === //
+
     public static List<string> GetAvailableDecks()
     {
         List<string> result = new List<string>();

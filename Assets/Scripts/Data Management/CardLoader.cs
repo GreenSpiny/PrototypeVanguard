@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -21,24 +22,28 @@ public class CardLoader : MonoBehaviour
     [SerializeField] private Material defaultCardBackMaterial;
 
     // Card Loading
-    private DataVersionObject versionObject;
-    public Dictionary<int, CardInfo> allCardsData = new Dictionary<int, CardInfo>();
-    public Dictionary<int, AssetBundle> allBundles = new Dictionary<int, AssetBundle>();
-    public Dictionary<int, AssetBundleRequest> allBundleRequests = new Dictionary<int, AssetBundleRequest>();
-    public Dictionary<int, Material> allImagesData = new Dictionary<int, Material>();
-
-    public List<CardInfo> alLCardsDataSorted = new List<CardInfo>();
+    private DataVersionObject dataVersionObject;
+    [NonSerialized] public Dictionary<int, CardInfo> allCardsData = new Dictionary<int, CardInfo>();
+    [NonSerialized] public Dictionary<int, AssetBundle> allBundles = new Dictionary<int, AssetBundle>();
+    [NonSerialized] public Dictionary<int, AssetBundleRequest> allBundleRequests = new Dictionary<int, AssetBundleRequest>();
+    [NonSerialized] public Dictionary<int, Material> allImagesData = new Dictionary<int, Material>();
+    [NonSerialized] public List<CardInfo> allCardsDataSorted = new List<CardInfo>();
 
     // Card Parameter Tracking
-    public List<string> allCardGifts;
-    public List<int> allCardGrades;
-    public List<string> allCardGroups;
-    public List<string> allCardNations;
-    public List<string> allCardRaces;
-    public List<string> allCardUnitTypes;
+    [NonSerialized] public List<string> allCardGifts;
+    [NonSerialized] public List<int> allCardGrades;
+    [NonSerialized] public List<string> allCardGroups;
+    [NonSerialized] public List<string> allCardNations;
+    [NonSerialized] public List<string> allCardRaces;
+    [NonSerialized] public List<string> allCardUnitTypes;
 
     private enum DownloadMode { localResources = 0, remoteDownload = 1 }
     [SerializeField] DownloadMode downloadMode;
+
+    public int versionDownloadProgress = 0;
+    public int cardsDownloadProgress = 0;
+    public float imageDownloadProgress = 0;
+
     public bool CardsLoaded { get; private set; }
 
     private void Awake()
@@ -67,14 +72,74 @@ public class CardLoader : MonoBehaviour
         allCardsData.Clear();
         allImagesData.Clear();
 
-        Debug.Log("JSON download initiated.");
+        // Download the Data Version object. This determines whether mew cards JSON and image asset bundles should be downloaded.
 
-        // Download the Data Version Object. This determines whether mew asset bundles should be downloaded.
-        // It must be checked against the locally saved copy.
-        TextAsset versionJSON = Resources.Load<TextAsset>(localVersionJSONPath);
-        versionObject = DataVersionObject.FromJSON(versionJSON.text);
-        Debug.Log(versionObject.cardsFileVersion);
-        Debug.Log(versionObject.imageBundleVersions.Length);
+        versionDownloadProgress = 0;
+        DataVersionObject oldDataVersionObject;
+        if (downloadMode == DownloadMode.remoteDownload)
+        {
+            oldDataVersionObject = SaveDataManager.LoadVersionJSON();
+            string url = "http://localhost:8000/dataVersion.json";
+            var webRequest = UnityWebRequest.Get(url);
+            yield return webRequest.SendWebRequest();
+            if (webRequest.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError("error: " + webRequest.error);
+                dataVersionObject = oldDataVersionObject;
+            }
+            else
+            {
+                string text = webRequest.downloadHandler.text;
+                dataVersionObject = DataVersionObject.FromJSON(text);
+            }
+        }
+        else
+        {
+            TextAsset versionJSON = Resources.Load<TextAsset>(localVersionJSONPath);
+            oldDataVersionObject = DataVersionObject.FromJSON(versionJSON.text);
+            dataVersionObject = oldDataVersionObject;
+        }
+        versionDownloadProgress = 1;
+        Debug.Log("Data Version: " + oldDataVersionObject.cardsFileVersion.ToString() + " -> " + dataVersionObject.cardsFileVersion.ToString());
+
+        // Download the Cards Data object, updating the existing file if necessary.
+
+        cardsDownloadProgress = 0;
+        string oldCardsText;
+        string newCardsText;
+        if (downloadMode == DownloadMode.remoteDownload)
+        {
+            bool shouldUpdateCards = dataVersionObject.cardsFileVersion > oldDataVersionObject.cardsFileVersion;
+            oldCardsText = SaveDataManager.LoadCardsJSON();
+            if (shouldUpdateCards)
+            {
+                string url = "http://localhost:8000/allCardsSingleton.json";
+                var webRequest = UnityWebRequest.Get(url);
+                yield return webRequest.SendWebRequest();
+                if (webRequest.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.LogError("error: " + webRequest.error);
+                    newCardsText = oldCardsText;
+                }
+                else
+                {
+                    string text = webRequest.downloadHandler.text;
+                    newCardsText = text;
+                    SaveDataManager.SaveCardsJSON(newCardsText);
+                }
+            }
+            else
+            {
+                newCardsText = oldCardsText;
+            }
+        }
+        else
+        {
+            TextAsset allCardsJSON = Resources.Load<TextAsset>(localCardsJSONPath);
+            oldCardsText = allCardsJSON.text;
+            newCardsText = oldCardsText;
+        }
+        cardsDownloadProgress = 1;
 
         // Track all data types, for deckbuilder sorting purposes
         HashSet<string> giftSet = new HashSet<string>();
@@ -84,16 +149,15 @@ public class CardLoader : MonoBehaviour
         HashSet<string> raceSet = new HashSet<string>();
         HashSet<string> unitTypeSet = new HashSet<string>();
 
-        // Grab the existing card data JSON, or download an updated version if needed.
-        TextAsset allCardsJSON = Resources.Load<TextAsset>(localCardsJSONPath);
-        var parsedCards = JsonConvert.DeserializeObject<Dictionary<string, object>>(allCardsJSON.text);
+        // Grab the existing card data JSON, or download an updated version if needed.\
+        var parsedCards = JsonConvert.DeserializeObject<Dictionary<string, object>>(newCardsText);
 
         foreach (JObject card in parsedCards.Values)
         {
             Dictionary<string, object> cardData = card.ToObject<Dictionary<string, object>>();
             CardInfo newEntry = CardInfo.FromDictionary(cardData);
             allCardsData[newEntry.index] = newEntry;
-            alLCardsDataSorted.Add(newEntry);
+            allCardsDataSorted.Add(newEntry);
 
             if (!string.IsNullOrEmpty(newEntry.gift))
                 giftSet.Add(newEntry.gift);
@@ -121,15 +185,16 @@ public class CardLoader : MonoBehaviour
         allCardUnitTypes = new List<string>(unitTypeSet);
         allCardUnitTypes.Sort();
 
-        alLCardsDataSorted.Sort();
+        allCardsDataSorted.Sort();
 
         Debug.Log("JSON download complete.");
 
         yield return null;
 
+        // Download all card images asynchronously.
         if (downloadMode == DownloadMode.remoteDownload)
         {
-            StartCoroutine(DownloadAllBundlesAsync(versionObject, 5));
+            StartCoroutine(DownloadAllBundlesAsync(dataVersionObject, 5));
             while (!CardsLoaded)
             {
                 yield return null;
@@ -143,8 +208,9 @@ public class CardLoader : MonoBehaviour
 
     public IEnumerator DownloadAllBundlesAsync(DataVersionObject dataversion, int maxConcurrentDownloads)
     {
-        Debug.Log("Remote download & extraction initiated.");
+        Debug.Log("Remote image download & extraction initiated.");
 
+        imageDownloadProgress = 0;
         List<RemoteDownloadHandlerObject> downloadHandlers = new List<RemoteDownloadHandlerObject>();
         for (int i = 0; i < dataversion.imageBundleVersions.Length; i++)
         {
@@ -162,6 +228,7 @@ public class CardLoader : MonoBehaviour
                     if (downloadHandlers[i].completed)
                     {
                         downloadHandlers.RemoveAt(i);
+                        imageDownloadProgress = 1f - ((float)downloadHandlers.Count / dataversion.imageBundleVersions.Length);
                     }
                     else
                     {
@@ -171,14 +238,14 @@ public class CardLoader : MonoBehaviour
                 else if (currentDownloads < maxConcurrentDownloads)
                 {
                     string url = "http://localhost:8000/CardImages/" + i.ToString();
-                    downloadHandlers[i] = new RemoteDownloadHandlerObject(url, 0);
+                    downloadHandlers[i] = new RemoteDownloadHandlerObject(url, dataversion.imageBundleVersions[i]);
                     currentDownloads++;
                 }
             }
         }
 
         CardsLoaded = true;
-        Debug.Log("Remote download & extraction completed.");
+        Debug.Log("Remote image download & extraction completed.");
     }
 
     public static Material GetDefaultCardBack()
@@ -232,8 +299,8 @@ public class CardLoader : MonoBehaviour
     [System.Serializable]
     public class DataVersionObject
     {
-        public int cardsFileVersion = 0;
-        public int[] imageBundleVersions = new int[0];
+        public uint cardsFileVersion = 0;
+        public uint[] imageBundleVersions = new uint[0];
 
         public string ToJSON()
         {
