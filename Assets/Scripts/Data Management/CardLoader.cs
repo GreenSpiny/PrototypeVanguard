@@ -34,7 +34,7 @@ public class CardLoader : MonoBehaviour
     public List<string> allCardRaces;
     public List<string> allCardUnitTypes;
 
-    private enum DownloadMode { localResources = 0, localAsync = 1, remoteDownload = 2 }
+    private enum DownloadMode { localResources = 0, remoteDownload = 1 }
     [SerializeField] DownloadMode downloadMode;
     public bool CardsLoaded { get; private set; }
 
@@ -130,49 +130,6 @@ public class CardLoader : MonoBehaviour
                 yield return null;
             }
         }
-        else if (downloadMode == DownloadMode.localAsync)
-        {
-            Debug.Log("Texture download initiated.");
-
-            // Download the card image assets.
-            int bundleCount = versionObject.imageBundleVersions.Count();
-            for (int i = 0; i < bundleCount; i++)
-            {
-                Debug.Log("Downloading texture bundle " + (i + 1).ToString() + " of " + bundleCount.ToString());
-                var bundleLoadRequest = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, "AssetBundles", "cardimages", i.ToString()));
-                yield return bundleLoadRequest;
-                var bundle = bundleLoadRequest.assetBundle;
-                AssetBundleRequest req = bundle.LoadAllAssetsAsync();
-                instance.allBundles[i] = bundle;
-                instance.allBundleRequests[i] = req;
-            }
-
-            Debug.Log("Texture download complete.");
-
-            while (allBundleRequests.Count > 0)
-            {
-                yield return null;
-                foreach (KeyValuePair<int, AssetBundleRequest> kvp in allBundleRequests)
-                {
-                    if (kvp.Value.isDone)
-                    {
-                        foreach (object asset in kvp.Value.allAssets)
-                        {
-                            Texture t = asset as Texture;
-                            Material mat = new Material(cardMaterial);
-                            mat.mainTexture = t;
-                            allImagesData[Convert.ToInt32(t.name)] = mat;
-                        }
-                        allBundleRequests.Remove(kvp.Key);
-                        allBundles[kvp.Key].UnloadAsync(false);
-                        break;
-                    }
-                }
-            }
-
-            CardsLoaded = true;
-            Debug.Log("Texture extraction complete.");
-        }
         else
         {
             CardsLoaded = true;
@@ -181,9 +138,9 @@ public class CardLoader : MonoBehaviour
 
     public IEnumerator DownloadAllBundlesAsync(DataVersionObject dataversion, int maxConcurrentDownloads)
     {
-        Debug.Log("Async download & extraction initiated.");
+        Debug.Log("Remote download & extraction initiated.");
 
-        List<DownloadHandlerObject> downloadHandlers = new List<DownloadHandlerObject>();
+        List<RemoteDownloadHandlerObject> downloadHandlers = new List<RemoteDownloadHandlerObject>();
         for (int i = 0; i < dataversion.imageBundleVersions.Length; i++)
         {
             downloadHandlers.Add(null);
@@ -209,15 +166,14 @@ public class CardLoader : MonoBehaviour
                 else if (currentDownloads < maxConcurrentDownloads)
                 {
                     string url = "http://localhost:8000/CardImages/" + i.ToString();
-                    downloadHandlers[i] = new DownloadHandlerObject(url, 0);
+                    downloadHandlers[i] = new RemoteDownloadHandlerObject(url, 0);
                     currentDownloads++;
-                    Debug.Log("Initiating download: " + i.ToString());
                 }
             }
         }
 
         CardsLoaded = true;
-        Debug.Log("Async download & extraction completed.");
+        Debug.Log("Remote download & extraction completed.");
     }
 
     public static Material GetDefaultCardBack()
@@ -287,7 +243,7 @@ public class CardLoader : MonoBehaviour
         }
     }
 
-    public class DownloadHandlerObject
+    public class RemoteDownloadHandlerObject
     {
         public readonly string url;
         public readonly uint version;
@@ -296,7 +252,7 @@ public class CardLoader : MonoBehaviour
         public bool completed = false;
         public string error;
 
-        public DownloadHandlerObject(string url, uint version)
+        public RemoteDownloadHandlerObject(string url, uint version)
         {
             this.url = url;
             this.version = version;
