@@ -5,7 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class CardLoader : MonoBehaviour
@@ -14,7 +16,6 @@ public class CardLoader : MonoBehaviour
     private const string localVersionJSONPath = "JSON/dataVersion";
     private const string localCardsJSONPath = "JSON/allCardsSingleton";
 
-    [SerializeField] bool loadRemoteAssets;
     [SerializeField] private Material cardMaterial;
     [SerializeField] private Material defaultCardBackMaterial;
 
@@ -33,8 +34,9 @@ public class CardLoader : MonoBehaviour
     public List<string> allCardRaces;
     public List<string> allCardUnitTypes;
 
+    private enum DownloadMode { localResources = 0, localAsync = 1, remoteDownload = 2 }
+    [SerializeField] DownloadMode downloadMode;
     public bool CardsLoaded { get; private set; }
-    public bool JSONLoaded { get; private set; }
 
     private void Awake()
     {
@@ -64,10 +66,12 @@ public class CardLoader : MonoBehaviour
 
         Debug.Log("JSON download initiated.");
 
-        // Download the Data Version Object. This determines whether mew asset bundles must be downloaded.
+        // Download the Data Version Object. This determines whether mew asset bundles should be downloaded.
         // It must be checked against the locally saved copy.
         TextAsset versionJSON = Resources.Load<TextAsset>(localVersionJSONPath);
-        versionObject = JsonConvert.DeserializeObject<DataVersionObject>(versionJSON.text);
+        versionObject = DataVersionObject.FromJSON(versionJSON.text);
+        Debug.Log(versionObject.cardsFileVersion);
+        Debug.Log(versionObject.imageBundleVersions.Length);
 
         // Track all data types, for deckbuilder sorting purposes
         HashSet<string> giftSet = new HashSet<string>();
@@ -114,13 +118,19 @@ public class CardLoader : MonoBehaviour
         allCardUnitTypes = new List<string>(unitTypeSet);
         allCardUnitTypes.Sort();
 
-        JSONLoaded = true;
-
         Debug.Log("JSON download complete.");
 
         yield return null;
 
-        if (loadRemoteAssets)
+        if (downloadMode == DownloadMode.remoteDownload)
+        {
+            StartCoroutine(DownloadAllBundlesAsync(versionObject, 5));
+            while (!CardsLoaded)
+            {
+                yield return null;
+            }
+        }
+        else if (downloadMode == DownloadMode.localAsync)
         {
             Debug.Log("Texture download initiated.");
 
@@ -169,6 +179,47 @@ public class CardLoader : MonoBehaviour
         }
     }
 
+    public IEnumerator DownloadAllBundlesAsync(DataVersionObject dataversion, int maxConcurrentDownloads)
+    {
+        Debug.Log("Async download & extraction initiated.");
+
+        List<DownloadHandlerObject> downloadHandlers = new List<DownloadHandlerObject>();
+        for (int i = 0; i < dataversion.imageBundleVersions.Length; i++)
+        {
+            downloadHandlers.Add(null);
+        }
+
+        while (downloadHandlers.Count > 0)
+        {
+            yield return null;
+            int currentDownloads = 0;
+            for (int i = downloadHandlers.Count - 1; i >= 0; i--)
+            {
+                if (downloadHandlers[i] != null)
+                {
+                    if (downloadHandlers[i].completed)
+                    {
+                        downloadHandlers.RemoveAt(i);
+                    }
+                    else
+                    {
+                        currentDownloads++;
+                    }
+                }
+                else if (currentDownloads < maxConcurrentDownloads)
+                {
+                    string url = "http://localhost:8000/CardImages/" + i.ToString();
+                    downloadHandlers[i] = new DownloadHandlerObject(url, 0);
+                    currentDownloads++;
+                    Debug.Log("Initiating download: " + i.ToString());
+                }
+            }
+        }
+
+        CardsLoaded = true;
+        Debug.Log("Async download & extraction completed.");
+    }
+
     public static Material GetDefaultCardBack()
     {
         if (instance == null)
@@ -198,7 +249,7 @@ public class CardLoader : MonoBehaviour
         {
             return new Material(instance.allImagesData[cardIndex]);
         }
-        else if (!instance.loadRemoteAssets)
+        else if (Application.isEditor && instance.downloadMode == DownloadMode.localResources)
         {
             // If we are not downloading remote assets, load the assets from the Resources folder.
             // This is mainly for fast editor testing.
@@ -220,14 +271,64 @@ public class CardLoader : MonoBehaviour
     }
 
     [System.Serializable]
-    private class DataVersionObject
+    public class DataVersionObject
     {
-        public int cardsFileVersion;
-        public int[] imageBundleVersions;
+        public int cardsFileVersion = 0;
+        public int[] imageBundleVersions = new int[0];
 
         public string ToJSON()
         {
             return JsonConvert.SerializeObject(this);
+        }
+
+        public static DataVersionObject FromJSON(string json)
+        {
+            return JsonConvert.DeserializeObject<DataVersionObject>(json);
+        }
+    }
+
+    public class DownloadHandlerObject
+    {
+        public readonly string url;
+        public readonly uint version;
+        public UnityWebRequest webRequest;
+        public AssetBundleRequest bundleRequest;
+        public bool completed = false;
+        public string error;
+
+        public DownloadHandlerObject(string url, uint version)
+        {
+            this.url = url;
+            this.version = version;
+            instance.StartCoroutine(DownloadAndExtractAsync());
+        }
+
+        public IEnumerator DownloadAndExtractAsync()
+        {
+            webRequest = UnityWebRequestAssetBundle.GetAssetBundle(url);
+            yield return webRequest.SendWebRequest();
+            if (webRequest.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError("error: " + webRequest.error);
+                error = webRequest.error;
+            }
+            else
+            {
+                AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(webRequest);
+                bundleRequest = bundle.LoadAllAssetsAsync();
+                while (!bundleRequest.isDone)
+                {
+                    yield return null;
+                }
+                foreach (object asset in bundleRequest.allAssets)
+                {
+                    Texture t = asset as Texture;
+                    Material mat = new Material(instance.cardMaterial);
+                    mat.mainTexture = t;
+                    instance.allImagesData[Convert.ToInt32(t.name)] = mat;
+                }
+            }
+            completed = true;
         }
     }
 

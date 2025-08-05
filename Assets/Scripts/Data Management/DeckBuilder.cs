@@ -76,7 +76,7 @@ public class DeckBuilder : MonoBehaviour
 
     private IEnumerator LoadInitialDeck()
     {
-        while (CardLoader.instance != null && !CardLoader.instance.JSONLoaded)
+        while (CardLoader.instance != null && !CardLoader.instance.CardsLoaded) // TODO - wait for JSON only
         {
             yield return null;
         }
