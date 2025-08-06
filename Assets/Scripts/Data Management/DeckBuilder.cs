@@ -44,8 +44,11 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] Color deckWarningColor;
     [SerializeField] Color deckErrorColor;
 
+    [SerializeField] CanvasGroup mainCanvasGroup;
+
     [NonSerialized] public bool deckValid = false;
     [NonSerialized] public bool needsRefresh = false;
+    [NonSerialized] private bool initialLoadComplete = false;
 
     private void Awake()
     {
@@ -62,6 +65,7 @@ public class DeckBuilder : MonoBehaviour
 
     void Start()
     {
+        mainCanvasGroup.alpha = 0f;
         StartCoroutine(LoadInitialDeck());
     }
 
@@ -70,7 +74,13 @@ public class DeckBuilder : MonoBehaviour
         if (needsRefresh)
         {
             RefreshInfo();
-            needsRefresh = false;
+        }
+        if (initialLoadComplete)
+        {
+            if (mainCanvasGroup.alpha < 1f)
+            {
+                mainCanvasGroup.alpha = Mathf.Clamp(mainCanvasGroup.alpha + Time.deltaTime * 2f, 0f, 1f);
+            }
         }
     }
 
@@ -154,6 +164,7 @@ public class DeckBuilder : MonoBehaviour
 
         // Refresh info
         RefreshInfo();
+        initialLoadComplete = true;
     }
 
     private void LoadDeck(CardInfo.DeckList deckList)
@@ -366,6 +377,7 @@ public class DeckBuilder : MonoBehaviour
 
     private void RefreshInfo()
     {
+        needsRefresh = false;
         rideReceiver.label.text = rideReceiver.templateLabelText.Replace("[x]", rideReceiver.cards.Count.ToString());
         mainReceiver.label.text = mainReceiver.templateLabelText.Replace("[x]", mainReceiver.cards.Count.ToString());
         strideReceiver.label.text = strideReceiver.templateLabelText.Replace("[x]", strideReceiver.cards.Count.ToString());

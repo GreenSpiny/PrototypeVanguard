@@ -72,8 +72,11 @@ public class CardDetailUI : MonoBehaviour
                 }
             }
         }
-        cardInfoString += "\n" + cardInfo.nation + " / ";
-        cardInfoString += cardInfo.race;
+        cardInfoString += "\n" + cardInfo.nation;
+        if (!string.IsNullOrEmpty(cardInfo.race))
+        {
+            cardInfoString += " / " + cardInfo.race;
+        }
         if (!string.IsNullOrEmpty(cardInfo.group))
         {
             cardInfoString += " / " + cardInfo.group;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -104,4 +105,13 @@ public class MenuManager : MonoBehaviour
             transitionOutCallback.Invoke();
         }
     }
+
+    // === Button Functions === //
+
+    public void ToDeckBuilder()
+    {
+        TransitionOut(() => { SceneManager.LoadScene("DeckBuilderScene"); });
+    }
+
+
 }
