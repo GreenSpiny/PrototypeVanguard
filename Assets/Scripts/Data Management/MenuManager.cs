@@ -10,9 +10,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField] MenuButton[] menuButtons;
     [SerializeField] Image backgroundImage;
     [SerializeField] float colorTransitionSpeed;
+    [SerializeField] float spriteHeightMultiplier;
 
     private Color originalColor;
     private Color targetColor;
+    private CanvasGroup canvasGroup;
     private System.Action transitionOutCallback;
     bool transitioningOut = false;
 
@@ -22,6 +24,7 @@ public class MenuManager : MonoBehaviour
         image = GetComponent<Image>();
         originalColor = image.color;
         targetColor = backgroundImage.color;
+        canvasGroup = GetComponent<CanvasGroup>();
         foreach (var button in menuButtons)
         {
             button.Init(this);
@@ -50,12 +53,13 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void SetCharacterSprite(Color color, Sprite sprite)
+    public void SetCharacterSprite(Color color, Sprite sprite, float height)
     {
         targetColor = color;
         if (characterImage.sprite != sprite)
         {
             characterImage.sprite = sprite;
+            characterImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height * spriteHeightMultiplier);
             characterAnimator.Play("Appear", -1, 0f);
         }
     }
@@ -63,6 +67,7 @@ public class MenuManager : MonoBehaviour
     public void TransitionIn()
     {
         transitioningOut = false;
+        canvasGroup.interactable = true;
         transitionOutCallback = null;
         mainAnimator.enabled = true;
         characterImage.sprite = null;
@@ -73,6 +78,7 @@ public class MenuManager : MonoBehaviour
     {
         if (!transitioningOut)
         {
+            canvasGroup.interactable = false;
             targetColor = originalColor;
             transitioningOut = true;
             transitionOutCallback = callback;
