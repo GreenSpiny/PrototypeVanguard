@@ -55,6 +55,7 @@ public class CardLoader : MonoBehaviour
         }
         else
         {
+            enabled = false;
             DestroyImmediate(gameObject);
         }
     }
