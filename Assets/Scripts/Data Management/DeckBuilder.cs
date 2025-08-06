@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Rendering;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -281,12 +279,12 @@ public class DeckBuilder : MonoBehaviour
 
         // Dig through the cards data. Do not do it all in one frame!
         searchResults.Clear();
-        Dictionary<int, CardInfo> allCardsData = CardLoader.instance.allCardsData;
+        List<CardInfo> allCardsDataSorted = CardLoader.instance.allCardsDataSorted;
         int currentStep = 0;
 
         if (searchNation || searchType || searchGrade || searchRace || searchGroup || searchGift || searchQuery)
         {
-            foreach (CardInfo cardInfo in allCardsData.Values)
+            foreach (CardInfo cardInfo in allCardsDataSorted)
             {
                 currentStep++;
                 if (currentStep > actionsPerFrame)

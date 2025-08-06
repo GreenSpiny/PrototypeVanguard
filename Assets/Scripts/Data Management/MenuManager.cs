@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+using UnityEditor;
 
 public class MenuManager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] Animator characterAnimator;
     [SerializeField] Image characterImage;
     [SerializeField] Image progressBarImage;
+
+    [SerializeField] TextMeshProUGUI binaryVersionText;
+    [SerializeField] TextMeshProUGUI cardsVersionText;
 
     [SerializeField] MenuButton[] menuButtons;
     [SerializeField] CanvasGroup menuButtonsGroup;
@@ -98,6 +103,11 @@ public class MenuManager : MonoBehaviour
         transitionOutCallback = null;
         mainAnimator.enabled = true;
         characterImage.sprite = null;
+
+        binaryVersionText.text = "engine - " + Application.version;
+        cardsVersionText.text = "cards - rev. " + CardLoader.instance.dataVersionObject.cardsFileVersion.ToString();
+
+
         if (fromLoader)
         {
             mainAnimator.Play("Loader Exit");

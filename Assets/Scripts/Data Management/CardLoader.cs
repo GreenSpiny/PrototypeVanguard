@@ -22,7 +22,7 @@ public class CardLoader : MonoBehaviour
     [SerializeField] private Material defaultCardBackMaterial;
 
     // Card Loading
-    private DataVersionObject dataVersionObject;
+    [NonSerialized] public DataVersionObject dataVersionObject;
     [NonSerialized] public Dictionary<int, CardInfo> allCardsData = new Dictionary<int, CardInfo>();
     [NonSerialized] public Dictionary<int, AssetBundle> allBundles = new Dictionary<int, AssetBundle>();
     [NonSerialized] public Dictionary<int, AssetBundleRequest> allBundleRequests = new Dictionary<int, AssetBundleRequest>();
