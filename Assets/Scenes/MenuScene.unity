@@ -2388,7 +2388,7 @@ MonoBehaviour:
   - {fileID: 771942473}
   - {fileID: 54853453}
   backgroundImage: {fileID: 1548893269}
-  colorTransitionSpeed: 5
+  colorTransitionSpeed: 6
 --- !u!1 &1652133808
 GameObject:
   m_ObjectHideFlags: 0

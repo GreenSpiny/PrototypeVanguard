@@ -4,12 +4,14 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     Animator mainAnimator;
+    Image image;
     [SerializeField] Animator characterAnimator;
     [SerializeField] Image characterImage;
     [SerializeField] MenuButton[] menuButtons;
     [SerializeField] Image backgroundImage;
     [SerializeField] float colorTransitionSpeed;
-    
+
+    private Color originalColor;
     private Color targetColor;
     private System.Action transitionOutCallback;
     bool transitioningOut = false;
@@ -17,6 +19,8 @@ public class MenuManager : MonoBehaviour
     private void Awake()
     {
         mainAnimator = GetComponent<Animator>();
+        image = GetComponent<Image>();
+        originalColor = image.color;
         targetColor = backgroundImage.color;
         foreach (var button in menuButtons)
         {
@@ -36,6 +40,10 @@ public class MenuManager : MonoBehaviour
     {
         backgroundImage.color = Color.Lerp(backgroundImage.color, targetColor, colorTransitionSpeed * Time.deltaTime);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TransitionIn();
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TransitionOut(() => { Application.Quit(); });
@@ -54,8 +62,10 @@ public class MenuManager : MonoBehaviour
 
     public void TransitionIn()
     {
+        transitioningOut = false;
         transitionOutCallback = null;
         mainAnimator.enabled = true;
+        characterImage.sprite = null;
         mainAnimator.Play("Menu Enter");
     }
 
@@ -63,17 +73,20 @@ public class MenuManager : MonoBehaviour
     {
         if (!transitioningOut)
         {
+            targetColor = originalColor;
             transitioningOut = true;
             transitionOutCallback = callback;
             mainAnimator.enabled = true;
             mainAnimator.Play("Menu Exit");
-            characterAnimator.Play("Disappear");
+            if (characterImage.sprite != null)
+            {
+                characterAnimator.Play("Disappear");
+            }
         }
     }
 
     public void TransitionOutCompleteEvent()
     {
-        transitioningOut = false;
         if (transitionOutCallback != null)
         {
             transitionOutCallback.Invoke();
