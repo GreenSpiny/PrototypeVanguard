@@ -2014,7 +2014,7 @@
       "critical":1,
       "drive":1,
       "effect":"[CONT](RC)/(GC):If you have a grade 3 or greater vanguard with \"Flagburg\" in its card name, all of your grade 3 or greater <tear dragon=\"\"> units get \"Intercept\", and [Shield]+5000.</tear>",
-      "gift":"Over",
+      "gift":"",
       "giftPower":"+100,000,000",
       "grade":1,
       "group":"",

@@ -6,18 +6,24 @@ public class MenuManager : MonoBehaviour
 {
     Animator mainAnimator;
     Image image;
+
     [SerializeField] Animator characterAnimator;
     [SerializeField] Image characterImage;
+    [SerializeField] Image progressBarImage;
+
     [SerializeField] MenuButton[] menuButtons;
+    [SerializeField] CanvasGroup menuButtonsGroup;
     [SerializeField] Image backgroundImage;
     [SerializeField] float colorTransitionSpeed;
     [SerializeField] float spriteHeightMultiplier;
 
     private Color originalColor;
     private Color targetColor;
-    private CanvasGroup canvasGroup;
     private System.Action transitionOutCallback;
     bool transitioningOut = false;
+
+    private enum MenuState { none, loading, open }
+    private MenuState state = MenuState.none;
 
     private void Awake()
     {
@@ -25,7 +31,6 @@ public class MenuManager : MonoBehaviour
         image = GetComponent<Image>();
         originalColor = image.color;
         targetColor = backgroundImage.color;
-        canvasGroup = GetComponent<CanvasGroup>();
         foreach (var button in menuButtons)
         {
             button.Init(this);
@@ -37,26 +42,40 @@ public class MenuManager : MonoBehaviour
         // If already loaded or testing locally, transition in immediately.
         if (CardLoader.instance != null && (CardLoader.instance.CardsLoaded || CardLoader.instance.downloadMode == CardLoader.DownloadMode.localResources))
         {
-            TransitionIn();
+            TransitionIn(false);
         }
         // Otherwise, display the loading bar.
         else
         {
-
+            state = MenuState.loading;
         }
     }
 
     private void Update()
     {
-        backgroundImage.color = Color.Lerp(backgroundImage.color, targetColor, colorTransitionSpeed * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (state == MenuState.open)
         {
-            TransitionIn();
+            backgroundImage.color = Color.Lerp(backgroundImage.color, targetColor, colorTransitionSpeed * Time.deltaTime);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                TransitionIn(false);
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Quit();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (state == MenuState.loading)
         {
-            TransitionOut(() => { Application.Quit(); });
+            if (CardLoader.instance != null)
+            {
+                RectTransform rect = progressBarImage.rectTransform;
+                progressBarImage.rectTransform.localScale = new Vector3(CardLoader.instance.imageDownloadProgress, rect.localScale.y, rect.localScale.z);
+            }
+            if (CardLoader.instance.CardsLoaded)
+            {
+                TransitionIn(true);
+            }
         }
     }
 
@@ -71,21 +90,29 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void TransitionIn()
+    public void TransitionIn(bool fromLoader)
     {
+        state = MenuState.open;
         transitioningOut = false;
-        canvasGroup.interactable = true;
+        menuButtonsGroup.blocksRaycasts = true;
         transitionOutCallback = null;
         mainAnimator.enabled = true;
         characterImage.sprite = null;
-        mainAnimator.Play("Menu Enter");
+        if (fromLoader)
+        {
+            mainAnimator.Play("Loader Exit");
+        }
+        else
+        {
+            mainAnimator.Play("Loader Enter");
+        }
     }
 
     public void TransitionOut(System.Action callback)
     {
         if (!transitioningOut)
         {
-            canvasGroup.interactable = false;
+            menuButtonsGroup.blocksRaycasts = false;
             targetColor = originalColor;
             transitioningOut = true;
             transitionOutCallback = callback;
@@ -111,6 +138,11 @@ public class MenuManager : MonoBehaviour
     public void ToDeckBuilder()
     {
         TransitionOut(() => { SceneManager.LoadScene("DeckBuilderScene"); });
+    }
+
+    public void Quit()
+    {
+        TransitionOut(() => { Application.Quit(); });
     }
 
 
