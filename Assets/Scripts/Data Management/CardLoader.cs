@@ -37,8 +37,8 @@ public class CardLoader : MonoBehaviour
     [NonSerialized] public List<string> allCardRaces;
     [NonSerialized] public List<string> allCardUnitTypes;
 
-    private enum DownloadMode { localResources = 0, remoteDownload = 1 }
-    [SerializeField] DownloadMode downloadMode;
+    public enum DownloadMode { localResources = 0, remoteDownload = 1 }
+    [SerializeField] public DownloadMode downloadMode;
 
     public int versionDownloadProgress = 0;
     public int cardsDownloadProgress = 0;

@@ -33,9 +33,15 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        if (true || CardLoader.instance.CardsLoaded) // todo - wait on first load
+        // If already loaded or testing locally, transition in immediately.
+        if (CardLoader.instance != null && (CardLoader.instance.CardsLoaded || CardLoader.instance.downloadMode == CardLoader.DownloadMode.localResources))
         {
             TransitionIn();
+        }
+        // Otherwise, display the loading bar.
+        else
+        {
+
         }
     }
 
