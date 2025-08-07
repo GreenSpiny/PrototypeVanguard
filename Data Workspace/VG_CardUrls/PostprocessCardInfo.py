@@ -70,11 +70,12 @@ for c in cards.values():
 
 	if 'rotate' not in c.keys():
 		c['rotate'] = False
+		pass
 
 	if 'placeholder' not in c.keys():
 		c['placeholder'] = False
 
 dataFile.seek(0)
 dataFile.truncate(0)
-dataFile.write(json.dumps(data, sort_keys=True, indent=1, ensure_ascii=False))
+dataFile.write(json.dumps(data, sort_keys=True, indent=1, ensure_ascii=True))
 dataFile.close()
