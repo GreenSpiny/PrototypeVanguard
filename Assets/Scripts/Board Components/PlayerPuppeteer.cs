@@ -54,7 +54,7 @@ public class PlayerPuppeteer : NetworkBehaviour
 
             // Submit decklist
             CardInfo.DeckList randomDeck = CardInfo.CreateRandomDeck();
-            GameManager.instance.SubmitDeckListToServerRpc(playerIndex, "Random Deck", randomDeck.cardSleeves, randomDeck.mainDeck, randomDeck.rideDeck, randomDeck.strideDeck, randomDeck.toolbox);
+            GameManager.instance.SubmitDeckListToServerRpc(playerIndex, "Random Deck", randomDeck.nation, randomDeck.mainDeck, randomDeck.rideDeck, randomDeck.strideDeck, randomDeck.toolbox);
         }
     }
 

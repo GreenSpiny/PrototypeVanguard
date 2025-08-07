@@ -165,8 +165,10 @@ public class CardLoader : MonoBehaviour
             gradeSet.Add(newEntry.grade);
             if (!string.IsNullOrEmpty(newEntry.group))
                 groupSet.Add(newEntry.group);
-            if (!string.IsNullOrEmpty(newEntry.nation))
-                nationSet.Add(newEntry.nation);
+            foreach (string nation in newEntry.nation)
+            {
+                nationSet.Add(nation);
+            }
             if (!string.IsNullOrEmpty(newEntry.race))
                 raceSet.Add(newEntry.race);
             if (!string.IsNullOrEmpty(newEntry.unitType))

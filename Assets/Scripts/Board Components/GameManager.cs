@@ -224,24 +224,24 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void SubmitDeckListToServerRpc(int playerIndex, string deckName, int cardSleeves, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
+    public void SubmitDeckListToServerRpc(int playerIndex, string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
     {
-        CardInfo.DeckList submittedDeck = new CardInfo.DeckList(deckName, cardSleeves, mainDeck, rideDeck, strideDeck, toolbox);
+        CardInfo.DeckList submittedDeck = new CardInfo.DeckList(deckName, nation, mainDeck, rideDeck, strideDeck, toolbox);
         players[playerIndex].AssignDeck(submittedDeck);
         for (int i = 0; i < 2; i++)
         {
             CardInfo.DeckList targetList = players[i].deckList;
             if (targetList != null)
             {
-                BroadcastDeckListToClientRpc(i, targetList.deckName, targetList.cardSleeves, targetList.mainDeck, targetList.rideDeck, targetList.strideDeck, targetList.toolbox);
+                BroadcastDeckListToClientRpc(i, targetList.deckName, targetList.nation, targetList.mainDeck, targetList.rideDeck, targetList.strideDeck, targetList.toolbox);
             }
         }
     }
 
     [Rpc(SendTo.NotServer)]
-    public void BroadcastDeckListToClientRpc(int playerIndex, string deckName, int cardSleeves, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
+    public void BroadcastDeckListToClientRpc(int playerIndex, string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
     {
-        CardInfo.DeckList broadcastedDeck = new CardInfo.DeckList(deckName, cardSleeves, mainDeck, rideDeck, strideDeck, toolbox);
+        CardInfo.DeckList broadcastedDeck = new CardInfo.DeckList(deckName, nation, mainDeck, rideDeck, strideDeck, toolbox);
         players[playerIndex].AssignDeck(broadcastedDeck);
     }
 

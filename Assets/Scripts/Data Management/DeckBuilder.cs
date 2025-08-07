@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 public class DeckBuilder : MonoBehaviour
 {
     public static DeckBuilder instance;
+    private CardInfo.DeckList currentDeckList;
 
     // Prefabs
     [SerializeField] private DB_Card cardPrefab;
@@ -101,17 +103,17 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.value = 0;
             deckDropdown.RefreshShownValue();
             deckInputField.text = targetDeck;
-            CardInfo.DeckList deckList = SaveDataManager.LoadDeck(targetDeck);
-            LoadDeck(deckList);
+            currentDeckList = SaveDataManager.LoadDeck(targetDeck);
+            LoadDeck(currentDeckList);
         }
         else
         {
-            CardInfo.DeckList newDeck = new CardInfo.DeckList();
-            newDeck.deckName = "blank deck";
-            deckDropdown.options.Add(new TMP_Dropdown.OptionData(newDeck.deckName));
+            currentDeckList = new CardInfo.DeckList();
+            currentDeckList.deckName = "blank deck";
+            deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
             deckDropdown.RefreshShownValue();
-            deckInputField.text = newDeck.deckName;
-            LoadDeck(newDeck);
+            deckInputField.text = currentDeckList.deckName;
+            LoadDeck(currentDeckList);
         }
 
         // Populate search dropdown options
@@ -300,7 +302,7 @@ public class DeckBuilder : MonoBehaviour
                         continue;
                     }
                 }
-                if (searchNation && cardInfo.nation != nation)
+                if (searchNation && !cardInfo.nation.Contains(nation))
                 {
                     continue;
                 }
@@ -380,7 +382,12 @@ public class DeckBuilder : MonoBehaviour
         mainReceiver.label.text = mainReceiver.templateLabelText.Replace("[x]", mainReceiver.cards.Count.ToString());
         strideReceiver.label.text = strideReceiver.templateLabelText.Replace("[x]", strideReceiver.cards.Count.ToString());
         toolboxReceiver.label.text = toolboxReceiver.templateLabelText.Replace("[x]", toolboxReceiver.cards.Count.ToString());
-        deckValid = CheckDeckValidity();
+
+
+        currentDeckList = CreateDeck();
+        string errorText = string.Empty;
+        deckValid = currentDeckList.IsValid(out errorText);
+        deckErrorText.text = errorText;
         if (deckValid)
         {
             deckValidText.text = "Deck is Valid.";
@@ -397,47 +404,11 @@ public class DeckBuilder : MonoBehaviour
         toolboxReceiver.AlignCards(false);
     }
 
-    private bool CheckDeckValidity()
-    {
-        if (rideReceiver.cards.Count < 4  || rideReceiver.cards.Count > CardInfo.DeckList.maxRide)
-        {
-            deckErrorText.text = "Invalid number of cards in the Ride Deck.";
-            deckErrorText.color = deckErrorColor;
-            return false;
-        }
-        if (rideReceiver.cards.Count == 5 && rideReceiver.cards[0].cardInfo.index != 1676)
-        {
-            deckErrorText.text = "Only 'Griphosid' rideline may have 5 cards in the Ride Deck.";
-            deckErrorText.color = deckErrorColor;
-            return false;
-        }
-        if (mainReceiver.cards.Count != CardInfo.DeckList.maxMain)
-        {
-            deckErrorText.text = "Invalid number of cards in the Main Deck.";
-            deckErrorText.color = deckErrorColor;
-            return false;
-        }
-        if (strideReceiver.cards.Count > CardInfo.DeckList.maxStride)
-        {
-            deckErrorText.text = "Invalid number of cards in the Stride Deck.";
-            deckErrorText.color = deckErrorColor;
-            return false;
-        }
-        if (toolboxReceiver.cards.Count > CardInfo.DeckList.maxToolbox)
-        {
-            deckErrorText.text = "Invalid number of cards in the Main Deck.";
-            deckErrorText.color = deckErrorColor;
-            return false;
-        }
-        deckErrorText.text = string.Empty;
-        return true;
-    }
-
     private CardInfo.DeckList CreateDeck()
     {
         CardInfo.DeckList deck = new CardInfo.DeckList();
-        deck.deckName = "test deck";
-        deck.cardSleeves = 0;
+        deck.deckName = "temporary";
+        deck.nation = "Dragon Empire";
         deck.rideDeck = new int[rideReceiver.cards.Count];
         for (int i = 0; i < rideReceiver.cards.Count; i++)
         {
@@ -463,22 +434,22 @@ public class DeckBuilder : MonoBehaviour
 
     public void SaveDeck()
     {
-        var deck = CreateDeck();
-        deck.deckName = deckDropdown.options[deckDropdown.value].text;
-        SaveDataManager.SaveDeck(deck);
+        currentDeckList = CreateDeck();
+        currentDeckList.deckName = deckDropdown.options[deckDropdown.value].text;
+        SaveDataManager.SaveDeck(currentDeckList);
     }
 
     public void SaveDeckAs()
     {
-        var deck = CreateDeck();
-        deck.deckName = deckInputField.text;
-        SaveDataManager.SaveDeck(deck);
+        currentDeckList = CreateDeck();
+        currentDeckList.deckName = deckInputField.text;
+        SaveDataManager.SaveDeck(currentDeckList);
 
         bool found = false;
         for (int i = 0; i < deckDropdown.options.Count; i++)
         {
             var currentOption = deckDropdown.options[i];
-            if (currentOption.text == deck.deckName)
+            if (currentOption.text == currentDeckList.deckName)
             {
                 deckDropdown.value = i;
                 found = true;
@@ -487,7 +458,7 @@ public class DeckBuilder : MonoBehaviour
         }
         if (!found)
         {
-            deckDropdown.options.Add(new TMP_Dropdown.OptionData(deck.deckName));
+            deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
             deckDropdown.value = deckDropdown.options.Count - 1;
         }
         deckDropdown.RefreshShownValue();
@@ -501,8 +472,8 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.value = deckIndex;
             deckDropdown.RefreshShownValue();
             deckInputField.text = targetDeck;
-            CardInfo.DeckList deckList = SaveDataManager.LoadDeck(targetDeck);
-            LoadDeck(deckList);
+            currentDeckList = SaveDataManager.LoadDeck(targetDeck);
+            LoadDeck(currentDeckList);
         }
     }
 
@@ -517,16 +488,16 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.value = currentValue - 1;
             deckDropdown.RefreshShownValue();
             deckInputField.text = targetDeck;
-            CardInfo.DeckList deckList = SaveDataManager.LoadDeck(targetDeck);
+            currentDeckList = SaveDataManager.LoadDeck(targetDeck);
         }
         else
         {
-            CardInfo.DeckList newDeck = new CardInfo.DeckList();
-            newDeck.deckName = "blank deck";
-            deckDropdown.options.Add(new TMP_Dropdown.OptionData(newDeck.deckName));
+            currentDeckList = new CardInfo.DeckList();
+            currentDeckList.deckName = "blank deck";
+            deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
             deckDropdown.RefreshShownValue();
-            deckInputField.text = newDeck.deckName;
-            LoadDeck(newDeck);
+            deckInputField.text = currentDeckList.deckName;
+            LoadDeck(currentDeckList);
         }
 
     }
@@ -537,5 +508,6 @@ public class DeckBuilder : MonoBehaviour
         mainReceiver.RemoveAllCards();
         strideReceiver.RemoveAllCards();
         toolboxReceiver.RemoveAllCards();
+        currentDeckList = CreateDeck();
     }
 }

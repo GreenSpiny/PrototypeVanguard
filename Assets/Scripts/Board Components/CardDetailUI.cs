@@ -72,7 +72,15 @@ public class CardDetailUI : MonoBehaviour
                 }
             }
         }
-        cardInfoString += "\n" + cardInfo.nation;
+        cardInfoString += "\n";
+        for (int i = 0; i < cardInfo.nation.Length; i++)
+        {
+            if (i != 0)
+            {
+                cardInfoString += " | ";
+            }
+            cardInfoString += cardInfo.nation[i];
+        }
         if (!string.IsNullOrEmpty(cardInfo.race))
         {
             cardInfoString += " / " + cardInfo.race;

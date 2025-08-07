@@ -68,6 +68,9 @@ for c in cards.values():
 		elif c['gift'] == "Over":
 			c['count'] = 1
 
+	if (isinstance(c['nation'],str)):
+		c['nation'] = [c['nation']]
+
 	if 'rotate' not in c.keys():
 		c['rotate'] = False
 		pass

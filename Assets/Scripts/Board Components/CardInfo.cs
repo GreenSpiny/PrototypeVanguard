@@ -21,7 +21,7 @@ public class CardInfo : IComparable<CardInfo>
     public readonly string id;
     public readonly int index;
     public readonly string name;
-    public readonly string nation;
+    public readonly string[] nation;
     public readonly string placeholder; // If true, the card does not yet have an image
     public readonly int basePower;
     public readonly string race;
@@ -81,7 +81,7 @@ public class CardInfo : IComparable<CardInfo>
         viewsoul
     }
 
-    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string nation, bool placeholder, int basePower, string race, bool rotate, int baseShield, string[] skills, string unitType, int version)
+    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nations, bool placeholder, int basePower, string race, bool rotate, int baseShield, string[] skills, string unitType, int version)
     {
         this.count = count;
         this.baseCrit = baseCrit;
@@ -93,7 +93,7 @@ public class CardInfo : IComparable<CardInfo>
         this.id = id;
         this.index = index;
         this.name = name;
-        this.nation = nation;
+        this.nation = nations;
         this.basePower = basePower;
         this.race = race;
         this.baseShield = baseShield;
@@ -104,7 +104,7 @@ public class CardInfo : IComparable<CardInfo>
 
     public static CardInfo GenerateDefaultCardInfo()
     {
-        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", "Dark States", false, 8000, "Human", false, 5000, new string[0], "Normal Unit", 0);
+        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", new string[] { "Dark States" }, false, 8000, "Human", false, 5000, new string[0], "Normal Unit", 0);
     }
 
     public static CardInfo FromDictionary(Dictionary<string, object> dictionary)
@@ -115,6 +115,13 @@ public class CardInfo : IComparable<CardInfo>
         {
             skillArray[i] = skillJArray[i].ToObject<string>();
         }
+        JArray nationJArray = (JArray)dictionary["nation"];
+        string[] nationArray = new string[nationJArray.Count];
+        for (int i = 0; i < nationArray.Count(); i++)
+        {
+            nationArray[i] = nationJArray[i].ToObject<string>();
+        }
+
         return new CardInfo(
             Convert.ToInt32(dictionary["count"]),
             Convert.ToInt32(dictionary["critical"]),
@@ -126,7 +133,7 @@ public class CardInfo : IComparable<CardInfo>
             Convert.ToString(dictionary["id"]),
             Convert.ToInt32(dictionary["index"]),
             Convert.ToString(dictionary["name"]),
-            Convert.ToString(dictionary["nation"]),
+            nationArray,
             Convert.ToBoolean(dictionary["placeholder"]),
             Convert.ToInt32(dictionary["power"]),
             Convert.ToString(dictionary["race"]),
@@ -165,8 +172,8 @@ public class CardInfo : IComparable<CardInfo>
         public const int maxStride = 16;
         public const int maxToolbox = 34;
 
-        public string deckName;     // Name of the deck.
-        public int cardSleeves;     // ID linking to the card sleeves.
+        public string deckName;
+        public string nation;
 
         public int[] mainDeck;      // MAIN DECK.
         public int[] rideDeck;      // RIDE DECK.
@@ -177,14 +184,71 @@ public class CardInfo : IComparable<CardInfo>
         {
 
         }
-        public DeckList(string deckName, int cardSleeves, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
+        public DeckList(string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
         {
             this.deckName = deckName;
-            this.cardSleeves = cardSleeves;
+            this.nation = nation;
             this.mainDeck = mainDeck;
             this.rideDeck = rideDeck;
             this.strideDeck = strideDeck;
             this.toolbox = toolbox;
+        }
+
+        public int CardCount(int cardIndex)
+        {
+            int count = 0;
+            foreach (int i in mainDeck) { if  (i == cardIndex) count++; }
+            foreach (int i in rideDeck) { if (i == cardIndex) count++; }
+            foreach (int i in strideDeck) { if (i == cardIndex) count++; }
+            foreach (int i in toolbox) { if (i == cardIndex) count++; }
+            return count;
+        }
+
+        public bool IsValid(out string error)
+        {
+            error = string.Empty;
+            if (rideDeck.Length < 4 || rideDeck.Length > maxRide)
+            {
+                error = "Invalid number of cards in the Ride Deck. Five are needed for 'Griphosid', four otherwise.";
+            }
+            else if (rideDeck.Length == 5 && rideDeck[0] != 1676)
+            {
+                error = "Only 'Griphosid' allows 5 cards in the Ride Deck.";
+            }
+            else if (mainDeck.Length != maxMain)
+            {
+                error = "Invalid number of cards in the Main Deck. 50 are required.";
+            }
+            else if (strideDeck.Length > maxStride)
+            {
+                error = "Invalid number of cards in the Stride Deck 16 is the maximum.";
+            }
+            else if (toolbox.Length > maxToolbox)
+            {
+                error = "Invalid number of cards in the Toolbox. 34 is the maximum.";
+            }
+            else if (CardLoader.instance != null && CardLoader.instance.CardsLoaded)
+            {
+                HashSet<int> cardSet = new HashSet<int>();
+                foreach (int i in mainDeck) { cardSet.Add(i); }
+                foreach (int i in rideDeck) { cardSet.Add(i); }
+                foreach (int i in strideDeck) { cardSet.Add(i); }
+                foreach (int cardIndex in cardSet)
+                {
+                    CardInfo info = CardLoader.GetCardInfo(cardIndex);
+                    if (info.nation[0] != "Nationless" && !info.nation.Contains(nation))
+                    {
+                        error = "Mixing nations is disallowed.";
+                        break;
+                    }
+                    if (CardCount(cardIndex) > info.count)
+                    {
+                        error = "'" + info.name + "' exceeds the maximum number of copies.";
+                        break;
+                    }
+                }
+            }
+            return string.IsNullOrEmpty(error);
         }
 
         public static DeckList FromJSON(string JSON)
@@ -202,7 +266,7 @@ public class CardInfo : IComparable<CardInfo>
     {
         DeckList deck = new DeckList();
         deck.deckName = "random deck";
-        deck.cardSleeves = 0;
+        deck.nation = "Dark States";
         deck.mainDeck = new int[DeckList.maxMain];
         deck.rideDeck = new int[DeckList.maxRide];
         deck.strideDeck = new int[DeckList.maxStride];
