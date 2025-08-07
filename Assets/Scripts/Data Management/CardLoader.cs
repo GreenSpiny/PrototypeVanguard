@@ -44,7 +44,7 @@ public class CardLoader : MonoBehaviour
     public int cardsDownloadProgress = 0;
     public float imageDownloadProgress = 0;
 
-    public bool CardsLoaded { get; private set; }
+    public bool CardsLoaded { get; private set; } = false;
 
     private void Awake()
     {

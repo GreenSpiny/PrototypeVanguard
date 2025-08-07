@@ -8,21 +8,26 @@ using UnityEngine.UI;
 
 public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler, IPointerExitHandler
 {
-    public Image cardImage;
-    public RectTransform rectTransform;
-    public Vector3 moveTarget = Vector3.zero;
-    public CardInfo cardInfo;
-    public DB_CardReciever reciever;
+    [SerializeField] private Image cardImage;
+    [NonSerialized] private RectTransform rectTransform;
+    [NonSerialized] public Vector3 moveTarget = Vector3.zero;
+    [NonSerialized] public CardInfo cardInfo;
+    [NonSerialized] public DB_CardReciever reciever;
 
     private void Awake()
     {
-        cardImage = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
     }
 
     private void Start()
     {
         cardImage.color = Color.white;
+    }
+
+    public void SetWidth()
+    {
+        float width = rectTransform.rect.height * Card.cardWidth;
+        rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
     }
 
     public void SetWidth(float width)
@@ -74,13 +79,11 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
 
     public IEnumerator DestroySelf(Vector3 position)
     {
-        rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        transform.position = position;
         cardImage.raycastTarget = false;
         float shrinkSpeed = 4f * Time.deltaTime;
-        while (transform.localScale.x > 0.00001)
+        while (cardImage.rectTransform.localScale.x > 0.00001)
         {
-            transform.localScale = new Vector3(Mathf.Max(transform.localScale.x - shrinkSpeed, 0f), Mathf.Max(transform.localScale.y - shrinkSpeed, 0f), 0f);
+            cardImage.rectTransform.localScale = new Vector3(Mathf.Max(cardImage.rectTransform.localScale.x - shrinkSpeed, 0f), Mathf.Max(cardImage.rectTransform.localScale.y - shrinkSpeed, 0f), 0f);
             yield return null;
         }
         Destroy(gameObject);

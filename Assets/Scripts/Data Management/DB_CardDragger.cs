@@ -51,20 +51,15 @@ public class DB_CardDragger : MonoBehaviour
             {
                 DB_Card cloneCard = Instantiate(hoveredCard, transform);
                 cloneCard.Load(hoveredCard.cardInfo.index);
-                cloneCard.SetWidth(cloneCard.rectTransform.rect.height * Card.cardWidth);
-                cloneCard.transform.localPosition = new Vector3(cloneCard.rectTransform.rect.width / -2f, cloneCard.rectTransform.rect.height / 2f, 0f);
-                cloneCard.cardImage.raycastTarget = false;
+                cloneCard.SetWidth(DB_CardReciever.receiverCardWidth);
                 draggedCard = cloneCard;
-                ToggleCardRaycasting(false);
             }
             else if (hoveredCard.reciever != null)
             {
                 hoveredCard.reciever.RemoveCard(hoveredCard, false);
                 draggedCard = hoveredCard;
                 draggedCard.transform.SetParent(transform, true);
-                draggedCard.transform.localPosition = new Vector3(draggedCard.rectTransform.rect.width / -2f, draggedCard.rectTransform.rect.height / 2f, 0f);
-                draggedCard.cardImage.raycastTarget = false;
-                ToggleCardRaycasting(false);
+                //draggedCard.transform.localPosition = new Vector3(draggedCard.rectTransform.rect.width / -2f, draggedCard.rectTransform.rect.height / 2f, 0f);
             }
         }
         // End dragging
@@ -78,7 +73,6 @@ public class DB_CardDragger : MonoBehaviour
             {
                 StartCoroutine(draggedCard.DestroySelf(transform.position));
             }
-            ToggleCardRaycasting(true);
             draggedCard = null;
         }
 
@@ -97,7 +91,7 @@ public class DB_CardDragger : MonoBehaviour
                         {
                             DB_Card cloneCard = Instantiate(hoveredCard, receiver.transform);
                             cloneCard.Load(hoveredCard.cardInfo.index);
-                            cloneCard.SetWidth(cloneCard.rectTransform.rect.height * Card.cardWidth);
+                            cloneCard.SetWidth();
                             receiver.ReceiveCard(cloneCard);
                             break;
                         }
@@ -110,7 +104,7 @@ public class DB_CardDragger : MonoBehaviour
                     {
                         DB_Card cloneCard = Instantiate(hoveredCard, parentReceiver.transform);
                         cloneCard.Load(hoveredCard.cardInfo.index);
-                        cloneCard.SetWidth(cloneCard.rectTransform.rect.height * Card.cardWidth);
+                        cloneCard.SetWidth();
                         parentReceiver.ReceiveCard(cloneCard);
                     }
                 }
@@ -128,14 +122,5 @@ public class DB_CardDragger : MonoBehaviour
 
         transform.position = mousePosition;
     }
-
-    private void ToggleCardRaycasting(bool toggle)
-    {
-        foreach (DB_CardReciever reciever in receivers)
-        {
-            reciever.ToggleCardRaycasting(toggle);
-        }
-    }
-
 
 }

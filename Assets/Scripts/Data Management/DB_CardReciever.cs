@@ -8,6 +8,7 @@ using System.Collections;
 
 public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public static float receiverCardWidth;
     public enum AreaType { ride, main, stride, toolbox }
     [SerializeField] public AreaType areaType;
 
@@ -52,7 +53,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         cards.Add(card);
         card.transform.SetParent(transform, true);
-        card.cardImage.raycastTarget = true;
+        //card.cardImage.raycastTarget = true;
         card.reciever = this;
         builder.needsRefresh = true;
         receiverImage.color = baseColor;
@@ -87,6 +88,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         float cardSlotWidth = (rectTransform.rect.width - padding) / cardsPerRow;
         float cardWidth = cardSlotWidth - padding;
+        receiverCardWidth = cardWidth;
 
         float cardHeight = cardWidth / Card.cardWidth;
         float cardSlotHeight = cardHeight + padding;
@@ -97,6 +99,10 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             Vector3 newPosition = new Vector3(currentColumn * cardSlotWidth + padding, currentRow * -cardSlotHeight - padding, 0);
             cards[i].moveTarget = newPosition;
+            if (instant)
+            {
+                cards[i].transform.localPosition = newPosition;
+            }
             cards[i].SetWidth(cardWidth);
             currentColumn++;
             if (currentColumn >= cardsPerRow)
@@ -144,14 +150,6 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
             return !isGUnit && !isToolboxCard;
         }
         return true;
-    }
-
-    public void ToggleCardRaycasting(bool toggle)
-    {
-        foreach (DB_Card card in cards)
-        {
-            card.cardImage.raycastTarget = toggle;
-        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -114,7 +114,7 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
-            mainAnimator.Play("Loader Enter");
+            mainAnimator.Play("Menu Enter");
         }
     }
 

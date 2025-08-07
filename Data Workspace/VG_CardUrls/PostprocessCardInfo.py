@@ -1,8 +1,10 @@
 import json
 
-dataFile = open('allCardsSingleton.json', 'r+')
-data = json.loads(dataFile.read())
-cards = data['cards']
+dataFile = open('allCardsSingleton.json', 'r+', encoding='raw_unicode_escape')
+data = json.loads(dataFile.read().encode('raw_unicode_escape').decode('utf8'))
+
+#cards = data['cards']
+cards = data
 
 #index = 0 # first use
 index = len(cards.keys()) # subsequent uses
@@ -54,7 +56,25 @@ for c in cards.values():
 	else:
 		c['drive'] = 1
 
+	if 'count' not in c.keys():
+		c['count'] = 4
+	else:
+		if 'sixteen' in c['effect']:
+			c['count'] = 16
+		elif c['gift'] == "Front" or c['gift'] == "Critical" or c['gift'] == "Draw":
+			c['count'] = 8
+		elif c['gift'] == "Heal":
+			c['count'] = 4
+		elif c['gift'] == "Over":
+			c['count'] = 1
+
+	if 'rotate' not in c.keys():
+		c['rotate'] = False
+
+	if 'placeholder' not in c.keys():
+		c['placeholder'] = False
+
 dataFile.seek(0)
 dataFile.truncate(0)
-dataFile.write(json.dumps(data, sort_keys=True, indent=1))
+dataFile.write(json.dumps(data, sort_keys=True, indent=1, ensure_ascii=False))
 dataFile.close()
