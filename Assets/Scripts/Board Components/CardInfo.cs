@@ -207,27 +207,7 @@ public class CardInfo : IComparable<CardInfo>
         public bool IsValid(out string error)
         {
             error = string.Empty;
-            if (rideDeck.Length < 4 || rideDeck.Length > maxRide)
-            {
-                error = "Invalid number of cards in the Ride Deck. Five are needed for 'Griphosid', four otherwise.";
-            }
-            else if (rideDeck.Length == 5 && rideDeck[0] != 1676)
-            {
-                error = "Only 'Griphosid' allows 5 cards in the Ride Deck.";
-            }
-            else if (mainDeck.Length != maxMain)
-            {
-                error = "Invalid number of cards in the Main Deck. 50 are required.";
-            }
-            else if (strideDeck.Length > maxStride)
-            {
-                error = "Invalid number of cards in the Stride Deck 16 is the maximum.";
-            }
-            else if (toolbox.Length > maxToolbox)
-            {
-                error = "Invalid number of cards in the Toolbox. 34 is the maximum.";
-            }
-            else if (CardLoader.instance != null && CardLoader.instance.CardsLoaded)
+            if (CardLoader.instance != null && CardLoader.instance.CardsLoaded)
             {
                 HashSet<int> cardSet = new HashSet<int>();
                 foreach (int i in mainDeck) { cardSet.Add(i); }
@@ -248,6 +228,27 @@ public class CardInfo : IComparable<CardInfo>
                     }
                 }
             }
+            if (rideDeck.Length < 4 || rideDeck.Length > maxRide)
+            {
+                error = "Invalid number of cards in the Ride Deck. Typically four are required.";
+            }
+            else if (rideDeck.Length == 5 && rideDeck[0] != 1676)
+            {
+                error = "Only 'Griphosid' allows 5 cards in the Ride Deck.";
+            }
+            else if (mainDeck.Length != maxMain)
+            {
+                error = "Invalid number of cards in the Main Deck. 50 are required.";
+            }
+            else if (strideDeck.Length > maxStride)
+            {
+                error = "Invalid number of cards in the Stride Deck 16 is the maximum.";
+            }
+            else if (toolbox.Length > maxToolbox)
+            {
+                error = "Invalid number of cards in the Toolbox. 34 is the maximum.";
+            }
+            
             return string.IsNullOrEmpty(error);
         }
 

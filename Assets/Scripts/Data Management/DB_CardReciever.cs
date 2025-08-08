@@ -55,7 +55,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         card.transform.SetParent(transform, true);
         //card.cardImage.raycastTarget = true;
         card.reciever = this;
-        builder.needsRefresh = true;
+        builder.SetDirty();
         receiverImage.color = baseColor;
     }
 
@@ -67,7 +67,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             StartCoroutine(card.DestroySelf(card.transform.position));
         }
-        builder.needsRefresh = true;
+        builder.SetDirty();
     }
 
     public void RemoveAllCards()
@@ -78,7 +78,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
             Destroy(cards[i].gameObject);
         }
         cards.Clear();
-        builder.needsRefresh = true;
+        builder.SetDirty();
     }
 
     public void AlignCards(bool instant)
@@ -130,6 +130,10 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         bool isOrder = card.cardInfo.unitType.Contains("Order", StringComparison.InvariantCultureIgnoreCase);
 
         if (cards.Count >= maxCards)
+        {
+            return false;
+        }
+        if (DeckBuilder.instance.currentDeckList.CardCount(card.cardInfo.index) > card.cardInfo.count)
         {
             return false;
         }

@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeckBuilder : MonoBehaviour
 {
     public static DeckBuilder instance;
-    private CardInfo.DeckList currentDeckList;
+    [NonSerialized] public CardInfo.DeckList currentDeckList;
 
     // Prefabs
     [SerializeField] private DB_Card cardPrefab;
@@ -39,16 +40,18 @@ public class DeckBuilder : MonoBehaviour
 
     [SerializeField] VerticalLayoutGroup searchResultsArea;
     [SerializeField] TextMeshProUGUI deckValidText;
-    [SerializeField] TextMeshProUGUI deckErrorText;
     [SerializeField] Color deckValidColor;
     [SerializeField] Color deckWarningColor;
     [SerializeField] Color deckErrorColor;
 
     [SerializeField] CanvasGroup mainCanvasGroup;
+    [SerializeField] TMP_Dropdown nationAssignmentDropdown;
 
     [NonSerialized] public bool deckValid = false;
-    [NonSerialized] public bool needsRefresh = false;
-    [NonSerialized] private bool initialLoadComplete = false;
+    private bool needsRefresh = false;
+    private bool initialLoadComplete = false;
+    private bool transitioningOut = false;
+    private float transitionSpeed = 2f;
 
     private void Awake()
     {
@@ -66,6 +69,7 @@ public class DeckBuilder : MonoBehaviour
     void Start()
     {
         mainCanvasGroup.alpha = 0f;
+        mainCanvasGroup.blocksRaycasts = false;
         StartCoroutine(LoadInitialDeck());
     }
 
@@ -75,11 +79,21 @@ public class DeckBuilder : MonoBehaviour
         {
             RefreshInfo();
         }
-        if (initialLoadComplete)
+        if (!transitioningOut && initialLoadComplete && mainCanvasGroup.alpha < 1f)
         {
-            if (mainCanvasGroup.alpha < 1f)
+            mainCanvasGroup.alpha = Mathf.Clamp(mainCanvasGroup.alpha + Time.deltaTime * transitionSpeed, 0f, 1f);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && !transitioningOut)
+        {
+            transitioningOut = true;
+        }
+        if (transitioningOut)
+        {
+            mainCanvasGroup.alpha = Mathf.Clamp(mainCanvasGroup.alpha - Time.deltaTime * transitionSpeed, 0f, 1f);
+            mainCanvasGroup.blocksRaycasts = false;
+            if (mainCanvasGroup.alpha <= 0f)
             {
-                mainCanvasGroup.alpha = Mathf.Clamp(mainCanvasGroup.alpha + Time.deltaTime * 2f, 0f, 1f);
+                SceneManager.LoadScene("MenuScene");
             }
         }
     }
@@ -89,6 +103,36 @@ public class DeckBuilder : MonoBehaviour
         while (CardLoader.instance == null || !CardLoader.instance.CardsLoaded)
         {
             yield return null;
+        }
+
+        // Populate search dropdown options
+        foreach (string option in CardLoader.instance.allCardGifts)
+        {
+            giftDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+        }
+        foreach (int option in CardLoader.instance.allCardGrades)
+        {
+            gradeDropdown.options.Add(new TMP_Dropdown.OptionData(option.ToString(), null, Color.white));
+        }
+        foreach (string option in CardLoader.instance.allCardGroups)
+        {
+            groupDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+        }
+        foreach (string option in CardLoader.instance.allCardNations)
+        {
+            nationDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+            if (option != "Nationless")
+            {
+                nationAssignmentDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+            }
+        }
+        foreach (string option in CardLoader.instance.allCardRaces)
+        {
+            raceDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
+        }
+        foreach (string option in CardLoader.instance.allCardUnitTypes)
+        {
+            unitTypeDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
         }
 
         // Populate deck dropdown options
@@ -116,32 +160,6 @@ public class DeckBuilder : MonoBehaviour
             LoadDeck(currentDeckList);
         }
 
-        // Populate search dropdown options
-        foreach (string option in CardLoader.instance.allCardGifts)
-        {
-            giftDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
-        }
-        foreach (int option in CardLoader.instance.allCardGrades)
-        {
-            gradeDropdown.options.Add(new TMP_Dropdown.OptionData(option.ToString(), null, Color.white));
-        }
-        foreach (string option in CardLoader.instance.allCardGroups)
-        {
-            groupDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
-        }
-        foreach (string option in CardLoader.instance.allCardNations)
-        {
-            nationDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
-        }
-        foreach (string option in CardLoader.instance.allCardRaces)
-        {
-            raceDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
-        }
-        foreach (string option in CardLoader.instance.allCardUnitTypes)
-        {
-            unitTypeDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
-        }
-
         // Enable interaction
         deckDropdown.interactable = true;
         deckInputField.interactable = true;
@@ -165,11 +183,23 @@ public class DeckBuilder : MonoBehaviour
         // Refresh info
         RefreshInfo();
         initialLoadComplete = true;
+        mainCanvasGroup.blocksRaycasts = true;
     }
 
     private void LoadDeck(CardInfo.DeckList deckList)
     {
         Debug.Log("Loading deck: " + deckList.deckName);
+
+        nationAssignmentDropdown.value = 0;
+        for (int i = 0; i < nationAssignmentDropdown.options.Count; i++)
+        {
+            if (nationAssignmentDropdown.options[i].text == deckList.nation)
+            {
+                nationAssignmentDropdown.value = i;
+                break;
+            }
+        }
+        nationAssignmentDropdown.RefreshShownValue();
 
         rideReceiver.RemoveAllCards();
         for (int i = 0; i < Mathf.Min(deckList.rideDeck.Length, CardInfo.DeckList.maxRide); i++)
@@ -374,6 +404,10 @@ public class DeckBuilder : MonoBehaviour
         searchCoroutine = null;
 
     }
+    public void SetDirty()
+    {
+        needsRefresh = true;
+    }
 
     private void RefreshInfo()
     {
@@ -383,11 +417,9 @@ public class DeckBuilder : MonoBehaviour
         strideReceiver.label.text = strideReceiver.templateLabelText.Replace("[x]", strideReceiver.cards.Count.ToString());
         toolboxReceiver.label.text = toolboxReceiver.templateLabelText.Replace("[x]", toolboxReceiver.cards.Count.ToString());
 
-
         currentDeckList = CreateDeck();
         string errorText = string.Empty;
         deckValid = currentDeckList.IsValid(out errorText);
-        deckErrorText.text = errorText;
         if (deckValid)
         {
             deckValidText.text = "Deck is Valid.";
@@ -395,7 +427,7 @@ public class DeckBuilder : MonoBehaviour
         }
         else
         {
-            deckValidText.text = "Deck is invalid.";
+            deckValidText.text = "Deck is invalid.\n" + errorText;
             deckValidText.color = deckErrorColor;
         }
         rideReceiver.AlignCards(false);
@@ -407,8 +439,8 @@ public class DeckBuilder : MonoBehaviour
     private CardInfo.DeckList CreateDeck()
     {
         CardInfo.DeckList deck = new CardInfo.DeckList();
-        deck.deckName = "temporary";
-        deck.nation = "Dragon Empire";
+        deck.deckName = deckDropdown.options[deckDropdown.value].text;
+        deck.nation = nationAssignmentDropdown.options[nationAssignmentDropdown.value].text;
         deck.rideDeck = new int[rideReceiver.cards.Count];
         for (int i = 0; i < rideReceiver.cards.Count; i++)
         {
@@ -435,14 +467,12 @@ public class DeckBuilder : MonoBehaviour
     public void SaveDeck()
     {
         currentDeckList = CreateDeck();
-        currentDeckList.deckName = deckDropdown.options[deckDropdown.value].text;
         SaveDataManager.SaveDeck(currentDeckList);
     }
 
     public void SaveDeckAs()
     {
         currentDeckList = CreateDeck();
-        currentDeckList.deckName = deckInputField.text;
         SaveDataManager.SaveDeck(currentDeckList);
 
         bool found = false;
@@ -508,6 +538,6 @@ public class DeckBuilder : MonoBehaviour
         mainReceiver.RemoveAllCards();
         strideReceiver.RemoveAllCards();
         toolboxReceiver.RemoveAllCards();
-        currentDeckList = CreateDeck();
+        RefreshInfo();
     }
 }
