@@ -23912,6 +23912,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5980747188887029061, guid: ba34f7b6418e0bd42a003a013393abba, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7664540333504700155, guid: ba34f7b6418e0bd42a003a013393abba, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -28069,7 +28073,8 @@ MonoBehaviour:
   alpha: 0.85
   yOffset: 0
   alphaCeiling: 3
-  fadeSpeed: 3
+  fadeSpeed: 2.5
+  quickFadeSpeed: 5
   displayThreshold: 0.1
   text: {fileID: 1925961791}
   cardDetailUI: {fileID: 1763507562}
@@ -42142,7 +42147,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 627724230108359431, guid: 75ed151a6d67efd4cb5756dbb1ed6850, type: 3}
       propertyPath: downloadMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4897980179523907945, guid: 75ed151a6d67efd4cb5756dbb1ed6850, type: 3}
       propertyPath: m_LocalPosition.x

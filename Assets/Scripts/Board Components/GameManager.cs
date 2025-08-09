@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Netcode;
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +20,7 @@ public class GameManager : NetworkBehaviour
 
     [NonSerialized] private int dieRollWinner;
     [NonSerialized] public int turnPlayer;
+    [NonSerialized] public bool singlePlayer;
 
     [NonSerialized] public List<ConnectectionStruct> connectedPlayers = new List<ConnectectionStruct>();
     [SerializeField] public Player[] players;
@@ -44,6 +45,7 @@ public class GameManager : NetworkBehaviour
 
     private void Awake()
     {
+        singlePlayer = Application.isEditor;
         networkManager.OnConnectionEvent += OnConnectionOverride;
 
         if (instance == null)
@@ -222,18 +224,30 @@ public class GameManager : NetworkBehaviour
         }
         animationProperties.UIAnimator.Close();
     }
+    private IEnumerator RequestGameStartDelayed() { yield return null;  RequestGameStartRpc(); }
 
     [Rpc(SendTo.Server)]
     public void SubmitDeckListToServerRpc(int playerIndex, string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
     {
         CardInfo.DeckList submittedDeck = new CardInfo.DeckList(deckName, nation, mainDeck, rideDeck, strideDeck, toolbox);
         players[playerIndex].AssignDeck(submittedDeck);
-        for (int i = 0; i < 2; i++)
+
+        // Singleplayer
+        if (singlePlayer)
         {
-            CardInfo.DeckList targetList = players[i].deckList;
-            if (targetList != null)
+            players[(playerIndex + 1) % 2].AssignDeck(submittedDeck);
+            StartCoroutine(RequestGameStartDelayed());
+        }
+        // Multiplayer
+        else
+        {
+            for (int i = 0; i < 2; i++)
             {
-                BroadcastDeckListToClientRpc(i, targetList.deckName, targetList.nation, targetList.mainDeck, targetList.rideDeck, targetList.strideDeck, targetList.toolbox);
+                CardInfo.DeckList targetList = players[i].deckList;
+                if (targetList != null)
+                {
+                    BroadcastDeckListToClientRpc(i, targetList.deckName, targetList.nation, targetList.mainDeck, targetList.rideDeck, targetList.strideDeck, targetList.toolbox);
+                }
             }
         }
     }
@@ -245,45 +259,15 @@ public class GameManager : NetworkBehaviour
         players[playerIndex].AssignDeck(broadcastedDeck);
     }
 
-    // CARD STATE STRUCT
-    // This struct contains the source of truth for cards - namely, how they are positioned.
-    // (not used yet)
-    public struct CardStateStruct : INetworkSerializable
-    {
-        public int cardId;
-        public int nodeId;
-        public bool rest;
-        public bool flip;
-
-        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-        {
-            serializer.SerializeValue(ref cardId);
-            serializer.SerializeValue(ref nodeId);
-            serializer.SerializeValue(ref rest);
-            serializer.SerializeValue(ref flip);
-        }
-    }
-
     private void Update()
     {
-        if (gameState == GameState.setup)
+        if (!singlePlayer && gameState == GameState.setup)
         {
-            bool readyToStart = false;
-            int dieRoll = 0;
-            if (Application.isEditor)
-            {
-                animationProperties.UIAnimator.Close();
-                gameState = GameState.mulligan;
-                DragManager.instance.ChangeDMstate(DragManager.DMstate.open);
-            }
-            else
-            {
-                readyToStart = players[0].deckList != null && players[1].deckList != null;
-                dieRoll = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
-            }
+            bool readyToStart = players[0].deckList != null && players[1].deckList != null;
             if (readyToStart)
             {
                 gameState = GameState.dieroll;
+                int dieRoll = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
                 RequestDieRollEventRpc(dieRoll);
             }
         }

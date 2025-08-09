@@ -133,7 +133,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             return false;
         }
-        if (DeckBuilder.instance.currentDeckList.CardCount(card.cardInfo.index) > card.cardInfo.count)
+        if (DeckBuilder.instance.currentDeckList.CardCount(card.cardInfo.index) >= card.cardInfo.count)
         {
             return false;
         }

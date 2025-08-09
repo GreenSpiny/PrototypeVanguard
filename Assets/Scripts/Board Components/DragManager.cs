@@ -97,6 +97,7 @@ public class DragManager : MonoBehaviour
         {
             hitCard = cardHit.transform.GetComponent<Card>();
         }
+        HoveredCard = null;
         foreach (Card card in GameManager.instance.allCards.Values)
         {
             if (card == hitCard)
@@ -115,6 +116,7 @@ public class DragManager : MonoBehaviour
         {
             hitNode = nodeHit.transform.GetComponent<Node>();
         }
+        HoveredNode = null;
         foreach (Node node in GameManager.instance.allNodes.Values)
         {
             if (node == hitNode)

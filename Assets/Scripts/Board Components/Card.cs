@@ -109,6 +109,10 @@ public class Card : MonoBehaviour
         {
             return true;
         }
+        if (GameManager.instance.singlePlayer)
+        {
+            return true;
+        }
         return false;
     }
 
@@ -188,7 +192,7 @@ public class Card : MonoBehaviour
         }
 
         // Face cards away from players who should not see them
-        else if (!revealed && node.privateKnowledge && player != DragManager.instance.controllingPlayer)
+        else if (!GameManager.instance.singlePlayer && !revealed && node.privateKnowledge && player != DragManager.instance.controllingPlayer)
         {
             targetEuler.z += 180f;
         }

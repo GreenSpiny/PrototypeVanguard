@@ -13,19 +13,20 @@ public class CardHUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private CardDetailUI cardDetailUI;
     private bool lastCardRevealed = false;
-    private int lastCardIndex = -1;
+    private Card lastCardViewed = null;
     private float currentAlpha;
 
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0;
     }
 
     public void DisplayCardInfo(Card card)
     {
-        if (lastCardIndex != card.cardInfo.index || lastCardRevealed != card.WasRevealed)
+        if (lastCardViewed != card || lastCardRevealed != card.WasRevealed)
         {
-            lastCardIndex = card.cardInfo.index;
+            lastCardViewed = card;
             lastCardRevealed = card.WasRevealed;
             if (card.IsPublic(DragManager.instance.controllingPlayer))
             {
@@ -42,31 +43,30 @@ public class CardHUD : MonoBehaviour
                 currentAlpha = 0;
             }
         }
-        canvasGroup.alpha = Mathf.Clamp(currentAlpha, 0, 1);
     }
 
     private void Update()
     {
         transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y + yOffset, 0f);
-        Card c = DragManager.instance.HoveredCard;
+        Card h = DragManager.instance.HoveredCard;
         Card d = DragManager.instance.DraggedCard;
-        Card s = DragManager.instance.SelectedCard;
-        if (c != null && d == null && s == null && c.PositionDistance < displayThreshold)
+        if (d != null)
         {
-            DisplayCardInfo(c);
+            DisplayCardInfo(d);
+            currentAlpha -= fadeSpeed * Time.deltaTime;
+        }
+        else if (h != null)
+        {
+            DisplayCardInfo(h);
             currentAlpha -= fadeSpeed * Time.deltaTime;
         }
         else
         {
-            Hide();
+            currentAlpha = 0;
+            lastCardRevealed = false;
+            lastCardViewed = null;
         }
+        canvasGroup.alpha = Mathf.Clamp(currentAlpha, 0, 1);
     }
 
-    public void Hide()
-    {
-        currentAlpha = 0;
-        canvasGroup.alpha = 0;
-        lastCardRevealed = false;
-        lastCardIndex = -1;
-    }
 }

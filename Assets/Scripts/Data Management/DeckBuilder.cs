@@ -439,7 +439,7 @@ public class DeckBuilder : MonoBehaviour
     private CardInfo.DeckList CreateDeck()
     {
         CardInfo.DeckList deck = new CardInfo.DeckList();
-        deck.deckName = deckDropdown.options[deckDropdown.value].text;
+        deck.deckName = deckInputField.text;
         deck.nation = nationAssignmentDropdown.options[nationAssignmentDropdown.value].text;
         deck.rideDeck = new int[rideReceiver.cards.Count];
         for (int i = 0; i < rideReceiver.cards.Count; i++)
@@ -538,6 +538,5 @@ public class DeckBuilder : MonoBehaviour
         mainReceiver.RemoveAllCards();
         strideReceiver.RemoveAllCards();
         toolboxReceiver.RemoveAllCards();
-        RefreshInfo();
     }
 }
