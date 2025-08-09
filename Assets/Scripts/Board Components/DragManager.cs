@@ -288,10 +288,6 @@ public class DragManager : MonoBehaviour
 
     public void OnCardHoverExit(Card card)
     {
-        if (HoveredCard == card)
-        {
-            HoveredCard = null;
-        }
         if (card.UIState == Card.CardUIState.hovered)
         {
             card.UIState = Card.CardUIState.normal;
@@ -325,10 +321,6 @@ public class DragManager : MonoBehaviour
 
     public void OnNodeHoverExit(Node node)
     {
-        if (HoveredNode == node)
-        {
-            HoveredNode = null;
-        }
         if (node.UIState == Node.NodeUIState.hovered)
         {
             if (dmstate == DMstate.dragging && node != dragNode.PreviousNode)

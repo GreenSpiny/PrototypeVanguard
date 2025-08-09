@@ -25,8 +25,8 @@ public class CardInfo : IComparable<CardInfo>
     public readonly string placeholder; // If true, the card does not yet have an image
     public readonly int basePower;
     public readonly string race;
+    public readonly string regulation;
     public readonly bool rotate;
-    // public readonly string regulation;
     public readonly int baseShield;
     public readonly string[] skills;
     public readonly string unitType;
@@ -81,7 +81,7 @@ public class CardInfo : IComparable<CardInfo>
         viewsoul
     }
 
-    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nations, bool placeholder, int basePower, string race, bool rotate, int baseShield, string[] skills, string unitType, int version)
+    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nations, bool placeholder, int basePower, string race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version)
     {
         this.count = count;
         this.baseCrit = baseCrit;
@@ -104,7 +104,7 @@ public class CardInfo : IComparable<CardInfo>
 
     public static CardInfo GenerateDefaultCardInfo()
     {
-        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", new string[] { "Dark States" }, false, 8000, "Human", false, 5000, new string[0], "Normal Unit", 0);
+        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", new string[] { "Dark States" }, false, 8000, "Human", "Standard", false, 5000, new string[0], "Normal Unit", 0);
     }
 
     public static CardInfo FromDictionary(Dictionary<string, object> dictionary)
@@ -137,6 +137,7 @@ public class CardInfo : IComparable<CardInfo>
             Convert.ToBoolean(dictionary["placeholder"]),
             Convert.ToInt32(dictionary["power"]),
             Convert.ToString(dictionary["race"]),
+            Convert.ToString(dictionary["regulation"]),
             Convert.ToBoolean(dictionary["rotate"]),
             Convert.ToInt32(dictionary["shield"]),
             skillArray,

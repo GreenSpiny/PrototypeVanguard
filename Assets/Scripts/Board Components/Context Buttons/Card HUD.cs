@@ -53,7 +53,7 @@ public class CardHUD : MonoBehaviour
         if (d != null)
         {
             DisplayCardInfo(d);
-            currentAlpha -= fadeSpeed * Time.deltaTime;
+            currentAlpha = 0;
         }
         else if (h != null)
         {

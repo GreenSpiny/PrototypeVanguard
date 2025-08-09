@@ -324,7 +324,10 @@ public class DeckBuilder : MonoBehaviour
                     currentStep = 0;
                     yield return null;
                 }
-
+                if (string.IsNullOrEmpty(cardInfo.regulation))
+                {
+                    continue;
+                }
                 if (searchQuery)
                 {
                     if (!cardInfo.name.Contains(query, StringComparison.InvariantCultureIgnoreCase) && !cardInfo.effect.Contains(query, StringComparison.InvariantCultureIgnoreCase))
