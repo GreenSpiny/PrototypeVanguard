@@ -38,22 +38,10 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         templateLabelText = label.text;
     }
 
-    private void Start()
-    {
-        foreach (DB_Card card in GetComponentsInChildren<DB_Card>())
-        {
-            cards.Add(card);
-        }
-        if (cards.Count > 0)
-        {
-            AlignCards(true);
-        }
-    }
     public void ReceiveCard(DB_Card card)
     {
         cards.Add(card);
         card.transform.SetParent(transform, true);
-        //card.cardImage.raycastTarget = true;
         card.reciever = this;
         builder.SetDirty();
         receiverImage.color = baseColor;
@@ -125,9 +113,12 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public bool CanAcceptCard(DB_Card card)
     {
+        bool isOrder = card.cardInfo.isOrder;
         bool isGUnit = card.cardInfo.unitType == "G Unit";
         bool isToolboxCard = card.cardInfo.unitType == "Token" || card.cardInfo.unitType == "Crest";
-        bool isOrder = card.cardInfo.unitType.Contains("Order", StringComparison.InvariantCultureIgnoreCase);
+        bool isBlessing = card.cardInfo.race == "Blessing";
+        bool isCalamity = card.cardInfo.race == "Calamity";
+        bool isTrainingEquipment = card.cardInfo.index == 3720;
 
         if (cards.Count >= maxCards)
         {
@@ -147,7 +138,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
         if (areaType == AreaType.ride)
         {
-            return !isGUnit && !isToolboxCard && !isOrder;
+            return isBlessing || isCalamity || isTrainingEquipment || (!isGUnit && !isToolboxCard && !isOrder);
         }
         if (areaType == AreaType.main)
         {

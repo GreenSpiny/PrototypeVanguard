@@ -85,17 +85,22 @@ public class DeckBuilder : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape) && !transitioningOut)
         {
-            transitioningOut = true;
+            Quit();
         }
         if (transitioningOut)
         {
             mainCanvasGroup.alpha = Mathf.Clamp(mainCanvasGroup.alpha - Time.deltaTime * transitionSpeed, 0f, 1f);
-            mainCanvasGroup.blocksRaycasts = false;
             if (mainCanvasGroup.alpha <= 0f)
             {
                 SceneManager.LoadScene("MenuScene");
             }
         }
+    }
+
+    public void Quit()
+    {
+        mainCanvasGroup.blocksRaycasts = false;
+        transitioningOut = true;
     }
 
     private IEnumerator LoadInitialDeck()
@@ -160,30 +165,14 @@ public class DeckBuilder : MonoBehaviour
             LoadDeck(currentDeckList);
         }
 
-        // Enable interaction
-        deckDropdown.interactable = true;
-        deckInputField.interactable = true;
-        saveButton.interactable = true;
-        saveAsButton.interactable = true;
-        deleteButton.interactable = true;
-        resetButton.interactable = true;
-        giftDropdown.interactable = true;
-        gradeDropdown.interactable = true;
-        groupDropdown.interactable = true;
-        nationDropdown.interactable = true;
-        raceDropdown.interactable = true;
-        unitTypeDropdown.interactable = true;
-        queryInputField.interactable = true;
-        resetFiltersButton.interactable = true;
-
         // Inspect default card
         yield return new WaitForEndOfFrame();
         cardDetailUI.InspectCard(null);
 
         // Refresh info
-        RefreshInfo();
         initialLoadComplete = true;
         mainCanvasGroup.blocksRaycasts = true;
+        RefreshInfo();
     }
 
     private void LoadDeck(CardInfo.DeckList deckList)

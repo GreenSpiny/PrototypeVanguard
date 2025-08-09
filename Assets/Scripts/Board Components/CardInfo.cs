@@ -22,7 +22,7 @@ public class CardInfo : IComparable<CardInfo>
     public readonly int index;
     public readonly string name;
     public readonly string[] nation;
-    public readonly string placeholder; // If true, the card does not yet have an image
+    public readonly bool placeholder; // If true, the card does not yet have an image
     public readonly int basePower;
     public readonly string race;
     public readonly string regulation;
@@ -41,6 +41,11 @@ public class CardInfo : IComparable<CardInfo>
     public int shield { get { return baseShield + shieldModifier; } set { shieldModifier = value - baseShield; } }
     public int drive { get { return baseDrive + driveModifier; } set { driveModifier = value - baseDrive; } }
     public int crit { get { return baseCrit + critModifier; } set { critModifier = value - baseCrit; } }
+
+    public readonly bool isTrigger;
+    public readonly bool isOrder;
+    public readonly bool isSentinel;
+    public readonly bool isRegalis;
 
     // Unique card elements --- o
     // Some cards have properties that necessitate additional actions be offered to either player.
@@ -65,23 +70,23 @@ public class CardInfo : IComparable<CardInfo>
         armRight,       // this card offers ARM RIGHT
         bindFD,         // the owner can access BIND FD
         bindFDFoe,      // the opponent can access BIND FD (i.e. Blangdmire)
-        gaugeZone,      // the owner obtains a Gauge Zone
+        gaugeZone,      // the owner obtains a Gauge Zone - - - REMOVE THIS
         locking,        // both players can access LOCK
         overdress,      // the owner can access OV DRESS
         prison,         // the owner gains a Prison Zone and the opponent can access PRISON
-        soulRC,          // the owner's RC have SOUL access (i.e. Noblesse Gauge)
+        soulRC,         // the owner's RC have SOUL access (i.e. Noblesse Gauge)
 
         // MORE
         search,
-        token,
-        marker,
-        ticket,
-        crest,
+        token, // remove
+        marker, // remove
+        ticket, // remove
+        crest, // remove
         shuffle,
         viewsoul
     }
 
-    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nations, bool placeholder, int basePower, string race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version)
+    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nation, bool placeholder, int basePower, string race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version)
     {
         this.count = count;
         this.baseCrit = baseCrit;
@@ -93,13 +98,21 @@ public class CardInfo : IComparable<CardInfo>
         this.id = id;
         this.index = index;
         this.name = name;
-        this.nation = nations;
+        this.nation = nation;
+        this.placeholder = placeholder;
         this.basePower = basePower;
         this.race = race;
+        this.regulation = regulation;
+        this.rotate = rotate;
         this.baseShield = baseShield;
         this.skills = skills;
         this.unitType = unitType;
         this.version = version;
+
+        isTrigger = unitType.Contains("Trigger", StringComparison.InvariantCultureIgnoreCase);
+        isOrder = unitType.Contains("Order", StringComparison.InvariantCultureIgnoreCase);
+        isSentinel = skills.Contains("Sentinel");
+        isRegalis = skills.Contains("Regalis Piece");
     }
 
     public static CardInfo GenerateDefaultCardInfo()
@@ -146,30 +159,11 @@ public class CardInfo : IComparable<CardInfo>
             );
     }
 
-    /*
-    public static string GetUnitTypeName(UnitType type)
-    {
-        switch (type)
-        {
-            case UnitType.normalUnit: return "Normal Unit";
-            case UnitType.triggerUnit: return "Trigger Unit";
-            case UnitType.gUnit: return "G Unit";
-            case UnitType.normalOrder: return "Normal Order";
-            case UnitType.setOrder: return "Set Order";
-            case UnitType.blitzOrder: return "Blitz Order";
-            case UnitType.crest: return "Crest";
-            case UnitType.token: return "Token";
-            case UnitType.ticket: return "Ticket";
-            default: return "[missing]";
-        }
-    }
-    */
-
     [System.Serializable]
     public class DeckList
     {
         public const int maxMain = 50;
-        public const int maxRide = 5;
+        public const int maxRide = 6;
         public const int maxStride = 16;
         public const int maxToolbox = 34;
 
@@ -201,7 +195,22 @@ public class CardInfo : IComparable<CardInfo>
             foreach (int i in mainDeck) { if  (i == cardIndex) count++; }
             foreach (int i in rideDeck) { if (i == cardIndex) count++; }
             foreach (int i in strideDeck) { if (i == cardIndex) count++; }
-            foreach (int i in toolbox) { if (i == cardIndex) count++; }
+            return count;
+        }
+
+        public int SentinelCount()
+        {
+            int count = 0;
+            foreach (int i in mainDeck) { if (CardLoader.GetCardInfo(i).isSentinel) count++; }
+            foreach (int i in rideDeck) { if (CardLoader.GetCardInfo(i).isSentinel) count++; }
+            return count;
+        }
+
+        public int RegalisCount()
+        {
+            int count = 0;
+            foreach (int i in mainDeck) { if (CardLoader.GetCardInfo(i).isRegalis) count++; }
+            foreach (int i in rideDeck) { if (CardLoader.GetCardInfo(i).isRegalis) count++; }
             return count;
         }
 
@@ -210,6 +219,12 @@ public class CardInfo : IComparable<CardInfo>
             error = string.Empty;
             if (CardLoader.instance != null && CardLoader.instance.CardsLoaded)
             {
+                error = "Card Loader is not initialized.";
+                return true;
+            }
+            else
+            {
+                // This can be optimized to use fewer runthroughs, but it would lack readability for a small increase in speed.
                 HashSet<int> cardSet = new HashSet<int>();
                 foreach (int i in mainDeck) { cardSet.Add(i); }
                 foreach (int i in rideDeck) { cardSet.Add(i); }
@@ -220,37 +235,62 @@ public class CardInfo : IComparable<CardInfo>
                     if (info.nation[0] != "Nationless" && !info.nation.Contains(nation))
                     {
                         error = "Mixing nations is disallowed.";
-                        break;
+                        return true;
                     }
                     if (CardCount(cardIndex) > info.count)
                     {
                         error = "'" + info.name + "' exceeds the maximum number of copies.";
-                        break;
+                        return true;
                     }
                 }
+                if (rideDeck.Length > 0)
+                {
+                    if (rideDeck.Length > 4 && (rideDeck[0] != 1676 || rideDeck[0] != 3080 || nation != "Touken Ranbu"))
+                    {
+                        error = "Only 'Griphosid' rideline, 'Sephirosid' rideline, and the 'Touken Ranbu' nation allow more than 4 cards in the Ride Deck.";
+                    }
+                    else if (rideDeck[0] != 1676)
+                    {
+                        // Griphosid exception
+                    }
+                    else if (rideDeck[0] != 3080)
+                    {
+                        // Seriphosid exception
+                    }
+                    else if (nation == "Touken Ranbu")
+                    {
+                        // Touken Ranbu exception
+                    }
+                }
+                if (strideDeck.Length > 0)
+                {
+                    foreach (int i in strideDeck)
+                    {
+                        if (CardLoader.GetCardInfo(i).unitType != "G Unit")
+                        {
+                            error = "Only G Units are allowed in the Stride Deck.";
+                            return true;
+                        }
+                    }
+                }
+                if (rideDeck.Length < 4 || rideDeck.Length > maxRide)
+                {
+                    error = "Invalid number of cards in the Ride Deck. Typically four are required.";
+                }
+                else if (mainDeck.Length != maxMain)
+                {
+                    error = "Invalid number of cards in the Main Deck. 50 are required.";
+                }
+                else if (strideDeck.Length > maxStride)
+                {
+                    error = "Invalid number of cards in the Stride Deck. 16 is the maximum.";
+                }
+                else if (toolbox.Length > maxToolbox)
+                {
+                    error = "Invalid number of cards in the Toolbox. 34 is the maximum.";
+                }
+                return string.IsNullOrEmpty(error);
             }
-            if (rideDeck.Length < 4 || rideDeck.Length > maxRide)
-            {
-                error = "Invalid number of cards in the Ride Deck. Typically four are required.";
-            }
-            else if (rideDeck.Length == 5 && rideDeck[0] != 1676)
-            {
-                error = "Only 'Griphosid' allows 5 cards in the Ride Deck.";
-            }
-            else if (mainDeck.Length != maxMain)
-            {
-                error = "Invalid number of cards in the Main Deck. 50 are required.";
-            }
-            else if (strideDeck.Length > maxStride)
-            {
-                error = "Invalid number of cards in the Stride Deck 16 is the maximum.";
-            }
-            else if (toolbox.Length > maxToolbox)
-            {
-                error = "Invalid number of cards in the Toolbox. 34 is the maximum.";
-            }
-            
-            return string.IsNullOrEmpty(error);
         }
 
         public static DeckList FromJSON(string JSON)
@@ -300,10 +340,18 @@ public class CardInfo : IComparable<CardInfo>
 
     public int CompareTo(CardInfo other)
     {
-       if (grade != other.grade) { return grade.CompareTo(other.grade); }
-       if (unitType != other.unitType) { return unitType.CompareTo(other.unitType); }
-       if (name != other.name) { return name.CompareTo(other.name); }
-       return index.CompareTo(other.index);
+        int adjustedGrade = grade;
+        if (isSentinel) { adjustedGrade += 90; }
+        if (isTrigger) { adjustedGrade += 100; }
+
+        int otherAdjustedGrade = grade;
+        if (other.isSentinel) { otherAdjustedGrade += 90; }
+        if (other.isTrigger) { otherAdjustedGrade += 100; }
+
+        if (adjustedGrade != otherAdjustedGrade) { return adjustedGrade.CompareTo(otherAdjustedGrade); }
+        if (unitType != other.unitType) { return unitType.CompareTo(other.unitType); }
+        if (name != other.name) { return name.CompareTo(other.name); }
+        return index.CompareTo(other.index);
     }
 
 }
