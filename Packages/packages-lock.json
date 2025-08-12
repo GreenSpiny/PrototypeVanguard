@@ -264,14 +264,6 @@
       "source": "builtin",
       "dependencies": {}
     },
-    "com.unity.modules.cloth": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.physics": "1.0.0"
-      }
-    },
     "com.unity.modules.director": {
       "version": "1.0.0",
       "depth": 0,
@@ -323,28 +315,11 @@
       "source": "builtin",
       "dependencies": {}
     },
-    "com.unity.modules.screencapture": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.imageconversion": "1.0.0"
-      }
-    },
     "com.unity.modules.terrain": {
       "version": "1.0.0",
-      "depth": 0,
+      "depth": 2,
       "source": "builtin",
       "dependencies": {}
-    },
-    "com.unity.modules.terrainphysics": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.physics": "1.0.0",
-        "com.unity.modules.terrain": "1.0.0"
-      }
     },
     "com.unity.modules.tilemap": {
       "version": "1.0.0",
@@ -431,30 +406,6 @@
         "com.unity.modules.assetbundle": "1.0.0",
         "com.unity.modules.imageconversion": "1.0.0"
       }
-    },
-    "com.unity.modules.vehicles": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.physics": "1.0.0"
-      }
-    },
-    "com.unity.modules.video": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.audio": "1.0.0",
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0"
-      }
-    },
-    "com.unity.modules.wind": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
     }
   }
 }
