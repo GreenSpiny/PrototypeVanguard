@@ -9,8 +9,12 @@ using UnityEngine.Networking;
 public class CardLoader : MonoBehaviour
 {
     public static CardLoader instance = null;
-    private const string localVersionJSONPath = "JSON/dataVersion";
-    private const string localCardsJSONPath = "JSON/allCardsSingleton";
+
+    private const string dataVersionFilename = "dataVersion";
+    private const string cardsDataFilename = "cardsData";
+    private const string imageBundlePrefix = "cardImages/cardimages_";
+    private static string LocalResourcesDataPath { get {return "JSON/" + dataVersionFilename;} }
+    private static string LocalResourcesCardsPath { get { return "JSON/" + cardsDataFilename; } }
 
     [SerializeField] private Material cardMaterial;
     [SerializeField] private Material defaultCardBackMaterial;
@@ -54,7 +58,7 @@ public class CardLoader : MonoBehaviour
         }
 
         // Set game quality settings
-        if (Application.isEditor || true)
+        if (Application.isEditor)
         {
             Application.targetFrameRate = 60;
             QualitySettings.vSyncCount = 0;
@@ -72,7 +76,6 @@ public class CardLoader : MonoBehaviour
         {
             StartCoroutine(Initialize());
         }
-        Debug.Log(Application.targetFrameRate);
     }
 
     public IEnumerator Initialize()
@@ -87,7 +90,7 @@ public class CardLoader : MonoBehaviour
         if (downloadMode == DownloadMode.remoteDownload)
         {
             oldDataVersionObject = SaveDataManager.LoadVersionJSON();
-            string url = "http://localhost:8000/dataVersion.json";
+            string url = "http://localhost:8000/" + dataVersionFilename + ".json";
             var webRequest = UnityWebRequest.Get(url);
             yield return webRequest.SendWebRequest();
             if (webRequest.result != UnityWebRequest.Result.Success)
@@ -103,7 +106,7 @@ public class CardLoader : MonoBehaviour
         }
         else
         {
-            TextAsset versionJSON = Resources.Load<TextAsset>(localVersionJSONPath);
+            TextAsset versionJSON = Resources.Load<TextAsset>(LocalResourcesDataPath);
             oldDataVersionObject = DataVersionObject.FromJSON(versionJSON.text);
             dataVersionObject = oldDataVersionObject;
         }
@@ -121,7 +124,7 @@ public class CardLoader : MonoBehaviour
             oldCardsText = SaveDataManager.LoadCardsJSON();
             if (shouldUpdateCards)
             {
-                string url = "http://localhost:8000/allCardsSingleton.json";
+                string url = "http://localhost:8000/" + cardsDataFilename + ".json";
                 var webRequest = UnityWebRequest.Get(url);
                 yield return webRequest.SendWebRequest();
                 if (webRequest.result != UnityWebRequest.Result.Success)
@@ -143,7 +146,7 @@ public class CardLoader : MonoBehaviour
         }
         else
         {
-            TextAsset allCardsJSON = Resources.Load<TextAsset>(localCardsJSONPath);
+            TextAsset allCardsJSON = Resources.Load<TextAsset>(LocalResourcesCardsPath);
             oldCardsText = allCardsJSON.text;
             newCardsText = oldCardsText;
         }
@@ -247,7 +250,7 @@ public class CardLoader : MonoBehaviour
                 }
                 else if (currentDownloads < maxConcurrentDownloads)
                 {
-                    string url = "http://localhost:8000/CardImages/" + i.ToString();
+                    string url = "http://localhost:8000/" + imageBundlePrefix + i.ToString();
                     downloadHandlers[i] = new RemoteDownloadHandlerObject(url, dataversion.imageBundleVersions[i]);
                     currentDownloads++;
                 }
@@ -287,7 +290,7 @@ public class CardLoader : MonoBehaviour
             return new Material(instance.allImagesData[cardIndex]);
         }
         // If we are not downloading remote assets, load the assets from the Resources folder.
-        else if (Application.isEditor && instance.downloadMode == DownloadMode.localResources)
+        else if (instance.downloadMode == DownloadMode.localResources)
         {
             Material newMaterial = new Material(instance.cardMaterial);
             int folderIndex = Mathf.FloorToInt(cardIndex / 100f);

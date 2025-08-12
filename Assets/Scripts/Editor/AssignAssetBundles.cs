@@ -18,7 +18,7 @@ public class CreateAssetBundles
     [MenuItem("Assets/AssetBundles/Configure AssetBundles")]
     static void ConfigureAssetBundles()
     {
-        string bundlePrefix = "cardimages/";
+        string bundlePrefix = "cardImages/cardImages_";
         int bundleProgress = 0;
         string AssetBundleFolder = "Assets/Resources/cardimages";
         string[] folderGuids = AssetDatabase.FindAssets("t:defaultasset", new string[] { AssetBundleFolder });

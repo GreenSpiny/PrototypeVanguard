@@ -82,7 +82,7 @@ def GetCardInformation(driver, url):
 if __name__ == "__main__":
 
 	# parse the results file
-	resultsFile = open('allCardsSingleton.json', 'r+')
+	resultsFile = open('cardsData.json', 'r+')
 	resultsData = json.loads(resultsFile.read())
 	resultsDataCards = resultsData['cards']
 
