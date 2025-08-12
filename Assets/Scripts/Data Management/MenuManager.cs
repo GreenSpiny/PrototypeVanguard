@@ -22,7 +22,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] float colorTransitionSpeed;
     [SerializeField] float spriteHeightMultiplier;
 
-    private Color originalColor;
+    public static Color originalColor;
+    private MenuButton hoveredButton;
     private Color targetColor;
     private System.Action transitionOutCallback;
     bool transitioningOut = false;
@@ -84,13 +85,14 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void SetCharacterSprite(Color color, Sprite sprite, float height)
+    public void SetCharacterSprite(MenuButton button)
     {
-        targetColor = color;
-        if (characterImage.sprite != sprite)
+        if (hoveredButton != button)
         {
-            characterImage.sprite = sprite;
-            characterImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height * spriteHeightMultiplier);
+            targetColor = button.color;
+            hoveredButton = button;
+            characterImage.sprite = button.sprite;
+            characterImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, button.height * spriteHeightMultiplier);
             characterAnimator.Play("Appear", -1, 0f);
         }
     }
@@ -123,7 +125,6 @@ public class MenuManager : MonoBehaviour
         if (!transitioningOut)
         {
             menuButtonsGroup.blocksRaycasts = false;
-            targetColor = originalColor;
             transitioningOut = true;
             transitionOutCallback = callback;
             mainAnimator.enabled = true;

@@ -3,14 +3,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 public class CardLoader : MonoBehaviour
 {
@@ -58,6 +52,18 @@ public class CardLoader : MonoBehaviour
             enabled = false;
             DestroyImmediate(gameObject);
         }
+
+        // Set game quality settings
+        if (Application.isEditor || true)
+        {
+            Application.targetFrameRate = 60;
+            QualitySettings.vSyncCount = 0;
+        }
+        else
+        {
+            Application.targetFrameRate = 0;
+            QualitySettings.vSyncCount = 1;
+        }
     }
 
     private void Start()
@@ -66,6 +72,7 @@ public class CardLoader : MonoBehaviour
         {
             StartCoroutine(Initialize());
         }
+        Debug.Log(Application.targetFrameRate);
     }
 
     public IEnumerator Initialize()

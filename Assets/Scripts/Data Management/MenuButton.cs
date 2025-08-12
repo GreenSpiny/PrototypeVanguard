@@ -6,9 +6,9 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     private Button button;
     private MenuManager manager;
-    [SerializeField] private Color color;
-    [SerializeField] private Sprite sprite;
-    [SerializeField] private float height;
+    public Color color;
+    public Sprite sprite;
+    public float height;
 
     private void Awake()
     {
@@ -21,11 +21,11 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        manager.SetCharacterSprite(color, sprite, height);
+        manager.SetCharacterSprite(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+
     }
 }
