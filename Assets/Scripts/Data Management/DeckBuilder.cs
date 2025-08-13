@@ -302,7 +302,7 @@ public class DeckBuilder : MonoBehaviour
         string query = queryInputField.text.Trim();
         bool searchQuery = query.Length > 2;
 
-        // Dig through the cards data. Do not do it all in one frame!
+        // Dig through the cards data. Do not do it all in one frame! TODO: Maybe allow this because it is already asynchronous (?), or supply results periodically
         searchResults.Clear();
         List<CardInfo> allCardsDataSorted = CardLoader.instance.allCardsDataSorted;
         int currentStep = 0;

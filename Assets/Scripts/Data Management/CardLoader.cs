@@ -13,8 +13,7 @@ public class CardLoader : MonoBehaviour
     private const string dataVersionFilename = "dataVersion";
     private const string cardsDataFilename = "cardsData";
     private const string imageBundlePrefix = "cardImages/cardimages_";
-    private static string LocalResourcesDataPath { get {return "JSON/" + dataVersionFilename;} }
-    private static string LocalResourcesCardsPath { get { return "JSON/" + cardsDataFilename; } }
+    private const string r2endpoint = "https://vanguard-url-signer.akruchkow.workers.dev/";
 
     [SerializeField] private Material cardMaterial;
     [SerializeField] private Material defaultCardBackMaterial;
@@ -90,9 +89,11 @@ public class CardLoader : MonoBehaviour
         if (downloadMode == DownloadMode.remoteDownload)
         {
             oldDataVersionObject = SaveDataManager.LoadVersionJSON();
-            string url = "http://localhost:8000/" + dataVersionFilename + ".json";
-            var webRequest = UnityWebRequest.Get(url);
+
+            var webRequest = UnityWebRequest.Get(r2endpoint + dataVersionFilename + ".json");
+            webRequest.SetRequestHeader("Content-Type", "application/json");
             yield return webRequest.SendWebRequest();
+            
             if (webRequest.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError("error: " + webRequest.error);
@@ -102,13 +103,15 @@ public class CardLoader : MonoBehaviour
             {
                 string text = webRequest.downloadHandler.text;
                 dataVersionObject = DataVersionObject.FromJSON(text);
+                SaveDataManager.SaveVersionJSON(dataVersionObject);
             }
         }
         else
         {
-            TextAsset versionJSON = Resources.Load<TextAsset>(LocalResourcesDataPath);
+            TextAsset versionJSON = Resources.Load<TextAsset>("JSON/" + dataVersionFilename);
             oldDataVersionObject = DataVersionObject.FromJSON(versionJSON.text);
             dataVersionObject = oldDataVersionObject;
+            SaveDataManager.SaveVersionJSON(dataVersionObject);
         }
         versionDownloadProgress = 1;
         Debug.Log("Data Version: " + oldDataVersionObject.cardsFileVersion.ToString() + " -> " + dataVersionObject.cardsFileVersion.ToString());
@@ -121,12 +124,14 @@ public class CardLoader : MonoBehaviour
         if (downloadMode == DownloadMode.remoteDownload)
         {
             bool shouldUpdateCards = dataVersionObject.cardsFileVersion > oldDataVersionObject.cardsFileVersion;
+            shouldUpdateCards = true; // FOR TESTING
             oldCardsText = SaveDataManager.LoadCardsJSON();
             if (shouldUpdateCards)
             {
-                string url = "http://localhost:8000/" + cardsDataFilename + ".json";
-                var webRequest = UnityWebRequest.Get(url);
+                var webRequest = UnityWebRequest.Get(r2endpoint + cardsDataFilename + ".json");
+                webRequest.SetRequestHeader("Content-Type", "application/json");
                 yield return webRequest.SendWebRequest();
+
                 if (webRequest.result != UnityWebRequest.Result.Success)
                 {
                     Debug.LogError("error: " + webRequest.error);
@@ -146,7 +151,7 @@ public class CardLoader : MonoBehaviour
         }
         else
         {
-            TextAsset allCardsJSON = Resources.Load<TextAsset>(LocalResourcesCardsPath);
+            TextAsset allCardsJSON = Resources.Load<TextAsset>("JSON/" + cardsDataFilename);
             oldCardsText = allCardsJSON.text;
             newCardsText = oldCardsText;
         }
@@ -160,7 +165,7 @@ public class CardLoader : MonoBehaviour
         HashSet<string> raceSet = new HashSet<string>();
         HashSet<string> unitTypeSet = new HashSet<string>();
 
-        // Grab the existing card data JSON, or download an updated version if needed.\
+        // Grab the existing card data JSON, or download an updated version if needed.
         var parsedCards = JsonConvert.DeserializeObject<Dictionary<string, object>>(newCardsText);
 
         foreach (JObject card in parsedCards.Values)
@@ -250,8 +255,8 @@ public class CardLoader : MonoBehaviour
                 }
                 else if (currentDownloads < maxConcurrentDownloads)
                 {
-                    string url = "http://localhost:8000/" + imageBundlePrefix + i.ToString();
-                    downloadHandlers[i] = new RemoteDownloadHandlerObject(url, dataversion.imageBundleVersions[i]);
+                    string cardBundleUrl = r2endpoint + imageBundlePrefix + i.ToString();
+                    downloadHandlers[i] = new RemoteDownloadHandlerObject(cardBundleUrl, dataversion.imageBundleVersions[i]);
                     currentDownloads++;
                 }
             }
@@ -366,6 +371,7 @@ public class CardLoader : MonoBehaviour
                     mat.mainTexture = t;
                     instance.allImagesData[Convert.ToInt32(t.name)] = mat;
                 }
+                bundle.UnloadAsync(false);
             }
             completed = true;
         }

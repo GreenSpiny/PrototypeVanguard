@@ -7,8 +7,9 @@ public class SaveDataManager : MonoBehaviour
 {
     private static SaveDataManager instance;
     private static string DeckSaveLocation { get { return Path.Join(Application.persistentDataPath, "Decks"); } }
-    private static string VersionJSONSaveLocation { get { return Path.Join(Application.dataPath, "dataVersion.json"); } }
-    private static string CardsJSONSaveLocation { get { return Path.Join(Application.dataPath, "allCardsSingleton.json"); } }
+    private static string JSONSaveLocation { get { return Path.Join(Application.persistentDataPath, "JSON"); } }
+    private static string VersionJSONFilePath { get { return Path.Join(JSONSaveLocation, "dataVersion.json"); } }
+    private static string CardsJSONFilePath { get { return Path.Join(JSONSaveLocation, "cardsData.json"); } }
 
     private void Awake()
     {
@@ -27,17 +28,17 @@ public class SaveDataManager : MonoBehaviour
 
     public static void SaveVersionJSON(CardLoader.DataVersionObject data)
     {
-        if (!Directory.Exists(Application.dataPath))
+        if (!Directory.Exists(JSONSaveLocation))
         {
-            Directory.CreateDirectory(Application.dataPath);
+            Directory.CreateDirectory(JSONSaveLocation);
         }
         string fileText = data.ToJSON();
-        File.WriteAllText(VersionJSONSaveLocation, fileText);
+        File.WriteAllText(VersionJSONFilePath, fileText);
     }
 
     public static CardLoader.DataVersionObject LoadVersionJSON()
     {
-        string filePath = VersionJSONSaveLocation;
+        string filePath = VersionJSONFilePath;
         if (File.Exists(filePath))
         {
             string fileText = File.ReadAllText(filePath);
@@ -51,16 +52,16 @@ public class SaveDataManager : MonoBehaviour
 
     public static void SaveCardsJSON(string cardsJSON)
     {
-        if (!Directory.Exists(Application.dataPath))
+        if (!Directory.Exists(JSONSaveLocation))
         {
-            Directory.CreateDirectory(Application.dataPath);
+            Directory.CreateDirectory(JSONSaveLocation);
         }
-        File.WriteAllText(CardsJSONSaveLocation, cardsJSON);
+        File.WriteAllText(CardsJSONFilePath, cardsJSON);
     }
 
     public static string LoadCardsJSON()
     {
-        string filePath = VersionJSONSaveLocation;
+        string filePath = VersionJSONFilePath;
         if (File.Exists(filePath))
         {
             return File.ReadAllText(filePath);
