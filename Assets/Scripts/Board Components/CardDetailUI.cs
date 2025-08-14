@@ -27,7 +27,15 @@ public class CardDetailUI : MonoBehaviour
     }
     public void InspectCard(CardInfo cardInfo)
     {
-        float targetHeight = cardImage.rectTransform.rect.width / Card.cardWidth;
+        float targetHeight;
+        if (cardInfo == null || !cardInfo.rotate)
+        {
+            targetHeight = cardImage.rectTransform.rect.width / Card.cardWidth;
+        }
+        else
+        {
+            targetHeight = cardImage.rectTransform.rect.width * Card.cardWidth;
+        }
         cardImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
         Material targetMaterial;
 
