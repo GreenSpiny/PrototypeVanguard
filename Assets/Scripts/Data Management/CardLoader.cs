@@ -279,7 +279,7 @@ public class CardLoader : MonoBehaviour
     {
         if (instance == null || !instance.allCardsData.ContainsKey(cardIndex))
         {
-            return null;
+            return new CardInfo();
         }
         return instance.allCardsData[cardIndex];
     }

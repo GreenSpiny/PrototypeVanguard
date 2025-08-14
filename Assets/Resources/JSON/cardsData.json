@@ -36563,7 +36563,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",

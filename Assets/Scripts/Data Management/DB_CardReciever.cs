@@ -28,6 +28,11 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private List<Vector3> cardPositions = new List<Vector3>();
     private Image receiverImage;
     private Color baseColor;
+    [SerializeField] public Color availableColor;
+    [SerializeField] public Color hoveredColor;
+    [SerializeField] private float colorTransitionSpeed;
+    [NonSerialized] public Color targetColor;
+    public bool accepting = false;
 
     private void Awake()
     {
@@ -35,6 +40,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         layoutElement = GetComponent<LayoutElement>();
         receiverImage = GetComponent<Image>();
         baseColor = receiverImage.color;
+        targetColor = baseColor;
         templateLabelText = label.text;
     }
 
@@ -109,13 +115,19 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             card.transform.localPosition = Vector3.Lerp(card.transform.localPosition, card.moveTarget, alignSpeed * Time.deltaTime);
         }
+        if (DB_CardDragger.instance != null && DB_CardDragger.instance.draggedCard == null)
+        {
+            accepting = false;
+            targetColor = baseColor;
+        }
+        receiverImage.color = Color.Lerp(receiverImage.color, targetColor, colorTransitionSpeed * Time.deltaTime);
     }
 
     public bool CanAcceptCard(DB_Card card)
     {
         bool isOrder = card.cardInfo.isOrder;
         bool isGUnit = card.cardInfo.unitType == "G Unit";
-        bool isToolboxCard = card.cardInfo.unitType == "Token" || card.cardInfo.unitType == "Crest";
+        bool isToolboxCard = card.cardInfo.unitType == "Token" || card.cardInfo.unitType == "Crest" || card.cardInfo.unitType == "Marker";
         bool isBlessing = card.cardInfo.race == "Blessing";
         bool isCalamity = card.cardInfo.race == "Calamity";
         bool isTrainingEquipment = card.cardInfo.index == 3720;
@@ -149,10 +161,10 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (DB_CardDragger.instance.draggedCard != null && CanAcceptCard(DB_CardDragger.instance.draggedCard))
+        if (DB_CardDragger.instance.draggedCard != null && accepting)
         {
             DB_CardDragger.instance.hoveredReceiver = this;
-            receiverImage.color = new Color(0.5f, 0.5f, 0.25f);
+            targetColor = hoveredColor;
         }
     }
 
@@ -162,6 +174,13 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             DB_CardDragger.instance.hoveredReceiver = null;
         }
-        receiverImage.color = baseColor;
+        if (accepting)
+        {
+            targetColor = availableColor;
+        }
+        else
+        {
+            targetColor = baseColor;
+        }
     }
 }

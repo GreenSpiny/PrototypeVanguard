@@ -33,7 +33,7 @@ for c in cards.values():
 		c['group'] = ''
 
 	if 'giftPower' not in c.keys():
-		c['giftPower'] = ""
+		c['giftPower'] = ''
 
 	gift = c["gift"]
 	gift = gift.replace('Trigger', '')
@@ -73,7 +73,6 @@ for c in cards.values():
 
 	if 'rotate' not in c.keys():
 		c['rotate'] = False
-		pass
 
 	if 'placeholder' not in c.keys():
 		c['placeholder'] = False

@@ -271,7 +271,7 @@ public class DeckBuilder : MonoBehaviour
     }
 
     private Coroutine searchCoroutine;
-    private const int actionsPerFrame = 25;
+    private const int actionsPerFrame = 100;
     private List<CardInfo> searchResults = new List<CardInfo>();
     private List<DB_Card> searchCardObjects = new List<DB_Card>();
     private IEnumerator Search()
@@ -370,7 +370,6 @@ public class DeckBuilder : MonoBehaviour
             }
             DB_Card newCardObject = Instantiate<DB_Card>(cardPrefab, searchResultsArea.transform);
             searchCardObjects.Add(newCardObject);
-            newCardObject.SetWidth(targetWidth);
         }
         while (searchCardObjects.Count > searchResults.Count)
         {
@@ -394,6 +393,7 @@ public class DeckBuilder : MonoBehaviour
             }
             CardInfo currentCardInfo = searchResults[i];
             searchCardObjects[i].Load(currentCardInfo.index);
+            searchCardObjects[i].SetWidth(targetWidth);
         }
 
         // End coroutine

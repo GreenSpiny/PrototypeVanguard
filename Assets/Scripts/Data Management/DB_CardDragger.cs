@@ -59,7 +59,14 @@ public class DB_CardDragger : MonoBehaviour
                 hoveredCard.reciever.RemoveCard(hoveredCard, false);
                 draggedCard = hoveredCard;
                 draggedCard.transform.SetParent(transform, true);
-                //draggedCard.transform.localPosition = new Vector3(draggedCard.rectTransform.rect.width / -2f, draggedCard.rectTransform.rect.height / 2f, 0f);
+            }
+            foreach (DB_CardReciever receiver in receivers)
+            {
+                receiver.accepting = receiver.CanAcceptCard(draggedCard);
+                if (receiver.accepting)
+                {
+                    receiver.targetColor = receiver.availableColor;
+                }
             }
         }
         // End dragging

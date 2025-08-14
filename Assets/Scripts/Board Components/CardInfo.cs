@@ -86,6 +86,13 @@ public class CardInfo : IComparable<CardInfo>
         viewsoul
     }
 
+    public CardInfo()
+    {
+        nation = new string[0];
+        skills = new string[0];
+        placeholder = true;
+        actionFlags = new ActionFlag[0];
+    }
     public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nation, bool placeholder, int basePower, string race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version)
     {
         this.count = count;
@@ -113,6 +120,8 @@ public class CardInfo : IComparable<CardInfo>
         isOrder = unitType.Contains("Order", StringComparison.InvariantCultureIgnoreCase);
         isSentinel = skills.Contains("Sentinel");
         isRegalis = skills.Contains("Regalis Piece");
+
+        actionFlags = new ActionFlag[0];
     }
 
     public static CardInfo GenerateDefaultCardInfo()

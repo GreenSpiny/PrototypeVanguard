@@ -25,13 +25,23 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
     public void SetWidth()
     {
         float width = rectTransform.rect.height * Card.cardWidth;
-        rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        SetWidth(width);
     }
 
     public void SetWidth(float width)
     {
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, width / Card.cardWidth);
+        if (cardInfo != null && cardInfo.rotate)
+        {
+            cardImage.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+            cardImage.transform.localScale = new Vector3(1f / Card.cardWidth, 1f, 1f);
+        }
+        else
+        {
+            cardImage.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+            cardImage.transform.localScale = Vector3.one;
+        }
     }
 
     public void Load(int cardIndex)
@@ -40,6 +50,7 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
         name = cardInfo.index.ToString();
         Material targetMaterial = CardLoader.GetCardImage(cardInfo.index);
         Texture2D targetTexture = targetMaterial.mainTexture as Texture2D;
+
         cardImage.sprite = Sprite.Create(targetTexture, new Rect(0, 0, targetTexture.width, targetTexture.height), Vector2.zero);
     }
     public int CompareTo(DB_Card other)
