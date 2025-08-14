@@ -57,16 +57,8 @@ public class CardLoader : MonoBehaviour
         }
 
         // Set game quality settings
-        if (Application.isEditor)
-        {
-            Application.targetFrameRate = 60;
-            QualitySettings.vSyncCount = 0;
-        }
-        else
-        {
-            Application.targetFrameRate = 0;
-            QualitySettings.vSyncCount = 1;
-        }
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 1;
     }
 
     private void Start()
@@ -79,10 +71,16 @@ public class CardLoader : MonoBehaviour
 
     public IEnumerator Initialize()
     {
+        // Reset progress
+
+        CardsLoaded = false;
+        versionDownloadProgress = 0;
+        cardsDownloadProgress = 0;
+        imageDownloadProgress = 0;
         allCardsData.Clear();
         allImagesData.Clear();
 
-        // Download the Data Version object. This determines whether mew cards JSON and image asset bundles should be downloaded.
+        // Download the Data Version object. This determines whether a mew cards JSON file and new image asset bundles should be downloaded.
 
         versionDownloadProgress = 0;
         DataVersionObject oldDataVersionObject;
@@ -96,14 +94,14 @@ public class CardLoader : MonoBehaviour
             
             if (webRequest.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError("error: " + webRequest.error);
                 dataVersionObject = oldDataVersionObject;
+                Debug.LogError("Error downloading version file: " + webRequest.error);
             }
             else
             {
                 string text = webRequest.downloadHandler.text;
                 dataVersionObject = DataVersionObject.FromJSON(text);
-                SaveDataManager.SaveVersionJSON(dataVersionObject);
+                Debug.Log("Acquired version file from remote.");
             }
         }
         else
@@ -111,12 +109,10 @@ public class CardLoader : MonoBehaviour
             TextAsset versionJSON = Resources.Load<TextAsset>("JSON/" + dataVersionFilename);
             oldDataVersionObject = DataVersionObject.FromJSON(versionJSON.text);
             dataVersionObject = oldDataVersionObject;
-            SaveDataManager.SaveVersionJSON(dataVersionObject);
         }
         versionDownloadProgress = 1;
-        Debug.Log("Data Version: " + oldDataVersionObject.cardsFileVersion.ToString() + " -> " + dataVersionObject.cardsFileVersion.ToString());
 
-        // Download the Cards Data object, updating the existing file if necessary.
+        // Download the Cards Data object if a new one is available.
 
         cardsDownloadProgress = 0;
         string oldCardsText;
@@ -124,7 +120,6 @@ public class CardLoader : MonoBehaviour
         if (downloadMode == DownloadMode.remoteDownload)
         {
             bool shouldUpdateCards = dataVersionObject.cardsFileVersion > oldDataVersionObject.cardsFileVersion;
-            shouldUpdateCards = true; // FOR TESTING
             oldCardsText = SaveDataManager.LoadCardsJSON();
             if (shouldUpdateCards)
             {
@@ -134,19 +129,20 @@ public class CardLoader : MonoBehaviour
 
                 if (webRequest.result != UnityWebRequest.Result.Success)
                 {
-                    Debug.LogError("error: " + webRequest.error);
                     newCardsText = oldCardsText;
+                    Debug.LogError("Error downloading cards file: " + webRequest.error);
                 }
                 else
                 {
                     string text = webRequest.downloadHandler.text;
                     newCardsText = text;
-                    SaveDataManager.SaveCardsJSON(newCardsText);
+                    Debug.Log("Acquired new cards file from remote.");
                 }
             }
             else
             {
                 newCardsText = oldCardsText;
+                Debug.Log("No need to update cards file.");
             }
         }
         else
@@ -220,6 +216,8 @@ public class CardLoader : MonoBehaviour
         }
         else
         {
+            SaveDataManager.SaveVersionJSON(dataVersionObject);
+            SaveDataManager.SaveCardsJSON(newCardsText);
             CardsLoaded = true;
         }
     }
@@ -256,7 +254,7 @@ public class CardLoader : MonoBehaviour
                 else if (currentDownloads < maxConcurrentDownloads)
                 {
                     string cardBundleUrl = r2endpoint + imageBundlePrefix + i.ToString();
-                    downloadHandlers[i] = new RemoteDownloadHandlerObject(cardBundleUrl, dataversion.imageBundleVersions[i]);
+                    downloadHandlers[i] = new RemoteDownloadHandlerObject(i, cardBundleUrl, dataversion.imageBundleVersions[i]);
                     currentDownloads++;
                 }
             }
@@ -290,7 +288,7 @@ public class CardLoader : MonoBehaviour
         {
             return new Material(instance.defaultCardBackMaterial);
         }
-        if (instance.allImagesData.ContainsKey(cardIndex))
+        else if (instance.allImagesData.ContainsKey(cardIndex))
         {
             return new Material(instance.allImagesData[cardIndex]);
         }
@@ -333,6 +331,7 @@ public class CardLoader : MonoBehaviour
 
     public class RemoteDownloadHandlerObject
     {
+        public readonly int index;
         public readonly string url;
         public readonly uint version;
         public UnityWebRequest webRequest;
@@ -340,8 +339,9 @@ public class CardLoader : MonoBehaviour
         public bool completed = false;
         public string error;
 
-        public RemoteDownloadHandlerObject(string url, uint version)
+        public RemoteDownloadHandlerObject(int index, string url, uint version)
         {
+            this.index = index;
             this.url = url;
             this.version = version;
             instance.StartCoroutine(DownloadAndExtractAsync());
@@ -349,11 +349,11 @@ public class CardLoader : MonoBehaviour
 
         public IEnumerator DownloadAndExtractAsync()
         {
-            webRequest = UnityWebRequestAssetBundle.GetAssetBundle(url);
+            webRequest = UnityWebRequestAssetBundle.GetAssetBundle(url, version, 0);
             yield return webRequest.SendWebRequest();
             if (webRequest.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError("error: " + webRequest.error);
+                Debug.LogError("Error downloading image bundle number " + index.ToString() + ": " + webRequest.error);
                 error = webRequest.error;
             }
             else

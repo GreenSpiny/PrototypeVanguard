@@ -6,10 +6,10 @@ using System.Collections.Generic;
 public class SaveDataManager : MonoBehaviour
 {
     private static SaveDataManager instance;
-    private static string DeckSaveLocation { get { return Path.Join(Application.persistentDataPath, "Decks"); } }
-    private static string JSONSaveLocation { get { return Path.Join(Application.persistentDataPath, "JSON"); } }
-    private static string VersionJSONFilePath { get { return Path.Join(JSONSaveLocation, "dataVersion.json"); } }
-    private static string CardsJSONFilePath { get { return Path.Join(JSONSaveLocation, "cardsData.json"); } }
+    private static string DeckSaveLocation { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "Decks")); } }
+    private static string JSONSaveLocation { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "JSON")); } }
+    private static string VersionJSONFilePath { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "JSON", "dataVersion.json")); } }
+    private static string CardsJSONFilePath { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "JSON", "cardsData.json")); } }
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class SaveDataManager : MonoBehaviour
         }
     }
 
-    // === UTILITY === ///
+    // === FILES === ///
 
     public static void SaveVersionJSON(CardLoader.DataVersionObject data)
     {
@@ -61,7 +61,7 @@ public class SaveDataManager : MonoBehaviour
 
     public static string LoadCardsJSON()
     {
-        string filePath = VersionJSONFilePath;
+        string filePath = CardsJSONFilePath;
         if (File.Exists(filePath))
         {
             return File.ReadAllText(filePath);
@@ -94,7 +94,7 @@ public class SaveDataManager : MonoBehaviour
 
     public static CardInfo.DeckList LoadDeck(string deckName)
     {
-        string filePath = Path.Join(DeckSaveLocation, deckName + ".json");
+        string filePath = Path.GetFullPath(Path.Join(DeckSaveLocation, deckName + ".json"));
         if (File.Exists(filePath))
         {
             string fileText = File.ReadAllText(filePath);
@@ -105,7 +105,7 @@ public class SaveDataManager : MonoBehaviour
 
     public static void SaveDeck(CardInfo.DeckList deck)
     {
-        string filePath = Path.Join(DeckSaveLocation, deck.deckName + ".json");
+        string filePath = Path.GetFullPath(Path.Join(DeckSaveLocation, deck.deckName + ".json"));
         if (!Directory.Exists(DeckSaveLocation))
         {
             Directory.CreateDirectory(DeckSaveLocation);
@@ -116,7 +116,7 @@ public class SaveDataManager : MonoBehaviour
 
     public static void DeleteDeck(string deckName)
     {
-        string filePath = Path.Join(DeckSaveLocation, deckName + ".json");
+        string filePath = Path.GetFullPath(Path.Join(DeckSaveLocation, deckName + ".json"));
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
@@ -130,5 +130,17 @@ public class SaveDataManager : MonoBehaviour
         DeleteDeck(oldDeckName);
     }
 
+    public static void ClearCachedData()
+    {
+        if (File.Exists(VersionJSONFilePath))
+        {
+            File.Delete(VersionJSONFilePath);
+        }
+        if (File.Exists(CardsJSONFilePath))
+        {
+            File.Delete(CardsJSONFilePath);
+        }
+        Caching.ClearCache();
+    }
 
 }
