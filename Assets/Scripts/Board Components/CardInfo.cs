@@ -226,10 +226,10 @@ public class CardInfo : IComparable<CardInfo>
         public bool IsValid(out string error)
         {
             error = string.Empty;
-            if (CardLoader.instance != null && CardLoader.instance.CardsLoaded)
+            if (CardLoader.instance == null || !CardLoader.instance.CardsLoaded)
             {
                 error = "Card Loader is not initialized.";
-                return true;
+                return false;
             }
             else
             {
@@ -244,12 +244,12 @@ public class CardInfo : IComparable<CardInfo>
                     if (info.nation[0] != "Nationless" && !info.nation.Contains(nation))
                     {
                         error = "Mixing nations is disallowed.";
-                        return true;
+                        return false;
                     }
                     if (CardCount(cardIndex) > info.count)
                     {
                         error = "'" + info.name + "' exceeds the maximum number of copies.";
-                        return true;
+                        return false;
                     }
                 }
                 if (rideDeck.Length > 0)
@@ -278,7 +278,7 @@ public class CardInfo : IComparable<CardInfo>
                         if (CardLoader.GetCardInfo(i).unitType != "G Unit")
                         {
                             error = "Only G Units are allowed in the Stride Deck.";
-                            return true;
+                            return false;
                         }
                     }
                 }

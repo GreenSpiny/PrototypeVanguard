@@ -23957,7 +23957,7 @@
   "power": 0,
   "race": "Music/Morfonica",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Normal Order",
@@ -36544,7 +36544,7 @@
   "version": 0
  },
  "energygenerator": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "(You may only have one ride deck crest in a ride deck)<br>[AUTO]Ride Deck:When you ride, put this card into the crest zone, and if you went second, [Energy-Charge 3].<br>[CONT]:You may have up to ten energy.<br>[AUTO]:At the beginning of your ride phase, [Energy-Charge 3].<br>[ACT][1/turn]:[COST][Energy-Blast 7], and draw a card.",
@@ -42297,7 +42297,7 @@
   "power": 0,
   "race": "Music/Morfonica",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Normal Order",
@@ -50128,7 +50128,7 @@
   "power": 0,
   "race": "Music/CRYCHIC",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Normal Order",
@@ -51851,7 +51851,7 @@
   "power": 0,
   "race": "Music/MyGO!!!!!",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Normal Order",
@@ -67986,7 +67986,7 @@
   "power": 0,
   "race": "Music/MyGO!!!!!",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Normal Order",
@@ -71364,7 +71364,7 @@
   "version": 0
  },
  "mushikingkingofthebeetlesmachine": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT]:You cannot ride cards other than \"Mushi\", cannot play set orders, and can only put set orders into the order zone with this crest's ability.<br>[AUTO]:When you get this crest, search your deck or hand for up to one Hitting Attack, Pinching Attack, and Throwing Attack each with different grades, put them into your order zone, and if you searched the deck, shuffle the deck.<br>[ACT][1/turn]:[COST][Soul-Blast 1], look at the top five cards of your deck, choose up to one \"Mushi\" or Attack card from among them, reveal and put it into hand, and shuffle the deck.<br>[AUTO]:When your \"Mushi\" attacks, [COST][[Rest] an Attack card with grade less than or equal to your vanguard in the order zone], and use that card's Attack.",
@@ -71383,7 +71383,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",
@@ -72468,7 +72468,7 @@
   "version": 0
  },
  "naginatasabilitykiwame": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):At the beginning of your battle phase, reveal the top card of your deck, choose one of your opponent's rear-guards with grade less than or equal to the revealed card, and until end of your opponent's next turn, that unit cannot move to (GC) or other (RC), and cannot [Stand] during the stand phase. If the revealed card is a normal unit, discard it.<br>- [CONT](VC):When this unit would attack, it battles all of your opponent's front row units.",
@@ -72487,7 +72487,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",
@@ -75416,7 +75416,7 @@
   "version": 0
  },
  "ootachisabilitykiwame": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):When this unit attacks, this unit gets [Power] +10000 until end of that battle. Then, [COST][Counter-Blast 1], choose one of your grade 3 rear-guards, and [Stand] it.<br>- [AUTO](VC):When this unit's attack hits a vanguard, discard the top card of your deck, if a trigger unit was discarded, choose one of your opponent's vanguards, and deal one damage.",
@@ -75435,7 +75435,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",
@@ -103700,7 +103700,7 @@
   "version": 0
  },
  "tachisabilitykiwame": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):At the beginning of your battle phase, reveal the top card of your deck, choose one of your opponent's rear-guards and retire it if the revealed card is a trigger unit, and discard the revealed card if it is not.<br>- [AUTO](VC)[1/turn]:At the end of the battle this unit attacked, [COST][Counter-Blast 2], [Stand] this unit, and it gets drive -1 until end of turn.",
@@ -103719,7 +103719,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",
@@ -104132,7 +104132,7 @@
   "version": 0
  },
  "tantousabilitykiwame": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):When this unit attacks, [COST][Counter-Blast 1], and until end of that battle, your opponent cannot call grade 1 or greater cards from hand to (GC).<br>- [CONT](VC):During your opponent's main phase, all of your rear-guards cannot be chosen by your opponent's card effects.",
@@ -104151,7 +104151,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",
@@ -105492,7 +105492,7 @@
   "version": 0
  },
  "thequintupletsmemories": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT]:You cannot ride cards other than \"Quintuplet\", and your order zone is also regarded as memory.<br>[CONT]:When a card other than \"Quintuplet\" would be put into your memory, put it into drop instead.<br>[ACT][1/turn]:[COST][Soul-Blast 1], look at the same number of cards from the top of your deck as your vanguard's grade, choose up to one \"Quintuplet\" from among them, put it into memory, and put the rest on the bottom of the deck in any order. If you chose a unit card with the same card name as a card in your memory, you may call it to (RC) instead of putting it into memory.",
@@ -105511,7 +105511,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",
@@ -109166,7 +109166,7 @@
   "version": 0
  },
  "uchigatanasabilitykiwame": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):When this unit attacks, [COST][Counter-Blast 1], choose one of your rear-guards, [Stand] it, and this unit gets [Power] +10000 until end of that battle.<br>- [AUTO](VC)[1/turn]:When your rear-guard is attacked, [COST][Soul-Blast 1], and until end of that battle, if any of your rear-guards is hit, it does not retire.",
@@ -109185,7 +109185,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",
@@ -112454,7 +112454,7 @@
   "version": 0
  },
  "wakizashisabilitykiwame": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):At the beginning of your battle phase, all of your rear-guards get [Power] +5000 until end of turn.<br>- [AUTO](VC)[1/turn]:When this unit is attacked, [COST][Counter-Blast 1], reveal the top card of your deck, put it into hand, and until end of that battle, increase this unit's [Power] by the original [Shield] of the revealed card.",
@@ -112473,7 +112473,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",
@@ -116097,7 +116097,7 @@
   "version": 0
  },
  "yarisabilitykiwame": {
-  "count": 4,
+  "count": 1,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [CONT](VC):When this unit would attack, it battles all of your opponent's units in a column.<br>- [AUTO](VC):When this unit attacks, reveal the top card of your deck, this unit gets [Power] +26000 until end of that battle if the revealed card is a trigger unit, and discard the revealed card if it is not.",
@@ -116116,7 +116116,7 @@
   "power": 0,
   "race": "",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Crest",
@@ -116318,7 +116318,7 @@
   "power": 0,
   "race": "Music/Morfonica",
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Normal Order",
