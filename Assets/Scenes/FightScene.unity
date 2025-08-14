@@ -14818,7 +14818,7 @@ MonoBehaviour:
   - {fileID: 1050813228}
   - {fileID: 1029953935}
   infoCamera: {fileID: 1227116207}
-  chatbox: {fileID: 0}
+  chatbox: {fileID: 1763507564}
   animationProperties:
     UIAnimator: {fileID: 651966711}
     gZoneCountText: {fileID: 1976014314}
@@ -33759,6 +33759,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5897167587628917782, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
   m_PrefabInstance: {fileID: 1763507561}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1763507564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 812491559607822169, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
+  m_PrefabInstance: {fileID: 1763507561}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b6e07a4e600ad41bccebec26da1db3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1775445684
 GameObject:
   m_ObjectHideFlags: 0

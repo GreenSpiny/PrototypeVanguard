@@ -9,6 +9,11 @@ public class Card : MonoBehaviour
     [SerializeField] private BoxCollider mainCollider;
     [SerializeField] private BoxCollider nudgeCollider;
     [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private MeshFilter meshFilter;
+
+    [SerializeField] private Mesh normalMesh;
+    [SerializeField] private Mesh rotatedMesh;
+
     public bool CollidersEnabled { get { return mainCollider.enabled; } }
 
     public const float cardWidth = 0.68605f;
@@ -38,6 +43,18 @@ public class Card : MonoBehaviour
     private Material cardSideMaterial;
 
     public float PositionDistance { get; private set; }
+
+    public void SetMesh(bool rotate)
+    {
+        if (rotate && meshFilter.mesh != rotatedMesh)
+        {
+            meshFilter.mesh = rotatedMesh;
+        }
+        else if (!rotate && meshFilter.mesh != normalMesh)
+        {
+            meshFilter.mesh = normalMesh;
+        }
+    }
 
     public void SetTexture(Material mat, bool front)
     {

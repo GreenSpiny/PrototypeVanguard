@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
                     CardInfo c = CardLoader.GetCardInfo(deckList.mainDeck[i]);
                     deck.cards[i].cardInfo = c;
                     deck.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                    deck.cards[i].SetMesh(c.rotate);
                     deck.cards[i].gameObject.SetActive(true);
                 }
                 else
@@ -55,7 +56,9 @@ public class Player : MonoBehaviour
             CardInfo vanguard = CardLoader.GetCardInfo(deckList.rideDeck[0]);
             VC.cards[0].cardInfo = vanguard;
             VC.cards[0].SetTexture(CardLoader.GetCardImage(vanguard.index), true);
+            VC.cards[0].SetMesh(vanguard.rotate);
             VC.cards[0].gameObject.SetActive(true);
+
             for (int i = ride.cards.Count() - 1; i >= 0; i--)
             {
                 if (i < deckList.rideDeck.Count())
@@ -63,6 +66,7 @@ public class Player : MonoBehaviour
                     CardInfo c = CardLoader.GetCardInfo(deckList.rideDeck[i]);
                     ride.cards[i].cardInfo = c;
                     ride.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                    ride.cards[i].SetMesh(c.rotate);
                     ride.cards[i].gameObject.SetActive(true);
                 }
                 else
@@ -79,6 +83,7 @@ public class Player : MonoBehaviour
                     CardInfo c = CardLoader.GetCardInfo(deckList.strideDeck[i]);
                     gzone.cards[i].cardInfo = c;
                     gzone.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                    gzone.cards[i].SetMesh(c.rotate);
                     gzone.cards[i].gameObject.SetActive(true);
                 }
                 else
@@ -95,6 +100,7 @@ public class Player : MonoBehaviour
                     CardInfo c = CardLoader.GetCardInfo(deckList.toolbox[i]);
                     toolbox.cards[i].cardInfo = c;
                     toolbox.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
+                    toolbox.cards[i].SetMesh(c.rotate);
                     toolbox.cards[i].gameObject.SetActive(true);
                 }
                 else

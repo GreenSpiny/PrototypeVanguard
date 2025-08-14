@@ -138,6 +138,9 @@ MonoBehaviour:
   mainCollider: {fileID: 7445260759099763425}
   nudgeCollider: {fileID: 1103724869585877748}
   meshRenderer: {fileID: 7200458520356611720}
+  meshFilter: {fileID: 2982724216901870031}
+  normalMesh: {fileID: -2432090755550338912, guid: b0cbac81ba9315744a6e4dd3e76212b9, type: 3}
+  rotatedMesh: {fileID: -2432090755550338912, guid: cce5e3e24773aa94884c689dc72a0983, type: 3}
 --- !u!65 &7445260759099763425
 BoxCollider:
   m_ObjectHideFlags: 0
