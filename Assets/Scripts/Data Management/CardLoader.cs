@@ -40,6 +40,9 @@ public class CardLoader : MonoBehaviour
     public int versionDownloadProgress = 0;
     public int cardsDownloadProgress = 0;
     public float imageDownloadProgress = 0;
+    private string errorText;
+
+    public bool IsError { get { return !string.IsNullOrEmpty(errorText); } }
 
     public bool CardsLoaded { get; private set; } = false;
 
@@ -95,7 +98,8 @@ public class CardLoader : MonoBehaviour
             if (webRequest.result != UnityWebRequest.Result.Success)
             {
                 dataVersionObject = oldDataVersionObject;
-                Debug.LogError("Error downloading version file: " + webRequest.error);
+                errorText = "Error downloading version file: " + webRequest.error;
+                Debug.LogError(errorText);
             }
             else
             {
@@ -130,7 +134,8 @@ public class CardLoader : MonoBehaviour
                 if (webRequest.result != UnityWebRequest.Result.Success)
                 {
                     newCardsText = oldCardsText;
-                    Debug.LogError("Error downloading cards file: " + webRequest.error);
+                    errorText = "Error downloading cards file: " + webRequest.error;
+                    Debug.LogError(errorText);
                 }
                 else
                 {
@@ -213,11 +218,15 @@ public class CardLoader : MonoBehaviour
             {
                 yield return null;
             }
+            // If no errors occurred, save the most up-to-date data files.
+            if (!IsError)
+            {
+                SaveDataManager.SaveVersionJSON(dataVersionObject);
+                SaveDataManager.SaveCardsJSON(newCardsText);
+            }
         }
         else
         {
-            SaveDataManager.SaveVersionJSON(dataVersionObject);
-            SaveDataManager.SaveCardsJSON(newCardsText);
             CardsLoaded = true;
         }
     }
@@ -304,7 +313,7 @@ public class CardLoader : MonoBehaviour
             }
             else
             {
-                Debug.Log("Failed to load card with index: " + cardIndex.ToString());
+                Debug.LogError("Failed to load card with index: " + cardIndex.ToString());
             }
             instance.allImagesData[cardIndex] = newMaterial;
             return newMaterial;
@@ -353,7 +362,8 @@ public class CardLoader : MonoBehaviour
             yield return webRequest.SendWebRequest();
             if (webRequest.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError("Error downloading image bundle number " + index.ToString() + ": " + webRequest.error);
+                instance.errorText = "Error downloading image bundle number " + index.ToString() + ": " + webRequest.error;
+                Debug.LogError(instance.errorText);
                 error = webRequest.error;
             }
             else

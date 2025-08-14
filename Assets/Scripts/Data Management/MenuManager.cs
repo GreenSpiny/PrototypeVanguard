@@ -22,6 +22,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] float colorTransitionSpeed;
     [SerializeField] float spriteHeightMultiplier;
 
+    [SerializeField] TextMeshProUGUI initialDownloadText;
+    [SerializeField] TextMeshProUGUI downloadStatusText;
+
     public static Color originalColor;
     private MenuButton hoveredButton;
     private Color targetColor;
@@ -77,9 +80,25 @@ public class MenuManager : MonoBehaviour
             {
                 RectTransform rect = progressBarImage.rectTransform;
                 progressBarImage.rectTransform.localScale = new Vector3(CardLoader.instance.imageDownloadProgress, rect.localScale.y, rect.localScale.z);
+
+                if (CardLoader.instance.versionDownloadProgress > 0)
+                {
+                    initialDownloadText.gameObject.SetActive(CardLoader.instance.dataVersionObject.cardsFileVersion == 0);
+                }
+                if (CardLoader.instance.IsError && string.IsNullOrEmpty(downloadStatusText.text))
+                {
+                    downloadStatusText.text = "A connection error occurred. Internet is required for first load, and to receive new card upates.";
+                    downloadStatusText.gameObject.SetActive(true);
+                }
+
             }
             if (CardLoader.instance.CardsLoaded)
             {
+                if (!CardLoader.instance.IsError)
+                {
+                    downloadStatusText.text = "Success!";
+                    downloadStatusText.gameObject.SetActive(true);
+                }
                 TransitionIn(true);
             }
         }
