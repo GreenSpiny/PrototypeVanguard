@@ -3085,7 +3085,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2113596497}
         m_TargetAssemblyTypeName: DeckBuilder, Assembly-CSharp
-        m_MethodName: OnFilterChanged
+        m_MethodName: OnDeckInputFieldChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7987,7 +7987,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1744666049}
   m_HandleRect: {fileID: 1744666048}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

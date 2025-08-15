@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class DeckBuilder : MonoBehaviour
 {
     public static DeckBuilder instance;
+    public const string lastViewedDecklistKey = "lastViewedDecklist";
     [NonSerialized] public CardInfo.DeckList currentDeckList;
 
     // Prefabs
@@ -152,8 +153,21 @@ public class DeckBuilder : MonoBehaviour
         }
         if (deckDropdown.options.Count > 0)
         {
-            string targetDeck = deckDropdown.options[0].text;
-            deckDropdown.value = 0;
+            int targetDeckIndex = 0;
+            string lastViewedDecklist = PlayerPrefs.GetString(lastViewedDecklistKey);
+            if (!string.IsNullOrEmpty(lastViewedDecklist))
+            {
+                for (int i = 0; i < deckDropdown.options.Count; i++)
+                {
+                    if (deckDropdown.options[i].text == lastViewedDecklist)
+                    {
+                        targetDeckIndex = i;
+                        break;
+                    }
+                }
+            }
+            string targetDeck = deckDropdown.options[targetDeckIndex].text;
+            deckDropdown.value = targetDeckIndex;
             deckDropdown.RefreshShownValue();
             deckInputField.text = targetDeck;
             currentDeckList = SaveDataManager.LoadDeck(targetDeck);
@@ -176,12 +190,14 @@ public class DeckBuilder : MonoBehaviour
         // Refresh info
         initialLoadComplete = true;
         mainCanvasGroup.blocksRaycasts = true;
+        OnDeckInputFieldChanged();
         RefreshInfo();
     }
 
     private void LoadDeck(CardInfo.DeckList deckList)
     {
         Debug.Log("Loading deck: " + deckList.deckName);
+        PlayerPrefs.SetString(lastViewedDecklistKey, deckList.deckName);
 
         nationAssignmentDropdown.value = 0;
         for (int i = 0; i < nationAssignmentDropdown.options.Count; i++)
@@ -435,7 +451,6 @@ public class DeckBuilder : MonoBehaviour
     private CardInfo.DeckList CreateDeck()
     {
         CardInfo.DeckList deck = new CardInfo.DeckList();
-        deck.deckName = deckInputField.text;
         deck.nation = nationAssignmentDropdown.options[nationAssignmentDropdown.value].text;
         deck.rideDeck = new int[rideReceiver.cards.Count];
         for (int i = 0; i < rideReceiver.cards.Count; i++)
@@ -534,5 +549,10 @@ public class DeckBuilder : MonoBehaviour
         mainReceiver.RemoveAllCards();
         strideReceiver.RemoveAllCards();
         toolboxReceiver.RemoveAllCards();
+    }
+
+    public void OnDeckInputFieldChanged()
+    {
+        saveAsButton.interactable = !string.IsNullOrEmpty(deckInputField.text);
     }
 }

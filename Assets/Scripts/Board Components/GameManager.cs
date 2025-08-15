@@ -9,7 +9,10 @@ using UnityEngine.UI;
 
 public class GameManager : NetworkBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance;                     // Static instance.
+    public static CardInfo.DeckList localPlayerDecklist1;   // The primary decklist assigned for the game.
+    public static CardInfo.DeckList localPlayerDecklist2;   // The secondary decklist assigned for the game. Only relevant in singleplayer mode.
+    public static bool singlePlayer;                        // Flag for whether the game should be run in singleplayer mode or multiplayer mode.
 
     [SerializeField] public NetworkManager networkManager;
     [SerializeField] public DragManager dragManager;
@@ -20,7 +23,6 @@ public class GameManager : NetworkBehaviour
 
     [NonSerialized] private int dieRollWinner;
     [NonSerialized] public int turnPlayer;
-    [NonSerialized] public bool singlePlayer;
 
     [NonSerialized] public List<ConnectectionStruct> connectedPlayers = new List<ConnectectionStruct>();
     [SerializeField] public Player[] players;
@@ -45,7 +47,10 @@ public class GameManager : NetworkBehaviour
 
     private void Awake()
     {
-        singlePlayer = Application.isEditor;
+        if (Application.isEditor)
+        {
+            singlePlayer = true;
+        }
         networkManager.OnConnectionEvent += OnConnectionOverride;
 
         if (instance == null)
@@ -235,6 +240,15 @@ public class GameManager : NetworkBehaviour
         // Singleplayer
         if (singlePlayer)
         {
+            CardInfo.DeckList player2Deck;
+            if (localPlayerDecklist2 != null)
+            {
+                player2Deck = localPlayerDecklist2;
+            }
+            else
+            {
+                player2Deck = CardInfo.CreateRandomDeck();
+            }
             players[(playerIndex + 1) % 2].AssignDeck(submittedDeck);
             StartCoroutine(RequestGameStartDelayed());
         }
