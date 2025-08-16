@@ -185,8 +185,10 @@ public class CardLoader : MonoBehaviour
             {
                 nationSet.Add(nation);
             }
-            if (!string.IsNullOrEmpty(newEntry.race))
-                raceSet.Add(newEntry.race);
+            foreach (string race in newEntry.race)
+            {
+                raceSet.Add(race);
+            }
             if (!string.IsNullOrEmpty(newEntry.unitType))
                 unitTypeSet.Add(newEntry.unitType);
         }

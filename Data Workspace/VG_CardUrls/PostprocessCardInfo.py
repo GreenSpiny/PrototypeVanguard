@@ -10,24 +10,19 @@ cards = data
 index = len(cards.keys()) # subsequent uses
 
 for c in cards.values():
-	if isinstance(c['skill'], str):
-		skillArray = c['skill'].split(',')
-		for i in range(len(skillArray)):
-			skillArray[i] = skillArray[i].strip()
-		c['skill'] = skillArray
 
 	if 'index' not in c.keys():
 		c['index'] = index
 		index += 1
 
 	if c['nation'] == '-' or c['nation'] == '':
-		c['nation'] = 'Nationless'
+		c['nation'] = ['Nationless']
 
 	if c['effect'] == '-':
 		c['effect'] = ''
 
 	if c['race'] == '-':
-		c['race'] = ''
+		c['race'] = []
 
 	if c['group'] == '-':
 		c['group'] = ''
@@ -35,7 +30,7 @@ for c in cards.values():
 	if 'giftPower' not in c.keys():
 		c['giftPower'] = ''
 
-	gift = c["gift"]
+	gift = c['gift']
 	gift = gift.replace('Trigger', '')
 	gift = gift.replace('-', '')
 	giftArray = gift.split()
@@ -58,27 +53,39 @@ for c in cards.values():
 
 	if 'count' not in c.keys():
 		c['count'] = 4
-	else:
-		if 'sixteen' in c['effect']:
-			c['count'] = 16
-		elif c['gift'] == "Front" or c['gift'] == "Critical" or c['gift'] == "Draw":
-			c['count'] = 8
-		elif c['gift'] == "Heal":
-			c['count'] = 4
-		elif c['gift'] == "Over":
-			c['count'] = 1
+
+	if 'sixteen' in c['effect']:
+		c['count'] = 16
+	elif c['gift'] == "Front" or c['gift'] == "Critical" or c['gift'] == "Draw":
+		c['count'] = 8
+	elif c['gift'] == "Heal":
+		c['count'] = 4
+	elif c['gift'] == "Over":
+		c['count'] = 1
+
+	if isinstance(c['skill'], str):
+		skillArray = c['skill'].split(',')
+		for i in range(len(skillArray)):
+			skillArray[i] = skillArray[i].strip()
+		c['skill'] = skillArray
+	for i in range(len(c['skill']) - 1, -1, -1):
+		if len(c['skill'][i].strip()) == 0:
+			c['skill'].pop(i)
 
 	if (isinstance(c['nation'],str)):
-		parts = c['nation'].split('/')
+		nationArray = c['nation'].split('/')
 		c['nation'] = []
-		for part in parts:
+		for nation in nationArray:
 			c['nation'].append(part.strip())
 
 	if (isinstance(c['race'],str)):
-		parts = c['race'].split('/')
+		raceArray = c['race'].split('/')
 		c['race'] = []
-		for part in parts:
-			c['race'].append(part.strip())
+		for race in raceArray:
+			c['race'].append(race.strip())
+	for i in range(len(c['race']) - 1, -1, -1):
+		if len(c['race'][i].strip()) == 0:
+			c['race'].pop(i)
 
 	if 'rotate' not in c.keys():
 		c['rotate'] = False

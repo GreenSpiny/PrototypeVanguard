@@ -361,7 +361,7 @@ public class DeckBuilder : MonoBehaviour
                 {
                     continue;
                 }
-                if (searchRace && cardInfo.race != race)
+                if (searchRace && !cardInfo.race.Contains(race))
                 {
                     continue;
                 }

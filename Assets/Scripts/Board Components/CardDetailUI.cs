@@ -89,7 +89,7 @@ public class CardDetailUI : MonoBehaviour
             }
             cardInfoString += cardInfo.nation[i];
         }
-        if (!string.IsNullOrEmpty(cardInfo.race))
+        foreach (string race in cardInfo.race)
         {
             cardInfoString += " / " + cardInfo.race;
         }

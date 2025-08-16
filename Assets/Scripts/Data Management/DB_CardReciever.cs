@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System.Collections;
+using System.Linq;
 
 public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -128,8 +129,8 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         bool isOrder = card.cardInfo.isOrder;
         bool isGUnit = card.cardInfo.unitType == "G Unit";
         bool isToolboxCard = card.cardInfo.unitType == "Token" || card.cardInfo.unitType == "Crest" || card.cardInfo.unitType == "Marker";
-        bool isBlessing = card.cardInfo.race == "Blessing";
-        bool isCalamity = card.cardInfo.race == "Calamity";
+        bool isBlessing = card.cardInfo.race.Contains("Blessing");
+        bool isCalamity = card.cardInfo.race.Contains("Calamity");
         bool isTrainingEquipment = card.cardInfo.index == 3720;
 
         if (cards.Count >= maxCards)

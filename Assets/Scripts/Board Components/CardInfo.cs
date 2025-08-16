@@ -24,7 +24,7 @@ public class CardInfo : IComparable<CardInfo>
     public readonly string[] nation;
     public readonly bool placeholder; // If true, the card does not yet have an image
     public readonly int basePower;
-    public readonly string race;
+    public readonly string[] race;
     public readonly string regulation;
     public readonly bool rotate;
     public readonly int baseShield;
@@ -89,11 +89,12 @@ public class CardInfo : IComparable<CardInfo>
     public CardInfo()
     {
         nation = new string[0];
+        race = new string[0];
         skills = new string[0];
         placeholder = true;
         actionFlags = new ActionFlag[0];
     }
-    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nation, bool placeholder, int basePower, string race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version)
+    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nation, bool placeholder, int basePower, string[] race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version)
     {
         this.count = count;
         this.baseCrit = baseCrit;
@@ -126,7 +127,7 @@ public class CardInfo : IComparable<CardInfo>
 
     public static CardInfo GenerateDefaultCardInfo()
     {
-        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", new string[] { "Dark States" }, false, 8000, "Human", "Standard", false, 5000, new string[0], "Normal Unit", 0);
+        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", new string[] { "Dark States" }, false, 8000, new string[] { "Human" }, "Standard", false, 5000, new string[0], "Normal Unit", 0);
     }
 
     public static CardInfo FromDictionary(Dictionary<string, object> dictionary)
@@ -137,6 +138,14 @@ public class CardInfo : IComparable<CardInfo>
         {
             skillArray[i] = skillJArray[i].ToObject<string>();
         }
+
+        JArray raceJArray = (JArray)dictionary["race"];
+        string[] raceArray = new string[raceJArray.Count];
+        for (int i = 0; i < raceArray.Count(); i++)
+        {
+            raceArray[i] = raceJArray[i].ToObject<string>();
+        }
+
         JArray nationJArray = (JArray)dictionary["nation"];
         string[] nationArray = new string[nationJArray.Count];
         for (int i = 0; i < nationArray.Count(); i++)
@@ -158,7 +167,7 @@ public class CardInfo : IComparable<CardInfo>
             nationArray,
             Convert.ToBoolean(dictionary["placeholder"]),
             Convert.ToInt32(dictionary["power"]),
-            Convert.ToString(dictionary["race"]),
+            raceArray,
             Convert.ToString(dictionary["regulation"]),
             Convert.ToBoolean(dictionary["rotate"]),
             Convert.ToInt32(dictionary["shield"]),
