@@ -1,6 +1,6 @@
 import json
 
-dataFile = open('allCardsSingleton.json', 'r+', encoding='raw_unicode_escape')
+dataFile = open('cardsData.json', 'r+', encoding='raw_unicode_escape')
 data = json.loads(dataFile.read().encode('raw_unicode_escape').decode('utf8'))
 
 #cards = data['cards']
@@ -69,7 +69,16 @@ for c in cards.values():
 			c['count'] = 1
 
 	if (isinstance(c['nation'],str)):
-		c['nation'] = [c['nation']]
+		parts = c['nation'].split('/')
+		c['nation'] = []
+		for part in parts:
+			c['nation'].append(part.strip())
+
+	if (isinstance(c['race'],str)):
+		parts = c['race'].split('/')
+		c['race'] = []
+		for part in parts:
+			c['race'].append(part.strip())
 
 	if 'rotate' not in c.keys():
 		c['rotate'] = False
