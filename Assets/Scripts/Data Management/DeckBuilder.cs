@@ -278,18 +278,25 @@ public class DeckBuilder : MonoBehaviour
         }
         giftDropdown.interactable = searchTriggers;
 
-        // Initiate search automatically on parameters changed
         if (searchCoroutine != null)
         {
             StopCoroutine(searchCoroutine);
         }
+        ClearSearchResults();
         searchCoroutine = StartCoroutine(Search());
     }
 
     private Coroutine searchCoroutine;
-    private const int actionsPerFrame = 100;
-    private List<CardInfo> searchResults = new List<CardInfo>();
     private List<DB_Card> searchCardObjects = new List<DB_Card>();
+
+    private void ClearSearchResults()
+    {
+        for (int i = 0; i < searchCardObjects.Count; i++)
+        {
+            searchCardObjects[i].gameObject.SetActive(false);
+        }
+    }
+
     private IEnumerator Search()
     {
         // Get search parameters
@@ -318,21 +325,19 @@ public class DeckBuilder : MonoBehaviour
         string query = queryInputField.text.Trim();
         bool searchQuery = query.Length > 2;
 
-        // Dig through the cards data. Do not do it all in one frame! TODO: Maybe allow this because it is already asynchronous (?), or supply results periodically
-        searchResults.Clear();
-        List<CardInfo> allCardsDataSorted = CardLoader.instance.allCardsDataSorted;
-        int currentStep = 0;
+        bool shouldSearch = searchNation || searchType || searchGrade || searchRace || searchGroup || searchGift || searchQuery;
+        if (!shouldSearch)
+        {
+            yield break;
+        }
 
+        // Dig through the cards data.
+        List<CardInfo> allCardsDataSorted = CardLoader.instance.allCardsDataSorted;
+        int resultCount = 0;
         if (searchNation || searchType || searchGrade || searchRace || searchGroup || searchGift || searchQuery)
         {
             foreach (CardInfo cardInfo in allCardsDataSorted)
             {
-                currentStep++;
-                if (currentStep > actionsPerFrame)
-                {
-                    currentStep = 0;
-                    yield return null;
-                }
                 if (string.IsNullOrEmpty(cardInfo.regulation))
                 {
                     continue;
@@ -368,48 +373,24 @@ public class DeckBuilder : MonoBehaviour
                 {
                     continue;
                 }
-                searchResults.Add(cardInfo);
+
+                // Add matching result to active objects
+                CardInfo successfulResult = cardInfo;
+                if (resultCount >= searchCardObjects.Count)
+                {
+                    DB_Card newCardObject = Instantiate<DB_Card>(cardPrefab, searchResultsArea.transform);
+                    searchCardObjects.Add(newCardObject);
+                }
+                searchCardObjects[resultCount].Load(cardInfo.index);
+                searchCardObjects[resultCount].gameObject.SetActive(true);
+                resultCount++;
+                yield return null;
             }
         }
 
-        currentStep = 0;
-
-        // Display results
-        float targetWidth = searchResultsArea.GetComponent<RectTransform>().rect.width - searchResultsArea.padding.left - searchResultsArea.padding.right;
-        while (searchCardObjects.Count < searchResults.Count)
+        for (int i = resultCount; i < searchCardObjects.Count; i++)
         {
-            currentStep++;
-            if (currentStep > actionsPerFrame)
-            {
-                currentStep = 0;
-                yield return null;
-            }
-            DB_Card newCardObject = Instantiate<DB_Card>(cardPrefab, searchResultsArea.transform);
-            searchCardObjects.Add(newCardObject);
-        }
-        while (searchCardObjects.Count > searchResults.Count)
-        {
-            currentStep++;
-            if (currentStep > actionsPerFrame)
-            {
-                currentStep = 0;
-                yield return null;
-            }
-            DB_Card existingCard = searchCardObjects[searchCardObjects.Count - 1];
-            searchCardObjects.RemoveAt(searchCardObjects.Count - 1);
-            Destroy(existingCard.gameObject);
-        }
-        for (int i = 0; i < searchResults.Count; i++)
-        {
-            currentStep++;
-            if (currentStep > actionsPerFrame)
-            {
-                currentStep = 0;
-                yield return null;
-            }
-            CardInfo currentCardInfo = searchResults[i];
-            searchCardObjects[i].Load(currentCardInfo.index);
-            searchCardObjects[i].SetWidth(targetWidth);
+            searchCardObjects[i].gameObject.SetActive(false);
         }
 
         // End coroutine

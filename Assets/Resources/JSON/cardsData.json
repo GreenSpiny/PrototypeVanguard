@@ -8111,7 +8111,8 @@
   "index": 279,
   "name": "Azure Sky White Scale, Aspronia&Sapphira",
   "nation": [
-   "Keter Sanctuary"
+   "Keter Sanctuary",
+   "Stoicheia"
   ],
   "placeholder": false,
   "power": 10000,
@@ -21136,7 +21137,7 @@
   "index": 728,
   "name": "Concert of Many Emotions, Parsea",
   "nation": [
-   "Stoeicheia"
+   "Stoicheia"
   ],
   "placeholder": false,
   "power": 8000,
@@ -23690,7 +23691,8 @@
   "index": 816,
   "name": "Dark Bond Abyss, Surga&Dargage",
   "nation": [
-   "Dark States"
+   "Dark States",
+   "Brandt Gate"
   ],
   "placeholder": false,
   "power": 10000,
@@ -40903,7 +40905,8 @@
   "index": 1409,
   "name": "Flame Leaf Chaotic Dance, Hakusui&Remred",
   "nation": [
-   "Stoicheia"
+   "Stoicheia",
+   "Dragon Empire"
   ],
   "placeholder": false,
   "power": 10000,
@@ -44658,7 +44661,8 @@
   "index": 1539,
   "name": "Gallant Mechanical Agility, Valtrossa&Liel",
   "nation": [
-   "Brandt Gate"
+   "Brandt Gate",
+   "Keter Sanctuary"
   ],
   "placeholder": false,
   "power": 10000,
@@ -92834,7 +92838,8 @@
   "index": 3201,
   "name": "Soaring Sun Presence, Forwd&Revertis",
   "nation": [
-   "Dragon Empire"
+   "Dragon Empire",
+   "Dark States"
   ],
   "placeholder": false,
   "power": 10000,
@@ -113853,7 +113858,7 @@
   "index": 3926,
   "name": "will+Dress Season2, Urara Haneyama",
   "nation": [
-   "Stoeicheia"
+   "Stoicheia"
   ],
   "placeholder": false,
   "power": 4000,
@@ -113882,7 +113887,7 @@
   "index": 3927,
   "name": "will+Dress Season3, Urara Haneyama",
   "nation": [
-   "Stoeicheia"
+   "Stoicheia"
   ],
   "placeholder": false,
   "power": 4000,
@@ -113911,7 +113916,7 @@
   "index": 3928,
   "name": "will+Dress, Urara Haneyama",
   "nation": [
-   "Stoeicheia"
+   "Stoicheia"
   ],
   "placeholder": false,
   "power": 4000,
