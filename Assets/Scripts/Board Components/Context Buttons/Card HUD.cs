@@ -50,6 +50,12 @@ public class CardHUD : MonoBehaviour
         transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y + yOffset, 0f);
         Card h = DragManager.instance.HoveredCard;
         Card d = DragManager.instance.DraggedCard;
+        Card s = DragManager.instance.SelectedCard;
+        if (s != null)
+        {
+            DisplayCardInfo(s);
+            currentAlpha = 0;
+        }
         if (d != null)
         {
             DisplayCardInfo(d);

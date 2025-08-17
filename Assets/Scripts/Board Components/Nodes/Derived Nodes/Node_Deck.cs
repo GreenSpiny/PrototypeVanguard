@@ -15,7 +15,7 @@ public class Node_Deck : Node_Stack
         base.NodeAutoAction();
     }
 
-    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
+    public override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
@@ -24,15 +24,6 @@ public class Node_Deck : Node_Stack
             CardInfo.ActionFlag.revealx,
             CardInfo.ActionFlag.soul,
             CardInfo.ActionFlag.shuffle
-        };
-        return toReturn;
-    }
-
-    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
-    {
-        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
-        {
-            
         };
         return toReturn;
     }

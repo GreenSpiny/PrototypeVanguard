@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     // All entities owned by this player
     public Camera playerCamera;
     public List<Node> nodes = new List<Node>();
+    [NonSerialized] public List<Card> cards = new List<Card>();
 
     // Specific entities owned by this player
     public Node hand;
@@ -24,11 +25,14 @@ public class Player : MonoBehaviour
     public Node ride;
     public Node VC;
     public Node_Display display;
-    public Node GC;             // shared
+    public Node GC;             // shared between players
     public Node crest;
     public Node toolbox;
-    public Node abyss;          // shared
+    public Node abyss;          // shared between players
     public List<Node> RC;
+
+    // Global auto actions granted to this player
+    public HashSet<CardInfo.ActionFlag> playerActionFlags = new HashSet<CardInfo.ActionFlag>();
 
     public void AssignDeck(CardInfo.DeckList deckList)
     {
@@ -50,6 +54,7 @@ public class Player : MonoBehaviour
                 {
                     abyss.RecieveCard(deck.cards[i], string.Empty);
                 }
+                cards.Add(deck.cards[i]);
             }
             deck.AlignCards(true);
 
@@ -58,6 +63,7 @@ public class Player : MonoBehaviour
             VC.cards[0].SetTexture(CardLoader.GetCardImage(vanguard.index), true);
             VC.cards[0].SetMesh(vanguard.rotate);
             VC.cards[0].gameObject.SetActive(true);
+            cards.Add(VC.cards[0]);
 
             for (int i = ride.cards.Count() - 1; i >= 0; i--)
             {
@@ -73,6 +79,7 @@ public class Player : MonoBehaviour
                 {
                     abyss.RecieveCard(ride.cards[i], string.Empty);
                 }
+                cards.Add(ride.cards[i]);
             }
             ride.AlignCards(true);
 
@@ -90,6 +97,7 @@ public class Player : MonoBehaviour
                 {
                     abyss.RecieveCard(gzone.cards[i], string.Empty);
                 }
+                cards.Add(gzone.cards[i]);
             }
             gzone.AlignCards(true);
 
@@ -107,6 +115,7 @@ public class Player : MonoBehaviour
                 {
                     abyss.RecieveCard(toolbox.cards[i], string.Empty);
                 }
+                cards.Add(toolbox.cards[i]);
             }
             toolbox.AlignCards(true);
 

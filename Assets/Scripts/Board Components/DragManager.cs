@@ -179,22 +179,11 @@ public class DragManager : MonoBehaviour
         {
             if (HoveredCard != null)
             {
-                List<CardInfo.ActionFlag> availableActions = HoveredCard.node.cardActionFlags;
+                List<CardInfo.ActionFlag> availableActions = GetAvailableActions(HoveredCard.node, HoveredCard);
                 if (availableActions.Count > 0)
                 {
                     SelectedCard = HoveredCard;
                     SelectedCard.UIState = Card.CardUIState.selected;
-                    standardContext.DisplayButtons(clickLocation, availableActions);
-                }
-            }
-            else if (false) // For now, disabling the ability to select nodes raw
-            //else if (HoveredNode != null && HoveredNode.canSelectRaw)
-            {
-                List<CardInfo.ActionFlag> availableActions = HoveredNode.nodeActionFlags;
-                if (availableActions.Count > 0)
-                {
-                    SelectedNode = HoveredNode;
-                    SelectedNode.UIState = Node.NodeUIState.selected;
                     standardContext.DisplayButtons(clickLocation, availableActions);
                 }
             }
@@ -274,6 +263,24 @@ public class DragManager : MonoBehaviour
         }
     }
 
+    private List<CardInfo.ActionFlag> GetAvailableActions(Node node, Card card)
+    {
+        List<CardInfo.ActionFlag> actions = new List<CardInfo.ActionFlag>();
+        foreach (CardInfo.ActionFlag flag in node.GenerateDefaultCardActions())
+        {
+            actions.Add(flag);
+        }
+        foreach (CardInfo.ActionFlag flag in node.player.playerActionFlags)
+        {
+            actions.Add(flag);
+        }
+        foreach (CardInfo.ActionFlag flag in card.cardInfo.cardActionFlags)
+        {
+            actions.Add(flag);
+        }
+        return actions;
+    }
+
     public void OnCardHoverEnter(Card card)
     {
         if (dmstate == DMstate.open)
@@ -303,14 +310,6 @@ public class DragManager : MonoBehaviour
         else if (dmstate == DMstate.dragging && DraggedCard != null && DraggedCard.node.PreviousNode == node)
         {
             node.UIState = Node.NodeUIState.normal;
-        }
-        else if (false) // For now, removing the ability to select nodes raw.
-        //else if (dmstate == DMstate.open && node.canSelectRaw && node.nodeActionFlags.Count > 0)
-        {
-            if (node.UIState == Node.NodeUIState.normal)
-            {
-                node.UIState = Node.NodeUIState.hovered;
-            }
         }
         else if (dmstate == DMstate.dragging && node.UIState == Node.NodeUIState.available && node != DraggedCard.node)
         {

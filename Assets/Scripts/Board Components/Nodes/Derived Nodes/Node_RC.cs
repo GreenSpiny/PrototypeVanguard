@@ -77,28 +77,18 @@ public class Node_RC : Node_Stack
         base.NodeAutoAction();
     }
 
-    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
+    public override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
             CardInfo.ActionFlag.power,
             CardInfo.ActionFlag.soul,
-            CardInfo.ActionFlag.botdeck,
-            CardInfo.ActionFlag.token
+            CardInfo.ActionFlag.botdeck
         };
         if (cards.Count > 1)
         {
             toReturn.Add(CardInfo.ActionFlag.viewsoul);
         }
-        return toReturn;
-    }
-
-    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
-    {
-        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
-        {
-            CardInfo.ActionFlag.token
-        };
         return toReturn;
     }
 

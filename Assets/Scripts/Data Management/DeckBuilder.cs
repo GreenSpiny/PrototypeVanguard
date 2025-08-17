@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class DeckBuilder : MonoBehaviour
 {
     public static DeckBuilder instance;
-    public const string lastViewedDecklistKey = "lastViewedDecklist";
     [NonSerialized] public CardInfo.DeckList currentDeckList;
 
     // Prefabs
@@ -156,7 +155,7 @@ public class DeckBuilder : MonoBehaviour
         if (deckDropdown.options.Count > 0)
         {
             int targetDeckIndex = 0;
-            string lastViewedDecklist = PlayerPrefs.GetString(lastViewedDecklistKey);
+            string lastViewedDecklist = PlayerPrefs.GetString(SaveDataManager.lastViewedDecklistKey);
             if (!string.IsNullOrEmpty(lastViewedDecklist))
             {
                 for (int i = 0; i < deckDropdown.options.Count; i++)
@@ -199,7 +198,7 @@ public class DeckBuilder : MonoBehaviour
     private void LoadDeck(CardInfo.DeckList deckList)
     {
         Debug.Log("Loading deck: " + deckList.deckName);
-        PlayerPrefs.SetString(lastViewedDecklistKey, deckList.deckName);
+        PlayerPrefs.SetString(SaveDataManager.lastViewedDecklistKey, deckList.deckName);
 
         nationAssignmentDropdown.value = 0;
         for (int i = 0; i < nationAssignmentDropdown.options.Count; i++)

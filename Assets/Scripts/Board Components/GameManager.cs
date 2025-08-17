@@ -86,6 +86,14 @@ public class GameManager : NetworkBehaviour
         infoCamera.gameObject.SetActive(true);
     }
 
+    private void Start()
+    {
+        if (singlePlayer)
+        {
+            networkManager.StartHost();
+        }
+    }
+
     public void OnConnectionOverride(NetworkManager manager, ConnectionEventData data)
     {
         if (manager.IsServer)
@@ -99,6 +107,22 @@ public class GameManager : NetworkBehaviour
                 playerPrefab.SetupPlayerRpc(clientID, connectedPlayers.Count - 1);
             }
         }   
+    }
+
+    private void AssignActionFlags(int playerIndex)
+    {
+        foreach (Card card in players[playerIndex].cards)
+        {
+            foreach (CardInfo.ActionFlag flag in card.cardInfo.playerActionFlags)
+            {
+                players[playerIndex].playerActionFlags.Add(flag);
+            }
+            foreach (CardInfo.ActionFlag flag in card.cardInfo.globalActionFlags)
+            {
+                players[playerIndex].playerActionFlags.Add(flag);
+                players[(playerIndex + 1) % 2].playerActionFlags.Add(flag);
+            }
+        }
     }
 
     // === CARD NETWORK REQUESTS === //
@@ -216,6 +240,9 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     public void RequestGameStartRpc()
     {
+        AssignActionFlags(0);
+        AssignActionFlags(1);
+
         gameState = GameState.mulligan;
         DragManager.instance.ChangeDMstate(DragManager.DMstate.open);
         for (int i = 0; i < 2; i++)

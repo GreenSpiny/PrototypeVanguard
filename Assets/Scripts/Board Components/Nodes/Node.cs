@@ -36,9 +36,6 @@ public abstract class Node : MonoBehaviour
 
     public int nodeID { get; private set; }     // Unique node identifier for networking purposes
 
-    [NonSerialized] public List<CardInfo.ActionFlag> cardActionFlags = new List<CardInfo.ActionFlag>();
-    [NonSerialized] public List<CardInfo.ActionFlag> nodeActionFlags = new List<CardInfo.ActionFlag>();
-
     // Dirty nodes are realigned on the next update cycle.
     protected bool isDirty = false;
     public void SetDirty() { isDirty = true; }
@@ -54,8 +51,6 @@ public abstract class Node : MonoBehaviour
         this.nodeID = nodeID;
         player = GetComponentInParent<Player>();
         animInfo.Initialize();
-        cardActionFlags = GenerateDefaultCardActions();
-        nodeActionFlags = GenerateDefaultNodeActions();
         if (cardAnchor == null)
         {
             cardAnchor = transform;
@@ -171,21 +166,7 @@ public abstract class Node : MonoBehaviour
 
     public virtual void CardAutoAction(Card clickedCard) { }
     public virtual void NodeAutoAction() { }
-    protected abstract List<CardInfo.ActionFlag> GenerateDefaultCardActions();
-    protected abstract List<CardInfo.ActionFlag> GenerateDefaultNodeActions();
-    public IEnumerable<CardInfo.ActionFlag> GetActions()
-    {
-        List<CardInfo.ActionFlag> actions = new List<CardInfo.ActionFlag>();
-        foreach (var action in GenerateDefaultCardActions())
-        {
-            actions.Add(action);
-        }
-        foreach (var action in GenerateDefaultNodeActions())
-        {
-            actions.Add(action);
-        }
-        return actions;
-    }
+    public abstract List<CardInfo.ActionFlag> GenerateDefaultCardActions();
 
     // ===== ANIMATION SECTION ===== //
     public NodeUIState UIState

@@ -15,22 +15,13 @@ public class Node_Hand : Node_Fan
         base.NodeAutoAction();
     }
 
-    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
+    public override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
             CardInfo.ActionFlag.reveal,
             CardInfo.ActionFlag.soul,
             CardInfo.ActionFlag.botdeck
-        };
-        return toReturn;
-    }
-
-    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
-    {
-        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
-        {
-            CardInfo.ActionFlag.ticket
         };
         return toReturn;
     }

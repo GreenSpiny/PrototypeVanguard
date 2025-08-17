@@ -11,6 +11,9 @@ public class SaveDataManager : MonoBehaviour
     private static string VersionJSONFilePath { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "JSON", "dataVersion.json")); } }
     private static string CardsJSONFilePath { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "JSON", "cardsData.json")); } }
 
+    public const string lastViewedDecklistKey = "lastViewedDecklist";
+    public const string lastProfileImageKey = "lastProfileImage";
+
     private void Awake()
     {
         if (instance == null)

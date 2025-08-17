@@ -15,20 +15,11 @@ public class Node_Order : Node_Fan
         base.NodeAutoAction();
     }
 
-    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
+    public override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-            CardInfo.ActionFlag.token
-        };
-        return toReturn;
-    }
-
-    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
-    {
-        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
-        {
-            CardInfo.ActionFlag.token
+            
         };
         return toReturn;
     }

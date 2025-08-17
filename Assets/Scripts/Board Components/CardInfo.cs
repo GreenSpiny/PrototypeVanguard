@@ -50,40 +50,34 @@ public class CardInfo : IComparable<CardInfo>
     // Unique card elements --- o
     // Some cards have properties that necessitate additional actions be offered to either player.
     // These properties are treated as flags to keep offerings to a minimum.
-    public readonly ActionFlag[] actionFlags;
+
+    public readonly List<ActionFlag> cardActionFlags = new List<ActionFlag>();      // grants actions to its card
+    public readonly List<ActionFlag> playerActionFlags = new List<ActionFlag>();    // grants actions to its player
+    public readonly List<ActionFlag> globalActionFlags = new List<ActionFlag>();    // grants actions to both players
     public enum ActionFlag
     {
-        none,
+        none = 0,
 
         // DEFAULT ACTIONS
-        power,          // POWER     (card)
-        soul,           // TO SOUL   (card)
-        botdeck,        // BOT DECK  (card)
-        reveal,         // REVEAL    (card)
-        view,           // SEARCH    (node)
-        viewx,          // VIEW X    (node)
-        revealx,        // REVEAL X  (node)
-        ride,           // RIDE      (card)
+        power = 1,
+        soul = 2,
+        botdeck = 3,
+        reveal = 4,
+        view = 5,
+        viewx = 6,
+        revealx = 7,
+        search = 8,
+        shuffle = 9,
+        viewsoul = 10,
 
         // SPECIAL ACTIONS
-        armLeft,        // this card offers ARM LEFT
-        armRight,       // this card offers ARM RIGHT
-        bindFD,         // the owner can access BIND FD
-        bindFDFoe,      // the opponent can access BIND FD (i.e. Blangdmire)
-        gaugeZone,      // the owner obtains a Gauge Zone - - - REMOVE THIS
-        locking,        // both players can access LOCK
-        overdress,      // the owner can access OV DRESS
-        prison,         // the owner gains a Prison Zone and the opponent can access PRISON
-        soulRC,         // the owner's RC have SOUL access (i.e. Noblesse Gauge)
-
-        // MORE
-        search,
-        token, // remove
-        marker, // remove
-        ticket, // remove
-        crest, // remove
-        shuffle,
-        viewsoul
+        armLeft = 11,
+        armRight = 12,
+        bindFD = 13,
+        bindFDFoe = 14,
+        locking = 15,
+        rideRC = 16,
+        soulRC = 17
     }
 
     public CardInfo()
@@ -92,9 +86,8 @@ public class CardInfo : IComparable<CardInfo>
         race = new string[0];
         skills = new string[0];
         placeholder = true;
-        actionFlags = new ActionFlag[0];
     }
-    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nation, bool placeholder, int basePower, string[] race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version)
+    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nation, bool placeholder, int basePower, string[] race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version, ActionFlag[] actionFlags)
     {
         this.count = count;
         this.baseCrit = baseCrit;
@@ -117,17 +110,29 @@ public class CardInfo : IComparable<CardInfo>
         this.unitType = unitType;
         this.version = version;
 
+        foreach (ActionFlag flag in actionFlags)
+        {
+            switch (flag)
+            {
+                case ActionFlag.armLeft: cardActionFlags.Add(flag); break;
+                case ActionFlag.armRight: cardActionFlags.Add(flag); break;
+                case ActionFlag.bindFD: playerActionFlags.Add(flag); break;
+                case ActionFlag.bindFDFoe: globalActionFlags.Add(flag); break;
+                case ActionFlag.locking: globalActionFlags.Add(flag); break;
+                case ActionFlag.rideRC: playerActionFlags.Add(flag); break;
+                case ActionFlag.soulRC: playerActionFlags.Add(flag); break;
+            }
+        }
+
         isTrigger = unitType.Contains("Trigger", StringComparison.InvariantCultureIgnoreCase);
         isOrder = unitType.Contains("Order", StringComparison.InvariantCultureIgnoreCase);
         isSentinel = skills.Contains("Sentinel");
         isRegalis = skills.Contains("Regalis Piece");
-
-        actionFlags = new ActionFlag[0];
     }
 
     public static CardInfo GenerateDefaultCardInfo()
     {
-        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", new string[] { "Dark States" }, false, 8000, new string[] { "Human" }, "Standard", false, 5000, new string[0], "Normal Unit", 0);
+        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", new string[] { "Dark States" }, false, 8000, new string[] { "Human" }, "Standard", false, 5000, new string[0], "Normal Unit", 0, new ActionFlag[0]);
     }
 
     public static CardInfo FromDictionary(Dictionary<string, object> dictionary)
@@ -153,6 +158,13 @@ public class CardInfo : IComparable<CardInfo>
             nationArray[i] = nationJArray[i].ToObject<string>();
         }
 
+        JArray actionFlagJArray = (JArray)dictionary["actionflags"];
+        ActionFlag[] actionFlagArray = new ActionFlag[actionFlagJArray.Count];
+        for (int i = 0; i < actionFlagArray.Count(); i++)
+        {
+            ActionFlag flag = (ActionFlag) actionFlagJArray[i].ToObject<int>();
+        }
+
         return new CardInfo(
             Convert.ToInt32(dictionary["count"]),
             Convert.ToInt32(dictionary["critical"]),
@@ -173,7 +185,8 @@ public class CardInfo : IComparable<CardInfo>
             Convert.ToInt32(dictionary["shield"]),
             skillArray,
             Convert.ToString(dictionary["type"]),
-            Convert.ToInt32(dictionary["version"])
+            Convert.ToInt32(dictionary["version"]),
+            actionFlagArray
             );
     }
 

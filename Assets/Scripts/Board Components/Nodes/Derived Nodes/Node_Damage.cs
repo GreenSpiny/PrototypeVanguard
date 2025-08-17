@@ -15,16 +15,7 @@ public class Node_Damage : Node_Fan
         base.NodeAutoAction();
     }
 
-    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
-    {
-        List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
-        {
-            
-        };
-        return toReturn;
-    }
-
-    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
+    public override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {

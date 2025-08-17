@@ -58,13 +58,9 @@ public class Node_Stack : Node
         base.AlignCards(instant);
     }
 
-    protected override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
+    public override List<CardInfo.ActionFlag> GenerateDefaultCardActions()
     {
         return new List<CardInfo.ActionFlag>();
     }
 
-    protected override List<CardInfo.ActionFlag> GenerateDefaultNodeActions()
-    {
-        return new List<CardInfo.ActionFlag>();
-    }
 }

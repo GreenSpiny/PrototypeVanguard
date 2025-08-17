@@ -69,6 +69,8 @@ public class NetworkCommandLine : MonoBehaviour
         return argDictionary;
     }
 
+    /*
+     * 
     private void OnGUI()
     {
         GUILayout.BeginArea(new Rect(10, 10, 300, 300));
@@ -100,4 +102,6 @@ public class NetworkCommandLine : MonoBehaviour
             netManager.NetworkConfig.NetworkTransport.GetType().Name);
         GUILayout.Label("Mode: " + mode);
     }
+
+    */
 }

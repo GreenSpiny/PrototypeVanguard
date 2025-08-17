@@ -40,10 +40,6 @@ public class ActionButton : ContextButton
                 }
                 DragManager.instance.ClearSelections();
                 break;
-            case CardInfo.ActionFlag.search:
-                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false, true);
-                DragManager.instance.ClearSelections();
-                break;
             case CardInfo.ActionFlag.view:
                 DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedCard.node, selectedCard.node.cards.Count, false, true);
                 DragManager.instance.ClearSelections();
@@ -54,8 +50,16 @@ public class ActionButton : ContextButton
             case CardInfo.ActionFlag.revealx:
                 DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, new CardInfo.ActionFlag[] { CardInfo.ActionFlag.reveal });
                 break;
-            case CardInfo.ActionFlag.ride:
-                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.VC.nodeID, selectedCard.cardID, string.Empty);
+            case CardInfo.ActionFlag.search:
+                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false, true);
+                DragManager.instance.ClearSelections();
+                break;
+            case CardInfo.ActionFlag.shuffle:
+                DragManager.instance.ClearSelections();
+                break;
+            case CardInfo.ActionFlag.viewsoul:
+                // TODO: add start index paramater
+                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false, true);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.armLeft:
@@ -70,18 +74,10 @@ public class ActionButton : ContextButton
             case CardInfo.ActionFlag.locking:
                 DragManager.instance.ClearSelections();
                 break;
-            case CardInfo.ActionFlag.overdress:
-                DragManager.instance.ClearSelections();
-                break;
-            case CardInfo.ActionFlag.prison:
+            case CardInfo.ActionFlag.rideRC:
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.soulRC:
-                DragManager.instance.ClearSelections();
-                break;
-            case CardInfo.ActionFlag.viewsoul:
-                // TODO: add start index paramater
-                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false, true);
                 DragManager.instance.ClearSelections();
                 break;
             default:

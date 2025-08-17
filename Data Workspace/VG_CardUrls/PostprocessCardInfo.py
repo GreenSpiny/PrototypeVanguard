@@ -93,7 +93,7 @@ for c in cards.values():
 	if 'placeholder' not in c.keys():
 		c['placeholder'] = False
 
-	# SPECIAL CASE: COROCORO
+	# === SPECIAL CASE: COROCORO === #
 	if "CoroCoro" in c['nation'] and len(c['nation']) < 2:
 		if 'Oversized Dekka-kun' in c['race']:
 			c['nation'].append('Keter Sanctuary')
@@ -108,6 +108,25 @@ for c in cards.values():
 		elif 'Skyride' in c['race']:
 			c['nation'].append('Lyrical Monasterio')
 
+	# === ACTION FLAG SEARCH === #
+	lowername = c['name'].lower()
+	lowereffect = c['effect'].lower()
+	c['actionflags'] = []
+
+	if 'left deity arms' in lowereffect:
+		c['actionflags'].append(11) # arm left
+	if 'right deity arms' in lowereffect:
+		c['actionflags'].append(12) # arm right
+	if ' bind ' in lowereffect and ' face down ' in lowereffect:
+		c['actionflags'].append(13) # bind FD
+	if 'blagndmire' in lowername:
+		c['actionflags'].append(14) # bind FD foe
+	if ' lock ' in lowereffect:
+		c['actionflags'].append(15) # lock
+	if 'overDress]' in lowereffect or '[explosivegrowth]' in lowereffect:
+		c['actionflags'].append(16) # rideRC
+	if 'overDress]' in lowereffect or '[explosivegrowth]' in lowereffect or 'granfia' in lowername:
+		c['actionflags'].append(17) # soulRC
 
 dataFile.seek(0)
 dataFile.truncate(0)
