@@ -361,15 +361,10 @@ public class CardInfo : IComparable<CardInfo>
 
     public int CompareTo(CardInfo other)
     {
-        int adjustedGrade = grade;
-        if (isSentinel) { adjustedGrade += 90; }
-        if (isTrigger) { adjustedGrade += 100; }
-
-        int otherAdjustedGrade = grade;
-        if (other.isSentinel) { otherAdjustedGrade += 90; }
-        if (other.isTrigger) { otherAdjustedGrade += 100; }
-
-        if (adjustedGrade != otherAdjustedGrade) { return adjustedGrade.CompareTo(otherAdjustedGrade); }
+        if (isTrigger != other.isTrigger) { return isTrigger.CompareTo(other.isTrigger); }
+        if (isSentinel != other.isSentinel) { return isSentinel.CompareTo(other.isSentinel); }
+        if (isOrder != other.isOrder) { return isOrder.CompareTo(other.isOrder); }
+        if (grade != other.grade) { return grade.CompareTo(other.grade); }
         if (unitType != other.unitType) { return unitType.CompareTo(other.unitType); }
         if (name != other.name) { return name.CompareTo(other.name); }
         return index.CompareTo(other.index);

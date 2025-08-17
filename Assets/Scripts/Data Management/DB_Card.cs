@@ -1,16 +1,18 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler, IPointerExitHandler
+public class DB_Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Image cardImage;
     [NonSerialized] private RectTransform rectTransform;
     [NonSerialized] public Vector3 moveTarget = Vector3.zero;
     [NonSerialized] public CardInfo cardInfo;
     [NonSerialized] public DB_CardReciever reciever;
+    [NonSerialized] public DB_CardReciever draggedFromReceiver;
 
     private void Awake()
     {
@@ -62,9 +64,10 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
         int comparator = cardInfo.CompareTo(other.cardInfo);
         if (comparator != 0)
         {
+            Debug.Log(comparator);
             return comparator;
         }
-        return GetInstanceID().CompareTo(other.GetInstanceID());
+        return GetInstanceID() - other.GetInstanceID();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -96,5 +99,15 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
             yield return null;
         }
         Destroy(gameObject);
+    }
+
+    public class DBCardComparer : Comparer<DB_Card>
+    {
+        public override int Compare(DB_Card x, DB_Card y)
+        {
+            int initialResult = x.cardInfo.CompareTo(y.cardInfo);
+            if (initialResult != 0) { return  initialResult; }
+            return x.GetInstanceID().CompareTo(y.GetInstanceID());
+        }
     }
 }

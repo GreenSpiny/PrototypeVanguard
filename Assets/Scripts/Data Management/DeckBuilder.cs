@@ -171,7 +171,6 @@ public class DeckBuilder : MonoBehaviour
             string targetDeck = deckDropdown.options[targetDeckIndex].text;
             deckDropdown.value = targetDeckIndex;
             deckDropdown.RefreshShownValue();
-            deckInputField.text = targetDeck;
             currentDeckList = SaveDataManager.LoadDeck(targetDeck);
             LoadDeck(currentDeckList);
         }
@@ -182,7 +181,6 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
             deckDropdown.value = 0;
             deckDropdown.RefreshShownValue();
-            deckInputField.text = currentDeckList.deckName;
             SaveDataManager.SaveDeck(currentDeckList);
             LoadDeck(currentDeckList);
         }
@@ -249,6 +247,9 @@ public class DeckBuilder : MonoBehaviour
             toolboxReceiver.ReceiveCard(card);
         }
         toolboxReceiver.AlignCards(true);
+
+        deckInputField.text = deckList.deckName;
+        currentDeckList = deckList;
 
     }
 
@@ -349,7 +350,9 @@ public class DeckBuilder : MonoBehaviour
                 }
                 if (searchQuery)
                 {
-                    if (!cardInfo.name.Contains(query, StringComparison.InvariantCultureIgnoreCase) && !cardInfo.effect.Contains(query, StringComparison.InvariantCultureIgnoreCase))
+                    bool nameMatch = cardInfo.name.Contains(query, StringComparison.InvariantCultureIgnoreCase);
+                    bool effectMatch = cardInfo.effect.Contains(query, StringComparison.InvariantCultureIgnoreCase);
+                    if (!(nameMatch || effectMatch))
                     {
                         continue;
                     }
@@ -417,7 +420,7 @@ public class DeckBuilder : MonoBehaviour
         strideReceiver.label.text = strideReceiver.templateLabelText.Replace("[x]", strideReceiver.cards.Count.ToString());
         toolboxReceiver.label.text = toolboxReceiver.templateLabelText.Replace("[x]", toolboxReceiver.cards.Count.ToString());
 
-        currentDeckList = CreateDeck();
+        currentDeckList = CreateDeck(currentDeckList.deckName);
         string errorText = string.Empty;
         deckValid = currentDeckList.IsValid(out errorText);
         if (deckValid)
@@ -436,9 +439,10 @@ public class DeckBuilder : MonoBehaviour
         toolboxReceiver.AlignCards(false);
     }
 
-    private CardInfo.DeckList CreateDeck()
+    private CardInfo.DeckList CreateDeck(string deckName)
     {
         CardInfo.DeckList deck = new CardInfo.DeckList();
+        deck.deckName = deckName;
         deck.nation = nationAssignmentDropdown.options[nationAssignmentDropdown.value].text;
         deck.rideDeck = new int[rideReceiver.cards.Count];
         for (int i = 0; i < rideReceiver.cards.Count; i++)
@@ -465,14 +469,13 @@ public class DeckBuilder : MonoBehaviour
 
     public void SaveDeck()
     {
-        currentDeckList = CreateDeck();
+        currentDeckList = CreateDeck(currentDeckList.deckName);
         SaveDataManager.SaveDeck(currentDeckList);
     }
 
     public void SaveDeckAs()
     {
-        currentDeckList = CreateDeck();
-        currentDeckList.deckName = deckInputField.text;
+        currentDeckList = CreateDeck(deckInputField.text);
         SaveDataManager.SaveDeck(currentDeckList);
 
         bool found = false;
@@ -501,7 +504,6 @@ public class DeckBuilder : MonoBehaviour
             string targetDeck = deckDropdown.options[deckIndex].text;
             deckDropdown.value = deckIndex;
             deckDropdown.RefreshShownValue();
-            deckInputField.text = targetDeck;
             currentDeckList = SaveDataManager.LoadDeck(targetDeck);
             LoadDeck(currentDeckList);
         }
@@ -521,7 +523,6 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
             deckDropdown.value = currentValue;
             deckDropdown.RefreshShownValue();
-            deckInputField.text = currentDeckList.deckName;
             SaveDataManager.SaveDeck(currentDeckList);
             LoadDeck(currentDeckList);
         }
@@ -534,7 +535,6 @@ public class DeckBuilder : MonoBehaviour
             string targetDeck = deckDropdown.options[currentValue].text;
             deckDropdown.value = currentValue;
             deckDropdown.RefreshShownValue();
-            deckInputField.text = targetDeck;
             currentDeckList = SaveDataManager.LoadDeck(targetDeck);
         }
     }

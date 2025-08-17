@@ -50,8 +50,9 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         cards.Add(card);
         card.transform.SetParent(transform, true);
         card.reciever = this;
+        card.draggedFromReceiver = null;
         builder.SetDirty();
-        receiverImage.color = baseColor;
+        targetColor = baseColor;
     }
 
     public void RemoveCard(DB_Card card, bool destroy)
@@ -79,7 +80,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void AlignCards(bool instant)
     {
         cardPositions.Clear();
-        cards.Sort();
+        cards.Sort(new DB_Card.DBCardComparer());
 
         float cardSlotWidth = (rectTransform.rect.width - padding) / cardsPerRow;
         float cardWidth = cardSlotWidth - padding;
@@ -137,7 +138,12 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             return false;
         }
-        if (DeckBuilder.instance.currentDeckList.CardCount(card.cardInfo.index) >= card.cardInfo.count)
+        int currentQuantity = DeckBuilder.instance.currentDeckList.CardCount(card.cardInfo.index);
+        if (card.draggedFromReceiver != null)
+        {
+            currentQuantity -= 1;
+        }
+        if (currentQuantity >= card.cardInfo.count)
         {
             return false;
         }

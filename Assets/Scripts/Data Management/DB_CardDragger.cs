@@ -59,9 +59,11 @@ public class DB_CardDragger : MonoBehaviour
             }
             else if (hoveredCard.reciever != null)
             {
+                DB_CardReciever originalReceiver = hoveredCard.reciever;
                 hoveredCard.reciever.RemoveCard(hoveredCard, false);
                 draggedCard = hoveredCard;
                 draggedCard.transform.SetParent(transform, true);
+                draggedCard.draggedFromReceiver = originalReceiver;
             }
             foreach (DB_CardReciever receiver in receivers)
             {

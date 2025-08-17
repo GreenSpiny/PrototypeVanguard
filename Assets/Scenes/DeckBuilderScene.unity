@@ -932,8 +932,8 @@ MonoBehaviour:
   padding: 8
   builder: {fileID: 2113596497}
   label: {fileID: 980044961}
-  availableColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
-  hoveredColor: {r: 0.7264151, g: 0.7045955, b: 0.5722232, a: 1}
+  availableColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  hoveredColor: {r: 0.6509434, g: 0.63480365, b: 0.5250534, a: 1}
   colorTransitionSpeed: 10
   accepting: 0
 --- !u!114 &246776343
@@ -2436,8 +2436,8 @@ MonoBehaviour:
   padding: 8
   builder: {fileID: 2113596497}
   label: {fileID: 365404791}
-  availableColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
-  hoveredColor: {r: 0.7264151, g: 0.7045955, b: 0.5722232, a: 1}
+  availableColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  hoveredColor: {r: 0.6509434, g: 0.63480365, b: 0.5250534, a: 1}
   colorTransitionSpeed: 10
   accepting: 0
 --- !u!114 &542762827
@@ -3503,8 +3503,8 @@ MonoBehaviour:
   padding: 8
   builder: {fileID: 2113596497}
   label: {fileID: 837443717}
-  availableColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
-  hoveredColor: {r: 0.7264151, g: 0.7045955, b: 0.5722232, a: 1}
+  availableColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  hoveredColor: {r: 0.6509434, g: 0.63480365, b: 0.5250534, a: 1}
   colorTransitionSpeed: 10
   accepting: 0
 --- !u!114 &855682509
@@ -6316,8 +6316,8 @@ MonoBehaviour:
   padding: 8
   builder: {fileID: 2113596497}
   label: {fileID: 653030855}
-  availableColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
-  hoveredColor: {r: 0.7264151, g: 0.7045955, b: 0.5722232, a: 1}
+  availableColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  hoveredColor: {r: 0.6509434, g: 0.63480365, b: 0.5250534, a: 1}
   colorTransitionSpeed: 10
   accepting: 0
 --- !u!114 &1423007908
