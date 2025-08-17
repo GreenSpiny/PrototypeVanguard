@@ -195,7 +195,10 @@ public class CardInfo : IComparable<CardInfo>
 
         public DeckList()
         {
-
+            mainDeck = new int[0];
+            rideDeck = new int[0];
+            strideDeck = new int[0];
+            toolbox = new int[0];
         }
         public DeckList(string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
         {

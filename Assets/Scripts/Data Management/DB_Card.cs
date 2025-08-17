@@ -35,7 +35,7 @@ public class DB_Card : MonoBehaviour, IComparable<DB_Card>, IPointerEnterHandler
         if (cardInfo != null && cardInfo.rotate)
         {
             cardImage.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
-            cardImage.transform.localScale = new Vector3(1f / Card.cardWidth, 1f, 1f);
+            cardImage.transform.localScale = new Vector3(1f / Card.cardWidth, Card.cardWidth, 1f);
         }
         else
         {

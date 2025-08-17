@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using static DragManager;
 
 public class DB_CardDragger : MonoBehaviour
@@ -11,6 +12,7 @@ public class DB_CardDragger : MonoBehaviour
     public DB_Card draggedCard;
 
     [SerializeField] private Transform searchContainer;
+    private ScrollRect scrollRect;
 
     private float clickTime;          // The time of the most recent mouse press
     private float lastClickTime;      // The time of the previous mouse press, for double click detection
@@ -25,6 +27,7 @@ public class DB_CardDragger : MonoBehaviour
             instance = this;
         }
         lastClickTime = float.MinValue;
+        scrollRect = searchContainer.GetComponentInParent<ScrollRect>();
     }
 
     private void Update()
@@ -128,6 +131,7 @@ public class DB_CardDragger : MonoBehaviour
         }
 
         transform.position = mousePosition;
+        scrollRect.enabled = draggedCard == null;
     }
 
 }

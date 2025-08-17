@@ -56,6 +56,8 @@ public class DeckBuilder : MonoBehaviour
     private float fadeTransitionSpeed = 2f;
     private float colorTransitionSpeed = 10f;
 
+    private const string blankDeckName = "blank deck";
+
     private void Awake()
     {
         if (instance == null)
@@ -176,10 +178,12 @@ public class DeckBuilder : MonoBehaviour
         else
         {
             currentDeckList = new CardInfo.DeckList();
-            currentDeckList.deckName = "blank deck";
+            currentDeckList.deckName = blankDeckName;
             deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
+            deckDropdown.value = 0;
             deckDropdown.RefreshShownValue();
             deckInputField.text = currentDeckList.deckName;
+            SaveDataManager.SaveDeck(currentDeckList);
             LoadDeck(currentDeckList);
         }
 
@@ -332,6 +336,7 @@ public class DeckBuilder : MonoBehaviour
         }
 
         // Dig through the cards data.
+        float targetWidth = searchResultsArea.GetComponent<RectTransform>().rect.width - searchResultsArea.padding.left - searchResultsArea.padding.right;
         List<CardInfo> allCardsDataSorted = CardLoader.instance.allCardsDataSorted;
         int resultCount = 0;
         if (searchNation || searchType || searchGrade || searchRace || searchGroup || searchGift || searchQuery)
@@ -381,8 +386,10 @@ public class DeckBuilder : MonoBehaviour
                     DB_Card newCardObject = Instantiate<DB_Card>(cardPrefab, searchResultsArea.transform);
                     searchCardObjects.Add(newCardObject);
                 }
-                searchCardObjects[resultCount].Load(cardInfo.index);
-                searchCardObjects[resultCount].gameObject.SetActive(true);
+                DB_Card targetCard = searchCardObjects[resultCount];
+                targetCard.Load(cardInfo.index);
+                targetCard.SetWidth(targetWidth);
+                targetCard.gameObject.SetActive(true);
                 resultCount++;
                 yield return null;
             }
@@ -465,6 +472,7 @@ public class DeckBuilder : MonoBehaviour
     public void SaveDeckAs()
     {
         currentDeckList = CreateDeck();
+        currentDeckList.deckName = deckInputField.text;
         SaveDataManager.SaveDeck(currentDeckList);
 
         bool found = false;
@@ -504,24 +512,31 @@ public class DeckBuilder : MonoBehaviour
         int currentValue = deckDropdown.value;
         SaveDataManager.DeleteDeck(deckDropdown.options[currentValue].text);
         deckDropdown.options.RemoveAt(currentValue);
-        if (currentValue != 0)
+
+        if (deckDropdown.options.Count == 0)
         {
-            string targetDeck = deckDropdown.options[currentValue - 1].text;
-            deckDropdown.value = currentValue - 1;
+            currentValue = 0;
+            currentDeckList = new CardInfo.DeckList();
+            currentDeckList.deckName = blankDeckName;
+            deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
+            deckDropdown.value = currentValue;
+            deckDropdown.RefreshShownValue();
+            deckInputField.text = currentDeckList.deckName;
+            SaveDataManager.SaveDeck(currentDeckList);
+            LoadDeck(currentDeckList);
+        }
+        else
+        {
+            if (currentValue >= deckDropdown.options.Count)
+            {
+                currentValue = deckDropdown.options.Count - 1;
+            }
+            string targetDeck = deckDropdown.options[currentValue].text;
+            deckDropdown.value = currentValue;
             deckDropdown.RefreshShownValue();
             deckInputField.text = targetDeck;
             currentDeckList = SaveDataManager.LoadDeck(targetDeck);
         }
-        else
-        {
-            currentDeckList = new CardInfo.DeckList();
-            currentDeckList.deckName = "blank deck";
-            deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
-            deckDropdown.RefreshShownValue();
-            deckInputField.text = currentDeckList.deckName;
-            LoadDeck(currentDeckList);
-        }
-
     }
 
     public void ResetDeck()
