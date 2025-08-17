@@ -40,6 +40,7 @@ public class CardLoader : MonoBehaviour
     public int versionDownloadProgress = 0;
     public int cardsDownloadProgress = 0;
     public float imageDownloadProgress = 0;
+    public uint oldVersionNumber = 0;
     private string errorText;
 
     public bool IsError { get { return !string.IsNullOrEmpty(errorText); } }
@@ -114,6 +115,7 @@ public class CardLoader : MonoBehaviour
             oldDataVersionObject = DataVersionObject.FromJSON(versionJSON.text);
             dataVersionObject = oldDataVersionObject;
         }
+        oldVersionNumber = oldDataVersionObject.cardsFileVersion;
         versionDownloadProgress = 1;
 
         // Download the Cards Data object if a new one is available.

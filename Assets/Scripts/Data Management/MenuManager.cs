@@ -24,6 +24,7 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI initialDownloadText;
     [SerializeField] TextMeshProUGUI downloadStatusText;
+    private float downloadProgressAnimationSpeed = 5f;
 
     public static Color originalColor;
     private MenuButton hoveredButton;
@@ -80,12 +81,12 @@ public class MenuManager : MonoBehaviour
             {
                 RectTransform rect = progressBarImage.rectTransform;
                 float targetScale = CardLoader.instance.imageDownloadProgress;
-                float currentScale = Mathf.Clamp(rect.localScale.x + Time.deltaTime, 0f, targetScale);
+                float currentScale = Mathf.Clamp(rect.localScale.x + Time.deltaTime * downloadProgressAnimationSpeed, 0f, targetScale);
                 progressBarImage.rectTransform.localScale = new Vector3(currentScale, rect.localScale.y, rect.localScale.z);
 
                 if (CardLoader.instance.versionDownloadProgress > 0)
                 {
-                    initialDownloadText.gameObject.SetActive(CardLoader.instance.dataVersionObject.cardsFileVersion == 0);
+                    initialDownloadText.gameObject.SetActive(CardLoader.instance.oldVersionNumber == 0);
                 }
                 if (CardLoader.instance.IsError && string.IsNullOrEmpty(downloadStatusText.text))
                 {
