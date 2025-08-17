@@ -93,6 +93,22 @@ for c in cards.values():
 	if 'placeholder' not in c.keys():
 		c['placeholder'] = False
 
+	# SPECIAL CASE: COROCORO
+	if "CoroCoro" in c['nation'] and len(c['nation']) < 2:
+		if 'Oversized Dekka-kun' in c['race']:
+			c['nation'].append('Keter Sanctuary')
+		elif 'Black Channel' in c['race']:
+			c['nation'].append('Brandt Gate')
+		elif 'Fate Rewinder' in c['race']:
+			c['nation'].append('Dark States')
+		elif 'Bebebebe' in c['race']:
+			c['nation'].append('Stoicheia')
+		elif 'Dangerous Grandpa' in c['race']:
+			c['nation'].append('Dragon Empire')
+		elif 'Skyride' in c['race']:
+			c['nation'].append('Lyrical Monasterio')
+
+
 dataFile.seek(0)
 dataFile.truncate(0)
 dataFile.write(json.dumps(data, sort_keys=True, indent=1, ensure_ascii=True))
