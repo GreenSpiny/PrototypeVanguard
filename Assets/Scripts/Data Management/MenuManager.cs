@@ -79,7 +79,9 @@ public class MenuManager : MonoBehaviour
             if (CardLoader.instance != null)
             {
                 RectTransform rect = progressBarImage.rectTransform;
-                progressBarImage.rectTransform.localScale = new Vector3(CardLoader.instance.imageDownloadProgress, rect.localScale.y, rect.localScale.z);
+                float targetScale = CardLoader.instance.imageDownloadProgress;
+                float currentScale = Mathf.Clamp(rect.localScale.x + Time.deltaTime, 0f, targetScale);
+                progressBarImage.rectTransform.localScale = new Vector3(currentScale, rect.localScale.y, rect.localScale.z);
 
                 if (CardLoader.instance.versionDownloadProgress > 0)
                 {
