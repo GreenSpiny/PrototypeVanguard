@@ -46,15 +46,11 @@ public class DeckBuilder : MonoBehaviour
 
     [SerializeField] CanvasGroup mainCanvasGroup;
     [SerializeField] TMP_Dropdown nationAssignmentDropdown;
-    [SerializeField] Image backdrop;
+    [SerializeField] SceneLoadCanvas sceneLoadCanvas;
 
     [NonSerialized] public bool deckValid = false;
     private bool needsRefresh = false;
     private bool initialLoadComplete = false;
-    private bool transitioningOut = false;
-    private float fadeTransitionSpeed = 2f;
-    private float colorTransitionSpeed = 10f;
-
     private const string blankDeckName = "blank deck";
 
     private void Awake()
@@ -83,30 +79,19 @@ public class DeckBuilder : MonoBehaviour
         {
             RefreshInfo();
         }
-        if (!transitioningOut && initialLoadComplete && mainCanvasGroup.alpha < 1f)
+        if (initialLoadComplete)
         {
-            mainCanvasGroup.alpha = Mathf.Clamp(mainCanvasGroup.alpha + Time.deltaTime * fadeTransitionSpeed, 0f, 1f);
+            sceneLoadCanvas.TransitionIn();
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && !transitioningOut)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Quit();
-        }
-        if (transitioningOut)
-        {
-            mainCanvasGroup.alpha = Mathf.Clamp(mainCanvasGroup.alpha - Time.deltaTime * fadeTransitionSpeed, 0f, 1f);
-            backdrop.color = Color.Lerp(backdrop.color, MenuManager.originalColor, Time.deltaTime * colorTransitionSpeed);
-
-            if (mainCanvasGroup.alpha <= 0f)
-            {
-                SceneManager.LoadScene("MenuScene");
-            }
         }
     }
 
     public void Quit()
     {
-        mainCanvasGroup.blocksRaycasts = false;
-        transitioningOut = true;
+        sceneLoadCanvas.TransitionOut();
     }
 
     private IEnumerator LoadInitialDeck()
