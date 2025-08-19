@@ -17,6 +17,7 @@ public class SceneLoadCanvas : MonoBehaviour
     [SerializeField] public Color fadeInColor;
     
     [SerializeField] bool transitionOnStart;
+    [SerializeField] bool escapeToQuit;
 
     private bool transitioningIn;
     private bool transitionInComplete;
@@ -35,6 +36,10 @@ public class SceneLoadCanvas : MonoBehaviour
 
     private void Update()
     {
+        if (escapeToQuit && Input.GetKeyDown(KeyCode.Escape))
+        {
+            TransitionOut();
+        }
         if (transitioningOut)
         {
             canvasGroup.alpha = Mathf.Clamp(canvasGroup.alpha - Time.deltaTime * fadeTransitionSpeed, 0, 1f);

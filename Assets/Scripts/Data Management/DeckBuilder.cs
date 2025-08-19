@@ -83,15 +83,6 @@ public class DeckBuilder : MonoBehaviour
         {
             sceneLoadCanvas.TransitionIn();
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Quit();
-        }
-    }
-
-    public void Quit()
-    {
-        sceneLoadCanvas.TransitionOut();
     }
 
     private IEnumerator LoadInitialDeck()
@@ -182,7 +173,6 @@ public class DeckBuilder : MonoBehaviour
 
     private void LoadDeck(CardInfo.DeckList deckList)
     {
-        Debug.Log("Loading deck: " + deckList.deckName);
         PlayerPrefs.SetString(SaveDataManager.lastViewedDecklistKey, deckList.deckName);
 
         nationAssignmentDropdown.value = 0;
@@ -411,6 +401,16 @@ public class DeckBuilder : MonoBehaviour
         {
             deckValidText.text = "Deck is Valid.";
             deckValidText.color = deckValidColor;
+            if (currentDeckList.nation == "Touken Ranbu")
+            {
+                deckValidText.text += "\nIt appears you are playing the Touken Ranbu nation, which breaks all conventional deckbuilding rules. Rideline validation is not currently supported.";
+                deckValidText.color = deckWarningColor;
+            }
+            if (!currentDeckList.toolbox.Contains(1259))
+            {
+                deckValidText.text += "\nWarning: No Energy Generator is in the Toolbox.";
+                deckValidText.color = deckWarningColor;
+            }
         }
         else
         {
@@ -536,10 +536,9 @@ public class DeckBuilder : MonoBehaviour
 
     public void ResetDeck()
     {
-        rideReceiver.RemoveAllCards();
-        mainReceiver.RemoveAllCards();
-        strideReceiver.RemoveAllCards();
-        toolboxReceiver.RemoveAllCards();
+        CardInfo.DeckList blankList = new CardInfo.DeckList();
+        blankList.deckName = currentDeckList.deckName;
+        LoadDeck(blankList);
     }
 
     public void OnDeckInputFieldChanged()

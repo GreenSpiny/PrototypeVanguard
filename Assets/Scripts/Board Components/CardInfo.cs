@@ -194,7 +194,7 @@ public class CardInfo : IComparable<CardInfo>
     public class DeckList
     {
         public const int maxMain = 50;
-        public const int maxRide = 6;
+        public const int maxRide = 5;
         public const int maxStride = 16;
         public const int maxToolbox = 34;
 
@@ -211,7 +211,7 @@ public class CardInfo : IComparable<CardInfo>
             mainDeck = new int[0];
             rideDeck = new int[0];
             strideDeck = new int[0];
-            toolbox = new int[0];
+            toolbox = new int[1] { 1259 };
         }
         public DeckList(string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
         {
@@ -258,6 +258,7 @@ public class CardInfo : IComparable<CardInfo>
             }
             else
             {
+                // Wave 1 checks
                 // This can be optimized to use fewer runthroughs, but it would lack readability for a small increase in speed.
                 HashSet<int> cardSet = new HashSet<int>();
                 foreach (int i in mainDeck) { cardSet.Add(i); }
@@ -277,51 +278,91 @@ public class CardInfo : IComparable<CardInfo>
                         return false;
                     }
                 }
+
+                // Wave 2 checks
                 if (rideDeck.Length > 0)
                 {
-                    if (rideDeck.Length > 4 && (rideDeck[0] != 1676 || rideDeck[0] != 3080 || nation != "Touken Ranbu"))
+                    if (rideDeck.Length > 4 && (rideDeck[0] != 1676 && nation != "Touken Ranbu"))
                     {
-                        error = "Only 'Griphosid' rideline, 'Sephirosid' rideline, and the 'Touken Ranbu' nation allow more than 4 cards in the Ride Deck.";
+                        error = "Only 'Griphosid' rideline and the 'Touken Ranbu' nation allow more than 4 cards in the Ride Deck.";
                     }
-                    else if (rideDeck[0] != 1676)
+                    else
                     {
-                        // Griphosid exception
-                    }
-                    else if (rideDeck[0] != 3080)
-                    {
-                        // Seriphosid exception
-                    }
-                    else if (nation == "Touken Ranbu")
-                    {
-                        // Touken Ranbu exception
-                    }
-                }
-                if (strideDeck.Length > 0)
-                {
-                    foreach (int i in strideDeck)
-                    {
-                        if (CardLoader.GetCardInfo(i).unitType != "G Unit")
+                        HashSet<int> requiredRides = new HashSet<int>() { 0, 1, 2, 3 };
+                        bool overTrigger = false;
+                        bool calamityOnly = true;
+                        bool blessingOnly = true;
+                        foreach (int ride in rideDeck)
                         {
-                            error = "Only G Units are allowed in the Stride Deck.";
-                            return false;
+                            CardInfo rideInfo = CardLoader.GetCardInfo(ride);
+                            if (requiredRides.Contains(rideInfo.grade))
+                            {
+                                requiredRides.Remove(rideInfo.grade);
+                            }
+                            if (rideInfo.grade > 0 && !rideInfo.race.Contains("Calamity"))
+                            {
+                                calamityOnly = false;
+                            }
+                            if (rideInfo.grade > 0 && !rideInfo.race.Contains("Blessing"))
+                            {
+                                blessingOnly = false;
+                            }
+                            if (rideInfo.gift == "Over")
+                            {
+                                overTrigger = true;
+                            }
+                        }
+                        if (rideDeck[0] == 1676)
+                        {
+                            if (requiredRides.Count != 0 || !calamityOnly || !overTrigger)
+                            {
+                                error = "'Griphosid' rideline requires four Calamity of different grades including 'Griphosid', plus an Over Trigger.";
+                            }
+                        }
+                        else if (rideDeck[0] == 3080)
+                        {
+                            if (requiredRides.Count != 0 || !blessingOnly)
+                            {
+                                error = "'Sephirosid' rideline requires four Blessing cards of different grades including 'Seriphosid'.";
+                            }
+                        }
+                        else if (requiredRides.Count != 0)
+                        {
+                            error = "A typical ride deck must contain four cards of different grades.";
                         }
                     }
                 }
-                if (rideDeck.Length < 4 || rideDeck.Length > maxRide)
+
+                // Wave 3 checks
+                if (string.IsNullOrEmpty(error))
                 {
-                    error = "Invalid number of cards in the Ride Deck. Typically four are required.";
-                }
-                else if (mainDeck.Length != maxMain)
-                {
-                    error = "Invalid number of cards in the Main Deck. 50 are required.";
-                }
-                else if (strideDeck.Length > maxStride)
-                {
-                    error = "Invalid number of cards in the Stride Deck. 16 is the maximum.";
-                }
-                else if (toolbox.Length > maxToolbox)
-                {
-                    error = "Invalid number of cards in the Toolbox. 34 is the maximum.";
+                    if (strideDeck.Length > 0)
+                    {
+                        foreach (int i in strideDeck)
+                        {
+                            if (CardLoader.GetCardInfo(i).unitType != "G Unit")
+                            {
+                                error = "Only G Units are allowed in the Stride Deck.";
+                                return false;
+                            }
+                        }
+                    }
+                    if (rideDeck.Length < 4 || rideDeck.Length > maxRide)
+                    {
+                        error = "Invalid number of cards in the Ride Deck. Typically four are required.";
+                    }
+                    else if (mainDeck.Length != maxMain)
+                    {
+                        error = "Invalid number of cards in the Main Deck. 50 are required.";
+                    }
+                    else if (strideDeck.Length > maxStride)
+                    {
+                        error = "Invalid number of cards in the Stride Deck. 16 is the maximum.";
+                    }
+                    else if (toolbox.Length > maxToolbox)
+                    {
+                        error = "Invalid number of cards in the Toolbox. 34 is the maximum.";
+                    }
                 }
                 return string.IsNullOrEmpty(error);
             }

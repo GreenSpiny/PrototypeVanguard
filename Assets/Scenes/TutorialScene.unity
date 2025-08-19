@@ -3563,6 +3563,7 @@ MonoBehaviour:
   fadeOutColor: {r: 0.25882354, g: 0.2627451, b: 0.4509804, a: 1}
   fadeInColor: {r: 0.69803923, g: 0.69803923, b: 0.44313726, a: 1}
   transitionOnStart: 1
+  escapeToQuit: 1
 --- !u!225 &1886907829
 CanvasGroup:
   m_ObjectHideFlags: 0
