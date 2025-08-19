@@ -260,10 +260,18 @@ public class CardInfo : IComparable<CardInfo>
             {
                 // Wave 1 checks
                 // This can be optimized to use fewer runthroughs, but it would lack readability for a small increase in speed.
+                int triggerCount = 0;
+                int healCount = 0;
+                int critCount = 0;
+                int frontCount = 0;
+                int drawCount = 0;
+                int overCount = 0;
+
                 HashSet<int> cardSet = new HashSet<int>();
-                foreach (int i in mainDeck) { cardSet.Add(i); }
-                foreach (int i in rideDeck) { cardSet.Add(i); }
-                foreach (int i in strideDeck) { cardSet.Add(i); }
+                List<int> cardList = new List<int>();
+                foreach (int i in mainDeck) { cardSet.Add(i); cardList.Add(i); }
+                foreach (int i in rideDeck) { cardSet.Add(i); cardList.Add(i); }
+                foreach (int i in strideDeck) { cardSet.Add(i); cardList.Add(i); }
                 foreach (int cardIndex in cardSet)
                 {
                     CardInfo info = CardLoader.GetCardInfo(cardIndex);
@@ -278,57 +286,97 @@ public class CardInfo : IComparable<CardInfo>
                         return false;
                     }
                 }
+                foreach (int cardIndex in cardList)
+                {
+                    CardInfo info = CardLoader.GetCardInfo(cardIndex);
+                    if (info.isTrigger)
+                    {
+                        triggerCount++;
+                        if (info.gift == "Heal") { healCount++; }
+                        else if (info.gift == "Critical") { critCount++; }
+                        else if (info.gift == "Front") { frontCount++; }
+                        else if (info.gift == "Draw") { drawCount++; }
+                        else if (info.gift == "Over") { overCount++; }
+                    }
+                }
+                if (triggerCount > 16)
+                {
+                    error = "A maximum of 16 triggers are allowed in a deck.";
+                }
+                else if (healCount > 4)
+                {
+                    error = "A maximum of 4 heal triggers are allowed in a deck.";
+                }
+                else if (critCount > 8)
+                {
+                    error = "A maximum of 8 critical triggers are allowed in a deck.";
+                }
+                else if (frontCount > 8)
+                {
+                    error = "A maximum of 8 front triggers are allowed in a deck.";
+                }
+                else if (drawCount > 8)
+                {
+                    error = "A maximum of 8 draw triggers are allowed in a deck.";
+                }
+                else if (overCount > 1)
+                {
+                    error = "A maximum of 1 over trigger is allowed in a deck.";
+                }
 
                 // Wave 2 checks
-                if (rideDeck.Length > 0)
+                if (string.IsNullOrEmpty(error))
                 {
-                    if (rideDeck.Length > 4 && (rideDeck[0] != 1676 && nation != "Touken Ranbu"))
+                    if (rideDeck.Length > 0)
                     {
-                        error = "Only 'Griphosid' rideline and the 'Touken Ranbu' nation allow more than 4 cards in the Ride Deck.";
-                    }
-                    else
-                    {
-                        HashSet<int> requiredRides = new HashSet<int>() { 0, 1, 2, 3 };
-                        bool overTrigger = false;
-                        bool calamityOnly = true;
-                        bool blessingOnly = true;
-                        foreach (int ride in rideDeck)
+                        if (rideDeck.Length > 4 && (rideDeck[0] != 1676 && nation != "Touken Ranbu"))
                         {
-                            CardInfo rideInfo = CardLoader.GetCardInfo(ride);
-                            if (requiredRides.Contains(rideInfo.grade))
-                            {
-                                requiredRides.Remove(rideInfo.grade);
-                            }
-                            if (rideInfo.grade > 0 && !rideInfo.race.Contains("Calamity"))
-                            {
-                                calamityOnly = false;
-                            }
-                            if (rideInfo.grade > 0 && !rideInfo.race.Contains("Blessing"))
-                            {
-                                blessingOnly = false;
-                            }
-                            if (rideInfo.gift == "Over")
-                            {
-                                overTrigger = true;
-                            }
+                            error = "Only 'Griphosid' rideline and the 'Touken Ranbu' nation allow more than 4 cards in the Ride Deck.";
                         }
-                        if (rideDeck[0] == 1676)
+                        else
                         {
-                            if (requiredRides.Count != 0 || !calamityOnly || !overTrigger)
+                            HashSet<int> requiredRides = new HashSet<int>() { 0, 1, 2, 3 };
+                            bool overTrigger = false;
+                            bool calamityOnly = true;
+                            bool blessingOnly = true;
+                            foreach (int ride in rideDeck)
                             {
-                                error = "'Griphosid' rideline requires four Calamity of different grades including 'Griphosid', plus an Over Trigger.";
+                                CardInfo rideInfo = CardLoader.GetCardInfo(ride);
+                                if (requiredRides.Contains(rideInfo.grade))
+                                {
+                                    requiredRides.Remove(rideInfo.grade);
+                                }
+                                if (rideInfo.grade > 0 && !rideInfo.race.Contains("Calamity"))
+                                {
+                                    calamityOnly = false;
+                                }
+                                if (rideInfo.grade > 0 && !rideInfo.race.Contains("Blessing"))
+                                {
+                                    blessingOnly = false;
+                                }
+                                if (rideInfo.gift == "Over")
+                                {
+                                    overTrigger = true;
+                                }
                             }
-                        }
-                        else if (rideDeck[0] == 3080)
-                        {
-                            if (requiredRides.Count != 0 || !blessingOnly)
+                            if (rideDeck[0] == 1676)
                             {
-                                error = "'Sephirosid' rideline requires four Blessing cards of different grades including 'Seriphosid'.";
+                                if (requiredRides.Count != 0 || !calamityOnly || !overTrigger)
+                                {
+                                    error = "'Griphosid' rideline requires four Calamity of different grades including 'Griphosid', plus an Over Trigger.";
+                                }
                             }
-                        }
-                        else if (requiredRides.Count != 0)
-                        {
-                            error = "A typical ride deck must contain four cards of different grades.";
+                            else if (rideDeck[0] == 3080)
+                            {
+                                if (requiredRides.Count != 0 || !blessingOnly)
+                                {
+                                    error = "'Sephirosid' rideline requires four Blessing cards of different grades including 'Seriphosid'.";
+                                }
+                            }
+                            else if (requiredRides.Count != 0)
+                            {
+                                error = "A typical ride deck must contain four cards of different grades.";
+                            }
                         }
                     }
                 }

@@ -408,7 +408,7 @@ public class DeckBuilder : MonoBehaviour
             }
             if (!currentDeckList.toolbox.Contains(1259))
             {
-                deckValidText.text += "\nWarning: No Energy Generator is in the Toolbox.";
+                deckValidText.text += "\nWarning: there is no 'Energy Generator' in the Toolbox.";
                 deckValidText.color = deckWarningColor;
             }
         }
