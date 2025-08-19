@@ -28,6 +28,8 @@ public class SceneLoadCanvas : MonoBehaviour
         if (transitionOnStart)
         {
             transitioningIn = true;
+            canvasGroup.alpha = 0;
+            image.color = fadeInColor;
         }
     }
 

@@ -523,6 +523,17 @@ public class DeckBuilder : MonoBehaviour
         }
     }
 
+    public void RenameDeck()
+    {
+        int currentValue = deckDropdown.value;
+        if (deckDropdown.options[currentValue].text != deckInputField.text)
+        {
+            SaveDataManager.DeleteDeck(deckDropdown.options[currentValue].text);
+            deckDropdown.options.RemoveAt(currentValue);
+            SaveDeckAs();
+        }
+    }
+
     public void ResetDeck()
     {
         rideReceiver.RemoveAllCards();

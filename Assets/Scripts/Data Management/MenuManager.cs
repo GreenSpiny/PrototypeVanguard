@@ -168,9 +168,24 @@ public class MenuManager : MonoBehaviour
 
     // === Button Functions === //
 
+    public void ToMultiplayer()
+    {
+        TransitionOut(() => { SceneManager.LoadScene("MatchingScene"); });
+    }
+
     public void ToDeckBuilder()
     {
         TransitionOut(() => { SceneManager.LoadScene("DeckBuilderScene"); });
+    }
+
+    public void ToTutorial()
+    {
+        TransitionOut(() => { SceneManager.LoadScene("TutorialScene"); });
+    }
+
+    public void ToAbout()
+    {
+        TransitionOut(() => { SceneManager.LoadScene("AboutScene"); });
     }
 
     public void Quit()

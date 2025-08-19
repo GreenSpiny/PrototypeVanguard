@@ -1,19 +1,31 @@
 import json
 
 dataFile = open('cardsData.json', 'r+', encoding='raw_unicode_escape')
-data = json.loads(dataFile.read().encode('raw_unicode_escape').decode('utf8'))
+cards = json.loads(dataFile.read().encode('raw_unicode_escape').decode('utf8'))
 
-#cards = data['cards']
-cards = data
-
-#index = 0 # first use
-index = len(cards.keys()) # subsequent uses
-
+jpMode = False
+index = 0
 for c in cards.values():
+	if 'index' in c.keys():
+		index = max(index, c['index'])
+
+
+jpCardKeys = []
+engCardKeys = []
+for key in cards.keys():
+	c = cards[key]
 
 	if 'index' not in c.keys():
-		c['index'] = index
 		index += 1
+		c['index'] = index
+
+	if jpMode not in c.keys():
+		jpMode = jpMode;
+
+	if c['jpMode']:
+		jpCardKeys.append(key)
+	else:
+		engCardKeys.append(key)
 
 	if c['nation'] == '-' or c['nation'] == '':
 		c['nation'] = ['Nationless']
