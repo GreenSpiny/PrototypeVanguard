@@ -13,6 +13,7 @@ public class GameManager : NetworkBehaviour
     public static CardInfo.DeckList localPlayerDecklist1;   // The primary decklist assigned for the game.
     public static CardInfo.DeckList localPlayerDecklist2;   // The secondary decklist assigned for the game. Only relevant in singleplayer mode.
     public static bool singlePlayer;                        // Flag for whether the game should be run in singleplayer mode or multiplayer mode.
+    public static string localPlayerName;
 
     [SerializeField] public NetworkManager networkManager;
     [SerializeField] public DragManager dragManager;
@@ -91,6 +92,7 @@ public class GameManager : NetworkBehaviour
         if (singlePlayer)
         {
             networkManager.StartHost();
+            animationProperties.UIAnimator.anim.Play("Game Static");
         }
     }
 
@@ -259,10 +261,11 @@ public class GameManager : NetworkBehaviour
     private IEnumerator RequestGameStartDelayed() { yield return null;  RequestGameStartRpc(); }
 
     [Rpc(SendTo.Server)]
-    public void SubmitDeckListToServerRpc(int playerIndex, string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
+    public void SubmitDeckListToServerRpc(int playerIndex, string playerName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
     {
-        CardInfo.DeckList submittedDeck = new CardInfo.DeckList(deckName, nation, mainDeck, rideDeck, strideDeck, toolbox);
+        CardInfo.DeckList submittedDeck = new CardInfo.DeckList("default", nation, mainDeck, rideDeck, strideDeck, toolbox);
         players[playerIndex].AssignDeck(submittedDeck);
+        animationProperties.playerNames[playerIndex].text = playerName;
 
         // Singleplayer
         if (singlePlayer)
@@ -276,7 +279,10 @@ public class GameManager : NetworkBehaviour
             {
                 player2Deck = CardInfo.CreateRandomDeck();
             }
-            players[(playerIndex + 1) % 2].AssignDeck(submittedDeck);
+            int nextPlayerIndex = (playerIndex + 1) % 2;
+            players[nextPlayerIndex].AssignDeck(submittedDeck);
+            animationProperties.playerNames[nextPlayerIndex].text = "Shadowboxer";
+            
             StartCoroutine(RequestGameStartDelayed());
         }
         // Multiplayer
@@ -320,6 +326,9 @@ public class GameManager : NetworkBehaviour
         public AnimatorEventUtility UIAnimator;
         public TextMeshProUGUI gZoneCountText;
         public TextMeshProUGUI firstSecondText;
+
+        public TextMeshProUGUI[] playerNames;
+        public Image[] playerImages;
     }
 
 }

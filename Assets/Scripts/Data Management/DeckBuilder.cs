@@ -68,8 +68,7 @@ public class DeckBuilder : MonoBehaviour
 
     void Start()
     {
-        mainCanvasGroup.alpha = 0f;
-        mainCanvasGroup.blocksRaycasts = false;
+        sceneLoadCanvas.Hide();
         StartCoroutine(LoadInitialDeck());
     }
 
@@ -132,7 +131,7 @@ public class DeckBuilder : MonoBehaviour
         {
             int targetDeckIndex = 0;
             string lastViewedDecklist = PlayerPrefs.GetString(SaveDataManager.lastViewedDecklistKey);
-            if (!string.IsNullOrEmpty(lastViewedDecklist))
+            if (!string.IsNullOrWhiteSpace(lastViewedDecklist))
             {
                 for (int i = 0; i < deckDropdown.options.Count; i++)
                 {
@@ -483,13 +482,16 @@ public class DeckBuilder : MonoBehaviour
 
     public void SwapDecks(int deckIndex)
     {
-        if (deckIndex >= 0 && deckIndex < deckDropdown.options.Count)
+        if (initialLoadComplete)
         {
-            string targetDeck = deckDropdown.options[deckIndex].text;
-            deckDropdown.value = deckIndex;
-            deckDropdown.RefreshShownValue();
-            currentDeckList = SaveDataManager.LoadDeck(targetDeck);
-            LoadDeck(currentDeckList);
+            if (deckIndex >= 0 && deckIndex < deckDropdown.options.Count)
+            {
+                string targetDeck = deckDropdown.options[deckIndex].text;
+                deckDropdown.value = deckIndex;
+                deckDropdown.RefreshShownValue();
+                currentDeckList = SaveDataManager.LoadDeck(targetDeck);
+                LoadDeck(currentDeckList);
+            }
         }
     }
 
@@ -543,6 +545,6 @@ public class DeckBuilder : MonoBehaviour
 
     public void OnDeckInputFieldChanged()
     {
-        saveAsButton.interactable = !string.IsNullOrEmpty(deckInputField.text);
+        saveAsButton.interactable = !string.IsNullOrWhiteSpace(deckInputField.text);
     }
 }

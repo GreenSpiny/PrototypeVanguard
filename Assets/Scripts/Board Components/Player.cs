@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
 
             for (int i = deck.cards.Count() - 1; i >= 0; i--)
             {
+                cards.Add(deck.cards[i]);
                 if (i < deckList.mainDeck.Count())
                 {
                     CardInfo c = CardLoader.GetCardInfo(deckList.mainDeck[i]);
@@ -54,19 +55,19 @@ public class Player : MonoBehaviour
                 {
                     abyss.RecieveCard(deck.cards[i], string.Empty);
                 }
-                cards.Add(deck.cards[i]);
             }
             deck.AlignCards(true);
 
+            cards.Add(VC.cards[0]);
             CardInfo vanguard = CardLoader.GetCardInfo(deckList.rideDeck[0]);
             VC.cards[0].cardInfo = vanguard;
             VC.cards[0].SetTexture(CardLoader.GetCardImage(vanguard.index), true);
             VC.cards[0].SetMesh(vanguard.rotate);
             VC.cards[0].gameObject.SetActive(true);
-            cards.Add(VC.cards[0]);
 
             for (int i = ride.cards.Count() - 1; i >= 0; i--)
             {
+                cards.Add(ride.cards[i]);
                 if (i < deckList.rideDeck.Count())
                 {
                     CardInfo c = CardLoader.GetCardInfo(deckList.rideDeck[i]);
@@ -79,12 +80,12 @@ public class Player : MonoBehaviour
                 {
                     abyss.RecieveCard(ride.cards[i], string.Empty);
                 }
-                cards.Add(ride.cards[i]);
             }
             ride.AlignCards(true);
 
             for (int i = gzone.cards.Count() - 1; i >= 0; i--)
             {
+                cards.Add(gzone.cards[i]);
                 if (i < deckList.strideDeck.Count())
                 {
                     CardInfo c = CardLoader.GetCardInfo(deckList.strideDeck[i]);
@@ -97,12 +98,12 @@ public class Player : MonoBehaviour
                 {
                     abyss.RecieveCard(gzone.cards[i], string.Empty);
                 }
-                cards.Add(gzone.cards[i]);
             }
             gzone.AlignCards(true);
 
             for (int i = toolbox.cards.Count() - 1; i >= 0; i--)
             {
+                cards.Add(toolbox.cards[i]);
                 if (i < deckList.toolbox.Count())
                 {
                     CardInfo c = CardLoader.GetCardInfo(deckList.toolbox[i]);
@@ -115,10 +116,8 @@ public class Player : MonoBehaviour
                 {
                     abyss.RecieveCard(toolbox.cards[i], string.Empty);
                 }
-                cards.Add(toolbox.cards[i]);
             }
             toolbox.AlignCards(true);
-
             abyss.AlignCards(true);
         }
     }

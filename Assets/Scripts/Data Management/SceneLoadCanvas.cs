@@ -26,11 +26,11 @@ public class SceneLoadCanvas : MonoBehaviour
 
     private void Awake()
     {
+        image.color = fadeInColor;
         if (transitionOnStart)
         {
             transitioningIn = true;
             canvasGroup.alpha = 0;
-            image.color = fadeInColor;
         }
     }
 
@@ -70,6 +70,12 @@ public class SceneLoadCanvas : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Hide()
+    {
+        canvasGroup.alpha = 0;
+        image.color = fadeInColor;
     }
 
     public void TransitionIn()
