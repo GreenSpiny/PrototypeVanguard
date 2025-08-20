@@ -24078,11 +24078,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 811603505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -112}
-  m_SizeDelta: {x: 500, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 20}
+  m_SizeDelta: {x: 300, y: 70}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1356673603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24133,12 +24133,12 @@ MonoBehaviour:
   m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 36
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -32825,6 +32825,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4093145099139143696, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5689043430944537775, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
       propertyPath: m_Name
       value: Left UI Area
@@ -32929,6 +32933,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6814027796701302828, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -484
+      objectReference: {fileID: 0}
     - target: {fileID: 6982334715187340623, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -32953,6 +32961,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7515523101138037249, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -434
+      objectReference: {fileID: 0}
     - target: {fileID: 8472348748775126308, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -32960,6 +32972,18 @@ PrefabInstance:
     - target: {fileID: 8472348748775126308, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8472348748775126308, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089924219563148520, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -616
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089924219563148520, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -600
       objectReference: {fileID: 0}
     - target: {fileID: 9091084962360498790, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
       propertyPath: m_AnchorMax.x
@@ -38959,11 +38983,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 373124500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -112}
-  m_SizeDelta: {x: 500, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 20}
+  m_SizeDelta: {x: 300, y: 70}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2095504639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39014,12 +39038,12 @@ MonoBehaviour:
   m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 36
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

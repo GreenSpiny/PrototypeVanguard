@@ -58,6 +58,7 @@ public class MenuManager : MonoBehaviour
         else
         {
             state = MenuState.loading;
+            progressBarImage.rectTransform.localScale = new Vector3(0, 1, 1);
         }
     }
 
@@ -80,9 +81,9 @@ public class MenuManager : MonoBehaviour
             if (CardLoader.instance != null)
             {
                 RectTransform rect = progressBarImage.rectTransform;
-                float targetScale = CardLoader.instance.imageDownloadProgress;
-                float currentScale = Mathf.Clamp(rect.localScale.x + Time.deltaTime * downloadProgressAnimationSpeed, 0f, targetScale);
-                progressBarImage.rectTransform.localScale = new Vector3(currentScale, rect.localScale.y, rect.localScale.z);
+                // float targetScale = CardLoader.instance.imageDownloadProgress;
+                // float currentScale = Mathf.Clamp(rect.localScale.x + Time.deltaTime * downloadProgressAnimationSpeed, 0f, targetScale);
+                rect.localScale = new Vector3(CardLoader.instance.imageDownloadProgress, 1, 1);
 
                 if (CardLoader.instance.versionDownloadProgress > 0)
                 {
@@ -93,7 +94,6 @@ public class MenuManager : MonoBehaviour
                     downloadStatusText.text = "A connection error occurred. Internet is required for first load, and to receive new card upates.";
                     downloadStatusText.gameObject.SetActive(true);
                 }
-
             }
             if (CardLoader.instance.CardsLoaded)
             {

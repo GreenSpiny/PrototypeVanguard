@@ -280,7 +280,7 @@ public class GameManager : NetworkBehaviour
                 player2Deck = CardInfo.CreateRandomDeck();
             }
             int nextPlayerIndex = (playerIndex + 1) % 2;
-            players[nextPlayerIndex].AssignDeck(submittedDeck);
+            players[nextPlayerIndex].AssignDeck(player2Deck);
             animationProperties.playerNames[nextPlayerIndex].text = "Shadowboxer";
             
             StartCoroutine(RequestGameStartDelayed());

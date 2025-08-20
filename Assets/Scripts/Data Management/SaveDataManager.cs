@@ -13,6 +13,7 @@ public class SaveDataManager : MonoBehaviour
 
     public const string lastViewedDecklistKey = "lastViewedDecklist";
     public const string lastProfileImageKey = "lastProfileImage";
+    public const string lastProfileNameKey = "lastProfileName";
 
     private void Awake()
     {

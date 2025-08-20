@@ -46,6 +46,11 @@ public class MultiplayerManager : MonoBehaviour
     void Start()
     {
         sceneLoadCanvas.Hide();
+        string lastProfileName = PlayerPrefs.GetString(SaveDataManager.lastProfileNameKey);
+        if (!string.IsNullOrWhiteSpace(lastProfileName))
+        {
+            playerNameInput.text = lastProfileName;
+        }
         StartCoroutine(LoadInitialDisplay());
     }
 
@@ -129,6 +134,14 @@ public class MultiplayerManager : MonoBehaviour
         }
     }
 
+    public void OnPlayerNameChanged(string playerName)
+    {
+        if (!string.IsNullOrWhiteSpace(playerName))
+        {
+            PlayerPrefs.SetString(SaveDataManager.lastProfileNameKey, playerName);
+        }
+    }
+
     private void RefreshSingleplayer()
     {
         singlePlayerDirty = false;
@@ -167,7 +180,12 @@ public class MultiplayerManager : MonoBehaviour
         GameManager.localPlayerDecklist2 = p2DeckContainer.deckList;
         if (!string.IsNullOrWhiteSpace(playerNameInput.text))
         {
-            GameManager.localPlayerName = playerNameInput.text.Trim();
+            string sanitizedName = playerNameInput.text.Trim();
+            if (sanitizedName.Length > 13 && !sanitizedName.Contains(' '))
+            {
+                sanitizedName = sanitizedName.Insert(Mathf.CeilToInt(sanitizedName.Length / 2f), " ");
+            }
+            GameManager.localPlayerName = sanitizedName;
         }
         else
         {
