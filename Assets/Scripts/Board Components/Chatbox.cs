@@ -7,7 +7,6 @@ public class Chatbox : MonoBehaviour
     [SerializeField] private ScrollRect chatScrollRect;
     [SerializeField] private TextMeshProUGUI chatRecord;
     private TMP_InputField inputField;
-    private const int maxInputCharacters = 1000;
     private const int maxRecordCharacters = 100000;
 
     private void Awake()
@@ -19,15 +18,18 @@ public class Chatbox : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(inputField.text) && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
         {
-            string message = inputField.text.Trim(new char[] {' ', '\n', '\r', '\t' });
-            if (message.Length > maxInputCharacters)
+            string sanitizedMessage = GameManager.SanitizeString(inputField.text);
+            if (sanitizedMessage.Length > inputField.characterLimit)
             {
-                message = message.Substring(0, maxInputCharacters);
+                sanitizedMessage = sanitizedMessage.Substring(0, inputField.characterLimit);
             }
-            GameManager.instance.RequestSendChatMessageRpc(DragManager.instance.controllingPlayer.playerIndex, message);
-            inputField.text = string.Empty;
-            inputField.Select();
-            inputField.ActivateInputField();
+            if (!string.IsNullOrWhiteSpace(sanitizedMessage))
+            {
+                GameManager.instance.RequestSendChatMessageRpc(DragManager.instance.controllingPlayer.playerIndex, sanitizedMessage);
+                inputField.text = string.Empty;
+                inputField.Select();
+                inputField.ActivateInputField();
+            }
         }
     }
 

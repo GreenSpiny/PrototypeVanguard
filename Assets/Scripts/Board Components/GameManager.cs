@@ -6,6 +6,8 @@ using Unity.Netcode;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.PackageManager.Requests;
+using System.Text;
 
 public class GameManager : NetworkBehaviour
 {
@@ -24,15 +26,23 @@ public class GameManager : NetworkBehaviour
 
     [NonSerialized] private int dieRollWinner;
     [NonSerialized] public int turnPlayer;
+    [NonSerialized] public int turnCount = 0;
+    [NonSerialized] private bool drewForTurn = false;
 
     [NonSerialized] public List<ConnectectionStruct> connectedPlayers = new List<ConnectectionStruct>();
     [SerializeField] public Player[] players;
     [SerializeField] private Camera infoCamera;
     [SerializeField] private Chatbox chatbox;
     [SerializeField] private AnimationProperties animationProperties;
+    
+    [SerializeField] private Transform[] phaseIndicatorTransforms;
+    [SerializeField] public PhaseIndicator phaseIndicator;
 
-    private enum GameState { setup, dieroll, mulligan, draw, ride, battle, end, finished }
-    private GameState gameState = GameState.setup;
+    public enum GameState { setup, dieroll, gaming, finished }
+    public enum Phase { none, mulligan, ride, main, battle, end }
+
+    [NonSerialized] public GameState gameState = GameState.setup;
+    [NonSerialized] public Phase phase = Phase.none;
 
     [System.Serializable]
     public struct ConnectectionStruct
@@ -87,6 +97,11 @@ public class GameManager : NetworkBehaviour
         infoCamera.gameObject.SetActive(true);
     }
 
+    private int NextPlayer(int input)
+    {
+        return (input + 1) % 2;
+    }
+
     private void Start()
     {
         if (singlePlayer)
@@ -122,9 +137,75 @@ public class GameManager : NetworkBehaviour
             foreach (CardInfo.ActionFlag flag in card.cardInfo.globalActionFlags)
             {
                 players[playerIndex].playerActionFlags.Add(flag);
-                players[(playerIndex + 1) % 2].playerActionFlags.Add(flag);
+                players[NextPlayer(playerIndex)].playerActionFlags.Add(flag);
             }
         }
+    }
+
+    public void ChangePhase(bool forward)
+    {
+        Phase currentPhase = phase;
+        if (forward)
+        {
+            switch (currentPhase)
+            {
+                case Phase.mulligan:
+                    RequestStandAndDrawRpc(turnPlayer);
+                    break;
+                case Phase.ride:
+                    RequestChangePhaseRpc((int)Phase.main);
+                    break;
+                case Phase.main:
+                    RequestChangePhaseRpc((int)Phase.battle);
+                    break;
+                case Phase.battle:
+                    RequestChangePhaseRpc((int)Phase.end);
+                    break;
+                case Phase.end:
+                    RequestStandAndDrawRpc(NextPlayer(turnPlayer));
+                    break;
+            }
+        }
+        else
+        {
+            switch(currentPhase)
+            {
+                case Phase.ride:
+                    if (turnCount == 0)
+                    {
+                        RequestChangePhaseRpc((int)Phase.mulligan);
+                    }
+                    break;
+                case Phase.main:
+                    RequestChangePhaseRpc((int)Phase.ride);
+                    break;
+                case Phase.battle:
+                    RequestChangePhaseRpc((int)Phase.main);
+                    break;
+                case Phase.end:
+                    RequestChangePhaseRpc((int)Phase.battle);
+                    break;
+            }
+        }
+        foreach (Player player in players)
+        {
+            // Player.OnPhaseChanged();
+        }
+    }
+
+    public static string SanitizeString(string inputString)
+    {
+        HashSet<char> badChars = new HashSet<char>() { '\n', '\r', '\t', '\\', '`' };
+        StringBuilder builder = new StringBuilder(inputString.Length);
+        foreach (char c in inputString)
+        {
+            if (!badChars.Contains(c))
+            {
+                builder.Append(c);
+            }
+        }
+        string result = builder.ToString();
+        return result.Trim();
     }
 
     // === CARD NETWORK REQUESTS === //
@@ -163,6 +244,59 @@ public class GameManager : NetworkBehaviour
     {
         Card targetCard = allCards[cardID];
         targetCard.ResetPower();
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void RequestStandAndDrawRpc(int newTurnPlayer)
+    {
+        bool turnChange = turnPlayer != newTurnPlayer;
+        if (turnChange)
+        {
+            drewForTurn = false;
+            turnPlayer = newTurnPlayer;
+            turnCount++;
+        }
+
+        Player targetPlayer = players[turnPlayer];
+        if (!drewForTurn)
+        {
+            Node targetDeck = targetPlayer.deck;
+            if (targetDeck.HasCard)
+            {
+                targetPlayer.hand.RecieveCard(targetDeck.cards[targetDeck.cards.Count - 1], string.Empty);
+            }
+            drewForTurn = true;
+        }
+        Node targetVC = targetPlayer.VC;
+        if (targetVC.HasCard)
+        {
+            Card topCard = targetVC.cards[targetVC.cards.Count - 1];
+            topCard.SetOrientation(topCard.flip, false);
+        }
+        foreach (Node targetRC in targetPlayer.RC)
+        {
+            Card topCard = targetRC.cards[targetRC.cards.Count - 1];
+            topCard.SetOrientation(topCard.flip, false);
+        }
+
+        phaseIndicator.root.transform.parent = phaseIndicatorTransforms[turnPlayer];
+        phaseIndicator.root.transform.localPosition = Vector3.zero;
+
+        phase = Phase.ride;
+        foreach (Player player in players)
+        {
+            // player.OnPhasedChanged()
+        }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    public void RequestChangePhaseRpc(int phase)
+    {
+        this.phase = (Phase) phase;
+        foreach (Player player in players)
+        {
+            // player.OnPhasedChanged()
+        }
     }
 
     [Rpc(SendTo.Everyone)]
@@ -223,7 +357,7 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
-            turnPlayer = (dieRollWinner + 1) % 2;
+            turnPlayer = NextPlayer(dieRollWinner);
         }
 
         if (turnPlayer == DragManager.instance.controllingPlayer.playerIndex)
@@ -245,7 +379,7 @@ public class GameManager : NetworkBehaviour
         AssignActionFlags(0);
         AssignActionFlags(1);
 
-        gameState = GameState.mulligan;
+        gameState = GameState.gaming;
         DragManager.instance.ChangeDMstate(DragManager.DMstate.open);
         for (int i = 0; i < 2; i++)
         {
@@ -279,7 +413,7 @@ public class GameManager : NetworkBehaviour
             {
                 player2Deck = CardInfo.CreateRandomDeck();
             }
-            int nextPlayerIndex = (playerIndex + 1) % 2;
+            int nextPlayerIndex = NextPlayer(playerIndex);
             players[nextPlayerIndex].AssignDeck(player2Deck);
             animationProperties.playerNames[nextPlayerIndex].text = "Shadowboxer";
             
@@ -329,6 +463,14 @@ public class GameManager : NetworkBehaviour
 
         public TextMeshProUGUI[] playerNames;
         public Image[] playerImages;
+    }
+
+    [System.Serializable]
+    public class PhaseIndicator
+    {
+        public GameObject root;
+        public TextMeshProUGUI phaseText;
+        public Animator phaseAnimator;
     }
 
 }

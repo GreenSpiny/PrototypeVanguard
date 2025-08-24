@@ -180,7 +180,11 @@ public class MultiplayerManager : MonoBehaviour
         GameManager.localPlayerDecklist2 = p2DeckContainer.deckList;
         if (!string.IsNullOrWhiteSpace(playerNameInput.text))
         {
-            string sanitizedName = playerNameInput.text.Trim();
+            string sanitizedName = GameManager.SanitizeString(playerNameInput.text);
+            if (sanitizedName.Length > playerNameInput.characterLimit)
+            {
+                sanitizedName = sanitizedName.Substring(0, playerNameInput.characterLimit);
+            }
             if (sanitizedName.Length > 13 && !sanitizedName.Contains(' '))
             {
                 sanitizedName = sanitizedName.Insert(Mathf.CeilToInt(sanitizedName.Length / 2f), " ");
