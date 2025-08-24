@@ -255,8 +255,12 @@ public class GameManager : NetworkBehaviour
             turnPlayer = newTurnPlayer;
             turnCount++;
         }
+        else
+        {
+            phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
+        }
 
-        Player targetPlayer = players[turnPlayer];
+            Player targetPlayer = players[turnPlayer];
         if (!drewForTurn)
         {
             Node targetDeck = targetPlayer.deck;
@@ -300,6 +304,7 @@ public class GameManager : NetworkBehaviour
         {
             player.OnPhaseChanged();
         }
+        phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
     }
 
     [Rpc(SendTo.Everyone)]
