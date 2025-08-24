@@ -254,13 +254,14 @@ public class GameManager : NetworkBehaviour
             drewForTurn = false;
             turnPlayer = newTurnPlayer;
             turnCount++;
+            phaseIndicator.phaseAnimator.Play("phase turn " + turnPlayer.ToString(), 0, 0f);
         }
         else
         {
             phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
         }
 
-            Player targetPlayer = players[turnPlayer];
+        Player targetPlayer = players[turnPlayer];
         if (!drewForTurn)
         {
             Node targetDeck = targetPlayer.deck;
@@ -286,7 +287,6 @@ public class GameManager : NetworkBehaviour
         }
 
         phase = Phase.ride;
-        phaseIndicator.root.transform.SetParent(phaseIndicatorTransforms[turnPlayer], false);
         phaseIndicator.phaseText.text = phaseNames[(int)phase] + " Phase";
 
         foreach (Player player in players)
