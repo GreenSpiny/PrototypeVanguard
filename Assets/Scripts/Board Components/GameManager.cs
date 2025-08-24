@@ -43,6 +43,7 @@ public class GameManager : NetworkBehaviour
 
     [NonSerialized] public GameState gameState = GameState.setup;
     [NonSerialized] public Phase phase = Phase.none;
+    [NonSerialized] private Dictionary<Phase, string> phaseNames;
 
     [System.Serializable]
     public struct ConnectectionStruct
@@ -95,6 +96,14 @@ public class GameManager : NetworkBehaviour
         }
 
         infoCamera.gameObject.SetActive(true);
+
+        phaseNames = new Dictionary<Phase, string>();
+        phaseNames[Phase.none] = "none";
+        phaseNames[Phase.mulligan] = "Mulligan Phase";
+        phaseNames[Phase.ride] = "Ride Phase";
+        phaseNames[Phase.main] = "Main Phase";
+        phaseNames[Phase.battle] = "Battle Phase";
+        phaseNames[Phase.end] = "End Phase";
     }
 
     private int NextPlayer(int input)
@@ -144,6 +153,7 @@ public class GameManager : NetworkBehaviour
 
     public void ChangePhase(bool forward)
     {
+        // Change the phase
         Phase currentPhase = phase;
         if (forward)
         {
@@ -186,10 +196,6 @@ public class GameManager : NetworkBehaviour
                     RequestChangePhaseRpc((int)Phase.battle);
                     break;
             }
-        }
-        foreach (Player player in players)
-        {
-            // Player.OnPhaseChanged();
         }
     }
 
@@ -275,14 +281,18 @@ public class GameManager : NetworkBehaviour
         }
         foreach (Node targetRC in targetPlayer.RC)
         {
-            Card topCard = targetRC.cards[targetRC.cards.Count - 1];
-            topCard.SetOrientation(topCard.flip, false);
+            if (targetRC.HasCard)
+            {
+                Card topCard = targetRC.cards[targetRC.cards.Count - 1];
+                topCard.SetOrientation(topCard.flip, false);
+            }
         }
 
+        phase = Phase.ride;
         phaseIndicator.root.transform.parent = phaseIndicatorTransforms[turnPlayer];
         phaseIndicator.root.transform.localPosition = Vector3.zero;
+        phaseIndicator.phaseText.text = phaseNames[phase];
 
-        phase = Phase.ride;
         foreach (Player player in players)
         {
             // player.OnPhasedChanged()
@@ -293,6 +303,7 @@ public class GameManager : NetworkBehaviour
     public void RequestChangePhaseRpc(int phase)
     {
         this.phase = (Phase) phase;
+        phaseIndicator.phaseText.text = phaseNames[this.phase];
         foreach (Player player in players)
         {
             // player.OnPhasedChanged()
@@ -380,6 +391,7 @@ public class GameManager : NetworkBehaviour
         AssignActionFlags(1);
 
         gameState = GameState.gaming;
+        phase = Phase.mulligan;
         DragManager.instance.ChangeDMstate(DragManager.DMstate.open);
         for (int i = 0; i < 2; i++)
         {
