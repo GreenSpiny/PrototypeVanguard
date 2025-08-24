@@ -41,14 +41,7 @@ public class Player : MonoBehaviour
     public GameObject[] ownedUIRoots;
     [SerializeField] private Button previousPhaseButton;
     [SerializeField] private Button nextPhaseButton;
-    private TextMeshProUGUI previousPhaseText;
-    private TextMeshProUGUI nextPhaseText;
-
-    private void Awake()
-    {
-        previousPhaseText = previousPhaseButton.GetComponentInChildren<TextMeshProUGUI>();
-        nextPhaseText = nextPhaseButton.GetComponentInChildren<TextMeshProUGUI>();
-    }
+    [SerializeField] TextMeshProUGUI phaseText;
 
     public void AssignDeck(CardInfo.DeckList deckList)
     {
@@ -145,36 +138,19 @@ public class Player : MonoBehaviour
             bool isTurnPlayer = GameManager.instance.turnPlayer == playerIndex;
             GameManager.Phase phase = GameManager.instance.phase;
 
-            if (!isTurnPlayer)
-            {
-                previousPhaseButton.interactable = false;
-                nextPhaseButton.interactable = false;
-
-                previousPhaseText.text = "-";
-                nextPhaseText.text = "-";
-            }
-            else
+            if (isTurnPlayer || GameManager.singlePlayer)
             {
                 bool canGoBack = (phase == GameManager.Phase.ride && GameManager.instance.turnCount == 0) || (phase > GameManager.Phase.ride);
                 previousPhaseButton.interactable = canGoBack;
-                if (canGoBack)
-                {
-                    previousPhaseText.text = "To " + GameManager.phaseNames[(int)phase - 1];
-                }
-                else
-                {
-                    previousPhaseText.text = "-";
-                }
                 nextPhaseButton.interactable = true;
-            }
-
-            if (phase == GameManager.Phase.end)
-            {
-                nextPhaseText.text = "Pass Turn";
+                phaseText.text = GameManager.phaseNames[(int)phase];
+                
             }
             else
             {
-                nextPhaseText.text = "To " + GameManager.phaseNames[(int)phase + 1];
+                previousPhaseButton.interactable = false;
+                nextPhaseButton.interactable = false;
+                phaseText.text = "-";
             }
         }
     }
