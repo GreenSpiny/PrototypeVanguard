@@ -20,6 +20,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] public NetworkManager networkManager;
     [SerializeField] public DragManager dragManager;
     [SerializeField] public LetterboxedCanvas letterboxedCanvas;
+    [SerializeField] public Canvas boardOverlayCanvas;
 
     [NonSerialized] public Dictionary<int, Node> allNodes = new Dictionary<int, Node>();
     [NonSerialized] public Dictionary<int, Card> allCards = new Dictionary<int, Card>();
@@ -39,11 +40,11 @@ public class GameManager : NetworkBehaviour
     [SerializeField] public PhaseIndicator phaseIndicator;
 
     public enum GameState { setup, dieroll, gaming, finished }
-    public enum Phase { none, mulligan, ride, main, battle, end }
+    public enum Phase { none = 0, mulligan = 1, ride = 2, main = 3, battle = 4, end = 5 }
+    public static string[] phaseNames = { "none", "Mulligan", "Ride", "Main", "Battle", "End" };
 
     [NonSerialized] public GameState gameState = GameState.setup;
     [NonSerialized] public Phase phase = Phase.none;
-    [NonSerialized] private Dictionary<Phase, string> phaseNames;
 
     [System.Serializable]
     public struct ConnectectionStruct
@@ -96,14 +97,6 @@ public class GameManager : NetworkBehaviour
         }
 
         infoCamera.gameObject.SetActive(true);
-
-        phaseNames = new Dictionary<Phase, string>();
-        phaseNames[Phase.none] = "none";
-        phaseNames[Phase.mulligan] = "Mulligan Phase";
-        phaseNames[Phase.ride] = "Ride Phase";
-        phaseNames[Phase.main] = "Main Phase";
-        phaseNames[Phase.battle] = "Battle Phase";
-        phaseNames[Phase.end] = "End Phase";
     }
 
     private int NextPlayer(int input)
@@ -272,30 +265,29 @@ public class GameManager : NetworkBehaviour
                 targetPlayer.hand.RecieveCard(targetDeck.cards[targetDeck.cards.Count - 1], string.Empty);
             }
             drewForTurn = true;
-        }
-        Node targetVC = targetPlayer.VC;
-        if (targetVC.HasCard)
-        {
-            Card topCard = targetVC.cards[targetVC.cards.Count - 1];
-            topCard.SetOrientation(topCard.flip, false);
-        }
-        foreach (Node targetRC in targetPlayer.RC)
-        {
-            if (targetRC.HasCard)
+            Node targetVC = targetPlayer.VC;
+            if (targetVC.HasCard)
             {
-                Card topCard = targetRC.cards[targetRC.cards.Count - 1];
+                Card topCard = targetVC.cards[targetVC.cards.Count - 1];
                 topCard.SetOrientation(topCard.flip, false);
+            }
+            foreach (Node targetRC in targetPlayer.RC)
+            {
+                if (targetRC.HasCard)
+                {
+                    Card topCard = targetRC.cards[targetRC.cards.Count - 1];
+                    topCard.SetOrientation(topCard.flip, false);
+                }
             }
         }
 
         phase = Phase.ride;
-        phaseIndicator.root.transform.parent = phaseIndicatorTransforms[turnPlayer];
-        phaseIndicator.root.transform.localPosition = Vector3.zero;
-        phaseIndicator.phaseText.text = phaseNames[phase];
+        phaseIndicator.root.transform.SetParent(phaseIndicatorTransforms[turnPlayer], false);
+        phaseIndicator.phaseText.text = phaseNames[(int)phase] + " Phase";
 
         foreach (Player player in players)
         {
-            // player.OnPhasedChanged()
+            player.OnPhaseChanged();
         }
     }
 
@@ -303,10 +295,10 @@ public class GameManager : NetworkBehaviour
     public void RequestChangePhaseRpc(int phase)
     {
         this.phase = (Phase) phase;
-        phaseIndicator.phaseText.text = phaseNames[this.phase];
+        phaseIndicator.phaseText.text = phaseNames[(int)this.phase] + " Phase";
         foreach (Player player in players)
         {
-            // player.OnPhasedChanged()
+            player.OnPhaseChanged();
         }
     }
 
@@ -403,6 +395,10 @@ public class GameManager : NetworkBehaviour
             }
         }
         animationProperties.UIAnimator.Close();
+        foreach (Player player in players)
+        {
+            player.OnPhaseChanged();
+        }
     }
     private IEnumerator RequestGameStartDelayed() { yield return null;  RequestGameStartRpc(); }
 

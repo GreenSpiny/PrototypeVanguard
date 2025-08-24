@@ -1,8 +1,11 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using static GameManager;
+
 public class Player : MonoBehaviour
 {
     [SerializeField] public int playerIndex;
@@ -33,6 +36,19 @@ public class Player : MonoBehaviour
 
     // Global auto actions granted to this player
     public HashSet<CardInfo.ActionFlag> playerActionFlags = new HashSet<CardInfo.ActionFlag>();
+
+    // Board UI elements only visible to this player
+    public GameObject[] ownedUIRoots;
+    [SerializeField] private Button previousPhaseButton;
+    [SerializeField] private Button nextPhaseButton;
+    private TextMeshProUGUI previousPhaseText;
+    private TextMeshProUGUI nextPhaseText;
+
+    private void Awake()
+    {
+        previousPhaseText = previousPhaseButton.GetComponentInChildren<TextMeshProUGUI>();
+        nextPhaseText = nextPhaseButton.GetComponentInChildren<TextMeshProUGUI>();
+    }
 
     public void AssignDeck(CardInfo.DeckList deckList)
     {
@@ -119,6 +135,47 @@ public class Player : MonoBehaviour
             }
             toolbox.AlignCards(true);
             abyss.AlignCards(true);
+        }
+    }
+
+    public void OnPhaseChanged()
+    {
+        if (GameManager.instance != null)
+        {
+            bool isTurnPlayer = GameManager.instance.turnPlayer == playerIndex;
+            GameManager.Phase phase = GameManager.instance.phase;
+
+            if (!isTurnPlayer)
+            {
+                previousPhaseButton.interactable = false;
+                nextPhaseButton.interactable = false;
+
+                previousPhaseText.text = "-";
+                nextPhaseText.text = "-";
+            }
+            else
+            {
+                bool canGoBack = (phase == GameManager.Phase.ride && GameManager.instance.turnCount == 0) || (phase > GameManager.Phase.ride);
+                previousPhaseButton.interactable = canGoBack;
+                if (canGoBack)
+                {
+                    previousPhaseText.text = "To " + GameManager.phaseNames[(int)phase - 1];
+                }
+                else
+                {
+                    previousPhaseText.text = "-";
+                }
+                nextPhaseButton.interactable = true;
+            }
+
+            if (phase == GameManager.Phase.end)
+            {
+                nextPhaseText.text = "Pass Turn";
+            }
+            else
+            {
+                nextPhaseText.text = "To " + GameManager.phaseNames[(int)phase + 1];
+            }
         }
     }
 

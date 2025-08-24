@@ -45,6 +45,12 @@ public class PlayerPuppeteer : NetworkBehaviour
             DragManager.instance.controllingPlayer = player;
             GameManager.instance.letterboxedCanvas.GetCameras()[1].camera = player.playerCamera;
             GameManager.instance.letterboxedCanvas.Refresh();
+            GameManager.instance.boardOverlayCanvas.worldCamera = player.playerCamera;
+
+            foreach (GameObject element in player.ownedUIRoots)
+            {
+                element.SetActive(true);
+            }
 
             // Wait for all card loading to be finished
             while (!CardLoader.instance.CardsLoaded)
