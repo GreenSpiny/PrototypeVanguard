@@ -245,6 +245,12 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
+    public void RequestEnergyIncrementRpc(int playerID, int amount)
+    {
+        players[playerID].IncrementEnergy(amount);
+    }
+
+    [Rpc(SendTo.Everyone)]
     public void RequestStandAndDrawRpc(int newTurnPlayer)
     {
         bool turnChange = turnPlayer != newTurnPlayer;

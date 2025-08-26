@@ -4,12 +4,13 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static GameManager;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] public int playerIndex;
     [NonSerialized] public CardInfo.DeckList deckList = null;
+    private int energy = 0;
 
     // All entities owned by this player
     public Camera playerCamera;
@@ -33,6 +34,8 @@ public class Player : MonoBehaviour
     public Node toolbox;
     public Node abyss;          // shared between players
     public List<Node> RC;
+
+    [SerializeField] private TextMeshProUGUI energyCountText;
 
     // Global auto actions granted to this player
     public HashSet<CardInfo.ActionFlag> playerActionFlags = new HashSet<CardInfo.ActionFlag>();
@@ -159,6 +162,16 @@ public class Player : MonoBehaviour
                 nextPhaseButton.interactable = false;
             }
         }
+    }
+    public void RequestIncrementEnergy(int amount)
+    {
+        GameManager.instance.RequestEnergyIncrementRpc(playerIndex, amount);
+    }
+
+    public void IncrementEnergy(int amount)
+    {
+        energy = Mathf.Clamp(energy + amount, 0, 10);
+        energyCountText.text = energy.ToString();
     }
 
 }

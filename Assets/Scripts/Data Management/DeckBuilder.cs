@@ -405,11 +405,13 @@ public class DeckBuilder : MonoBehaviour
                 deckValidText.text += "\nIt appears you are playing the Touken Ranbu nation, which breaks all conventional deckbuilding rules. Rideline validation is not currently supported.";
                 deckValidText.color = deckWarningColor;
             }
+            /* Energy Generator check
             if (!currentDeckList.toolbox.Contains(1259))
             {
                 deckValidText.text += "\nWarning: there is no 'Energy Generator' in the Toolbox.";
                 deckValidText.color = deckWarningColor;
             }
+            */
         }
         else
         {
