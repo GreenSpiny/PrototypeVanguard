@@ -245,9 +245,9 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestEnergyIncrementRpc(int playerID, int amount)
+    public void RequestSetEnergyRpc(int playerID, int amount)
     {
-        players[playerID].IncrementEnergy(amount);
+        players[playerID].SetEnergy(amount);
     }
 
     [Rpc(SendTo.Everyone)]
@@ -260,6 +260,7 @@ public class GameManager : NetworkBehaviour
             turnPlayer = newTurnPlayer;
             turnCount++;
             phaseIndicator.phaseAnimator.Play("phase turn " + turnPlayer.ToString(), 0, 0f);
+            players[turnPlayer].IncrementEnergy(3);
         }
         else
         {

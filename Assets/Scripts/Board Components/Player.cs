@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] public int playerIndex;
     [NonSerialized] public CardInfo.DeckList deckList = null;
     private int energy = 0;
+    [SerializeField] private Animator energyAnimator;
 
     // All entities owned by this player
     public Camera playerCamera;
@@ -40,8 +41,9 @@ public class Player : MonoBehaviour
     // Global auto actions granted to this player
     public HashSet<CardInfo.ActionFlag> playerActionFlags = new HashSet<CardInfo.ActionFlag>();
 
-    // Board UI elements only visible to this player
+    // Board UI elements visible to this player
     public GameObject[] ownedUIRoots;
+    public RectTransform[] reversedUIRoots;
     [SerializeField] private Button previousPhaseButton;
     [SerializeField] private Button nextPhaseButton;
     [SerializeField] TextMeshProUGUI phaseText;
@@ -165,13 +167,29 @@ public class Player : MonoBehaviour
     }
     public void RequestIncrementEnergy(int amount)
     {
-        GameManager.instance.RequestEnergyIncrementRpc(playerIndex, amount);
+        int originalEnergy = energy;
+        int newEnergy = Mathf.Clamp(energy + amount, 0, 10);
+        if (newEnergy != originalEnergy)
+        {
+            GameManager.instance.RequestSetEnergyRpc(playerIndex, newEnergy);
+        }
     }
 
     public void IncrementEnergy(int amount)
     {
-        energy = Mathf.Clamp(energy + amount, 0, 10);
+        int originalEnergy = energy;
+        int newEnergy = Mathf.Clamp(energy + amount, 0, 10);
+        if (newEnergy != originalEnergy)
+        {
+            SetEnergy(newEnergy);
+        }
+    }
+
+    public void SetEnergy(int amount)
+    {
+        energy = amount;
         energyCountText.text = energy.ToString();
+        energyAnimator.Play("energy pulse", 0, 0f);
     }
 
 }

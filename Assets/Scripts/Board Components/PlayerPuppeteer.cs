@@ -52,6 +52,11 @@ public class PlayerPuppeteer : NetworkBehaviour
                 element.SetActive(true);
             }
 
+            foreach (RectTransform rect in player.reversedUIRoots)
+            {
+                rect.localRotation = Quaternion.Euler(rect.localRotation.x, rect.localRotation.y, rect.localRotation.z + 180 * playerIndex);
+            }
+
             // Wait for all card loading to be finished
             while (!CardLoader.instance.CardsLoaded)
             {
