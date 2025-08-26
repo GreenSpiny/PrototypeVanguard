@@ -3,12 +3,13 @@ import json
 dataFile = open('cardsData.json', 'r+', encoding='raw_unicode_escape')
 cards = json.loads(dataFile.read().encode('raw_unicode_escape').decode('utf8'))
 
-jpMode = False
+# Before running the program, assign jpMode based on if we are importing english cards or JP exclusives.
+# When english cards become available, this flag helps us overwrite the JP cards' info without altering their index.
+jpMode = False 
 index = 0
 for c in cards.values():
 	if 'index' in c.keys():
 		index = max(index, c['index'])
-
 
 jpCardKeys = []
 engCardKeys = []
@@ -62,6 +63,9 @@ for key in cards.keys():
 		c['drive'] = 3
 	else:
 		c['drive'] = 1
+
+	if "Unit" not in c['type']:
+		c['drive'] = 0
 
 	if 'count' not in c.keys():
 		c['count'] = 4

@@ -74,6 +74,14 @@ public class Player : MonoBehaviour
             VC.cards[0].SetMesh(vanguard.rotate);
             VC.cards[0].gameObject.SetActive(true);
 
+            cards.Add(crest.cards[0]);
+            int generatorIndex = 1259;
+            CardInfo energyGenerator = CardLoader.GetCardInfo(generatorIndex);
+            crest.cards[0].cardInfo = energyGenerator;
+            crest.cards[0].SetTexture(CardLoader.GetCardImage(generatorIndex), true);
+            crest.cards[0].SetMesh(energyGenerator.rotate);
+            crest.cards[0].gameObject.SetActive(true);
+
             for (int i = ride.cards.Count() - 1; i >= 0; i--)
             {
                 cards.Add(ride.cards[i]);
@@ -138,19 +146,17 @@ public class Player : MonoBehaviour
             bool isTurnPlayer = GameManager.instance.turnPlayer == playerIndex;
             GameManager.Phase phase = GameManager.instance.phase;
 
+            phaseText.text = GameManager.phaseNames[(int)phase];
             if (isTurnPlayer || GameManager.singlePlayer)
             {
                 bool canGoBack = (phase == GameManager.Phase.ride && GameManager.instance.turnCount == 0) || (phase > GameManager.Phase.ride);
                 previousPhaseButton.interactable = canGoBack;
                 nextPhaseButton.interactable = true;
-                phaseText.text = GameManager.phaseNames[(int)phase];
-                
             }
             else
             {
                 previousPhaseButton.interactable = false;
                 nextPhaseButton.interactable = false;
-                phaseText.text = "-";
             }
         }
     }

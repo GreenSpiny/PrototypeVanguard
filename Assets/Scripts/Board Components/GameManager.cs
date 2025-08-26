@@ -36,7 +36,6 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private Chatbox chatbox;
     [SerializeField] private AnimationProperties animationProperties;
     
-    [SerializeField] private Transform[] phaseIndicatorTransforms;
     [SerializeField] public PhaseIndicator phaseIndicator;
 
     public enum GameState { setup, dieroll, gaming, finished }
@@ -259,6 +258,7 @@ public class GameManager : NetworkBehaviour
         else
         {
             phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
+            phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
         }
 
         Player targetPlayer = players[turnPlayer];
@@ -305,6 +305,7 @@ public class GameManager : NetworkBehaviour
             player.OnPhaseChanged();
         }
         phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
+        phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
     }
 
     [Rpc(SendTo.Everyone)]
@@ -484,6 +485,7 @@ public class GameManager : NetworkBehaviour
         public GameObject root;
         public TextMeshProUGUI phaseText;
         public Animator phaseAnimator;
+        public Animator overlayPhaseAnimator;
     }
 
 }
