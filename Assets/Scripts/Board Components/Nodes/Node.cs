@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.Mathematics;
 
 // Nodes are locations on the board that cards are anchored to. They recieve and arrange cards by their own devices.
 // Examples include the hand, deck, all zones, and all unit circles.
@@ -137,6 +138,20 @@ public abstract class Node : MonoBehaviour
         {
             card.SetRevealed(false, 0f);
         }
+    }
+
+    public void Shuffle(bool instant)
+    {
+        List<Card> shuffledCards = new List<Card>();
+        while (cards.Count > 0)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, cards.Count);
+            Card c = cards[randomIndex];
+            cards.RemoveAt(randomIndex);
+            shuffledCards.Add(c);
+        }
+        cards = shuffledCards;
+        AlignCards(true);
     }
 
     public virtual void AlignCards(bool instant)

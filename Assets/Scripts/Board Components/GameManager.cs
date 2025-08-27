@@ -222,6 +222,13 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
+    public void RequestShuffleCardsRpc(int nodeID)
+    {
+        Node targetNode = allNodes[nodeID];
+        targetNode.Shuffle(false);
+    }
+
+    [Rpc(SendTo.Everyone)]
     public void RequestSetOrientationRpc(int cardID, bool flip, bool rest)
     {
         Card targetCard = allCards[cardID];
