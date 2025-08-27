@@ -90680,7 +90680,7 @@
    "MyGO!!!!!"
   ],
   "regulation": "Standard",
-  "rotate": false,
+  "rotate": true,
   "shield": 0,
   "skill": [],
   "type": "Normal Order",

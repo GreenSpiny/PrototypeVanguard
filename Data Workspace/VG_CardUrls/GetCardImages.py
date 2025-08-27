@@ -6,19 +6,18 @@ import math
 
 if __name__ == "__main__":
 
-	dataFile = open('allCardsSingleton.json', 'r')
+	dataFile = open('cardsData.json', 'r')
 	data = json.loads(dataFile.read())
-	cards = data['cards']
 	dataFile.close()
 
 	startIndex = 0;
-	endIndex = len(cards);
+	endIndex = len(data);
 	if len(sys.argv) >= 2:
 		startIndex = int(sys.argv[1])
 	if len(sys.argv) >= 3:
 		endIndex = int(sys.argv[2])
 
-	for card in cards.values():
+	for card in data.values():
 		index = card['index']
 		folder = str(math.floor(index / 100.0))
 

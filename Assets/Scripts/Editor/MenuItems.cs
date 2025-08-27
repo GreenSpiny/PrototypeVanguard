@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuItems : MonoBehaviour
+public class MenuItems
 {
     static int cardCount = 0;
     static int nodeCount = 0;
@@ -49,5 +49,12 @@ public class MenuItems : MonoBehaviour
             }
             FindNodesRecursive(child);
         }
+    }
+
+    [MenuItem("Custom/Remove Unused Assetbundle Names")]
+    static void RemoveUnusedBundles()
+    {
+        AssetDatabase.RemoveUnusedAssetBundleNames();
+        AssetDatabase.Refresh();
     }
 }
