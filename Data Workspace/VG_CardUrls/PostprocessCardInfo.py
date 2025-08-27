@@ -20,8 +20,8 @@ for key in cards.keys():
 		index += 1
 		c['index'] = index
 
-	if jpMode not in c.keys():
-		jpMode = jpMode;
+	if 'jpMode' not in c.keys():
+		c['jpMode'] = jpMode;
 
 	if c['jpMode']:
 		jpCardKeys.append(key)
@@ -92,7 +92,7 @@ for key in cards.keys():
 		nationArray = c['nation'].split('/')
 		c['nation'] = []
 		for nation in nationArray:
-			c['nation'].append(part.strip())
+			c['nation'].append(nation.strip())
 
 	if (isinstance(c['race'],str)):
 		raceArray = c['race'].split('/')
@@ -146,5 +146,5 @@ for key in cards.keys():
 
 dataFile.seek(0)
 dataFile.truncate(0)
-dataFile.write(json.dumps(data, sort_keys=True, indent=1, ensure_ascii=True))
+dataFile.write(json.dumps(cards, sort_keys=True, indent=1, ensure_ascii=True))
 dataFile.close()
