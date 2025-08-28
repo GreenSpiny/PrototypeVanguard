@@ -148,6 +148,19 @@ for key in cards.keys():
 	if 'overDress]' in lowereffect or '[explosivegrowth]' in lowereffect or 'granfia' in lowername:
 		c['actionflags'].append(17) # soulRC
 
+# dupe check
+dupeCheck = False
+if (dupeCheck):
+	effectSet = set()
+	for key in cards.keys():
+		c = cards[key]
+		if c['grade'] > 0:
+			stripped = c['effect'].strip()
+			if stripped not in effectSet:
+				effectSet.add(stripped)
+			else:
+				print(c['name'])
+
 dataFile.seek(0)
 dataFile.truncate(0)
 dataFile.write(json.dumps(cards, sort_keys=True, indent=1, ensure_ascii=True))
