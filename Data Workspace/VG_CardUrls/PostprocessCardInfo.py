@@ -43,6 +43,12 @@ for key in cards.keys():
 	if 'giftPower' not in c.keys():
 		c['giftPower'] = ''
 
+	if 'alias' not in c.keys():
+		if '[CONT]:This card is also regarded as' in c['effect']:
+			c['alias'] = -10
+		else:
+			c['alias'] = -1
+
 	gift = c['gift']
 	gift = gift.replace('Trigger', '')
 	gift = gift.replace('-', '')
