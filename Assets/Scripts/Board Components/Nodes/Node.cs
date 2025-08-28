@@ -152,6 +152,20 @@ public abstract class Node : MonoBehaviour
         }
         cards = shuffledCards;
         AlignCards(true);
+        if (!instant)
+        {
+            for (int i = 0; i < cards.Count; i++)
+            {
+                float xOffset = 0;
+                if (i != cards.Count - 1)
+                {
+                    xOffset = ((i % 2) * 2 - 1) * 0.2f;
+                }
+                float yOffset = i * 0.05f;
+                Card currentCard = cards[i];
+                currentCard.transform.localPosition += new Vector3(Card.cardWidth * xOffset, i * Card.cardDepth * yOffset, 0f);
+            }
+        }
     }
 
     public virtual void AlignCards(bool instant)

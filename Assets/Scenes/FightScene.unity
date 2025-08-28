@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 2592317}
   - component: {fileID: 2592316}
   - component: {fileID: 2592319}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P2 Energy Count BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1193,7 +1193,7 @@ GameObject:
   - component: {fileID: 35065381}
   - component: {fileID: 35065383}
   - component: {fileID: 35065382}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Next Phase Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2811,7 +2811,7 @@ GameObject:
   - component: {fileID: 120438706}
   - component: {fileID: 120438705}
   - component: {fileID: 120438703}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Energy Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3013,7 +3013,7 @@ GameObject:
   - component: {fileID: 155303954}
   - component: {fileID: 155303956}
   - component: {fileID: 155303955}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Previous Phase Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4294,7 +4294,7 @@ GameObject:
   - component: {fileID: 225219502}
   - component: {fileID: 225219504}
   - component: {fileID: 225219503}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Next Phase Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7397,9 +7397,17 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7112016025595103348, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_Name
       value: Energy Button -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8836138118275350417, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_TargetGraphic
@@ -8879,9 +8887,17 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7112016025595103348, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_Name
       value: Energy Button -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8836138118275350417, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_TargetGraphic
@@ -9340,7 +9356,7 @@ GameObject:
   - component: {fileID: 549540728}
   - component: {fileID: 549540725}
   - component: {fileID: 549540724}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Previous Phase Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9801,7 +9817,7 @@ GameObject:
   - component: {fileID: 575044247}
   - component: {fileID: 575044250}
   - component: {fileID: 575044251}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Previous Phase Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10454,7 +10470,7 @@ GameObject:
   - component: {fileID: 619920602}
   - component: {fileID: 619920601}
   - component: {fileID: 619920600}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Phase Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11860,9 +11876,17 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7112016025595103348, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_Name
       value: Energy Button -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8836138118275350417, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_TargetGraphic
@@ -13221,7 +13245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 741258428}
   - component: {fileID: 741258429}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P2 energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13886,7 +13910,7 @@ GameObject:
   - component: {fileID: 759974948}
   - component: {fileID: 759974947}
   - component: {fileID: 759974946}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Phase Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14798,7 +14822,7 @@ GameObject:
   - component: {fileID: 796411893}
   - component: {fileID: 796411890}
   - component: {fileID: 796411889}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Next Phase Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14970,7 +14994,7 @@ GameObject:
   m_Component:
   - component: {fileID: 803288264}
   - component: {fileID: 803288265}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P1 energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19892,9 +19916,17 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7112016025595103348, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_Name
       value: Energy Button -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8836138118275350417, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_TargetGraphic
@@ -23281,7 +23313,7 @@ GameObject:
   - component: {fileID: 1238977856}
   - component: {fileID: 1238977855}
   - component: {fileID: 1238977854}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Phase Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26589,7 +26621,7 @@ GameObject:
   - component: {fileID: 1346012957}
   - component: {fileID: 1346012960}
   - component: {fileID: 1346012959}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Energy Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27741,9 +27773,17 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7112016025595103348, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_Name
       value: Energy Button +1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8836138118275350417, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -28031,7 +28071,7 @@ GameObject:
   - component: {fileID: 1385798553}
   - component: {fileID: 1385798552}
   - component: {fileID: 1385798551}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Phase Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29818,7 +29858,7 @@ GameObject:
   - component: {fileID: 1490451706}
   - component: {fileID: 1490451705}
   - component: {fileID: 1490451708}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P1 Energy Count BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29878,7 +29918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -30061,7 +30101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1499641719}
   - component: {fileID: 1499641720}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P1 Phase Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32100,7 +32140,7 @@ GameObject:
   - component: {fileID: 1587852797}
   - component: {fileID: 1587852800}
   - component: {fileID: 1587852801}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Next Phase Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35148,7 +35188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1689480109}
   - component: {fileID: 1689480110}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Phase Button Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38755,7 +38795,7 @@ GameObject:
   - component: {fileID: 1872963556}
   - component: {fileID: 1872963558}
   - component: {fileID: 1872963557}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Previous Phase Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41477,7 +41517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2020153464}
   - component: {fileID: 2020153465}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P2 Phase Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45140,9 +45180,17 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7112016025595103348, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_Name
       value: Energy Button +1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221842012242987410, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8836138118275350417, guid: 0ebeccb8a9b061a4890968753ff8db03, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
