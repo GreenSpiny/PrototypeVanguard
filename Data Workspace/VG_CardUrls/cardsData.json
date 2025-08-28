@@ -173,7 +173,7 @@
  "aberrantgleamdragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -822,7 +822,7 @@
  "abysstemptation": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -1096,7 +1096,7 @@
  "accumulationoftime": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -1128,7 +1128,7 @@
  "accumulationsage": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -1298,7 +1298,7 @@
  "actinglikeyohamidamaru": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -1504,7 +1504,7 @@
  "adeptwildmasterfelylne": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC) from hand, if you have a grade 3 or greater vanguard, choose up to one normal unit without sentinel from your drop, and put it on the bottom of the deck. If you chose a card, this unit gets [Power]+2000 until end of turn.",
@@ -1877,7 +1877,7 @@
  "adreamlikemoment": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -1909,7 +1909,7 @@
  "advancedclockdragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -2373,7 +2373,7 @@
  "afterglowhimariuehara": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -2407,7 +2407,7 @@
  "afterglowmocaaoba": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -2441,7 +2441,7 @@
  "afterglowranmitake": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -2475,7 +2475,7 @@
  "afterglowtomoeudagawa": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -2509,7 +2509,7 @@
  "afterglowtsugumihazawa": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -2645,7 +2645,7 @@
  "agardenerstreasure": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "Perform one of the following. <br>-  Call a Plant token to (RC).<br>- [COST][Retire a Plant token], look at the top three cards of your deck, choose up to one card with grade less than or equal to your vanguard from among them, reveal it and put it into hand, and shuffle the deck.",
@@ -3148,7 +3148,7 @@
  "akitatoushirou": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -4058,7 +4058,7 @@
  "alteregomessiahcrest": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You can perform [Stride], and cannot ride grade 3 or greater cards without \"Messiah\" in their card names.\n[CONT]:The original [Power] of your grade 3 cards with \"Messiah\" in their card names become 13000. (Including heart cards)\n[CONT]:During your turn, if you have a grade 3 or greater vanguard with \"Messiah\" in its card name, all of your front row units get [Power] +5000 for each face up card in your G zone.\n[AUTO]:At the end of your turn, unlock all of your opponent's locked cards, and bind those units.",
@@ -4390,7 +4390,7 @@
  "ameliorateconnector": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -4595,7 +4595,7 @@
  "amplebomberangel": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -4732,7 +4732,7 @@
  "analysisthrashingbrightrim": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -4796,7 +4796,7 @@
  "ancestraldragonkingofzenithcolorsfounaherdio": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]: This card is regarded as \"Spiritual King of Ignition, Valnout\".<br>Additional Effect - Choose one of your [Stand] rear-guards, and it gets \"[AUTO](RC)[1/turn]: At the end of the battle this unit attacked, [Stand] this unit.\" until end of turn. If you did not choose a card, draw a card, choose up to one unit card from your hand, and call it to (RC).",
@@ -5101,7 +5101,7 @@
  "answererencoredaatje": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -5306,7 +5306,7 @@
  "aplombsightgrete": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -5718,7 +5718,7 @@
  "arcmya": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -6569,7 +6569,7 @@
  "arushborderingonoverheating": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your vanguard is a \"Man\" or \"Valkyrie\", and your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -6836,7 +6836,7 @@
  "aspiringmaidenalana": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into your soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -7141,7 +7141,7 @@
  "astesicemisa": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -7348,7 +7348,7 @@
  "atsushitoushirou": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(If revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +1000 until end of turn!)",
@@ -7657,7 +7657,7 @@
  "aurorabattleprincessamyorange": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -8063,7 +8063,7 @@
  "aurorabattleprincessfronterose": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] Trigger +10000 until end of turn!)",
@@ -8268,7 +8268,7 @@
  "aurorabattleprincesslourusyellow": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] Trigger +1 until end of turn! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -9940,7 +9940,7 @@
  "bardofheavenlysongalpacc": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -10078,7 +10078,7 @@
  "baseformspiritoffire": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -10250,7 +10250,7 @@
  "battleintheabyss": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)<br>[CONT]:You may have up to eight \"Battle in the Abyss\" in your deck.",
@@ -10758,7 +10758,7 @@
  "beauteouseternitylururatye": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is regarded as \"Spiritual King of Ignition, Valnout\".\nAdditional Effect - Choose one of your [Stand] rear-guards, and it gets \"[AUTO](RC)[1/turn]: At the end of the battle this unit attacked, [Stand] this unit.\" until end of turn. If you did not choose a card, draw a card, choose up to one unit card from your hand, and call it to (RC).",
@@ -10860,7 +10860,7 @@
  "beautifuldemeanorschrentia": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -10894,7 +10894,7 @@
  "beautifulprincessofplacidityardalil": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC)[1/Turn]:When this unit attacks a vanguard, if you have a grade 3 or greater vanguard, [COST][put a rear-guard with a different card name from this unit into soul], and this unit gets [Power]+5000 until end of turn.",
@@ -11186,7 +11186,7 @@
  "begintortureshamash": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -12065,7 +12065,7 @@
  "bigbasketballbattle": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -12722,7 +12722,7 @@
  "bladefeatherdragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into your soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -13231,7 +13231,7 @@
  "blazefistmonknikko": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] Trigger +10000 until end of turn!)",
@@ -13471,7 +13471,7 @@
  "blazemaidenarush": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -13709,7 +13709,7 @@
  "blazemaidenparama": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -14185,7 +14185,7 @@
  "blazemaidenzonne": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] Trigger +1 until end of turn! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -14321,7 +14321,7 @@
  "blazesensemonkhakumee": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -14355,7 +14355,7 @@
  "blazestaffmonkchokuusha": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -14419,7 +14419,7 @@
  "blazewarmonksougyou": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -14727,7 +14727,7 @@
  "blessingdivagrizael": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - During this fight, you get \"During your turn, all your rear-guards get [Power] +10000\"!",
@@ -14761,7 +14761,7 @@
  "blessingofthegreatspirit": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -15230,7 +15230,7 @@
  "blitzdesignergeed": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -15673,7 +15673,7 @@
  "blitzpilotjagt": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000!)",
@@ -15775,7 +15775,7 @@
  "blitzsalescleve": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -17376,7 +17376,7 @@
  "bouyantlygaminggisele": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -17849,7 +17849,7 @@
  "breezingscorerianne": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -18761,7 +18761,7 @@
  "buildingabigsnowsculpturewitheveryone": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -18966,7 +18966,7 @@
  "buoyancefloater": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -19135,7 +19135,7 @@
  "burningflaildragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into your soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -20450,7 +20450,7 @@
  "cardinaldracoaeblood": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -20518,7 +20518,7 @@
  "cardinaldracobarbizonde": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -20654,7 +20654,7 @@
  "cardinaldracoenpyro": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -20964,7 +20964,7 @@
  "cardinalfangfulgrus": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -22364,7 +22364,7 @@
  "chainlikecluster": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -22937,7 +22937,7 @@
  "cheerfulsunshinewallis": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000!)",
@@ -23239,7 +23239,7 @@
  "chivalmya": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000!)",
@@ -23444,7 +23444,7 @@
  "chronojetdragoncrest": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You can perform [Stride], and cannot ride grade 3 or greater cards without \"Chronojet\" in their card names.\n[CONT]:The original [Power] of your grade 3 cards with \"Chronojet\" in their card names become 13000. (Including heart cards)\n[CONT]:During your turn, if you have a grade 3 or greater vanguard with \"Chronojet\" in its card name, all of your front row units get [Power] +5000 for each face up card in your G zone.\n[AUTO]:At the beginning of your battle phase, choose up to one of your grade 3 or greater rear-guards, and increase or decrease its grade to 0 until end of turn.",
@@ -23474,7 +23474,7 @@
  "chrysisbisection": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -24422,7 +24422,7 @@
  "closecoverage": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -24893,7 +24893,7 @@
  "coldnoodlesaregone": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -25168,7 +25168,7 @@
  "comearoundlapuole": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is put on (GC), if a card was put into your damage zone this turn, [COST][Soul-Blast 1], and this unit gets [Shield]+10000 until end of that battle.",
@@ -25706,7 +25706,7 @@
  "conductsparkdragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -25912,7 +25912,7 @@
  "connectedrampageclenn": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -26561,7 +26561,7 @@
  "corocorocomic": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect too!)<br>\nAdditional Effect - Perform one of the following.<br>\n- Choose one of your units, and it gets [Critical] +1 until end of turn.<br>\n- Choose one of your [Stand] rear-guards, and it gets \"[AUTO](RC)[1/turn]:At the end of the battle this unit attacked, [Stand] this unit.\" until end of turn.",
@@ -27980,7 +27980,7 @@
  "cutekororo": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -28286,7 +28286,7 @@
  "cymbalhamster": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -28762,7 +28762,7 @@
  "daringknightsauel": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -29883,7 +29883,7 @@
  "deeplymovedbason": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -30593,7 +30593,7 @@
  "demonicfevergarviera": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - During this fight, you get \"During your turn, all your rear-guards get [Power] +10000\"!",
@@ -31074,7 +31074,7 @@
  "demonstealthdragonshiranuioborocrest": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You can perform [Stride], and cannot ride grade 3 or greater cards without \"Demon Stealth Dragon, Shiranui\" in their card names.\n[CONT]:The original [Power] of your grade 3 cards with \"Demon Stealth Dragon, Shiranui\" in their card names become 13000. (Including heart cards)\n[CONT]:During your turn, if you have a grade 3 or greater vanguard with \"Demon Stealth Dragon, Shiranui\" in its card name, all of your front row units get [Power] +5000 for each face up card in your G zone. (The [Power] of dominated units will not increase)\n[CONT]:During your turn, your opponent's units placed by your card's ability this turn, and units dominated by you, lose all of their [CONT] and [AUTO] abilities, and get [Power] +5000.",
@@ -33489,7 +33489,7 @@
  "diabolosboysjake": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -34037,7 +34037,7 @@
  "diabolosgirlsmaimai": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] Trigger +1 until end of turn! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -34071,7 +34071,7 @@
  "diabolosgirlsnatalia": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -34581,7 +34581,7 @@
  "diabolosofficerkilian": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] Trigger +10000 until end of turn!)",
@@ -35232,7 +35232,7 @@
  "diligentfollowersiguel": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -35573,7 +35573,7 @@
  "direfuldollaltea": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):When this unit boosts, if you have a grade 3 or greater vanguard with \"Direful Doll\" in its card name, choose up to one card with \"Direful Doll\" in its card name from your drop, put it into soul, this unit gets [Power]+5000 until end of that battle, and at the end of that battle, bind this unit. (This effect is mandatory)",
@@ -35675,7 +35675,7 @@
  "direfuldollbethany": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000!)",
@@ -37917,7 +37917,7 @@
  "divinesisternatilla": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is retired from (GC), you may put this card into soul.",
@@ -38324,7 +38324,7 @@
  "divinezdeluxearcmichiruhazama": {
   "actionflags": [],
   "alias": 3416,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Stem Deviate Dragon\".<br> [AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into soul], choose one of your units, and it gets [Power]+2000 until end of turn.",
@@ -39154,7 +39154,7 @@
  "dragheartluardcrest": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You can perform [Stride], and cannot ride grade 3 or greater cards without \"Luard\" in their card names.\n[CONT]:The original [Power] of your grade 3 cards with \"Luard\" in their card names become 13000. (Including Heart cards)\n[CONT]:During your turn, if you have a grade 3 or greater vanguard with \"Luard\" in its card name, all of your front row units get [Power] +5000 for each face up card in your G zone.\n[AUTO]:At the end of your turn, if you [Stride] without paying cost this turn, choose up to one [Critical] trigger from your drop, and put it on the bottom of the deck.",
@@ -39216,7 +39216,7 @@
  "dragondeitykingofresurgencedragveda": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Choose one of your vanguards, and [Stand] it!",
@@ -42346,7 +42346,7 @@
  "dualpressuredragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -42478,7 +42478,7 @@
  "eachoftheirdreams": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:You may have up to eight \"Each of their Dreams\" in your deck.",
@@ -42649,7 +42649,7 @@
  "earlysummerbreezemaidenwillow": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -43092,7 +43092,7 @@
  "earthelementalgarara": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -43229,7 +43229,7 @@
  "eatyourshirt": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -43665,7 +43665,7 @@
  "electrakedracokid": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -44538,7 +44538,7 @@
  "endearingvendormateyna": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is retired from (GC), you may put this card into soul.",
@@ -44602,7 +44602,7 @@
  "endofacampofacceptanceforthefive": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "Additional Effect - Choose five normal units from your drop with same race as your vanguard and different card names, and put them into hand.",
@@ -44805,7 +44805,7 @@
  "energygenerator": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "(You may only have one ride deck crest in a ride deck)<br>[AUTO]Ride Deck:When you ride, put this card into the crest zone, and if you went second, [Energy-Charge 3].<br>[CONT]:You may have up to ten energy.<br>[AUTO]:At the beginning of your ride phase, [Energy-Charge 3].<br>[ACT][1/turn]:[COST][Energy-Blast 7], and draw a card.",
@@ -46422,7 +46422,7 @@
  "exaltingknighteafred": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -47834,7 +47834,7 @@
  "fantasticfurnalecatrina": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - During this fight, you get \"During your turn, all your rear-guards get [Power] +10000\"!",
@@ -49144,7 +49144,7 @@
  "fierydodgeballgirldodgedankodankoichigeki": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is regarded as \"Spiritual King of Ignition, Valnout\"<br>\n(You may only have one [Over] in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>\nAdditional Effect - Choose one of your [Stand] rear-guards, and it gets \"[AUTO](RC)[1/turn]: At the end of the battle this unit attacked, [Stand] this unit.\" until end of turn. If you did not choose a card, draw a card, choose up to one unit card from your hand, and call it to (RC).",
@@ -50392,7 +50392,7 @@
  "flareveildragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -50597,7 +50597,7 @@
  "flatteredtokageroh": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -50897,7 +50897,7 @@
  "flintyslasher": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -51637,7 +51637,7 @@
  "fluffyladygodelieve": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -52414,7 +52414,7 @@
  "formerspecialclassrewindershirai": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -52704,7 +52704,7 @@
  "forwardwheeltherotta": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -52971,7 +52971,7 @@
  "frenziedheiress": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -53920,7 +53920,7 @@
  "futurecardgodbuddyfightyugaampgarga": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is regarded as \"Spiritual King of Aquatics, Idosfaro\".<br>\n(You may only have one [Over] in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>\nAdditional Effect - Choose a card from your drop, put it into hand, choose one of your units, and it gets [Critical] +1 until end of turn.",
@@ -55002,7 +55002,7 @@
  "gamecommentary": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -56662,7 +56662,7 @@
  "gleesingingtetoel": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -56902,7 +56902,7 @@
  "gluttonnora": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -57616,7 +57616,7 @@
  "gotoutoushirou": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -59088,7 +59088,7 @@
  "greatdragonemperorofdistantblazegidoradevalt": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]: This card is regarded as \"Spiritual King of Ignition, Valnout\".<br>Additional Effect - Choose one of your [Stand] rear-guards, and it gets \"[AUTO](RC)[1/turn]: At the end of the battle this unit attacked, [Stand] this unit.\" until end of turn. If you did not choose a card, draw a card, choose up to one unit card from your hand, and call it to (RC).",
@@ -59122,7 +59122,7 @@
  "greateststaresteranza": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - During this fight, you get \"During your turn, all your rear-guards get [Power] +10000\"!",
@@ -59669,7 +59669,7 @@
  "grinningdragonscaleilze": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -59940,7 +59940,7 @@
  "grudgefulhatchet": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -60315,7 +60315,7 @@
  "habitualtruantpelageya": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -60487,7 +60487,7 @@
  "hachisukakotetsushinkenhissatsu": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 0,
   "effect": "Additional Effect - All of your units get [Critical] +1 until end of turn!<br><br>Play Effect - Choose one of your vanguards, until end of turn, it gets [Critical] +1, and if your damage zone has five or more cards, all of your units get [Power] +10000!",
@@ -60551,7 +60551,7 @@
  "hadesdragondeityofresentmentgallmageheld": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - You get \"During your turn, all of your vanguards get [Power] +10000/[Critical] +1\" until end of this fight!",
@@ -60654,7 +60654,7 @@
  "hakatatoushirou": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(If revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -61118,7 +61118,7 @@
  "happyinvitationemail": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](Drop):When a card is put into your order zone other than during the battle phase, if you do not have a unit with the same card name as this card, [COST][Energy-Blast 4], and call this card to (RC).",
@@ -61186,7 +61186,7 @@
  "happynewyear": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -61690,7 +61690,7 @@
  "haughtymissyarroel": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -62228,7 +62228,7 @@
  "heartsconnectrufina": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -62398,7 +62398,7 @@
  "heatelementalmarg": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -63730,7 +63730,7 @@
  "hellohappyworldhagumikitazawa": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -63764,7 +63764,7 @@
  "hellohappyworldkanonmatsubara": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -63798,7 +63798,7 @@
  "hellohappyworldkaoruseta": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -63832,7 +63832,7 @@
  "hellohappyworldkokorotsurumaki": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -63866,7 +63866,7 @@
  "hellohappyworldmichelle": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -64578,7 +64578,7 @@
  "hiphopstreamerserio": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is put on (GC) from hand, [COST][Counter-Blast 1], choose a trigger unit other than [Over] from your drop, and call it to (GC).",
@@ -64612,7 +64612,7 @@
  "hiranotoushirou": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -65900,7 +65900,7 @@
  "houndraiserhinami": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):When your <high beast=\"\"> attacks from the back row center column, if you have a grade 3 or greater vanguard with \"Hound Raiser\" in its card name, this unit gets [Power]+5000 until end of turn, if your opponent's vanguard is grade 3 or greater, choose one of your other rear-guards, and it gets [Power]+5000 until end of turn. <br>[AUTO](RC):At the end of the battle this unit attacked while boosted by a <high beast=\"\">, if you have a vanguard with \"Hound Raiser\" in its card name, [COST][retire this unit], choose one of your rear-guards with \"Hound Raiser\" in its card name, and until end of your opponent's next turn, it gets \"[CONT](RC):This unit cannot be chosen or retired by your opponent's card effects.\".</high></high>",
@@ -66139,7 +66139,7 @@
  "hucklehustle": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -67087,7 +67087,7 @@
  "illgoanywherewithyoueliza": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -67759,7 +67759,7 @@
  "inabagou": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -69049,7 +69049,7 @@
  "insaneresearcher": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -69716,7 +69716,7 @@
  "intrepidspinner": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -70534,7 +70534,7 @@
  "jadedragonmeldeaiza": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](RC):During your turn, if your drop has ten or more cards, this unit gets [Power]+5000.<br>[AUTO](RC):At the end of the battle this unit attacked, [COST][retire this unit], look at the top three cards of your deck, choose any number of cards from among them, discard them, and if you discarded two or less cards, shuffle the deck.",
@@ -70568,7 +70568,7 @@
  "jaggydaggerdragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -71659,7 +71659,7 @@
  "kasenkanesadashinkenhissatsu": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 0,
   "effect": "Additional Effect - All of your units get [Critical] +1 until end of turn!<br><br>Play Effect - Choose one of your vanguards, until end of turn, it gets [Critical] +1, and if your damage zone has five or more cards, all of your units get [Power] +10000!",
@@ -71861,7 +71861,7 @@
  "kashuukiyomitsushinkenhissatsu": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!) <br>Additional Effect-All of your units get [Critical] +1 until end of turn!<br><br>Play Effect (Resolve this effect when played as an order!) - Choose one of your vanguards, until end of turn, it gets [Critical] +1, and if your damage zone has five or more cards, all of your units get [Power] +10000!",
@@ -73225,7 +73225,7 @@
  "knightofcommoncelebrationlovist": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC) from hand, if you have a grade 3 or greater vanguard, choose up to one normal unit without sentinel from your drop, and put it on the bottom of the deck. If you chose a card, this unit gets [Power]+2000 until end of turn.",
@@ -74452,7 +74452,7 @@
  "knightofheavenlyhammergurgant": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] Trigger +1 until end of turn! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -74622,7 +74622,7 @@
  "knightofheavenlypiercegallus": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -74758,7 +74758,7 @@
  "knightofheavenlyrendlif": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] Trigger +10000 until end of turn!)",
@@ -75541,7 +75541,7 @@
  "knightoforderlybowllyvarch": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -75950,7 +75950,7 @@
  "knightofpressingconall": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -76869,7 +76869,7 @@
  "knowledgeaspowersaskia": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -78029,7 +78029,7 @@
  "leapinggearlynx": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -78767,7 +78767,7 @@
  "lightdragondeityofhonorsamartinoa": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Until end of turn, you also perform drive checks for the battles your rear-guards attack!",
@@ -78801,7 +78801,7 @@
  "lightelementalpachiri": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -78835,7 +78835,7 @@
  "lightfluxbowmanluminoflux": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -79579,7 +79579,7 @@
  "livelybreathdragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -80122,7 +80122,7 @@
  "lostchildofattachment": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -81128,7 +81128,7 @@
  "maedatoushirou": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -82866,7 +82866,7 @@
  "maskedmagicianharricrest": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You can perform [Stride], and cannot ride grade 3 or greater cards without \"Harri\" in their card names.\n[CONT]:The original [Power] of your grade 3 cards with \"Harri\" in their card names become 13000. (Including Heart cards)\n[CONT]:During your turn, if you have a grade 3 or greater vanguard with \"Harri\" in its card name, all of your front row units get [Power] +5000 for each face up card in your G zone.\n[AUTO][Generation Break 2]:At the end of your turn, if two or more of your cards were put into soul during the end phase this turn, you may draw a card.",
@@ -82960,7 +82960,7 @@
  "massivescandal": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -83576,7 +83576,7 @@
  "melodiapomera": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -84040,7 +84040,7 @@
  "menbattlewiththeirfists": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)<br>[CONT]:You may have up to eight \"Men Battle with their Fists\" in your deck.",
@@ -84107,7 +84107,7 @@
  "mercilessbuffalo": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -84515,7 +84515,7 @@
  "midaretoushirou": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(If revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -85155,7 +85155,7 @@
  "mindlessstrikeeliza": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -86366,7 +86366,7 @@
  "morfonicamashirokurata": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -86400,7 +86400,7 @@
  "morfonicananamihiromachi": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -86434,7 +86434,7 @@
  "morfonicaruiyashio": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -86468,7 +86468,7 @@
  "morfonicatokokirigaya": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -86502,7 +86502,7 @@
  "morfonicatsukushifutaba": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -87050,7 +87050,7 @@
  "muchawaitedencounter": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into your soul], choose one of your \"Man\" or \"Valkyrie\", and it gets [Power] +2000 until end of turn.",
@@ -87317,7 +87317,7 @@
  "mushikingkingofthebeetlesmachine": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You cannot ride cards other than \"Mushi\", cannot play set orders, and can only put set orders into the order zone with this crest's ability.<br>[AUTO]:When you get this crest, search your deck or hand for up to one Hitting Attack, Pinching Attack, and Throwing Attack each with different grades, put them into your order zone, and if you searched the deck, shuffle the deck.<br>[ACT][1/turn]:[COST][Soul-Blast 1], look at the top five cards of your deck, choose up to one \"Mushi\" or Attack card from among them, reveal and put it into hand, and shuffle the deck.<br>[AUTO]:When your \"Mushi\" attacks, [COST][[Rest] an Attack card with grade less than or equal to your vanguard in the order zone], and use that card's Attack.",
@@ -87519,7 +87519,7 @@
  "mutsunokamiyoshiyukishinkenhissatsu": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 0,
   "effect": "Additional Effect - All of your units get [Critical] +1 until end of turn!<br><br>Play Effect - Choose one of your vanguards, until end of turn, it gets [Critical] +1, and if your damage zone has five or more cards, all of your units get [Power] +10000!",
@@ -87651,7 +87651,7 @@
  "mygoanonchihaya": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -87685,7 +87685,7 @@
  "mygoranakaname": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -87719,7 +87719,7 @@
  "mygosoyonagasaki": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -87753,7 +87753,7 @@
  "mygotakishiina": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -87787,7 +87787,7 @@
  "mygotomoritakamatsu": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -87956,7 +87956,7 @@
  "mysterioustwinsromiaamprumia": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - During this fight, you get \"During your turn, all your rear-guards get [Power] +10000\"!",
@@ -88735,7 +88735,7 @@
  "naginatasabilitykiwame": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):At the beginning of your battle phase, reveal the top card of your deck, choose one of your opponent's rear-guards with grade less than or equal to the revealed card, and until end of your opponent's next turn, that unit cannot move to (GC) or other (RC), and cannot [Stand] during the stand phase. If the revealed card is a normal unit, discard it.<br>- [CONT](VC):When this unit would attack, it battles all of your opponent's front row units.",
@@ -90620,7 +90620,7 @@
  "nukemaru": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -92246,7 +92246,7 @@
  "ootachisabilitykiwame": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):When this unit attacks, this unit gets [Power] +10000 until end of that battle. Then, [COST][Counter-Blast 1], choose one of your grade 3 rear-guards, and [Stand] it.<br>- [AUTO](VC):When this unit's attack hits a vanguard, discard the top card of your deck, if a trigger unit was discarded, choose one of your opponent's vanguards, and deal one damage.",
@@ -92378,7 +92378,7 @@
  "operatingangel": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -92616,7 +92616,7 @@
  "originalstyleelshuka": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -92944,7 +92944,7 @@
  "overdressmegumiokura": {
   "actionflags": [],
   "alias": 3082,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Serene Maiden, Lena\".<br>[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -92976,7 +92976,7 @@
  "overdressseason2masanoriiseki": {
   "actionflags": [],
   "alias": 1486,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Frenzied Heiress\".<br>[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -93008,7 +93008,7 @@
  "overdressseason2mireiminae": {
   "actionflags": [],
   "alias": 1415,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Flare Veil Dragon\".<br>[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -93040,7 +93040,7 @@
  "overdressseason2zakusaishigame": {
   "actionflags": [],
   "alias": 585,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Cardinal Draco, Enpyro\".<br>[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -93072,7 +93072,7 @@
  "overdresstohyaebata": {
   "actionflags": [],
   "alias": 2774,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Protection Magic, Prorobi\".<br>[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -93104,7 +93104,7 @@
  "overdresstomariseto": {
   "actionflags": [],
   "alias": 127,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Ameliorate Connector\".<br>[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -93136,7 +93136,7 @@
  "overdressyuyukondo": {
   "actionflags": [],
   "alias": 390,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Blaze Maiden, Parama\".<br>[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -93202,7 +93202,7 @@
  "overflowingthoughtsandsong": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -93335,7 +93335,7 @@
  "oversoulstrike": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Choose one of your opponent's vanguards, and deal one damage! (Perform damage check first even if there are drive checks remaining)<br><br>Play Effect (Activate this if played as an order!) - If your vanguard [OverSoul] this turn, retire all of your opponent's rear-guards.",
@@ -93873,7 +93873,7 @@
  "pasteitforyoucareria": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[ACT](RC):If you have a grade 3 or greater vanguard with \"Kairi\" in its card name, [COST][put this unit into soul], choose one of your vanguards, and it gets [Power]+5000 until end of turn.",
@@ -93907,7 +93907,7 @@
  "pastelpalettesayamaruyama": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -93941,7 +93941,7 @@
  "pastelpaletteschisatoshirasagi": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -93975,7 +93975,7 @@
  "pastelpalettesevewakamiya": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -94009,7 +94009,7 @@
  "pastelpaletteshinahikawa": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -94043,7 +94043,7 @@
  "pastelpalettesmayayamato": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -94209,7 +94209,7 @@
  "patrolrobodekarcop": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into your soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -94514,7 +94514,7 @@
  "pentaculationsorceress": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](RC):During your turn, if you have a grade 3 or greater vanguard with \"Sorceress\" in its card name, this unit gets [Power]+5000.<br>[AUTO](Drop):When your grade 3 or greater vanguard with \"Sorceress\" in its card name is placed during your ride phase, [COST][Energy-Blast 3], call this card to (RC), look at the top card of your deck, and put it on the top of the deck or into soul. If you put a card into soul, this unit gets [Power]+5000 until end of turn.",
@@ -94582,7 +94582,7 @@
  "pepperypepper": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000!)",
@@ -94954,7 +94954,7 @@
  "petitetilget": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC) from hand, choose a grade 3 card with \"Ominagruzio\" in its card name from your ride deck, and you may reveal it. If you revealed a card, or you have a grade 3 or greater vanguard with \"Ominagruzio\" in its card name, [COST][Counter-Blast 1], search your deck for up to one trigger unit other than [Over], reveal it and put it into hand, and shuffle the deck.",
@@ -95433,7 +95433,7 @@
  "picturesqueluana": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -96388,7 +96388,7 @@
  "poeticmaidensapphira": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -96693,7 +96693,7 @@
  "popoutfrontlinegisela": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -96727,7 +96727,7 @@
  "poppinpartyarisaichigaya": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -96761,7 +96761,7 @@
  "poppinpartykasumitoyama": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -96795,7 +96795,7 @@
  "poppinpartyrimiushigome": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -96829,7 +96829,7 @@
  "poppinpartysayayamabuki": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -96863,7 +96863,7 @@
  "poppinpartytaehanazono": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -97435,7 +97435,7 @@
  "precioustuneedwige": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into your soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -98535,7 +98535,7 @@
  "prominentelf": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -98706,7 +98706,7 @@
  "protectionmagicprorobi": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -99900,7 +99900,7 @@
  "ragnarok": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - All of your front row \"Man\" and \"Valkyrie\" get [Power] +10000 until end of turn, choose one of your rear-guards, and [Stand] it!",
@@ -100000,7 +100000,7 @@
  "raiseasuilenchu2": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -100034,7 +100034,7 @@
  "raiseasuilenlayer": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -100068,7 +100068,7 @@
  "raiseasuilenlock": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -100102,7 +100102,7 @@
  "raiseasuilenmasking": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -100136,7 +100136,7 @@
  "raiseasuilenpareo": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -100612,7 +100612,7 @@
  "readytowardsikupasuykororo": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -101790,7 +101790,7 @@
  "reliablecompanions": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -101825,7 +101825,7 @@
  "reliablejaguarpartnermic": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -102192,7 +102192,7 @@
  "resolutemage": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -102527,7 +102527,7 @@
  "resultsofhellacioustraining": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -103681,7 +103681,7 @@
  "roguebeastsunegosuri": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000!)",
@@ -104084,7 +104084,7 @@
  "roseliaakoudagawa": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -104118,7 +104118,7 @@
  "roselialisaimai": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -104152,7 +104152,7 @@
  "roseliarinkoshirokane": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -104186,7 +104186,7 @@
  "roseliasayohikawa": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -104220,7 +104220,7 @@
  "roseliayukinaminato": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -104426,7 +104426,7 @@
  "rousewildmasterriley": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -104968,7 +104968,7 @@
  "runningstartyouthhaida": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -105036,7 +105036,7 @@
  "rushingdragonsteeldilopho": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -105340,7 +105340,7 @@
  "sadeyesmorphea": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -105951,7 +105951,7 @@
  "sasanuki": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -106019,7 +106019,7 @@
  "satisfyingharvestrabbirit": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -106635,7 +106635,7 @@
  "scatteredstrikebraveshooter": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -106908,7 +106908,7 @@
  "scorchingreignspiritoffire": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -108415,7 +108415,7 @@
  "sealedultrasenjiryakketsu": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into your soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -108717,7 +108717,7 @@
  "secondclassrewinderakaba": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -108752,7 +108752,7 @@
  "secondclassrewinderchrono": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -109427,7 +109427,7 @@
  "serenemaidenlena": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -109495,7 +109495,7 @@
  "seriousmatch": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -110080,7 +110080,7 @@
  "shargaon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -110382,7 +110382,7 @@
  "shichiseiken": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Perform one of the following.<br>- Choose one of your vanguards, and it gets [Critical] +1/drive +1 until end of turn.<br>- Choose one of your rear-guards, and until end of turn, that unit performs drive checks, and gets [Critical] +1.",
@@ -110925,7 +110925,7 @@
  "shockingcandyouris": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -111601,7 +111601,7 @@
  "silkyskyactress": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -113097,7 +113097,7 @@
  "smilebloominginacornerlukkigi": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC) from hand, if you have a grade 3 or greater vanguard, choose up to one normal unit without sentinel from your drop, and put it on the bottom of the deck. If you chose a card, this unit gets [Power]+2000 until end of turn.",
@@ -113369,7 +113369,7 @@
  "snowskippalvi": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -113812,7 +113812,7 @@
  "solemnjudgmentshamash": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -114179,7 +114179,7 @@
  "sorrowfulardentlightyouth": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is rode upon by a unit with the [RevolDress] ability, [COST][Energy-Blast 3], choose a grade 2 or greater unit card from your drop, and put it into hand.",
@@ -114683,7 +114683,7 @@
  "sourcedragondeityofblessingsblessfavor": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Draw a card! Choose one of your units, and it gets [Critical] +1 until end of turn! All of your front row units get [Power] +10000! If your damage zone has the same number of cards as your opponent's or more, choose a card from your damage zone, and heal it!",
@@ -115221,7 +115221,7 @@
  "spectacularpursuitcapabilitiesmorphea": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -115562,7 +115562,7 @@
  "spinyspikyheathe": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is retired from (GC), you may put this card into soul.",
@@ -115768,7 +115768,7 @@
  "spiritosorichalda": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -115864,7 +115864,7 @@
  "spiritualkingofaquaticsidosfaro": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Choose a card from your drop, put it into hand, choose one of your units, and it gets [Critical] +1 until end of turn.",
@@ -115898,7 +115898,7 @@
  "spiritualkingofbrightskymeridzanblia": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Draw up to one card for every two of your opponent's open circles in total of their (RC) and (GC). Retire all of your opponent's rear-guards and guardians.",
@@ -115932,7 +115932,7 @@
  "spiritualkingofdeterminationolbaria": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Choose one of your units, and it gets [Power] +100 Million until end of turn!",
@@ -115964,7 +115964,7 @@
  "spiritualkingofignitionvalnout": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Choose one of your [Stand] rear-guards, and it gets \"[AUTO](RC)[1/turn]: At the end of the battle this unit attacked, [Stand] this unit.\" until end of turn. If you did not choose a card, draw a card, choose up to one unit card from your hand, and call it to (RC).",
@@ -115998,7 +115998,7 @@
  "spiritualkingofnightskynyxlaszelia": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Choose up to one card from your damage zone, put it into hand, choose up to one unit card from your hand, call it to (RC), and it gets [Power] +10000 until end of turn.",
@@ -116369,7 +116369,7 @@
  "sprightlyjumperaftir": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):When this unit attacks a vanguard, [COST][Counter-Blast 1], choose one of your opponent's front row rear-guards, and move it to (GC).",
@@ -116849,7 +116849,7 @@
  "staragressiondragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -116951,7 +116951,7 @@
  "stardragondeityofinfinitudeeldobreath": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Double the [Power] and [Critical] of all of your front row units until end of turn! (Increase to double its [Power] and [Critical] when activated)",
@@ -117017,7 +117017,7 @@
  "starquakingdragonofmaximaldestructionvazquais": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is regarded as \"Spiritual King of Ignition, Valnout\".\nAdditional Effect - Choose one of your [Stand] rear-guards, and it gets \"[AUTO](RC)[1/turn]: At the end of the battle this unit attacked, [Stand] this unit.\" until end of turn. If you did not choose a card, draw a card, choose up to one unit card from your hand, and call it to (RC).",
@@ -117189,7 +117189,7 @@
  "startingtomoveonforthefivewhoarelost": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "Additional Effect - Choose five normal units from your drop with same race as your vanguard and different card names, and put them into hand.",
@@ -117869,7 +117869,7 @@
  "stealthdragonjaengoku": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -118074,7 +118074,7 @@
  "stealthdragonmadowazu": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -118108,7 +118108,7 @@
  "stealthdragonmidaregumo": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -118620,7 +118620,7 @@
  "stealthdragonyamitaguri": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -118858,7 +118858,7 @@
  "stealthfiendfutakuchiyo": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is retired from (GC), you may put this card into soul.",
@@ -119880,7 +119880,7 @@
  "steamfighteriddinam": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is put on (GC), if you played a blitz order this turn, [COST][Soul-Blast 1], and this unit gets [Shield]+10000 until end of that battle.",
@@ -120189,7 +120189,7 @@
  "steamgunnerilushma": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -120633,7 +120633,7 @@
  "steammaidenlarsa": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit attacked, [COST][put this unit into soul], choose one of your rear-guards, and it gets [Power]+5000 until end of turn.",
@@ -121316,7 +121316,7 @@
  "stemdeviatedragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into your soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -121350,7 +121350,7 @@
  "stepbysteplezity": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC), if you have a grade 3 or greater vanguard with \"Kairi\" in its card name, choose up to one unit card with \"Astesice\" in its card name from your drop, and put it into soul.<br>[CONT](RC):During your turn, if you have a vanguard with \"Astesice\" in its card name, this unit gets [Power]+2000.",
@@ -121930,7 +121930,7 @@
  "strangenoiseofruinaduro": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is retired from (GC), you may put this card into soul.",
@@ -122476,7 +122476,7 @@
  "studyingonaverybigdesk": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -122983,7 +122983,7 @@
  "summervacationchrono": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -123218,7 +123218,7 @@
  "sunsetdekkakunrobo": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -123555,7 +123555,7 @@
  "superhighspeedworldmic": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -124054,7 +124054,7 @@
  "surrealvoicegilberta": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -124156,7 +124156,7 @@
  "swankyenthraller": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -124515,7 +124515,7 @@
  "swingonaswingrunalu": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC)[1/Turn]:When this unit's attack hits, [COST][Soul-Blast 1], choose one of your units, and it gets [Power]+10000 until end of turn.",
@@ -124583,7 +124583,7 @@
  "swordemperordragonofsupremacymordigarrah": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is regarded as \"Spiritual King of Ignition, Valnout\".\nAdditional Effect - Choose one of your [Stand] rear-guards, and it gets \"[AUTO](RC)[1/turn]: At the end of the battle this unit attacked, [Stand] this unit.\" until end of turn. If you did not choose a card, draw a card, choose up to one unit card from your hand, and call it to (RC).",
@@ -125747,7 +125747,7 @@
  "sylvanhornedbeastjackalope": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] Trigger +1 until end of turn! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -126461,7 +126461,7 @@
  "sylvanhornedbeastofblossomingflowerscharis": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is rode upon by a grade 2 card with \"Sylvan Horned Beast\" in its card name, look at the top three cards of your deck, choose up to one grade 2 or less normal unit from among them, call it to (RC), and you may discard the rest. If you did not discard any cards, put the cards not chosen on the bottom of the deck in any order.",
@@ -126563,7 +126563,7 @@
  "sylvanhornedbeastpolatter": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, draw a card! Then, choose one of your units, and it gets [Power] Trigger +10000 until end of turn!)",
@@ -126769,7 +126769,7 @@
  "sylvanhornedbeastvalin": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] Trigger +10000 until end of turn!)",
@@ -127105,7 +127105,7 @@
  "tachisabilitykiwame": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):At the beginning of your battle phase, reveal the top card of your deck, choose one of your opponent's rear-guards and retire it if the revealed card is a trigger unit, and discard the revealed card if it is not.<br>- [AUTO](VC)[1/turn]:At the end of the battle this unit attacked, [COST][Counter-Blast 2], [Stand] this unit, and it gets drive -1 until end of turn.",
@@ -127271,7 +127271,7 @@
  "takahashibebebebearies": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -127306,7 +127306,7 @@
  "takahashibebebebecancer": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -127341,7 +127341,7 @@
  "takahashibebebebecapricorn": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -127449,7 +127449,7 @@
  "takahashibebebebescorpio": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -127690,7 +127690,7 @@
  "tantousabilitykiwame": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):When this unit attacks, [COST][Counter-Blast 1], and until end of that battle, your opponent cannot call grade 1 or greater cards from hand to (GC).<br>- [CONT](VC):During your opponent's main phase, all of your rear-guards cannot be chosen by your opponent's card effects.",
@@ -128083,7 +128083,7 @@
  "tearknightcostas": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -128321,7 +128321,7 @@
  "tearknightkaikilia": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -128355,7 +128355,7 @@
  "tearknightrothion": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is retired from (GC), you may put this card into soul.",
@@ -128526,7 +128526,7 @@
  "terrifyingwickeddragonkingvamfrieze": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "Additional Effect - You get \"During your turn, all of your vanguards get [Power] +10000/[Critical] +1\" until end of this fight!",
@@ -128801,7 +128801,7 @@
  "theclosepairunderthemoonlitnight": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "Additional Effect - Choose one of your opponent's vanguards, and deal one damage!<br><br>Play Effect - If your vanguard [OverSoul] this turn, retire all of your opponent's rear-guards.",
@@ -129000,7 +129000,7 @@
  "themomenthistoryistransformed": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(You may only have one [Over] trigger in a deck. When revealed as a trigger, remove that card, draw a card, choose one of your units, and it gets [Power] +100 Million until end of turn! If revealed during drive check, activate its additional effect!)<br>Additional Effect - Choose one of your units, and it gets [Power] +100 Million until end of turn!",
@@ -129271,7 +129271,7 @@
  "thequintupletsmemories": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You cannot ride cards other than \"Quintuplet\", and your order zone is also regarded as memory.<br>[CONT]:When a card other than \"Quintuplet\" would be put into your memory, put it into drop instead.<br>[ACT][1/turn]:[COST][Soul-Blast 1], look at the same number of cards from the top of your deck as your vanguard's grade, choose up to one \"Quintuplet\" from among them, put it into memory, and put the rest on the bottom of the deck in any order. If you chose a unit card with the same card name as a card in your memory, you may call it to (RC) instead of putting it into memory.",
@@ -129534,7 +129534,7 @@
  "thestrongestbynature": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)<br>[CONT]:You may have up to eight \"The \"Strongest\" by Nature\" in your deck.",
@@ -129634,7 +129634,7 @@
  "thewinnerelinor": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -129734,7 +129734,7 @@
  "thickandfluffysiestahilma": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -129901,7 +129901,7 @@
  "thoughtsspunout": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:You may have up to eight \"Thoughts Spun Out\" in your deck.",
@@ -130233,7 +130233,7 @@
  "thumbsupfavoral": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[ACT](RC):If you have a grade 3 or greater vanguard with \"FLAMMe-Glam\" in its card name, [COST][retire this unit], choose a normal unit with \"FLAMMe-Glam\" in its card name from your drop, call it to (RC), and if your opponent's vanguard is grade 3 or greater, that unit gets [Power]+5000 until end of turn.",
@@ -131250,7 +131250,7 @@
  "togetherwitheveryone": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:You may have up to eight \"Together with Everyone\" in your deck.",
@@ -131893,7 +131893,7 @@
  "towardthedream": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -132165,7 +132165,7 @@
  "transformingheavymachineryheavyconstalion": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -132233,7 +132233,7 @@
  "transparentsnowynightberetoi": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -132604,7 +132604,7 @@
  "trieddrawingmanga": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -132743,7 +132743,7 @@
  "truearbiterdragonofhundredswordsduralvalse": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "Additional Effect - Until end of turn, you also perform drive checks for the battles your rear-guards attack!",
@@ -133615,7 +133615,7 @@
  "uchigatanasabilitykiwame": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):When this unit attacks, [COST][Counter-Blast 1], choose one of your rear-guards, [Stand] it, and this unit gets [Power] +10000 until end of that battle.<br>- [AUTO](VC)[1/turn]:When your rear-guard is attacked, [COST][Soul-Blast 1], and until end of that battle, if any of your rear-guards is hit, it does not retire.",
@@ -134123,7 +134123,7 @@
  "underpinningstyle": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If your vanguard is a \"Man\" or \"Valkyrie\", and your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -135012,7 +135012,7 @@
  "unyieldingbattleamidamaru": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -135046,7 +135046,7 @@
  "unyieldingbattlebason": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "",
@@ -135857,7 +135857,7 @@
  "vampireprincessofnightfognightrosecrest": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You can perform [Stride], and cannot ride grade 3 or greater cards without \"Nightrose\" in their card names.\n[CONT]:The original [Power] of your grade 3 cards with \"Nightrose\" in their card names become 13000. (Including Heart cards)\n[CONT]:During your turn, if you have a grade 3 or greater vanguard with \"Nightrose\" in its card name, all of your front row units get [Power] +5000 for each face up card in your G zone.\n[AUTO]:When three or more of your cards are discarded from deck at the same time by your vanguard's ability, choose a card from among the discarded cards, and you may put it on the bottom of the deck.",
@@ -136539,7 +136539,7 @@
  "vengefultokageroh": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 0,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -136915,7 +136915,7 @@
  "viogaon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):When the attack this unit boosted hits a vanguard, [COST][retire this unit], choose one of your rear-guards, and it gets [Power]+10000 until end of turn.",
@@ -137087,7 +137087,7 @@
  "vitalleaver": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -137363,7 +137363,7 @@
  "volitionrigordragon": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, choose one of your units, and it gets [Critical] +1 until end of turn! Then, choose one of your units, and it gets [Power] +10000 until end of turn!)",
@@ -137734,7 +137734,7 @@
  "wakizashisabilitykiwame": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [AUTO](VC):At the beginning of your battle phase, all of your rear-guards get [Power] +5000 until end of turn.<br>- [AUTO](VC)[1/turn]:When this unit is attacked, [COST][Counter-Blast 1], reveal the top card of your deck, put it into hand, and until end of that battle, increase this unit's [Power] by the original [Shield] of the revealed card.",
@@ -137998,7 +137998,7 @@
  "warseveringknightfethful": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is put on (GC) from hand, [COST][Counter-Blast 1], choose a trigger unit other than [Over] from your drop, and call it to (GC).",
@@ -138948,7 +138948,7 @@
  "whitecrowsorcerertaxus": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -138982,7 +138982,7 @@
  "whitefangwitchdisma": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -139118,7 +139118,7 @@
  "whoaretheseguys": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -139353,7 +139353,7 @@
  "willdressmichiruhazama": {
   "actionflags": [],
   "alias": 963,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Diabolos Girls, Natalia\".<br> [CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield]+5000.",
@@ -139385,7 +139385,7 @@
  "willdressseason2danjimomoyama": {
   "actionflags": [],
   "alias": 963,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Diabolos Girls, Natalia\".<br>[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -139417,7 +139417,7 @@
  "willdressseason2michiruhazama": {
   "actionflags": [],
   "alias": 2938,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Rouse Wildmaster, Riley\".<br> [CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield]+5000.",
@@ -139449,7 +139449,7 @@
  "willdressseason2raikakoshiba": {
   "actionflags": [],
   "alias": 285,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Bard of Heavenly Song, Alpacc\".<br>[CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield] +5000.",
@@ -139481,7 +139481,7 @@
  "willdressseason2samuelfredson": {
   "actionflags": [],
   "alias": 2649,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Patrol Robo, Dekarcop\".<br>[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -139513,7 +139513,7 @@
  "willdressseason2sophiebelle": {
   "actionflags": [],
   "alias": 3416,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Stem Deviate Dragon\".<br>[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -139545,7 +139545,7 @@
  "willdressseason2tohyaebata": {
   "actionflags": [],
   "alias": 364,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Blade Feather Dragon\".<br>[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -139577,7 +139577,7 @@
  "willdressseason2urarahaneyama": {
   "actionflags": [],
   "alias": 196,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Aspiring Maiden, Alana\".<br> [AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into soul], choose one of your units, and it gets [Power]+2000 until end of turn.",
@@ -139609,7 +139609,7 @@
  "willdressseason2yuyukondo": {
   "actionflags": [],
   "alias": 539,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Burning Flail Dragon\".<br>[AUTO](RC):At the end of the battle this unit boosted, [COST][put this unit into soul], choose one of your units, and it gets [Power] +2000 until end of turn.",
@@ -139641,7 +139641,7 @@
  "willdressseason3urarahaneyama": {
   "actionflags": [],
   "alias": 3082,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Serene Maiden, Lena\".<br> [CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield]+5000.",
@@ -139673,7 +139673,7 @@
  "willdressurarahaneyama": {
   "actionflags": [],
   "alias": 1486,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is also regarded as \"Frenzied Heiress\".<br> [CONT](GC):If your opponent's vanguard is grade 3 or greater, this unit gets [Shield]+5000.",
@@ -140044,7 +140044,7 @@
  "wingsdancingintheblueskiesantia": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "",
@@ -140214,7 +140214,7 @@
  "wirepullsubjugater": {
   "actionflags": [],
   "alias": -1,
-  "count": 8,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "(When revealed as a trigger, all of your front row units get [Power] +10000 until end of turn!)",
@@ -140381,7 +140381,7 @@
  "wisedragonemperorofvaliantvalorcolleodegras": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 1,
   "effect": "[CONT]:This card is regarded as \"Spiritual King of Ignition, Valnout\".\nAdditional Effect - Choose one of your [Stand] rear-guards, and it gets \"[AUTO](RC)[1/turn]: At the end of the battle this unit attacked, [Stand] this unit.\" until end of turn. If you did not choose a card, draw a card, choose up to one unit card from your hand, and call it to (RC).",
@@ -142271,7 +142271,7 @@
  "yamanbagirikunihiroshinkenhissatsu": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 1,
   "drive": 0,
   "effect": "Additional Effect - All of your units get [Critical] +1 until end of turn!<br><br>Play Effect - Choose one of your vanguards, until end of turn, it gets [Critical] +1, and if your damage zone has five or more cards, all of your units get [Power] +10000!",
@@ -142438,7 +142438,7 @@
  "yarisabilitykiwame": {
   "actionflags": [],
   "alias": -1,
-  "count": 1,
+  "count": 4,
   "critical": 0,
   "drive": 0,
   "effect": "[CONT]:You cannot ride a unit with a different card name from your vanguard.<br>[CONT]:All of your cards with the same card name as your vanguard become Grade 3/[Power] 13000/[Critical] 1 units with \"Twin Drive\", \"Persona Ride\", and all of the following. (They lose all of their original [Power] , [Shield] , and abilities)<br>- [CONT](VC):When this unit would attack, it battles all of your opponent's units in a column.<br>- [AUTO](VC):When this unit attacks, reveal the top card of your deck, this unit gets [Power] +26000 until end of that battle if the revealed card is a trigger unit, and discard the revealed card if it is not.",

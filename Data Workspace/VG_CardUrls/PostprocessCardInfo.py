@@ -50,7 +50,7 @@ for key in cards.keys():
 			c['alias'] = -1
 
 	regulation = c['regulation']
-	if regulation != 'Standard' and regulation != 'Invalid':
+	if regulation != 'Standard' and regulation != 'Standard/V-Premium' and regulation != 'Invalid':
 		print(regulation)
 
 	gift = c['gift']
@@ -82,12 +82,6 @@ for key in cards.keys():
 
 	if 'sixteen' in c['effect']:
 		c['count'] = 16
-	elif c['gift'] == "Front" or c['gift'] == "Critical" or c['gift'] == "Draw":
-		c['count'] = 8
-	elif c['gift'] == "Heal":
-		c['count'] = 4
-	elif c['gift'] == "Over":
-		c['count'] = 1
 
 	if isinstance(c['skill'], str):
 		skillArray = c['skill'].split(',')
