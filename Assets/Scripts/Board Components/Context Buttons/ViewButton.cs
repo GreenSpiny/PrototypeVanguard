@@ -16,13 +16,16 @@ public class ViewButton : ContextButton
             selectedNode = selectedCard.node;
         }
 
-        if (selectedNode.Type == Node.NodeType.deck)
+        if (selectedNode.HasCard)
         {
-            GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedNode.nodeID, amount, actionFlag == CardInfo.ActionFlag.reveal, false);
-        }
-        else
-        {
-            DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedNode, amount, actionFlag == CardInfo.ActionFlag.reveal, false);
+            if (selectedNode.Type == Node.NodeType.deck)
+            {
+                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedNode.nodeID, amount, actionFlag == CardInfo.ActionFlag.reveal, false);
+            }
+            else
+            {
+                DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedNode, amount, actionFlag == CardInfo.ActionFlag.reveal, false);
+            }
         }
 
         DragManager.instance.ClearSelections();

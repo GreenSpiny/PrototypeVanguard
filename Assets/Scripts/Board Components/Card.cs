@@ -28,7 +28,7 @@ public class Card : MonoBehaviour
     [NonSerialized] public Vector3 targetEuler;             // The direction the card should face
 
     [NonSerialized] public Node node;
-    [NonSerialized] public bool isToken = false;
+    [NonSerialized] public bool isToolboxCard = false;
 
     public bool flip { get; private set; }
     public bool rest { get; private set; }

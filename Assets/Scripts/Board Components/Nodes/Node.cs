@@ -25,6 +25,7 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public bool preservePower;         // If true, preserves the power / crit / drive of cards moved to this node
     [SerializeField] public bool initialFlip;           // If true, cards are initially flipped on this node
     [SerializeField] public bool privateKnowledge;      // If true, cards are flipped in the opponent's eyes only
+    [SerializeField] public bool acceptToolbox;         // If true, this node accepts Toolbox cards rather than returning them to the Toolbox.
     [SerializeField] public bool previewText;
 
     [SerializeField] public Transform cardAnchor;       // The default position and rotation of cards attached to this node
@@ -83,6 +84,21 @@ public abstract class Node : MonoBehaviour
 
     public virtual void RecieveCard(Card card, string parameters)
     {
+
+        // Redirect incompatible cards
+        if (Type != NodeType.toolbox && card.isToolboxCard && !acceptToolbox)
+        {
+            if (cards.Contains(card))
+            {
+                cards.Remove(card);
+            }
+            card.player.toolbox.RecieveCard(card, string.Empty);
+            card.player.toolbox.transform.position = transform.position;
+            SetDirty();
+            return;
+        }
+
+        // Otherwise, manage node ownership normally
         bool cancel = parameters.Contains("cancel");
 
         bool shouldFlip = card.flip;

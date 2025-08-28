@@ -190,7 +190,14 @@ public class DragManager : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(2) && dmstate == DMstate.open)
         {
-            OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, controllingPlayer.toolbox.cards.Count, false, true);
+            if (controllingPlayer.display.HasCard)
+            {
+                CloseDisplay(controllingPlayer.playerIndex);
+            }
+            else
+            {
+                OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, controllingPlayer.toolbox.cards.Count, false, true);
+            }
         }
 
         if (dmstate == DMstate.dragging)
@@ -210,7 +217,7 @@ public class DragManager : MonoBehaviour
             case DMstate.open:
                 dmstate = DMstate.open;
                 Debug.Log("DMstate -> open");
-                if (DraggedCard != null && (HoveredNode == null || !HoveredNode.canDragTo || HoveredNode == dragNode.PreviousNode))
+                if (DraggedCard != null && (HoveredNode == null || !HoveredNode.canDragTo || HoveredNode == dragNode.PreviousNode || DraggedCard.player != HoveredNode.player))
                 {
                     // DragNode is intentionally not synced across clients
                     dragNode.PreviousNode.RecieveCard(DraggedCard, "cancel");
@@ -340,7 +347,10 @@ public class DragManager : MonoBehaviour
 
     public void OpenDisplay(int playerID, Node node, int cardAmount, bool revealCards, bool sortCards)
     {
-        GameManager.instance.players[playerID].display.OpenDisplay(node, cardAmount, revealCards, sortCards);
+        if (node.HasCard)
+        {
+            GameManager.instance.players[playerID].display.OpenDisplay(node, cardAmount, revealCards, sortCards);
+        }
     }
 
 }

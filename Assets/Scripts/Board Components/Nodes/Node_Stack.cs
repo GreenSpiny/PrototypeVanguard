@@ -20,14 +20,17 @@ public class Node_Stack : Node
         }
         
         base.RecieveCard(card, parameters);
-        
-        if (facedown)
+
+        if (cards.Contains(card))
         {
-            card.SetOrientation(true, false);
-        }
-        else if (faceup)
-        {
-            card.SetOrientation(false, false);
+            if (facedown)
+            {
+                card.SetOrientation(true, false);
+            }
+            else if (faceup)
+            {
+                card.SetOrientation(false, false);
+            }
         }
     }
 

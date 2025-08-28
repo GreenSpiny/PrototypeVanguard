@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
             for (int i = ride.cards.Count() - 1; i >= 0; i--)
             {
                 cards.Add(ride.cards[i]);
-                if (i < deckList.rideDeck.Count())
+                if (i != 0 && i < deckList.rideDeck.Count())
                 {
                     CardInfo c = CardLoader.GetCardInfo(deckList.rideDeck[i]);
                     ride.cards[i].cardInfo = c;
@@ -102,6 +102,7 @@ public class Player : MonoBehaviour
                     abyss.RecieveCard(ride.cards[i], string.Empty);
                 }
             }
+            ride.cards.Reverse();
             ride.AlignCards(true);
 
             for (int i = gzone.cards.Count() - 1; i >= 0; i--)
@@ -132,6 +133,7 @@ public class Player : MonoBehaviour
                     toolbox.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
                     toolbox.cards[i].SetMesh(c.rotate);
                     toolbox.cards[i].gameObject.SetActive(true);
+                    toolbox.cards[i].isToolboxCard = true;
                 }
                 else
                 {

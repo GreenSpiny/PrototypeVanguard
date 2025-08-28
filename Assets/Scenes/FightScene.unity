@@ -1758,6 +1758,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -1851,6 +1852,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 1878805475}
   cardRotation: {x: 0, y: 90, z: 0}
@@ -2389,6 +2391,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 1
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 1
   cardAnchor: {fileID: 1160026666}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -4267,6 +4270,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 2146300233}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -7674,6 +7678,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -9022,6 +9027,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 1380682999}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -10054,6 +10060,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 1358867449}
   cardRotation: {x: 0, y: 90, z: 0}
@@ -10934,6 +10941,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 1
   cardAnchor: {fileID: 706290640}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -11169,6 +11177,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -12106,6 +12115,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 1919531639}
   cardRotation: {x: 0, y: 0, z: 180}
@@ -13889,6 +13899,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 285140863}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -14792,6 +14803,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 1
   cardAnchor: {fileID: 10481254}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -16313,6 +16325,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 1105254161}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -17344,6 +17357,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 159844814}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -17878,6 +17892,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 12820226}
   cardRotation: {x: 0, y: 0, z: 180}
@@ -18859,6 +18874,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 1277294296}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -20101,6 +20117,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 243512507}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -20290,6 +20307,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 106062058}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -20695,6 +20713,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 1806164645}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -21193,6 +21212,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 1
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 1
   cardAnchor: {fileID: 930395740}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -22054,6 +22074,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -22138,6 +22159,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 695207365}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -27672,6 +27694,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 1
   cardAnchor: {fileID: 1662500156}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -28943,6 +28966,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 2132235754}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -29156,6 +29180,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 1
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 1
   cardAnchor: {fileID: 442159675}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -30230,6 +30255,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 1520209632}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -30322,6 +30348,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 712757970}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -31145,6 +31172,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 1
   cardAnchor: {fileID: 1995660017}
   cardRotation: {x: 0, y: 90, z: 0}
@@ -35450,6 +35478,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 729812136}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -36197,6 +36226,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 1
   cardAnchor: {fileID: 1955289774}
   cardRotation: {x: 0, y: 90, z: 0}
@@ -36714,6 +36744,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 1790702649}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -36893,6 +36924,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3478468684088673193, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478468684088673193, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3555356381689153586, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
@@ -37135,6 +37170,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6597265244029950642, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6758802866103771013, guid: 64d171341cd5f9f4a889de62f29fc214, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
@@ -37359,6 +37398,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 0
   cardAnchor: {fileID: 1775445685}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -38636,6 +38676,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -38949,6 +38990,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -40610,6 +40652,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 0
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -41130,6 +41173,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -43488,6 +43532,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 423040484}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -44139,6 +44184,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 1
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 1567225820}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -44422,6 +44468,7 @@ MonoBehaviour:
   preservePower: 1
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 0}
   cardRotation: {x: 0, y: 0, z: 0}
@@ -44605,6 +44652,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 0
   previewText: 0
   cardAnchor: {fileID: 331919712}
   cardRotation: {x: 0, y: 90, z: 0}
@@ -45276,6 +45324,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
+  acceptToolbox: 1
   previewText: 1
   cardAnchor: {fileID: 12393745}
   cardRotation: {x: 0, y: 0, z: 0}

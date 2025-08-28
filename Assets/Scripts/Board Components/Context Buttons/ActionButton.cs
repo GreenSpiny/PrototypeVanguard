@@ -51,7 +51,10 @@ public class ActionButton : ContextButton
                 DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, new CardInfo.ActionFlag[] { CardInfo.ActionFlag.reveal });
                 break;
             case CardInfo.ActionFlag.search:
-                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false, true);
+                if (selectedCard.node.HasCard)
+                {
+                    GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false, true);
+                }
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.shuffle:
@@ -60,7 +63,7 @@ public class ActionButton : ContextButton
                 break;
             case CardInfo.ActionFlag.viewsoul:
                 // TODO: add start index paramater
-                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false, true);
+                DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedCard.node, selectedCard.node.cards.Count, false, true);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.armLeft:

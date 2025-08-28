@@ -6,7 +6,6 @@ public class Node_Display : Node
 {
     public override NodeType Type => NodeType.display;
     private Node lastAcceptedNode;
-    private bool sort;
 
     public bool LastNodeWasDeck { get { return lastAcceptedNode != null && lastAcceptedNode.Type == NodeType.deck; } }
     public override void RecieveCard(Card card, string parameters)
@@ -69,7 +68,11 @@ public class Node_Display : Node
     {
         CloseDisplay();
         lastAcceptedNode = node;
-        sort = sortCards;
+        if (node.Type == NodeType.toolbox)
+        {
+            node.transform.localPosition = Vector3.zero;
+            node.AlignCards(true);
+        }
         int initialCount = node.cards.Count;
         Card c = node.TopCard;
         for (int i = initialCount - 1; i >= initialCount - cardCount;)
@@ -102,6 +105,10 @@ public class Node_Display : Node
             if (cards[i].flip)
             {
                 paramaters += "facedown";
+            }
+            if (lastAcceptedNode.Type == NodeType.toolbox)
+            {
+                lastAcceptedNode.transform.localPosition = Vector3.zero;
             }
             lastAcceptedNode.RecieveCard(cards[i], paramaters);
         }
