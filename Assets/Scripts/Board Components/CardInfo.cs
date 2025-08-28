@@ -1,16 +1,18 @@
-using System.Collections;
-using UnityEngine;
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Linq;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine;
+using static UnityEngine.Rendering.VolumeComponent;
 
 // CARDINFO contains detailed card information. It is purely for data storage.
 public class CardInfo : IComparable<CardInfo>
 {
     // Standard card elements --- o
+    public readonly int alias;
     public readonly int count;
     public readonly int baseCrit;
     public readonly int baseDrive;
@@ -46,6 +48,18 @@ public class CardInfo : IComparable<CardInfo>
     public readonly bool isOrder;
     public readonly bool isSentinel;
     public readonly bool isRegalis;
+
+    public bool hasAlias { get { return alias >= 0; } }
+    public int GetUniqueIndex()
+    {
+        if (hasAlias)
+        {
+            return alias;
+        }
+        return index;
+    }
+
+    public const string invalidRegulation = "Invalid";
 
     // Unique card elements --- o
     // Some cards have properties that necessitate additional actions be offered to either player.
@@ -86,9 +100,11 @@ public class CardInfo : IComparable<CardInfo>
         race = new string[0];
         skills = new string[0];
         placeholder = true;
+        regulation = invalidRegulation;
     }
-    public CardInfo(int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nation, bool placeholder, int basePower, string[] race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version, ActionFlag[] actionFlags)
+    public CardInfo(int alias, int count, int baseCrit, int baseDrive, string effect, string gift, int grade, string group, string id, int index, string name, string[] nation, bool placeholder, int basePower, string[] race, string regulation, bool rotate, int baseShield, string[] skills, string unitType, int version, ActionFlag[] actionFlags)
     {
+        this.alias = alias;
         this.count = count;
         this.baseCrit = baseCrit;
         this.baseDrive = baseDrive;
@@ -132,7 +148,7 @@ public class CardInfo : IComparable<CardInfo>
 
     public static CardInfo GenerateDefaultCardInfo()
     {
-        return new CardInfo(4, 1, 1, "effect", "", 1, "", "default", 0, "default", new string[] { "Dark States" }, false, 8000, new string[] { "Human" }, "Standard", false, 5000, new string[0], "Normal Unit", 0, new ActionFlag[0]);
+        return new CardInfo(-1, 4, 1, 1, "effect", "", 1, "", "default", 0, "default", new string[] { "Dark States" }, false, 8000, new string[] { "Human" }, "Standard", false, 5000, new string[0], "Normal Unit", 0, new ActionFlag[0]);
     }
 
     public static CardInfo FromDictionary(Dictionary<string, object> dictionary)
@@ -166,6 +182,7 @@ public class CardInfo : IComparable<CardInfo>
         }
 
         return new CardInfo(
+            Convert.ToInt32(dictionary["alias"]),
             Convert.ToInt32(dictionary["count"]),
             Convert.ToInt32(dictionary["critical"]),
             Convert.ToInt32(dictionary["drive"]),
@@ -225,10 +242,20 @@ public class CardInfo : IComparable<CardInfo>
 
         public int CardCount(int cardIndex)
         {
+            int uniqueIndex = CardLoader.GetCardInfo(cardIndex).GetUniqueIndex();
             int count = 0;
-            foreach (int i in mainDeck) { if  (i == cardIndex) count++; }
-            foreach (int i in rideDeck) { if (i == cardIndex) count++; }
-            foreach (int i in strideDeck) { if (i == cardIndex) count++; }
+            foreach (int i in mainDeck)
+            {
+                if (CardLoader.GetCardInfo(i).GetUniqueIndex() == uniqueIndex) count++;
+            }
+            foreach (int i in rideDeck)
+            {
+                if (CardLoader.GetCardInfo(i).GetUniqueIndex() == uniqueIndex) count++;
+            }
+            foreach (int i in strideDeck)
+            {
+                if (CardLoader.GetCardInfo(i).GetUniqueIndex() == uniqueIndex) count++;
+            }
             return count;
         }
 
@@ -269,9 +296,39 @@ public class CardInfo : IComparable<CardInfo>
 
                 HashSet<int> cardSet = new HashSet<int>();
                 List<int> cardList = new List<int>();
-                foreach (int i in mainDeck) { cardSet.Add(i); cardList.Add(i); }
-                foreach (int i in rideDeck) { cardSet.Add(i); cardList.Add(i); }
-                foreach (int i in strideDeck) { cardSet.Add(i); cardList.Add(i); }
+                foreach (int i in mainDeck)
+                {
+                    CardInfo info = CardLoader.GetCardInfo(i);
+                    if (info.regulation == invalidRegulation)
+                    {
+                        error = "Deck contains a redacted card.";
+                        return false;
+                    }
+                    cardSet.Add(i);
+                    cardList.Add(i);
+                }
+                foreach (int i in rideDeck)
+                {
+                    CardInfo info = CardLoader.GetCardInfo(i);
+                    if (info.regulation == invalidRegulation)
+                    {
+                        error = "Deck contains a redacted card.";
+                        return false;
+                    }
+                    cardSet.Add(i);
+                    cardList.Add(i);
+                }
+                foreach (int i in strideDeck)
+                {
+                    CardInfo info = CardLoader.GetCardInfo(i);
+                    if (info.regulation == invalidRegulation)
+                    {
+                        error = "Deck contains a redacted card.";
+                        return false;
+                    }
+                    cardSet.Add(i);
+                    cardList.Add(i);
+                }
                 foreach (int cardIndex in cardSet)
                 {
                     CardInfo info = CardLoader.GetCardInfo(cardIndex);

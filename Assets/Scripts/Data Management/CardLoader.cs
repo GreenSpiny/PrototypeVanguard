@@ -175,6 +175,12 @@ public class CardLoader : MonoBehaviour
         {
             Dictionary<string, object> cardData = card.ToObject<Dictionary<string, object>>();
             CardInfo newEntry = CardInfo.FromDictionary(cardData);
+
+            if (newEntry.regulation == CardInfo.invalidRegulation)
+            {
+                continue;
+            }
+
             allCardsData[newEntry.index] = newEntry;
             allCardsDataSorted.Add(newEntry);
 

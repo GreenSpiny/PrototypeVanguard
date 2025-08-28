@@ -49,6 +49,10 @@ for key in cards.keys():
 		else:
 			c['alias'] = -1
 
+	regulation = c['regulation']
+	if regulation != 'Standard' and regulation != 'Invalid':
+		print(regulation)
+
 	gift = c['gift']
 	gift = gift.replace('Trigger', '')
 	gift = gift.replace('-', '')
