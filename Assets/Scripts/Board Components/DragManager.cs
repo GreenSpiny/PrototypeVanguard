@@ -217,7 +217,7 @@ public class DragManager : MonoBehaviour
             case DMstate.open:
                 dmstate = DMstate.open;
                 Debug.Log("DMstate -> open");
-                if (DraggedCard != null && (HoveredNode == null || !HoveredNode.canDragTo || HoveredNode == dragNode.PreviousNode || DraggedCard.player != HoveredNode.player))
+                if (DraggedCard != null && (HoveredNode == null || !HoveredNode.canDragTo || HoveredNode == dragNode.PreviousNode || (DraggedCard.player != HoveredNode.player && HoveredNode.Type != Node.NodeType.GC)))
                 {
                     // DragNode is intentionally not synced across clients
                     dragNode.PreviousNode.RecieveCard(DraggedCard, "cancel");
@@ -247,7 +247,6 @@ public class DragManager : MonoBehaviour
 
                 foreach (Node node in GameManager.instance.allNodes.Values)
                 {
-                    // TODO: need exception for Prison
                     if (node.canDragTo && (DraggedCard.player == node.player || node.Type == Node.NodeType.GC) && dragNode.PreviousNode != node)
                     {
                         node.UIState = Node.NodeUIState.available;
