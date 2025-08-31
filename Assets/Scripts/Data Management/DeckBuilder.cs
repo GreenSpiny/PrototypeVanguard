@@ -69,9 +69,9 @@ public class DeckBuilder : MonoBehaviour
     void Start()
     {
         sceneLoadCanvas.Hide();
-        StartCoroutine(LoadInitialDeck());
         cardDetailUI.DisableActionLog();
         cardDetailUI.DisableChat();
+        StartCoroutine(LoadInitialDeck());
     }
 
     private void Update()
@@ -152,12 +152,10 @@ public class DeckBuilder : MonoBehaviour
         }
         else
         {
-            currentDeckList = new CardInfo.DeckList();
-            currentDeckList.deckName = blankDeckName;
+            currentDeckList = SaveDataManager.GenerateExampleDeck();
             deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
             deckDropdown.value = 0;
             deckDropdown.RefreshShownValue();
-            SaveDataManager.SaveDeck(currentDeckList);
             LoadDeck(currentDeckList);
         }
 

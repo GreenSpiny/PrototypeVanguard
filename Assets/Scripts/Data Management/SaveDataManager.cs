@@ -10,6 +10,7 @@ public class SaveDataManager : MonoBehaviour
     private static string JSONSaveLocation { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "JSON")); } }
     private static string VersionJSONFilePath { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "JSON", "dataVersion.json")); } }
     private static string CardsJSONFilePath { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "JSON", "cardsData.json")); } }
+    private static string DefaultDeckResourcesPath { get { return "decks/default_deck"; } }
 
     public const string lastViewedDecklistKey = "lastViewedDecklist";
     public const string lastProfileImageKey = "lastProfileImage";
@@ -94,6 +95,14 @@ public class SaveDataManager : MonoBehaviour
             }
         }
         return result;
+    }
+
+    public static CardInfo.DeckList GenerateExampleDeck()
+    {
+        TextAsset defaultDeckAsset = Resources.Load<TextAsset>(DefaultDeckResourcesPath);
+        CardInfo.DeckList defaultDeckList = CardInfo.DeckList.FromJSON(defaultDeckAsset.text);
+        SaveDeck(defaultDeckList);
+        return defaultDeckList;
     }
 
     public static CardInfo.DeckList LoadDeck(string deckName)

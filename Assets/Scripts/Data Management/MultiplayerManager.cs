@@ -75,6 +75,11 @@ public class MultiplayerManager : MonoBehaviour
         p2DeckContainer.deckSelect.ClearOptions();
 
         List<string> deckOptions = SaveDataManager.GetAvailableDecks();
+        if (deckOptions.Count == 0)
+        {
+            CardInfo.DeckList exampleDeck = SaveDataManager.GenerateExampleDeck();
+            deckOptions.Add(exampleDeck.deckName);
+        }
         foreach (string deckOption in deckOptions)
         {
             p1DeckContainer.deckSelect.options.Add(new TMP_Dropdown.OptionData(deckOption));
