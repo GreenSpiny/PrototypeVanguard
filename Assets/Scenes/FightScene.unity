@@ -10060,7 +10060,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
-  acceptToolbox: 0
+  acceptToolbox: 1
   previewText: 0
   cardAnchor: {fileID: 1358867449}
   cardRotation: {x: 0, y: 90, z: 0}
@@ -44693,7 +44693,7 @@ MonoBehaviour:
   preservePower: 0
   initialFlip: 0
   privateKnowledge: 0
-  acceptToolbox: 0
+  acceptToolbox: 1
   previewText: 0
   cardAnchor: {fileID: 331919712}
   cardRotation: {x: 0, y: 90, z: 0}

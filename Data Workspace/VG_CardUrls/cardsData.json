@@ -2164,7 +2164,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT01/049EN",
@@ -11852,7 +11853,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT01/074EN",
@@ -12022,7 +12024,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-SS05/101EN",
@@ -18490,7 +18493,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT01/066EN",
@@ -21944,7 +21948,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT07/086EN",
@@ -26991,7 +26996,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-SD05/009EN",
@@ -27971,7 +27977,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/054EN",
@@ -29025,7 +29032,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-SS02/011EN",
@@ -31262,7 +31270,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-TB03/048EN",
@@ -32802,7 +32811,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-LBT01/047EN",
@@ -36982,7 +36992,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-LBT01/049EN",
@@ -41688,7 +41699,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-SS10/007EN",
@@ -42166,7 +42178,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-LBT04/WO01EN",
@@ -43083,7 +43096,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-LTD01/008EN",
@@ -44024,7 +44038,10 @@
   "regulation": "Standard",
   "rotate": false,
   "shield": 0,
-  "skill": [],
+  "skill": [
+   "Sentinel",
+   "Elementaria"
+  ],
   "type": "Blitz Order",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-SS08/023EN",
   "version": 0
@@ -44054,7 +44071,10 @@
   "regulation": "Standard",
   "rotate": false,
   "shield": 0,
-  "skill": [],
+  "skill": [
+   "Sentinel",
+   "Elementaria"
+  ],
   "type": "Blitz Order",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-SS08/023EN",
   "version": 0
@@ -45538,7 +45558,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-SD01/008EN",
@@ -51428,7 +51449,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT06/EX26EN",
@@ -60034,7 +60056,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT01/054EN",
@@ -60747,7 +60770,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-TB01/040EN",
@@ -65314,7 +65338,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT01/070EN",
@@ -65416,7 +65441,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-SD04/009EN",
@@ -67314,7 +67340,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-TTD01/009EN",
@@ -70045,7 +70072,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT01/EX10EN",
@@ -70183,7 +70211,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-TTD03/007EN",
@@ -70251,7 +70280,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-SS05/102EN",
@@ -78690,7 +78720,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-SD03/009EN",
@@ -84268,7 +84299,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-LBT01/064EN",
@@ -87372,7 +87404,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-LBT01/050EN",
@@ -90277,7 +90310,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-LBT03/048EN",
@@ -90312,7 +90346,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-SS05/099EN",
@@ -90748,7 +90783,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-SS05/098EN",
@@ -93492,7 +93528,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/050EN",
@@ -95902,7 +95939,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT01/052EN",
@@ -95971,7 +96009,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/047EN",
@@ -97862,7 +97901,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-SS05/100EN",
@@ -98934,7 +98974,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-SD02/009EN",
@@ -101044,7 +101085,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT01/036EN",
@@ -102051,7 +102093,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/043EN",
@@ -103157,7 +103200,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT01/058EN",
@@ -113462,7 +113506,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-LBT01/048EN",
@@ -114947,7 +114992,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/038EN",
@@ -118611,7 +118657,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-SS09/008EN",
@@ -119223,7 +119270,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-PR/WO01EN",
@@ -120590,7 +120638,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT06/EX16EN",
@@ -122194,7 +122243,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-BT01/061EN",
@@ -122605,7 +122655,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-LBT04/056EN",
@@ -123878,7 +123929,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-TB02/034EN",
@@ -133194,7 +133246,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT01/031EN",
@@ -133840,7 +133893,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-TB03/071EN",
@@ -135003,7 +135057,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-LBT01/051EN",
@@ -135472,7 +135527,10 @@
   "regulation": "Standard",
   "rotate": false,
   "shield": 0,
-  "skill": [],
+  "skill": [
+   "Sentinel",
+   "Elementaria"
+  ],
   "type": "Blitz Order",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-SS05/CR30EN",
   "version": 0
@@ -136974,7 +137032,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT01/042EN",
@@ -138296,7 +138355,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=DZ-SS03/011EN",
@@ -140505,7 +140565,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-TTD02/010EN",
@@ -142731,7 +142792,8 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Boost"
+   "Boost",
+   "Sentinel"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-TB02/029EN",

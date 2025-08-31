@@ -47,6 +47,7 @@ public class CardInfo : IComparable<CardInfo>
     public readonly bool isTrigger;
     public readonly bool isOrder;
     public readonly bool isSentinel;
+    public readonly bool isElementaria;
     public readonly bool isRegalis;
 
     public bool hasAlias { get { return alias >= 0; } }
@@ -143,6 +144,7 @@ public class CardInfo : IComparable<CardInfo>
         isTrigger = unitType.Contains("Trigger", StringComparison.InvariantCultureIgnoreCase);
         isOrder = unitType.Contains("Order", StringComparison.InvariantCultureIgnoreCase);
         isSentinel = skills.Contains("Sentinel");
+        isElementaria = skills.Contains("Elementaria");
         isRegalis = skills.Contains("Regalis Piece");
     }
 
@@ -213,7 +215,7 @@ public class CardInfo : IComparable<CardInfo>
         public const int maxMain = 50;
         public const int maxRide = 5;
         public const int maxStride = 16;
-        public const int maxToolbox = 34;
+        public const int maxToolbox = 30;
 
         public string deckName;
         public string nation;
@@ -264,6 +266,14 @@ public class CardInfo : IComparable<CardInfo>
             int count = 0;
             foreach (int i in mainDeck) { if (CardLoader.GetCardInfo(i).isSentinel) count++; }
             foreach (int i in rideDeck) { if (CardLoader.GetCardInfo(i).isSentinel) count++; }
+            return count;
+        }
+
+        public int ElementariaCount()
+        {
+            int count = 0;
+            foreach (int i in mainDeck) { if (CardLoader.GetCardInfo(i).isElementaria) count++; }
+            foreach (int i in rideDeck) { if (CardLoader.GetCardInfo(i).isElementaria) count++; }
             return count;
         }
 
@@ -379,6 +389,18 @@ public class CardInfo : IComparable<CardInfo>
                 else if (overCount > 1)
                 {
                     error = "A maximum of 1 over trigger is allowed in a deck.";
+                }
+                else if (SentinelCount() > 4)
+                {
+                    error = "A maximum of 4 sentinels are allowed in a deck.";
+                }
+                else if (ElementariaCount() > 4)
+                {
+                    error = "A maximum of 1 'Elementaria Sanctitude' is allowed a deck.";
+                }
+                else if (RegalisCount() > 1)
+                {
+                    error = "A maximum of 1 Regalis Piece is allowed in a deck.";
                 }
 
                 // Wave 2 checks
@@ -524,6 +546,7 @@ public class CardInfo : IComparable<CardInfo>
         if (isSentinel != other.isSentinel) { return isSentinel.CompareTo(other.isSentinel); }
         if (isOrder != other.isOrder) { return isOrder.CompareTo(other.isOrder); }
         if (grade != other.grade) { return grade.CompareTo(other.grade); }
+        if (gift != other.gift) { return gift.CompareTo(other.gift); }
         if (unitType != other.unitType) { return unitType.CompareTo(other.unitType); }
         if (name != other.name) { return name.CompareTo(other.name); }
         return index.CompareTo(other.index);

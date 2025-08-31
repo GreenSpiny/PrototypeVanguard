@@ -107,6 +107,12 @@ for key in cards.keys():
 		if len(c['race'][i].strip()) == 0:
 			c['race'].pop(i)
 
+	if '[CONT]:Sentinel' in c['effect'] and 'Sentinel' not in c['skill']:
+		c['skill'].append('Sentinel')
+
+	if 'Elementaria Sanctitude' in c['effect'] and 'Elementaria' not in c['skill']:
+		c['skill'].append('Elementaria')
+
 	if 'rotate' not in c.keys():
 		c['rotate'] = False
 
