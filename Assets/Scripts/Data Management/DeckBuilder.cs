@@ -70,6 +70,8 @@ public class DeckBuilder : MonoBehaviour
     {
         sceneLoadCanvas.Hide();
         StartCoroutine(LoadInitialDeck());
+        cardDetailUI.DisableActionLog();
+        cardDetailUI.DisableChat();
     }
 
     private void Update()

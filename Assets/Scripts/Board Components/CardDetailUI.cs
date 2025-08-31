@@ -15,6 +15,12 @@ public class CardDetailUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cardInfoText;
     [SerializeField] private TextMeshProUGUI cardDescriptionText;
 
+    [SerializeField] private GameObject actionLogLabel;
+    [SerializeField] private GameObject[] actionLogElements;
+
+    [SerializeField] private GameObject chatLogLabel;
+    [SerializeField] private GameObject[] chatLogElements;
+
     private string defaultName;
     private string defaultInfo;
     private RectTransform imageContainerRect;
@@ -98,6 +104,34 @@ public class CardDetailUI : MonoBehaviour
             cardInfoString += " / " + cardInfo.group;
         }
         return cardInfoString;
+    }
+
+    public void DisableActionLog()
+    {
+        actionLogLabel.gameObject.SetActive(false);
+        ToggleActionLog(false);
+    }
+
+    public void ToggleActionLog(bool toggle)
+    {
+        foreach (GameObject actionObject in actionLogElements)
+        {
+            actionObject.gameObject.SetActive(toggle);
+        }
+    }
+
+    public void DisableChat()
+    {
+        chatLogLabel.gameObject.SetActive(false);
+        ToggleChat(false);
+    }
+
+    public void ToggleChat(bool toggle)
+    {
+        foreach (GameObject chatObject in chatLogElements)
+        {
+            chatObject.gameObject.SetActive(toggle);
+        }
     }
 
 
