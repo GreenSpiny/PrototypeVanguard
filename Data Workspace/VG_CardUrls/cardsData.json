@@ -1508,8 +1508,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC) from hand, if you have a grade 3 or greater vanguard, choose up to one normal unit without sentinel from your drop, and put it on the bottom of the deck. If you chose a card, this unit gets [Power]+2000 until end of turn.",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "adeptwildmasterfelylne",
@@ -2650,8 +2650,8 @@
   "critical": 0,
   "drive": 0,
   "effect": "Perform one of the following. <br>-  Call a Plant token to (RC).<br>- [COST][Retire a Plant token], look at the top three cards of your deck, choose up to one card with grade less than or equal to your vanguard from among them, reveal it and put it into hand, and shuffle the deck.",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "agardenerstreasure",
@@ -2748,7 +2748,7 @@
   "count": 4,
   "critical": 1,
   "drive": 1,
-  "effect": "[CONT](RC)/(GC):If you have a grade 3 or greater vanguard with \"Flagburg\" in its card name, all of your grade 3 or greater <tear dragon=\"\"> units get \"Intercept\", and [Shield]+5000.</tear>",
+  "effect": "[CONT](RC)/(GC):If you have a grade 3 or greater vanguard with \"Flagburg\" in its card name, all of your grade 3 or greater <tear dragon> units get \"Intercept\", and [Shield]+5000.</tear>",
   "gift": "",
   "giftPower": "",
   "grade": 1,
@@ -5962,7 +5962,7 @@
   "count": 4,
   "critical": 1,
   "drive": 1,
-  "effect": "[AUTO](RC):When your <tear dragon=\"\"> or <mermaid> [Stand], if you have a grade 3 or greater vanguard with \"Argo Siren\" in its card name, [COST][put this unit on the bottom of the deck], draw a card, choose one of your units, and it gets [Power]+5000 until end of turn.</mermaid></tear>",
+  "effect": "[AUTO](RC):When your <tear dragon> or <mermaid> [Stand], if you have a grade 3 or greater vanguard with \"Argo Siren\" in its card name, [COST][put this unit on the bottom of the deck], draw a card, choose one of your units, and it gets [Power]+5000 until end of turn.</mermaid></tear>",
   "gift": "",
   "giftPower": "",
   "grade": 1,
@@ -7235,7 +7235,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -7888,7 +7888,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/028EN",
@@ -10015,8 +10015,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](GC):If you have a grade 3 or greater vanguard with \"Blangdmire\" in its card name, and your bind zone has four or more face down cards, this unit gets [Shield]+5000. If your bind zone has eight or more face down cards, it gets [Shield]+10000 instead of +5000.",
-  "gift": "Heal",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "barenessripper",
@@ -10899,8 +10899,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC)[1/Turn]:When this unit attacks a vanguard, if you have a grade 3 or greater vanguard, [COST][put a rear-guard with a different card name from this unit into soul], and this unit gets [Power]+5000 until end of turn.",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "beautifulprincessofplacidityardalil",
@@ -15189,7 +15189,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -16145,7 +16145,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -16829,7 +16829,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -18220,7 +18220,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/002EN",
@@ -18356,7 +18356,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -20891,7 +20891,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/027EN",
@@ -21108,8 +21108,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[ACT](RC):If you have a grade 3 or greater vanguard with \"Orfist\" in its card name, [COST][Counter-Blast 1]], [Soul-Blast 1]], retire this unit], and call up to two Shadow Army tokens to (RC).",
-  "gift": "Heal",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 3,
   "group": "",
   "id": "cardinalfangpurisma",
@@ -21129,7 +21129,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -22019,7 +22019,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -22523,7 +22523,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/001EN",
@@ -25177,8 +25177,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is put on (GC), if a card was put into your damage zone this turn, [COST][Soul-Blast 1], and this unit gets [Shield]+10000 until end of that battle.",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "comearoundlapuole",
@@ -27606,7 +27606,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -29572,7 +29572,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/030EN",
@@ -33834,7 +33834,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/004EN",
@@ -35587,8 +35587,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):When this unit boosts, if you have a grade 3 or greater vanguard with \"Direful Doll\" in its card name, choose up to one card with \"Direful Doll\" in its card name from your drop, put it into soul, this unit gets [Power]+5000 until end of that battle, and at the end of that battle, bind this unit. (This effect is mandatory)",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "direfuldollaltea",
@@ -40950,7 +40950,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -44210,7 +44210,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -44416,7 +44416,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -45895,7 +45895,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -49994,7 +49994,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -51718,7 +51718,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -53270,8 +53270,8 @@
   "critical": 0,
   "drive": 0,
   "effect": "Choose one of your rear-guards, and it gets \"[AUTO](RC):When your unit is placed on (RC) during the battle phase, this unit gets [Power]+5000 until end of turn.\" until end of turn.",
-  "gift": "Heal",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 3,
   "group": "",
   "id": "frommetoyoumysong",
@@ -53865,7 +53865,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/056EN",
@@ -54672,7 +54672,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/007EN",
@@ -54843,7 +54843,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -55464,7 +55464,7 @@
   "count": 4,
   "critical": 1,
   "drive": 1,
-  "effect": "[AUTO](RC):When this unit attacks, if you have a <gear dragon=\"\"> vanguard, [COST][Soul-Blast 1], and this unit gets [Power]+5000 until end of that battle.<br> [AUTO](RC):At the end of the battle this unit attacked, if you have a <gear dragon=\"\"> vanguard, [COST][Energy-Blast 3] &amp; put this unit on the bottom of the deck], draw a card, choose up to one of your rear-guards or up to one card from your bind zone, and put it on the bottom of the deck.</gear></gear>",
+  "effect": "[AUTO](RC):When this unit attacks, if you have a <gear dragon> vanguard, [COST][Soul-Blast 1], and this unit gets [Power]+5000 until end of that battle.<br> [AUTO](RC):At the end of the battle this unit attacked, if you have a <gear dragon> vanguard, [COST][Energy-Blast 3] &amp; put this unit on the bottom of the deck], draw a card, choose up to one of your rear-guards or up to one card from your bind zone, and put it on the bottom of the deck.</gear></gear>",
   "gift": "",
   "giftPower": "",
   "grade": 2,
@@ -58043,7 +58043,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/013EN",
@@ -61146,8 +61146,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](Drop):When a card is put into your order zone other than during the battle phase, if you do not have a unit with the same card name as this card, [COST][Energy-Blast 4], and call this card to (RC).",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "happyinvitationemail",
@@ -63744,7 +63744,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -64606,8 +64606,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is put on (GC) from hand, [COST][Counter-Blast 1], choose a trigger unit other than [Over] from your drop, and call it to (GC).",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "hiphopstreamerserio",
@@ -65554,7 +65554,7 @@
   "count": 4,
   "critical": 1,
   "drive": 1,
-  "effect": "[AUTO](RC):When this unit boosts a <touken danshi=\"\" -=\"\" uchigatana=\"\">, [COST][Soul-Blast 1], discard a card from your hand], draw a card, and if it is boosting \"Izuminokami Kanesada\", this unit gets [Power] +5000 until end of turn.</touken>",
+  "effect": "[AUTO](RC):When this unit boosts a <touken danshi - uchigatana>, [COST][Soul-Blast 1], discard a card from your hand], draw a card, and if it is boosting \"Izuminokami Kanesada\", this unit gets [Power] +5000 until end of turn.</touken>",
   "gift": "",
   "giftPower": "",
   "grade": 1,
@@ -65929,9 +65929,9 @@
   "count": 4,
   "critical": 1,
   "drive": 1,
-  "effect": "[AUTO](RC):When your <high beast=\"\"> attacks from the back row center column, if you have a grade 3 or greater vanguard with \"Hound Raiser\" in its card name, this unit gets [Power]+5000 until end of turn, if your opponent's vanguard is grade 3 or greater, choose one of your other rear-guards, and it gets [Power]+5000 until end of turn. <br>[AUTO](RC):At the end of the battle this unit attacked while boosted by a <high beast=\"\">, if you have a vanguard with \"Hound Raiser\" in its card name, [COST][retire this unit], choose one of your rear-guards with \"Hound Raiser\" in its card name, and until end of your opponent's next turn, it gets \"[CONT](RC):This unit cannot be chosen or retired by your opponent's card effects.\".</high></high>",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "effect": "[AUTO](RC):When your <high beast> attacks from the back row center column, if you have a grade 3 or greater vanguard with \"Hound Raiser\" in its card name, this unit gets [Power]+5000 until end of turn, if your opponent's vanguard is grade 3 or greater, choose one of your other rear-guards, and it gets [Power]+5000 until end of turn. <br>[AUTO](RC):At the end of the battle this unit attacked while boosted by a <high beast>, if you have a vanguard with \"Hound Raiser\" in its card name, [COST][retire this unit], choose one of your rear-guards with \"Hound Raiser\" in its card name, and until end of your opponent's next turn, it gets \"[CONT](RC):This unit cannot be chosen or retired by your opponent's card effects.\".",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "houndraiserhinami",
@@ -70568,8 +70568,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](RC):During your turn, if your drop has ten or more cards, this unit gets [Power]+5000.<br>[AUTO](RC):At the end of the battle this unit attacked, [COST][retire this unit], look at the top three cards of your deck, choose any number of cards from among them, discard them, and if you discarded two or less cards, shuffle the deck.",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "jadedragonmeldeaiza",
@@ -72594,7 +72594,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -72663,7 +72663,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -73259,8 +73259,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC) from hand, if you have a grade 3 or greater vanguard, choose up to one normal unit without sentinel from your drop, and put it on the bottom of the deck. If you chose a card, this unit gets [Power]+2000 until end of turn.",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "knightofcommoncelebrationlovist",
@@ -81252,7 +81252,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -84197,7 +84197,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/005EN",
@@ -91760,7 +91760,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -93914,8 +93914,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[ACT](RC):If you have a grade 3 or greater vanguard with \"Kairi\" in its card name, [COST][put this unit into soul], choose one of your vanguards, and it gets [Power]+5000 until end of turn.",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "pasteitforyoucareria",
@@ -94555,8 +94555,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[CONT](RC):During your turn, if you have a grade 3 or greater vanguard with \"Sorceress\" in its card name, this unit gets [Power]+5000.<br>[AUTO](Drop):When your grade 3 or greater vanguard with \"Sorceress\" in its card name is placed during your ride phase, [COST][Energy-Blast 3], call this card to (RC), look at the top card of your deck, and put it on the top of the deck or into soul. If you put a card into soul, this unit gets [Power]+5000 until end of turn.",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "pentaculationsorceress",
@@ -94995,8 +94995,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC) from hand, choose a grade 3 card with \"Ominagruzio\" in its card name from your ride deck, and you may reveal it. If you revealed a card, or you have a grade 3 or greater vanguard with \"Ominagruzio\" in its card name, [COST][Counter-Blast 1], search your deck for up to one trigger unit other than [Over], reveal it and put it into hand, and shuffle the deck.",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "petitetilget",
@@ -95292,7 +95292,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/070EN",
@@ -105139,7 +105139,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -106156,7 +106156,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -113145,8 +113145,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC) from hand, if you have a grade 3 or greater vanguard, choose up to one normal unit without sentinel from your drop, and put it on the bottom of the deck. If you chose a card, this unit gets [Power]+2000 until end of turn.",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "smilebloominginacornerlukkigi",
@@ -114228,8 +114228,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is rode upon by a unit with the [RevolDress] ability, [COST][Energy-Blast 3], choose a grade 2 or greater unit card from your drop, and put it into hand.",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "sorrowfulardentlightyouth",
@@ -115257,7 +115257,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -116419,8 +116419,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):When this unit attacks a vanguard, [COST][Counter-Blast 1], choose one of your opponent's front row rear-guards, and move it to (GC).",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 3,
   "group": "",
   "id": "sprightlyjumperaftir",
@@ -116440,7 +116440,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -116693,8 +116693,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is rode upon by \"Sorrowful Ardent Light, Youth\", [COST][Soul-Blast 1], look at the top five cards of your deck, choose up to one card from among them and reveal it, put it into hand if it is a card with \"Youthberk\" in its card name, and call it to (RC) if it is a grade 2 or less unit card. Shuffle the deck.",
-  "gift": "Heal",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "squireofspearstreaksyouth",
@@ -119932,8 +119932,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is put on (GC), if you played a blitz order this turn, [COST][Soul-Blast 1], and this unit gets [Shield]+10000 until end of that battle.",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "steamfighteriddinam",
@@ -120686,8 +120686,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):At the end of the battle this unit attacked, [COST][put this unit into soul], choose one of your rear-guards, and it gets [Power]+5000 until end of turn.",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "steammaidenlarsa",
@@ -121403,8 +121403,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is placed on (RC), if you have a grade 3 or greater vanguard with \"Kairi\" in its card name, choose up to one unit card with \"Astesice\" in its card name from your drop, and put it into soul.<br>[CONT](RC):During your turn, if you have a vanguard with \"Astesice\" in its card name, this unit gets [Power]+2000.",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "stepbysteplezity",
@@ -124571,8 +124571,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC)[1/Turn]:When this unit's attack hits, [COST][Soul-Blast 1], choose one of your units, and it gets [Power]+10000 until end of turn.",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "swingonaswingrunalu",
@@ -125517,7 +125517,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -126517,8 +126517,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is rode upon by a grade 2 card with \"Sylvan Horned Beast\" in its card name, look at the top three cards of your deck, choose up to one grade 2 or less normal unit from among them, call it to (RC), and you may discard the rest. If you did not discard any cards, put the cards not chosen on the bottom of the deck in any order.",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "sylvanhornedbeastofblossomingflowerscharis",
@@ -126674,7 +126674,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -126859,8 +126859,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):When this unit attacks, if you have a grade 3 or greater vanguard with \"Magnolia\" in its card name, until end of that battle, this unit gets [Power]+5000, and your opponent cannot intercept. <br>[AUTO](RC):At the end of your turn, if you have a grade 3 or greater vanguard with \"Magnolia\" in its card name, and your unit attacked from the back row this turn, [COST][put this unit into soul], and draw a card.",
-  "gift": "Heal",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "sylvanhornedbeastvoldyaar",
@@ -127453,7 +127453,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -130289,8 +130289,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[ACT](RC):If you have a grade 3 or greater vanguard with \"FLAMMe-Glam\" in its card name, [COST][retire this unit], choose a normal unit with \"FLAMMe-Glam\" in its card name from your drop, call it to (RC), and if your opponent's vanguard is grade 3 or greater, that unit gets [Power]+5000 until end of turn.",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "thumbsupfavoral",
@@ -135495,7 +135495,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -136977,8 +136977,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO](RC):When the attack this unit boosted hits a vanguard, [COST][retire this unit], choose one of your rear-guards, and it gets [Power]+10000 until end of turn.",
-  "gift": "Draw",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 1,
   "group": "",
   "id": "viogaon",
@@ -137617,7 +137617,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -138061,8 +138061,8 @@
   "critical": 1,
   "drive": 1,
   "effect": "[AUTO]:When this unit is put on (GC) from hand, [COST][Counter-Blast 1], choose a trigger unit other than [Over] from your drop, and call it to (GC).",
-  "gift": "Critical",
-  "giftPower": "+10000",
+  "gift": "",
+  "giftPower": "",
   "grade": 2,
   "group": "",
   "id": "warseveringknightfethful",
@@ -140376,7 +140376,7 @@
   "count": 4,
   "critical": 1,
   "drive": 1,
-  "effect": "[AUTO]:When this unit is placed on (RC), if you have a grade 3 or greater vanguard with \"Flagburg\" in its card name, [COST][Energy-Blast 3], choose a <tear dragon=\"\"> from your drop, and call it to (RC). <br>[CONT](RC):If you have a grade 3 or greater vanguard with \"Flagburg\" in its card name, this unit gets \"Boost\".</tear>",
+  "effect": "[AUTO]:When this unit is placed on (RC), if you have a grade 3 or greater vanguard with \"Flagburg\" in its card name, [COST][Energy-Blast 3], choose a <tear dragon> from your drop, and call it to (RC). <br>[CONT](RC):If you have a grade 3 or greater vanguard with \"Flagburg\" in its card name, this unit gets \"Boost\".</tear>",
   "gift": "",
   "giftPower": "",
   "grade": 2,
@@ -141571,7 +141571,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -142897,7 +142897,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
@@ -142967,7 +142967,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/011EN",
@@ -143071,7 +143071,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!"
+   "Twin Drive"
   ],
   "type": "Normal Unit",
   "url": "https://en.cf-vanguard.com/cardlist/?cardno=D-BT06/010EN",
@@ -143105,7 +143105,7 @@
   "rotate": false,
   "shield": 0,
   "skill": [
-   "Twin Drive!!",
+   "Twin Drive",
    "Persona Ride"
   ],
   "type": "Normal Unit",
