@@ -8,7 +8,7 @@ def function01():
 	urlsFolder = os.path.join(os.getcwd(), 'Raw Urls')
 	for subFolder in os.listdir(urlsFolder):
 		subFolderPath = os.path.join(urlsFolder, subFolder)
-		if os.path.isdir(subFolderPath):
+		if os.path.isdir(subFolderPath) and not "Legacy" in subFolderPath:
 			for file in os.listdir(subFolderPath):
 				filePath = os.path.join(subFolderPath, file)
 				if os.path.isfile(filePath):
