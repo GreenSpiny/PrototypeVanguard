@@ -35,8 +35,11 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] TMP_InputField roomCodeFilter;
 
     [SerializeField] RoomResult roomPrefab;
-    [SerializeField] RectTransform RoomsContainer;
+    [SerializeField] PlayerResult playerPrefab;
+    [SerializeField] RectTransform roomsContainer;
+    [SerializeField] RectTransform playersContainer;
     private List<RoomResult> roomResults = new List<RoomResult>();
+    private List<PlayerResult> playerResults = new List<PlayerResult>();
 
     private Lobby hostedLobby = null;
     private Lobby leechedLobby = null;
@@ -332,6 +335,19 @@ public class MultiplayerManager : MonoBehaviour
         roomResults.Clear();
     }
 
+    private void ClearPlayers()
+    {
+        int count = playerResults.Count;
+        for (int i = count - 1; i >= 0; i--)
+        {
+            if (playerResults[i] != null)
+            {
+                Destroy(playerResults[i].gameObject);
+            }
+        }
+        playerResults.Clear();
+    }
+
     public async void QueryLobbies()
     {
         ClearRooms();
@@ -361,7 +377,7 @@ public class MultiplayerManager : MonoBehaviour
             foreach (Lobby result in lobbies.Results)
             {
                 {
-                    RoomResult roomResult = Instantiate(roomPrefab, RoomsContainer.transform);
+                    RoomResult roomResult = Instantiate(roomPrefab, roomsContainer.transform);
                     roomResult.Initialize(result);
                     roomResults.Add(roomResult);
                 }
@@ -467,13 +483,15 @@ public class MultiplayerManager : MonoBehaviour
 
         else if (hostedLobby != null)
         {
+            ClearPlayers();
             try
             {
                 foreach (var player in hostedLobby.Players)
                 {
                     if (player.Id != AuthenticationService.Instance.PlayerId)
                     {
-                        // add player to list
+                        PlayerResult playerResult = Instantiate(playerPrefab, playersContainer.transform);
+                        playerResult.Initialize(player.Id, "connected player");
                     }
                 }
             }
