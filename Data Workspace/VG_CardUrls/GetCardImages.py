@@ -8,16 +8,17 @@ if __name__ == "__main__":
 
 	dataFile = open('cardsData.json', 'r')
 	data = json.loads(dataFile.read())
+	cards = data["cards"]
 	dataFile.close()
 
 	startIndex = 0;
-	endIndex = len(data);
+	endIndex = len(cards);
 	if len(sys.argv) >= 2:
 		startIndex = int(sys.argv[1])
 	if len(sys.argv) >= 3:
 		endIndex = int(sys.argv[2])
 
-	for card in data.values():
+	for card in cards.values():
 		index = card['index']
 		folder = str(math.floor(index / 100.0))
 

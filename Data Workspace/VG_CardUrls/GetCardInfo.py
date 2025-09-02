@@ -84,6 +84,7 @@ if __name__ == "__main__":
 	# parse the results file
 	resultsFile = open('cardsData.json', 'r+')
 	resultsData = json.loads(resultsFile.read())
+	cards = resultsData["cards"]
 
 	# parse the card URLs file
 	# accepts start and / or end indicies 
@@ -106,8 +107,8 @@ if __name__ == "__main__":
 	for i in range (startIndex, endIndex):
 		cardData = GetCardInformation(driver, urlsData[i])
 		print(cardData['id'])
-		if cardData['id'] not in resultsData:
-			resultsData[cardData['id']] = cardData
+		if cardData['id'] not in cards:
+			cards[cardData['id']] = cardData
 
 	# close the driver
 	driver.close()

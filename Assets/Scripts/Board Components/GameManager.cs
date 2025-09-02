@@ -193,7 +193,7 @@ public class GameManager : NetworkBehaviour
 
     public static string SanitizeString(string inputString)
     {
-        HashSet<char> badChars = new HashSet<char>() { '\n', '\r', '\t', '\\', '`' };
+        HashSet<char> badChars = new HashSet<char>() { '\n', '\r', '\t', '\\', '`', '{', '}' };
         StringBuilder builder = new StringBuilder(inputString.Length);
         foreach (char c in inputString)
         {
@@ -203,6 +203,22 @@ public class GameManager : NetworkBehaviour
             }
         }
         string result = builder.ToString();
+        return result.Trim();
+    }
+
+    public static string SimplifyString(string inputString)
+    {
+        HashSet<char> badChars = new HashSet<char>() { '\n', '\r', '\t', ' ' };
+        StringBuilder builder = new StringBuilder(inputString.Length);
+        foreach (char c in inputString)
+        {
+            if (!badChars.Contains(c))
+            {
+                builder.Append(c);
+            }
+        }
+        string result = builder.ToString();
+        result = result.Replace("<br>", string.Empty);
         return result.Trim();
     }
 

@@ -1,7 +1,8 @@
 import json
 
 dataFile = open('cardsData.json', 'r+', encoding='raw_unicode_escape')
-cards = json.loads(dataFile.read().encode('raw_unicode_escape').decode('utf8'))
+data = json.loads(dataFile.read().encode('raw_unicode_escape').decode('utf8'))
+cards = data["cards"]
 
 # Before running the program, assign jpMode based on if we are importing english cards or JP exclusives.
 # When english cards become available, this flag helps us overwrite the JP cards' info without altering their index.
@@ -169,5 +170,5 @@ if (dupeCheck):
 
 dataFile.seek(0)
 dataFile.truncate(0)
-dataFile.write(json.dumps(cards, sort_keys=True, indent=1, ensure_ascii=True))
+dataFile.write(json.dumps(data, sort_keys=True, indent=1, ensure_ascii=True))
 dataFile.close()

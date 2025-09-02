@@ -127,6 +127,7 @@ public class MultiplayerManager : MonoBehaviour
         }
         uiDirty = true;
         initialized = true;
+        QueryLobbies();
     }
 
     public void SwapPlayer1Deck(int deckIndex)
@@ -241,6 +242,9 @@ public class MultiplayerManager : MonoBehaviour
 
     private async void HostMultiplayerRoom()
     {
+        GameManager.singlePlayer = false;
+        GameManager.localPlayerDecklist1 = p1DeckContainer.deckList;
+
         goFirstToggle.interactable = false;
         deckSelectContainers[0].deckSelect.interactable = false;
         deckSelectContainers[1].deckSelect.interactable = false;
@@ -361,7 +365,7 @@ public class MultiplayerManager : MonoBehaviour
             {
                 codeMatch = false;
             }
-            room.SetInteractable(lobby == null);
+            //room.SetInteractable(lobby == null);
             room.gameObject.SetActive(nameMatch && codeMatch);
         }
     }
