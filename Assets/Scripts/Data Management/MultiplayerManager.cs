@@ -70,6 +70,10 @@ public class MultiplayerManager : MonoBehaviour
         {
             RefreshUI();
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            QueryLobbies();
+        }
     }
 
     private IEnumerator LoadInitialDisplay()
@@ -259,6 +263,40 @@ public class MultiplayerManager : MonoBehaviour
         }
         hostMultiplayerButtonText.text = "Host multiplayer room";
         uiDirty = true;
+    }
+
+    public async void QueryLobbies()
+    {
+        try
+        {
+            QueryLobbiesOptions options = new QueryLobbiesOptions();
+            options.Count = 25;
+
+            // Filter for open lobbies only
+            options.Filters = new List<QueryFilter>()
+            {
+                new QueryFilter(
+                field: QueryFilter.FieldOptions.AvailableSlots,
+                op: QueryFilter.OpOptions.GT,
+                value: "0")
+            };
+
+            // Order by newest lobbies first
+            options.Order = new List<QueryOrder>()
+            {
+            new QueryOrder(
+                asc: false,
+                field: QueryOrder.FieldOptions.Created)
+            };
+
+            QueryResponse lobbies = await LobbyService.Instance.QueryLobbiesAsync(options);
+
+            //...
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
     }
 
 }
