@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,7 +21,15 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] DeckSelectContainer p1DeckContainer;
     [SerializeField] DeckSelectContainer p2DeckContainer;
     DeckSelectContainer[] deckSelectContainers;
-    bool singlePlayerDirty = false;
+    bool uiDirty = false;
+
+    [SerializeField] TextMeshProUGUI gameVersionLabel;
+    [SerializeField] TextMeshProUGUI cardsVersionLabel;
+    [SerializeField] TextMeshProUGUI onlineStatusLabel;
+    [SerializeField] Button hostMultiplayerButton;
+    [SerializeField] TextMeshProUGUI hostMultiplayerButtonText;
+
+    private Lobby lobby = null;
 
     [System.Serializable]
     public class DeckSelectContainer
@@ -56,9 +66,9 @@ public class MultiplayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (singlePlayerDirty)
+        if (uiDirty)
         {
-            RefreshSingleplayer();
+            RefreshUI();
         }
     }
 
@@ -108,7 +118,7 @@ public class MultiplayerManager : MonoBehaviour
             p1DeckContainer.deckList = SaveDataManager.LoadDeck(targetDeck);
             p2DeckContainer.deckList = SaveDataManager.LoadDeck(targetDeck);
         }
-        singlePlayerDirty = true;
+        uiDirty = true;
         initialized = true;
     }
 
@@ -134,7 +144,7 @@ public class MultiplayerManager : MonoBehaviour
                 targetContainer.deckSelect.value = deckIndex;
                 targetContainer.deckSelect.RefreshShownValue();
                 targetContainer.deckList = SaveDataManager.LoadDeck(targetDeck);
-                singlePlayerDirty = true;
+                uiDirty = true;
             }
         }
     }
@@ -147,9 +157,9 @@ public class MultiplayerManager : MonoBehaviour
         }
     }
 
-    private void RefreshSingleplayer()
+    private void RefreshUI()
     {
-        singlePlayerDirty = false;
+        uiDirty = false;
         string error;
         bool[] decksValid = new bool[2] { false, false };
         bool anyDeckFound = true;
@@ -175,7 +185,13 @@ public class MultiplayerManager : MonoBehaviour
         }
         
         goFirstToggle.interactable = anyDeckFound;
-        singlePlayerStartButton.interactable = decksValid[0] && decksValid[1];
+        deckSelectContainers[0].deckSelect.interactable = lobby == null;
+        singlePlayerStartButton.interactable = lobby == null && decksValid[0] && decksValid[1];
+        hostMultiplayerButton.interactable = decksValid[0];
+
+        gameVersionLabel.text = Application.version;
+        cardsVersionLabel.text = CardLoader.instance.dataVersionObject.cardsFileVersion.ToString();
+        onlineStatusLabel.text = string.Empty;
     }
 
     public void StartSingleplayerGame()
@@ -202,4 +218,47 @@ public class MultiplayerManager : MonoBehaviour
         }
         SceneManager.LoadScene("FightScene");
     }
+
+    public void HostMultiplayerButton()
+    {
+        if (lobby == null)
+        {
+            HostMultiplayerRoom();
+        }
+        else
+        {
+            CancelMultiplayerRoom();
+        }
+    }
+
+    private async void HostMultiplayerRoom()
+    {
+        hostMultiplayerButton.interactable = false;
+        deckSelectContainers[0].deckSelect.interactable = false;
+        singlePlayerStartButton.interactable = false;
+
+        string sanitizedName = GameManager.SanitizeString(playerNameInput.text);
+        string lobbyName = sanitizedName + "'s Lobby";
+        int maxPlayers = 5;
+        CreateLobbyOptions options = new CreateLobbyOptions();
+        options.IsPrivate = false;
+
+        lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
+
+        hostMultiplayerButtonText.text = "Hosting. Press to cancel room.";
+        uiDirty = true;
+    }
+
+    private async void CancelMultiplayerRoom()
+    {
+        if (lobby != null)
+        {
+            hostMultiplayerButton.interactable = false;
+            await LobbyService.Instance.DeleteLobbyAsync(lobby.Id);
+            lobby = null;
+        }
+        hostMultiplayerButtonText.text = "Host multiplayer room";
+        uiDirty = true;
+    }
+
 }

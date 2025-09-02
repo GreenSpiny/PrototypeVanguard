@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4897980179523907945}
   - component: {fileID: 627724230108359431}
+  - component: {fileID: 5057463304792629696}
   m_Layer: 0
   m_Name: Card Loader
   m_TagString: Untagged
@@ -44,6 +45,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76afc4754a6fd764db95d507425a1c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadRemoteAssets: 0
   cardMaterial: {fileID: 2100000, guid: e8cf59a0de97ea64da5062777d9ccd48, type: 2}
   defaultCardBackMaterial: {fileID: 2100000, guid: 0d82f6acd244f4042909bbe14b585df2, type: 2}
+  downloadMode: 0
+  versionDownloadProgress: 0
+  cardsDownloadProgress: 0
+  imageDownloadProgress: 0
+  oldVersionNumber: 0
+--- !u!114 &5057463304792629696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670712520312322141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a2466adf8ef2a4ebebf78aa5f599d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
