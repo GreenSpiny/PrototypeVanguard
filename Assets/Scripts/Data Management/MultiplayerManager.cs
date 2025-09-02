@@ -71,6 +71,7 @@ public class MultiplayerManager : MonoBehaviour
         {
             playerNameInput.text = lastProfileName;
         }
+        multiplayerInfoText.text = string.Empty;
         StartCoroutine(LoadInitialDisplay());
     }
 
@@ -199,7 +200,7 @@ public class MultiplayerManager : MonoBehaviour
         deckSelectContainers[0].deckSelect.interactable = hostedLobby == null;
         deckSelectContainers[1].deckSelect.interactable = hostedLobby == null;
         singlePlayerStartButton.interactable = hostedLobby == null && decksValid[0] && decksValid[1];
-        hostMultiplayerButton.interactable = decksValid[0];
+        hostMultiplayerButton.interactable = leechedLobby == null && decksValid[0];
 
         gameVersionLabel.text = Application.version;
         cardsVersionLabel.text = CardLoader.instance.dataVersionObject.cardsFileVersion.ToString();
@@ -248,11 +249,7 @@ public class MultiplayerManager : MonoBehaviour
         GameManager.singlePlayer = false;
         GameManager.localPlayerDecklist1 = p1DeckContainer.deckList;
 
-        goFirstToggle.interactable = false;
-        deckSelectContainers[0].deckSelect.interactable = false;
-        deckSelectContainers[1].deckSelect.interactable = false;
-        singlePlayerStartButton.interactable = false;
-        hostMultiplayerButton.interactable = false;
+        ToggleOffButtons();
 
         string sanitizedName = GameManager.SanitizeString(playerNameInput.text);
         string lobbyName = sanitizedName + "'s Lobby";
@@ -273,11 +270,31 @@ public class MultiplayerManager : MonoBehaviour
                     value: CardLoader.instance.dataVersionObject.cardsFileVersion.ToString(),
                     index: DataObject.IndexOptions.N1)
             },
+            {
+                "Code", new DataObject(
+                    visibility: DataObject.VisibilityOptions.Public,
+                    value: "abcd",
+                    index: DataObject.IndexOptions.S2)
+            }
         };
 
-        hostedLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
+        try
+        {
+            hostedLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 
-        hostMultiplayerButtonText.text = "Hosting. Press to cancel room.";
+            var callbacks = new LobbyEventCallbacks();
+            callbacks.LobbyChanged += OnLobbyChanged;
+            callbacks.KickedFromLobby += OnKickedFromLobby;
+            callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
+            var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(hostedLobby.Id, callbacks);
+
+            hostMultiplayerButtonText.text = "Hosting. Press to cancel room.";
+            multiplayerInfoText.text = "Waiting for players...";
+        }
+        catch (Exception ex)
+        {
+
+        }
         uiDirty = true;
         QueryLobbies();
     }
@@ -287,7 +304,14 @@ public class MultiplayerManager : MonoBehaviour
         if (hostedLobby != null)
         {
             hostMultiplayerButton.interactable = false;
-            await LobbyService.Instance.DeleteLobbyAsync(hostedLobby.Id);
+            try
+            {
+                await LobbyService.Instance.DeleteLobbyAsync(hostedLobby.Id);
+            }
+            catch (LobbyServiceException e)
+            {
+
+            }
             hostedLobby = null;
         }
         hostMultiplayerButtonText.text = "Host multiplayer room";
@@ -334,7 +358,6 @@ public class MultiplayerManager : MonoBehaviour
             };
 
             QueryResponse lobbies = await LobbyService.Instance.QueryLobbiesAsync(options);
-
             foreach (Lobby result in lobbies.Results)
             {
                 {
@@ -364,33 +387,38 @@ public class MultiplayerManager : MonoBehaviour
                 nameMatch = false;
             }
             bool codeMatch = true;
-            if (!string.IsNullOrWhiteSpace(codeFilter) && room.lobby.LobbyCode != codeFilter)
+            if (!string.IsNullOrWhiteSpace(codeFilter) && room.Code.ToLower() != codeFilter.ToLower())
             {
                 codeMatch = false;
             }
-            //room.SetInteractable(hostedLobby == null);
+            room.SetInteractable(hostedLobby == null);
             room.gameObject.SetActive(nameMatch && codeMatch);
         }
     }
 
     public async void StartLeeching(RoomResult room)
     {
-        try
+        if (hostedLobby == null)
         {
-            Lobby targetLobby = await LobbyService.Instance.JoinLobbyByIdAsync(room.lobby.Id);
-            var callbacks = new LobbyEventCallbacks();
-            callbacks.LobbyChanged += OnLobbyChanged;
-            callbacks.KickedFromLobby += OnKickedFromLobby;
-            callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
-            var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(targetLobby.Id, callbacks);
+            ToggleOffButtons();
+            try
+            {
+                Lobby targetLobby = await LobbyService.Instance.JoinLobbyByIdAsync(room.lobby.Id);
+                var callbacks = new LobbyEventCallbacks();
+                callbacks.LobbyChanged += OnLobbyChanged;
+                callbacks.KickedFromLobby += OnKickedFromLobby;
+                callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
+                var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(targetLobby.Id, callbacks);
 
-            leechedLobby = targetLobby;
+                leechedLobby = targetLobby;
 
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
         }
-        catch (LobbyServiceException e)
-        {
-            Debug.Log(e);
-        }
+        uiDirty = true;
     }
 
     public void StopLeeching()
@@ -399,23 +427,68 @@ public class MultiplayerManager : MonoBehaviour
         {
             string targetLobbyId = leechedLobby.Id;
             leechedLobby = null;
-            if (AuthenticationService.Instance.IsAuthorized)
+            try
             {
                 string playerId = AuthenticationService.Instance.PlayerId;
                 LobbyService.Instance.RemovePlayerAsync(targetLobbyId, playerId);
             }
+            catch (AuthenticationException e)
+            {
+
+            }
+            catch (LobbyServiceException e)
+            {
+
+            }
         }
+    }
+
+    private void ToggleOffButtons()
+    {
+        goFirstToggle.interactable = false;
+        deckSelectContainers[0].deckSelect.interactable = false;
+        deckSelectContainers[1].deckSelect.interactable = false;
+        singlePlayerStartButton.interactable = false;
+        hostMultiplayerButton.interactable = false;
     }
 
     // === LOBBY SUBSCRIPTION EVENTS === //
     private void OnLobbyChanged(ILobbyChanges changes)
     {
+        if (changes.LobbyDeleted)
+        {
+            if (hostedLobby != null)
+            {
+                multiplayerInfoText.text = "Room was closed or expired.";
+            }
+            hostedLobby = null;
+            leechedLobby = null;
+        }
 
+        else if (hostedLobby != null)
+        {
+            try
+            {
+                foreach (var player in hostedLobby.Players)
+                {
+                    if (player.Id != AuthenticationService.Instance.PlayerId)
+                    {
+                        // add player to list
+                    }
+                }
+            }
+            catch (AuthenticationException e)
+            {
+
+            }
+        }
     }
 
     private void OnKickedFromLobby()
     {
-        multiplayerInfoText.text = "You have been kicked from the host's lobby.";
+        multiplayerInfoText.text = string.Empty;
+        hostedLobby = null;
+        leechedLobby = null;
     }
 
     private void OnLobbyEventConnectionStateChanged(LobbyEventConnectionState state)

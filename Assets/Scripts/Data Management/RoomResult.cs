@@ -12,6 +12,7 @@ public class RoomResult : MonoBehaviour
     [SerializeField] private TextMeshProUGUI roomCardsVersion;
     [SerializeField] private Button joinButton;
     public uint CardsVersion { get; private set; }
+    public string Code { get; private set; }
     public Lobby lobby;
 
     public void Start()
@@ -26,6 +27,7 @@ public class RoomResult : MonoBehaviour
         roomGameVersion.text = lobby.Data["GameVersion"].Value;
         roomCardsVersion.text = lobby.Data["CardsVersion"].Value;
         CardsVersion = Convert.ToUInt32(roomCardsVersion.text);
+        Code = lobby.Data["Code"].Value;
     }
 
     public void SetInteractable(bool interactable)

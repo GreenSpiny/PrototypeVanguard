@@ -287,8 +287,8 @@ public class GameManager : NetworkBehaviour
         else
         {
             phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
-            phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
         }
+        phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
 
         Player targetPlayer = players[turnPlayer];
         if (!drewForTurn)
