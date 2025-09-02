@@ -50,6 +50,9 @@ public class CardInfo : IComparable<CardInfo>
     public readonly bool isElementaria;
     public readonly bool isRegalis;
 
+    public readonly string strippedName;
+    public readonly string strippedEffect;
+
     public bool hasAlias { get { return alias >= 0; } }
     public int GetUniqueIndex()
     {
@@ -146,6 +149,9 @@ public class CardInfo : IComparable<CardInfo>
         isSentinel = skills.Contains("Sentinel");
         isElementaria = skills.Contains("Elementaria");
         isRegalis = skills.Contains("Regalis Piece");
+
+        strippedName = GameManager.SimplifyString(name);
+        strippedEffect = GameManager.SimplifyString(effect);
     }
 
     public static CardInfo GenerateDefaultCardInfo()

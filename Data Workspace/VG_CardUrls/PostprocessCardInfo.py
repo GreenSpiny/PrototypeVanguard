@@ -146,7 +146,7 @@ for key in cards.keys():
 		c['actionflags'].append(12) # arm right
 	if ' bind ' in lowereffect and ' face down ' in lowereffect:
 		c['actionflags'].append(13) # bind FD
-	if 'blagndmire' in lowername:
+	if 'blangdmire' in lowername:
 		c['actionflags'].append(14) # bind FD foe
 	if ' lock ' in lowereffect:
 		c['actionflags'].append(15) # lock

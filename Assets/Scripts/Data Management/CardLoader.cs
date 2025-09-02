@@ -169,7 +169,8 @@ public class CardLoader : MonoBehaviour
         HashSet<string> unitTypeSet = new HashSet<string>();
 
         // Grab the existing card data JSON, or download an updated version if needed.
-        var parsedCards = JsonConvert.DeserializeObject<Dictionary<string, object>>(newCardsText);
+        var parsedCardsFile = JsonConvert.DeserializeObject<Dictionary<string, object>>(newCardsText);
+        var parsedCards = ((JObject)parsedCardsFile["cards"]).ToObject<Dictionary<string, object>>();
 
         foreach (JObject card in parsedCards.Values)
         {

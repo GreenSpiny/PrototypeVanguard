@@ -300,7 +300,7 @@ public class DeckBuilder : MonoBehaviour
         string gift = giftDropdown.options[giftDropdown.value].text;
         bool searchGift = giftDropdown.value != 0;
 
-        string query = queryInputField.text.Trim();
+        string query = GameManager.SimplifyString(queryInputField.text);
         bool searchQuery = query.Length > 2;
 
         bool shouldSearch = searchNation || searchType || searchGrade || searchRace || searchGroup || searchGift || searchQuery;
@@ -323,8 +323,8 @@ public class DeckBuilder : MonoBehaviour
                 }
                 if (searchQuery)
                 {
-                    bool nameMatch = cardInfo.name.Contains(query, StringComparison.InvariantCultureIgnoreCase);
-                    bool effectMatch = cardInfo.effect.Contains(query, StringComparison.InvariantCultureIgnoreCase);
+                    bool nameMatch = cardInfo.strippedName.Contains(query, StringComparison.InvariantCultureIgnoreCase);
+                    bool effectMatch = cardInfo.strippedEffect.Contains(query, StringComparison.InvariantCultureIgnoreCase);
                     if (!(nameMatch || effectMatch))
                     {
                         continue;

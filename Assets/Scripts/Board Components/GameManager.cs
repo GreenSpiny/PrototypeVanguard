@@ -218,7 +218,6 @@ public class GameManager : NetworkBehaviour
             }
         }
         string result = builder.ToString();
-        result = result.Replace("<br>", string.Empty);
         return result.Trim();
     }
 
