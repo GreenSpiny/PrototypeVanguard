@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
@@ -28,6 +29,7 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI onlineStatusLabel;
     [SerializeField] Button hostMultiplayerButton;
     [SerializeField] TextMeshProUGUI hostMultiplayerButtonText;
+    [SerializeField] TextMeshProUGUI multiplayerInfoText;
 
     [SerializeField] TMP_InputField roomNameFilter;
     [SerializeField] TMP_InputField roomCodeFilter;
@@ -36,7 +38,8 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] RectTransform RoomsContainer;
     private List<RoomResult> roomResults = new List<RoomResult>();
 
-    private Lobby lobby = null;
+    private Lobby hostedLobby = null;
+    private Lobby leechedLobby = null;
 
     [System.Serializable]
     public class DeckSelectContainer
@@ -192,10 +195,10 @@ public class MultiplayerManager : MonoBehaviour
             }
         }
         
-        goFirstToggle.interactable = lobby == null && anyDeckFound;
-        deckSelectContainers[0].deckSelect.interactable = lobby == null;
-        deckSelectContainers[1].deckSelect.interactable = lobby == null;
-        singlePlayerStartButton.interactable = lobby == null && decksValid[0] && decksValid[1];
+        goFirstToggle.interactable = hostedLobby == null && anyDeckFound;
+        deckSelectContainers[0].deckSelect.interactable = hostedLobby == null;
+        deckSelectContainers[1].deckSelect.interactable = hostedLobby == null;
+        singlePlayerStartButton.interactable = hostedLobby == null && decksValid[0] && decksValid[1];
         hostMultiplayerButton.interactable = decksValid[0];
 
         gameVersionLabel.text = Application.version;
@@ -230,7 +233,7 @@ public class MultiplayerManager : MonoBehaviour
 
     public void HostMultiplayerButton()
     {
-        if (lobby == null)
+        if (hostedLobby == null)
         {
             HostMultiplayerRoom();
         }
@@ -272,7 +275,7 @@ public class MultiplayerManager : MonoBehaviour
             },
         };
 
-        lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
+        hostedLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 
         hostMultiplayerButtonText.text = "Hosting. Press to cancel room.";
         uiDirty = true;
@@ -281,11 +284,11 @@ public class MultiplayerManager : MonoBehaviour
 
     private async void CancelMultiplayerRoom()
     {
-        if (lobby != null)
+        if (hostedLobby != null)
         {
             hostMultiplayerButton.interactable = false;
-            await LobbyService.Instance.DeleteLobbyAsync(lobby.Id);
-            lobby = null;
+            await LobbyService.Instance.DeleteLobbyAsync(hostedLobby.Id);
+            hostedLobby = null;
         }
         hostMultiplayerButtonText.text = "Host multiplayer room";
         uiDirty = true;
@@ -365,8 +368,74 @@ public class MultiplayerManager : MonoBehaviour
             {
                 codeMatch = false;
             }
-            //room.SetInteractable(lobby == null);
+            //room.SetInteractable(hostedLobby == null);
             room.gameObject.SetActive(nameMatch && codeMatch);
+        }
+    }
+
+    public async void StartLeeching(RoomResult room)
+    {
+        try
+        {
+            Lobby targetLobby = await LobbyService.Instance.JoinLobbyByIdAsync(room.lobby.Id);
+            var callbacks = new LobbyEventCallbacks();
+            callbacks.LobbyChanged += OnLobbyChanged;
+            callbacks.KickedFromLobby += OnKickedFromLobby;
+            callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
+            var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(targetLobby.Id, callbacks);
+
+            leechedLobby = targetLobby;
+
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    public void StopLeeching()
+    {
+        if (leechedLobby != null)
+        {
+            string targetLobbyId = leechedLobby.Id;
+            leechedLobby = null;
+            if (AuthenticationService.Instance.IsAuthorized)
+            {
+                string playerId = AuthenticationService.Instance.PlayerId;
+                LobbyService.Instance.RemovePlayerAsync(targetLobbyId, playerId);
+            }
+        }
+    }
+
+    // === LOBBY SUBSCRIPTION EVENTS === //
+    private void OnLobbyChanged(ILobbyChanges changes)
+    {
+
+    }
+
+    private void OnKickedFromLobby()
+    {
+        multiplayerInfoText.text = "You have been kicked from the host's lobby.";
+    }
+
+    private void OnLobbyEventConnectionStateChanged(LobbyEventConnectionState state)
+    {
+        switch (state)
+        {
+            case LobbyEventConnectionState.Unsubscribed:
+                multiplayerInfoText.text = "Unsubscribed from host's room.";
+                break;
+            case LobbyEventConnectionState.Subscribing:
+                break;
+            case LobbyEventConnectionState.Subscribed:
+                break;
+            case LobbyEventConnectionState.Unsynced:
+                multiplayerInfoText.text = "There was a connection issue.";
+                break;
+            case LobbyEventConnectionState.Error:
+                multiplayerInfoText.text = "There was a connection issue.";
+                break;
+            default: return;
         }
     }
 

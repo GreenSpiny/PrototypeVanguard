@@ -14,6 +14,11 @@ public class RoomResult : MonoBehaviour
     public uint CardsVersion { get; private set; }
     public Lobby lobby;
 
+    public void Start()
+    {
+        joinButton.onClick.AddListener(() => MultiplayerManager.instance.StartLeeching(this));
+    }
+
     public void Initialize(Lobby lobby)
     {
         this.lobby = lobby;
