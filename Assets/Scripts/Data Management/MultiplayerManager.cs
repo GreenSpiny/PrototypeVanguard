@@ -29,6 +29,13 @@ public class MultiplayerManager : MonoBehaviour
     [SerializeField] Button hostMultiplayerButton;
     [SerializeField] TextMeshProUGUI hostMultiplayerButtonText;
 
+    [SerializeField] TMP_InputField roomNameFilter;
+    [SerializeField] TMP_InputField roomCodeFilter;
+
+    [SerializeField] RoomResult roomPrefab;
+    [SerializeField] RectTransform RoomsContainer;
+    private List<RoomResult> roomResults = new List<RoomResult>();
+
     private Lobby lobby = null;
 
     [System.Serializable]
@@ -69,10 +76,6 @@ public class MultiplayerManager : MonoBehaviour
         if (uiDirty)
         {
             RefreshUI();
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            QueryLobbies();
         }
     }
 
@@ -188,8 +191,9 @@ public class MultiplayerManager : MonoBehaviour
             }
         }
         
-        goFirstToggle.interactable = anyDeckFound;
+        goFirstToggle.interactable = lobby == null && anyDeckFound;
         deckSelectContainers[0].deckSelect.interactable = lobby == null;
+        deckSelectContainers[1].deckSelect.interactable = lobby == null;
         singlePlayerStartButton.interactable = lobby == null && decksValid[0] && decksValid[1];
         hostMultiplayerButton.interactable = decksValid[0];
 
@@ -237,20 +241,38 @@ public class MultiplayerManager : MonoBehaviour
 
     private async void HostMultiplayerRoom()
     {
-        hostMultiplayerButton.interactable = false;
+        goFirstToggle.interactable = false;
         deckSelectContainers[0].deckSelect.interactable = false;
+        deckSelectContainers[1].deckSelect.interactable = false;
         singlePlayerStartButton.interactable = false;
+        hostMultiplayerButton.interactable = false;
 
         string sanitizedName = GameManager.SanitizeString(playerNameInput.text);
         string lobbyName = sanitizedName + "'s Lobby";
         int maxPlayers = 5;
         CreateLobbyOptions options = new CreateLobbyOptions();
         options.IsPrivate = false;
+        options.Data = new Dictionary<string, DataObject>()
+        {
+            {
+                "GameVersion", new DataObject(
+                    visibility: DataObject.VisibilityOptions.Public,
+                    value: Application.version,
+                    index: DataObject.IndexOptions.S1)
+            },
+            {
+                "CardsVersion", new DataObject(
+                    visibility: DataObject.VisibilityOptions.Public,
+                    value: CardLoader.instance.dataVersionObject.cardsFileVersion.ToString(),
+                    index: DataObject.IndexOptions.N1)
+            },
+        };
 
         lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 
         hostMultiplayerButtonText.text = "Hosting. Press to cancel room.";
         uiDirty = true;
+        QueryLobbies();
     }
 
     private async void CancelMultiplayerRoom()
@@ -263,10 +285,25 @@ public class MultiplayerManager : MonoBehaviour
         }
         hostMultiplayerButtonText.text = "Host multiplayer room";
         uiDirty = true;
+        QueryLobbies();
+    }
+
+    private void ClearRooms()
+    {
+        int count = roomResults.Count;
+        for (int i = count - 1; i >= 0; i--)
+        {
+            if (roomResults[i] != null)
+            {
+                Destroy(roomResults[i].gameObject);
+            }
+        }
+        roomResults.Clear();
     }
 
     public async void QueryLobbies()
     {
+        ClearRooms();
         try
         {
             QueryLobbiesOptions options = new QueryLobbiesOptions();
@@ -291,11 +328,41 @@ public class MultiplayerManager : MonoBehaviour
 
             QueryResponse lobbies = await LobbyService.Instance.QueryLobbiesAsync(options);
 
-            //...
+            foreach (Lobby result in lobbies.Results)
+            {
+                {
+                    RoomResult roomResult = Instantiate(roomPrefab, RoomsContainer.transform);
+                    roomResult.Initialize(result);
+                    roomResults.Add(roomResult);
+                }
+            }
         }
         catch (LobbyServiceException e)
         {
             Debug.Log(e);
+        }
+        FilterLobbies();
+    }
+
+    public void FilterLobbies()
+    {
+        string nameFilter = roomNameFilter.text.ToLower().Trim();
+        string codeFilter = roomCodeFilter.text.ToLower().Trim();
+
+        foreach (RoomResult room in roomResults)
+        {
+            bool nameMatch = true;
+            if (!string.IsNullOrWhiteSpace(nameFilter) && !room.lobby.Name.ToLower().Contains(nameFilter))
+            {
+                nameMatch = false;
+            }
+            bool codeMatch = true;
+            if (!string.IsNullOrWhiteSpace(codeFilter) && room.lobby.LobbyCode != codeFilter)
+            {
+                codeMatch = false;
+            }
+            room.SetInteractable(lobby == null);
+            room.gameObject.SetActive(nameMatch && codeMatch);
         }
     }
 
