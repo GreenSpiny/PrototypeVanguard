@@ -9,6 +9,7 @@ public class SceneLoadCanvas : MonoBehaviour
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] Image image;
     [SerializeField] UnityEvent onLoad;
+    [SerializeField] UnityEvent onQuit;
     [SerializeField] string unloadScene;
     
     [SerializeField] float fadeTransitionSpeed;
@@ -91,6 +92,10 @@ public class SceneLoadCanvas : MonoBehaviour
     {
         if (!transitioningOut)
         {
+            if (onQuit != null)
+            {
+                onQuit.Invoke();
+            }
             canvasGroup.blocksRaycasts = false;
             transitioningOut = true;
         }
