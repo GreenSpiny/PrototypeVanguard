@@ -32,6 +32,7 @@ public class SceneLoadCanvas : MonoBehaviour
         {
             transitioningIn = true;
             canvasGroup.alpha = 0;
+            canvasGroup.blocksRaycasts = true;
         }
     }
 
@@ -76,6 +77,7 @@ public class SceneLoadCanvas : MonoBehaviour
     public void Hide()
     {
         canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
         image.color = fadeInColor;
     }
 
@@ -83,8 +85,8 @@ public class SceneLoadCanvas : MonoBehaviour
     {
         if (!transitioningIn && !transitionInComplete)
         {
-            canvasGroup.blocksRaycasts = true;
             transitioningIn = true;
+            canvasGroup.blocksRaycasts = true;
         }
     }
 
@@ -92,12 +94,12 @@ public class SceneLoadCanvas : MonoBehaviour
     {
         if (!transitioningOut)
         {
+            transitioningOut = true;
+            canvasGroup.blocksRaycasts = false;
             if (onQuit != null)
             {
                 onQuit.Invoke();
             }
-            canvasGroup.blocksRaycasts = false;
-            transitioningOut = true;
         }
     }
 

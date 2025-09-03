@@ -312,9 +312,9 @@ public class MultiplayerManager : MonoBehaviour
             hostMultiplayerButtonText.text = "Hosting. Press to cancel room.";
             multiplayerInfoText.text = "Waiting for players to join...";
         }
-        catch (Exception ex)
+        catch (LobbyServiceException e)
         {
-
+            multiplayerInfoText.text = e.Message;
         }
         uiDirty = true;
         QueryLobbies();
