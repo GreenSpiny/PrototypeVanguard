@@ -84,6 +84,10 @@ public class MultiplayerManager : MonoBehaviour
         {
             RefreshUI();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            UnityGameServices.instance.SwitchProfileAsync();
+        }
     }
 
     private IEnumerator LoadInitialDisplay()
@@ -222,6 +226,12 @@ public class MultiplayerManager : MonoBehaviour
         GameManager.singlePlayer = true;
         GameManager.localPlayerDecklist1 = p1DeckContainer.deckList;
         GameManager.localPlayerDecklist2 = p2DeckContainer.deckList;
+        AssignLocalPlayerName();
+        SceneManager.LoadScene("FightScene");
+    }
+
+    private void AssignLocalPlayerName()
+    {
         if (!string.IsNullOrWhiteSpace(playerNameInput.text))
         {
             string sanitizedName = GameManager.SanitizeString(playerNameInput.text);
@@ -229,17 +239,12 @@ public class MultiplayerManager : MonoBehaviour
             {
                 sanitizedName = sanitizedName.Substring(0, playerNameInput.characterLimit);
             }
-            if (sanitizedName.Length > 13 && !sanitizedName.Contains(' '))
-            {
-                sanitizedName = sanitizedName.Insert(Mathf.CeilToInt(sanitizedName.Length / 2f), " ");
-            }
             GameManager.localPlayerName = sanitizedName;
         }
         else
         {
             GameManager.localPlayerName = "Player";
         }
-        SceneManager.LoadScene("FightScene");
     }
 
     public void HostMultiplayerButton()
@@ -258,15 +263,9 @@ public class MultiplayerManager : MonoBehaviour
     {
         GameManager.singlePlayer = false;
         GameManager.localPlayerDecklist1 = p1DeckContainer.deckList;
-
         ToggleOffButtons();
-
-        string sanitizedName = GameManager.SanitizeString(playerNameInput.text);
-        if (string.IsNullOrEmpty(sanitizedName))
-        {
-            sanitizedName = "Player";
-        }
-        string lobbyName = sanitizedName + "'s Lobby";
+        AssignLocalPlayerName();
+        string lobbyName = GameManager.localPlayerName + "'s Lobby";
         int maxPlayers = 5;
         CreateLobbyOptions options = new CreateLobbyOptions();
         options.IsPrivate = false;
@@ -304,6 +303,8 @@ public class MultiplayerManager : MonoBehaviour
 
             var callbacks = new LobbyEventCallbacks();
             callbacks.LobbyChanged += OnLobbyChanged;
+            callbacks.PlayerJoined += OnPlayerJoined;
+            callbacks.PlayerLeft += OnPlayerLeft;
             callbacks.KickedFromLobby += OnKickedFromLobby;
             callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
             var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(hostedLobby.Id, callbacks);
@@ -330,13 +331,14 @@ public class MultiplayerManager : MonoBehaviour
             }
             catch (LobbyServiceException e)
             {
-
+                multiplayerInfoText.text = e.Message;
             }
             hostedLobby = null;
             uiDirty = true;
             QueryLobbies();
         }
         hostMultiplayerButtonText.text = "Host multiplayer room";
+        ClearPlayers();
     }
 
     private void ClearRooms()
@@ -402,7 +404,7 @@ public class MultiplayerManager : MonoBehaviour
         }
         catch (LobbyServiceException e)
         {
-            Debug.Log(e);
+           multiplayerInfoText.text = e.Message;
         }
         FilterLobbies();
     }
@@ -431,23 +433,40 @@ public class MultiplayerManager : MonoBehaviour
 
     public async void StartLeeching(RoomResult room)
     {
+        AssignLocalPlayerName();
         CancelMultiplayerRoom();
         ToggleOffButtons();
         try
         {
+            /*
+            JoinLobbyByIdOptions options = new JoinLobbyByIdOptions();
+            options.Player.Data = new Dictionary<string, PlayerDataObject>()
+            {
+                {
+                "Name", new PlayerDataObject(
+                    visibility: PlayerDataObject.VisibilityOptions.Public,
+                    value: GameManager.localPlayerName)
+                },
+                {
+                "Avatar", new PlayerDataObject(
+                    visibility: PlayerDataObject.VisibilityOptions.Public,
+                    value: "100")
+                }
+            };
+            */
             Lobby targetLobby = await LobbyService.Instance.JoinLobbyByIdAsync(room.lobby.Id);
             var callbacks = new LobbyEventCallbacks();
             callbacks.LobbyChanged += OnLobbyChanged;
+            callbacks.PlayerLeft += OnPlayerLeft;
             callbacks.KickedFromLobby += OnKickedFromLobby;
             callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
             var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(targetLobby.Id, callbacks);
 
             leechedLobby = targetLobby;
-
         }
         catch (LobbyServiceException e)
         {
-            Debug.Log(e);
+            multiplayerInfoText.text = e.Message;
         }
         uiDirty = true;
     }
@@ -465,11 +484,11 @@ public class MultiplayerManager : MonoBehaviour
             }
             catch (AuthenticationException e)
             {
-
+                multiplayerInfoText.text = e.Message;
             }
             catch (LobbyServiceException e)
             {
-
+                multiplayerInfoText.text = e.Message;
             }
             QueryLobbies();
             uiDirty = true;
@@ -492,51 +511,50 @@ public class MultiplayerManager : MonoBehaviour
     }
 
     // === LOBBY SUBSCRIPTION EVENTS === //
+
     private void OnLobbyChanged(ILobbyChanges changes)
     {
         if (changes.LobbyDeleted)
         {
             if (hostedLobby != null)
             {
-                multiplayerInfoText.text = "Room was closed or expired.";
+                multiplayerInfoText.text = "Room was closed or kicked.";
             }
             StopLeeching();
         }
-        else if (leechedLobby != null)
+    }
+
+    private void OnPlayerJoined(List<LobbyPlayerJoined> joined)
+    {
+        multiplayerInfoText.text = "Player joined! 1";
+        if (hostedLobby != null)
         {
-            bool foundHost = false;
-            string hostID = leechedLobby.Data["Host"].Value;
-            foreach (var player in leechedLobby.Players)
-            {
-                if (player.Id ==  hostID)
-                {
-                    foundHost = true;
-                }
-            }
-            if (!foundHost)
-            {
-                LobbyService.Instance.RemovePlayerAsync(leechedLobby.Id, AuthenticationService.Instance.PlayerId);
-            }
-        }
-        else if (hostedLobby != null)
-        {
-            ClearPlayers();
             try
             {
-                multiplayerInfoText.text = "On Lobby Changed!";
-                foreach (var player in hostedLobby.Players)
+                foreach (var player in joined)
                 {
-                    if (true)//player.Id != AuthenticationService.Instance.PlayerId)
+                    multiplayerInfoText.text = "Player joined! 2";
+                    if (player.Player.Id != AuthenticationService.Instance.PlayerId)
                     {
                         PlayerResult playerResult = Instantiate(playerPrefab, playersContainer.transform);
-                        playerResult.Initialize(player.Id, "connected player");
+                        playerResult.Initialize(player.Player.Id);
+                        playerResults.Add(playerResult);
+                        //playerResult.SetData(player.Player.Data["Name"].Value, player.Player.Data["Avatar"].Value);
                     }
                 }
             }
             catch (AuthenticationException e)
             {
-
+                multiplayerInfoText.text = e.Message;
             }
+        }
+    }
+
+    private void OnPlayerLeft(List<int> left)
+    {
+        if (hostedLobby != null)
+        {
+            
         }
     }
 
@@ -561,11 +579,11 @@ public class MultiplayerManager : MonoBehaviour
                 multiplayerInfoText.text = "Subscribed to room...";
                 break;
             case LobbyEventConnectionState.Unsynced:
-                multiplayerInfoText.text = "There was a connection issue.";
+                // multiplayerInfoText.text = "There was a connection issue.";
                 StopLeeching();
                 break;
             case LobbyEventConnectionState.Error:
-                multiplayerInfoText.text = "There was a connection issue.";
+                // multiplayerInfoText.text = "There was a connection issue.";
                 StopLeeching();
                 break;
             default: return;

@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class UnityGameServices : MonoBehaviour
 {
-    private static UnityGameServices instance;
+    public static UnityGameServices instance;
     private static bool servicesInitialized = false;
     private static string lastSignInError = string.Empty;
 
@@ -52,13 +52,29 @@ public class UnityGameServices : MonoBehaviour
             Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
             lastSignInError = string.Empty;
         }
-        catch (AuthenticationException ex)
+        catch (AuthenticationException e)
         {
-            lastSignInError = ex.Message;
+            lastSignInError = e.Message;
         }
-        catch (RequestFailedException ex)
+        catch (RequestFailedException e)
         {
-            lastSignInError = ex.Message;
+            lastSignInError = e.Message;
+        }
+    }
+
+    public async void SwitchProfileAsync()
+    {
+        Debug.Log("Switch profile!");
+        try
+        {
+            AuthenticationService.Instance.SignOut();
+            AuthenticationService.Instance.SwitchProfile("test_profile");
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
+        }
+        catch (AuthenticationException e)
+        {
+            lastSignInError = e.Message;
         }
     }
 

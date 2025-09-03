@@ -5,16 +5,25 @@ using TMPro;
 public class PlayerResult : MonoBehaviour
 {
     [SerializeField] Image icon;
-    [SerializeField] TextMeshProUGUI playerName;
+    [SerializeField] TextMeshProUGUI playerNameText;
     [SerializeField] Button playButton;
     [SerializeField] Button kickButton;
 
-    private string playerID;
+    public string playerID { get; private set; }
+    public string playerName { get; private set; }
+    public string avatarName {  get; private set; }
 
-    public void Initialize(string playerID, string playerName)
+    public void Initialize(string playerID)
     {
         this.playerID = playerID;
-        this.playerName.text = playerName;
+    }
+
+    public void SetData(string playerName, string avatarName)
+    {
+        this.playerName = playerName;
+        playerNameText.text = playerName;
+
+        this.avatarName = avatarName;
     }
 
 }
