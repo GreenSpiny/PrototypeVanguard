@@ -309,7 +309,7 @@ public class MultiplayerManager : MonoBehaviour
             callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
             var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(hostedLobby.Id, callbacks);
 
-            hostMultiplayerButtonText.text = "Hosting. Press to cancel room.";
+            hostMultiplayerButtonText.text = "hostMultiplayerButtonText.text = \"Host multiplayer room\";";
             multiplayerInfoText.text = "Waiting for players to join...";
         }
         catch (LobbyServiceException e)

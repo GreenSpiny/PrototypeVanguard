@@ -70,7 +70,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
     // === MAIN FUNCTIONS === //
     private void Awake()
     {
-        if (instance != null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -158,6 +158,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 targetContainer.deckSelectDropdown.RefreshShownValue();
                 targetContainer.deckList = SaveDataManager.LoadDeck(targetDeck);
             }
+
+            CheckValidity();
         }
     }
     private void ClearRooms()
@@ -193,8 +195,12 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             yield return null;
         }
-        sceneLoadCanvas.TransitionIn();
+        yield return null;
 
+        gameVersionText.text = Application.version;
+        cardsVersionText.text = CardLoader.instance.dataVersionObject.cardsFileVersion.ToString();
+
+        sceneLoadCanvas.TransitionIn();
         // Populate deck dropdown options
         player1DeckContainer.deckSelectDropdown.ClearOptions();
         player1DeckContainer.deckSelectDropdown.ClearOptions();
@@ -208,7 +214,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         foreach (string deckOption in deckOptions)
         {
             player1DeckContainer.deckSelectDropdown.options.Add(new TMP_Dropdown.OptionData(deckOption));
-            player1DeckContainer.deckSelectDropdown.options.Add(new TMP_Dropdown.OptionData(deckOption));
+            player2DeckContainer.deckSelectDropdown.options.Add(new TMP_Dropdown.OptionData(deckOption));
         }
         if (player1DeckContainer.deckSelectDropdown.options.Count > 0)
         {
@@ -236,6 +242,36 @@ public class MultiplayerManagerV2 : MonoBehaviour
 
         // Complete initialization
         initialized = true;
+        CheckValidity();
+    }
+
+    private void CheckValidity()
+    {
+        string error;
+        bool[] decksValid = new bool[2] { false, false };
+
+        for (int i = 0; i < deckSelectContainers.Length; i++)
+        {
+            DeckSelectContainer targetContainer = deckSelectContainers[i];
+            if (targetContainer.deckSelectDropdown.options.Count == 0)
+            {
+                targetContainer.deckValidationText.text = "No decks found.";
+                targetContainer.deckSelectDropdown.interactable = false;
+            }
+            else if (!targetContainer.deckList.IsValid(out error))
+            {
+                targetContainer.deckValidationText.text = "Deck is invalid.";
+            }
+            else
+            {
+                targetContainer.deckValidationText.text = "Deck is valid.";
+                decksValid[i] = true;
+            }
+        }
+        
+        startSingleplayerButton.interactable = decksValid[0] && decksValid[1];
+        startMultiplayerButton.interactable = decksValid[0];
+        
     }
 
     public void StartSingleplayerGame()
@@ -285,7 +321,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
     }
 
-    private async void StartHostingAsync()
+    public async void StartHostingAsync()
     {
         if (multiplayerState == MultiplayerState.none)
         {
@@ -350,7 +386,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
     }
 
-    private async void StopHostingAsync()
+    public async void StopHostingAsync()
     {
         if (hostedLobby != null)
         {
@@ -372,7 +408,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
     }
 
-    private async void StartLeechingAsync(RoomResult room)
+    public async void StartLeechingAsync(RoomResult room)
     {
         if (multiplayerState == MultiplayerState.none)
         {
@@ -418,7 +454,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
     }
 
-    private async void StopLeechingAsync()
+    public async void StopLeechingAsync()
     {
         if (leechedLobby != null)
         {
