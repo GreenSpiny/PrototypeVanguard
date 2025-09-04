@@ -53,6 +53,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
     [SerializeField] private Button startSingleplayerButton;
     [SerializeField] private Button startMultiplayerButton;
     [SerializeField] private Button stopMultiplayerButton;
+    private Transform startMultiplayerParent;
+    private Transform stopMultiplayerParent;
 
     // Prefabs
     [SerializeField] private RoomResult roomResultPrefab;
@@ -79,6 +81,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
             DestroyImmediate(gameObject);
         }
         deckSelectContainers = new DeckSelectContainer[2] { player1DeckContainer, player2DeckContainer };
+        startMultiplayerParent = startMultiplayerButton.transform.parent;
+        stopMultiplayerParent = stopMultiplayerButton.transform.parent;
     }
 
     private void Start()
@@ -291,8 +295,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 userLobbyArea.interactable = true;
                 browseLobbiesArea.interactable = true;
                 grayOutImage.gameObject.SetActive(false);
-                startMultiplayerButton.gameObject.SetActive(true);
-                stopMultiplayerButton.gameObject.SetActive(false);
+                startMultiplayerParent.gameObject.SetActive(true);
+                stopMultiplayerParent.gameObject.SetActive(false);
                 break;
 
             case MultiplayerState.hosting:
@@ -300,8 +304,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 userLobbyArea.interactable = true;
                 browseLobbiesArea.interactable = false;
                 grayOutImage.gameObject.SetActive(false);
-                startMultiplayerButton.gameObject.SetActive(false);
-                stopMultiplayerButton.gameObject.SetActive(true);
+                startMultiplayerParent.gameObject.SetActive(false);
+                stopMultiplayerParent.gameObject.SetActive(true);
                 break;
 
             case MultiplayerState.leeching:
@@ -309,8 +313,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 userLobbyArea.interactable = false;
                 browseLobbiesArea.interactable = false;
                 grayOutImage.gameObject.SetActive(true);
-                startMultiplayerButton.gameObject.SetActive(true);
-                stopMultiplayerButton.gameObject.SetActive(false);
+                startMultiplayerParent.gameObject.SetActive(true);
+                stopMultiplayerParent.gameObject.SetActive(false);
                 break;
 
             case MultiplayerState.blocked:
@@ -388,6 +392,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
 
     public async void StopHostingAsync()
     {
+        ClearPlayers();
         if (hostedLobby != null)
         {
             string hostedLobbyId = hostedLobby.Id;
@@ -575,6 +580,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
                     if (player.Player.Id != AuthenticationService.Instance.PlayerId)
                     {
                         connectionStatusText.text = "Player joined! " + player.Player.Id;
+                        PlayerResult result = Instantiate(playerResultPrefab, playerInstantiationArea.transform);
+                        playerResults.Add(result);
                     }
                 }
             }
