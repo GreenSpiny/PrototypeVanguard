@@ -17,10 +17,12 @@ public class MultiplayerManagerV2 : MonoBehaviour
     public static Lobby leechedLobby;
 
     // Control elements
-    public enum MultiplayerState { none, hosting, leeching, gaming };
+    public enum MultiplayerState { none, hosting, leeching, blocked };
     private MultiplayerState multiplayerState;
     private bool initialized = false;
     [SerializeField] private SceneLoadCanvas sceneLoadCanvas;
+    [SerializeField] private RectTransform roomInstantiationArea;
+    [SerializeField] private RectTransform playerInstantiationArea;
 
     // User fields
     [SerializeField] private Image userAvatar;
@@ -29,12 +31,17 @@ public class MultiplayerManagerV2 : MonoBehaviour
     [SerializeField] private DeckSelectContainer player1DeckContainer;
     [SerializeField] private DeckSelectContainer player2DeckContainer;
     [SerializeField] private TMP_InputField roomCodeInputField;
+    [SerializeField] private TMP_InputField roomNameFilter;
+    [SerializeField] private TMP_InputField roomCodeFilter;
+    private DeckSelectContainer[] deckSelectContainers;
 
     // User status displays
     [SerializeField] private TextMeshProUGUI gameVersionText;
     [SerializeField] private TextMeshProUGUI cardsVersionText;
     [SerializeField] private TextMeshProUGUI onlineStatusText;
     [SerializeField] private TextMeshProUGUI connectionStatusText;
+    private List<RoomResult> roomResults;
+    private List<PlayerResult> playerResults;
 
     // Blocking areas
     [SerializeField] private CanvasGroup optionsArea;
@@ -46,7 +53,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
     [SerializeField] private Button startSingleplayerButton;
     [SerializeField] private Button startMultiplayerButton;
     [SerializeField] private Button stopMultiplayerButton;
-    [SerializeField] private Button refreshLobbiesButton;
 
     // Prefabs
     [SerializeField] private RoomResult roomResultPrefab;
@@ -72,14 +78,18 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             DestroyImmediate(gameObject);
         }
+        deckSelectContainers = new DeckSelectContainer[2] { player1DeckContainer, player2DeckContainer };
     }
 
     private void Start()
     {
+        roomResults = new List<RoomResult>();
+        playerResults = new List<PlayerResult>();
+
         sceneLoadCanvas.Hide();
         connectionStatusText.text = string.Empty;
-        multiplayerState = MultiplayerState.none;
-        ResetAllHosting();
+        ChangeMultiplayerState(MultiplayerState.none);
+        StopHostingAndLeeching();
 
         string lastProfileName = PlayerPrefs.GetString(SaveDataManager.lastProfileNameKey);
         if (!string.IsNullOrWhiteSpace(lastProfileName))
@@ -88,6 +98,14 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
 
         StartCoroutine(LoadInitialDisplay());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            UnityGameServices.instance.SwitchProfileAsync();
+        }
     }
 
     private void AssignLocalPlayerData()
@@ -107,6 +125,65 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
         GameManager.localPlayerDecklist1 = player1DeckContainer.deckList;
         GameManager.localPlayerDecklist2 = player2DeckContainer.deckList;
+    }
+
+    public void OnPlayerNameChanged(string playerName)
+    {
+        if (!string.IsNullOrWhiteSpace(playerName))
+        {
+            PlayerPrefs.SetString(SaveDataManager.lastProfileNameKey, playerName);
+        }
+    }
+
+    public void SwapPlayer1Deck(int deckIndex)
+    {
+        SwapDecks(deckIndex, 0);
+    }
+
+    public void SwapPlayer2Deck(int deckIndex)
+    {
+        SwapDecks(deckIndex, 1);
+    }
+
+    private void SwapDecks(int deckIndex, int playerIndex)
+    {
+        if (initialized)
+        {
+            DeckSelectContainer targetContainer = deckSelectContainers[playerIndex];
+
+            if (deckIndex >= 0 && deckIndex < targetContainer.deckSelectDropdown.options.Count)
+            {
+                string targetDeck = targetContainer.deckSelectDropdown.options[deckIndex].text;
+                targetContainer.deckSelectDropdown.value = deckIndex;
+                targetContainer.deckSelectDropdown.RefreshShownValue();
+                targetContainer.deckList = SaveDataManager.LoadDeck(targetDeck);
+            }
+        }
+    }
+    private void ClearRooms()
+    {
+        int count = roomResults.Count;
+        for (int i = count - 1; i >= 0; i--)
+        {
+            if (roomResults[i] != null)
+            {
+                Destroy(roomResults[i].gameObject);
+            }
+        }
+        roomResults.Clear();
+    }
+
+    private void ClearPlayers()
+    {
+        int count = playerResults.Count;
+        for (int i = count - 1; i >= 0; i--)
+        {
+            if (playerResults[i] != null)
+            {
+                Destroy(playerResults[i].gameObject);
+            }
+        }
+        playerResults.Clear();
     }
 
     private IEnumerator LoadInitialDisplay()
@@ -161,6 +238,13 @@ public class MultiplayerManagerV2 : MonoBehaviour
         initialized = true;
     }
 
+    public void StartSingleplayerGame()
+    {
+        AssignLocalPlayerData();
+        GameManager.singlePlayer = true;
+        SceneManager.LoadScene("FightScene");
+    }
+
     private void ChangeMultiplayerState(MultiplayerState state)
     {
         multiplayerState = state;
@@ -177,7 +261,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
 
             case MultiplayerState.hosting:
                 optionsArea.interactable = false;
-                userLobbyArea.interactable = false;
+                userLobbyArea.interactable = true;
                 browseLobbiesArea.interactable = false;
                 grayOutImage.gameObject.SetActive(false);
                 startMultiplayerButton.gameObject.SetActive(false);
@@ -193,7 +277,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 stopMultiplayerButton.gameObject.SetActive(false);
                 break;
 
-            case MultiplayerState.gaming:
+            case MultiplayerState.blocked:
                 optionsArea.interactable = false;
                 userLobbyArea.interactable = false;
                 browseLobbiesArea.interactable = false;
@@ -201,47 +285,13 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
     }
 
-    private async void ResetAllHosting()
-    {
-        if (hostedLobby != null)
-        {
-            try
-            {
-                await LobbyService.Instance.DeleteLobbyAsync(hostedLobby.Id);
-            }
-            catch (LobbyServiceException e)
-            {
-                // do not catch this message
-            }
-            hostedLobby = null;
-        }
-        if (leechedLobby != null)
-        {
-            try
-            {
-                await LobbyService.Instance.RemovePlayerAsync(leechedLobby.Id, AuthenticationService.Instance.PlayerId);
-            }
-            catch (LobbyServiceException e)
-            {
-                // do not catch this message
-            }
-            catch (AuthenticationException e)
-            {
-                // do not catch this message
-            }
-            leechedLobby = null;
-        }
-        ChangeMultiplayerState(MultiplayerState.none);
-
-        // TODO: query for all connected rooms first?
-    }
-
     private async void StartHostingAsync()
     {
         if (multiplayerState == MultiplayerState.none)
         {
-            ChangeMultiplayerState(MultiplayerState.hosting);
+            ChangeMultiplayerState(MultiplayerState.blocked);
             AssignLocalPlayerData();
+            GameManager.singlePlayer = false;
 
             string lobbyName = GameManager.localPlayerName + "'s Lobby";
             int maxPlayers = 5;
@@ -264,7 +314,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 {
                     "Code", new DataObject(
                         visibility: DataObject.VisibilityOptions.Public,
-                        value: roomCodeInputField.text,
+                        value: "abcd", //roomCodeInputField.text,
                         index: DataObject.IndexOptions.S2)
                 },
                 {
@@ -288,11 +338,15 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(hostedLobby.Id, callbacks);
 
                 connectionStatusText.text = "Waiting for players to join...";
+                ChangeMultiplayerState(MultiplayerState.hosting);
             }
             catch (LobbyServiceException e)
             {
                 connectionStatusText.text = "Lobby error: " + e.Message;
+                ChangeMultiplayerState(MultiplayerState.none);
             }
+
+            QueryLobbies();
         }
     }
 
@@ -300,19 +354,21 @@ public class MultiplayerManagerV2 : MonoBehaviour
     {
         if (hostedLobby != null)
         {
+            string hostedLobbyId = hostedLobby.Id;
+            hostedLobby = null;
             try
             {
-                await LobbyService.Instance.DeleteLobbyAsync(hostedLobby.Id);
+                await LobbyService.Instance.DeleteLobbyAsync(hostedLobbyId);
             }
             catch (LobbyServiceException e)
             {
                 connectionStatusText.text = "Lobby error: " + e.Message;
             }
-            hostedLobby = null;
         }
         if (multiplayerState == MultiplayerState.hosting)
         {
             ChangeMultiplayerState(MultiplayerState.none);
+            QueryLobbies();
         }
     }
 
@@ -320,8 +376,9 @@ public class MultiplayerManagerV2 : MonoBehaviour
     {
         if (multiplayerState == MultiplayerState.none)
         {
-            ChangeMultiplayerState(MultiplayerState.leeching);
+            ChangeMultiplayerState(MultiplayerState.blocked);
             AssignLocalPlayerData();
+            GameManager.singlePlayer = false;
 
             try
             {
@@ -351,10 +408,12 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(targetLobby.Id, callbacks);
 
                 leechedLobby = targetLobby;
+                ChangeMultiplayerState(MultiplayerState.leeching);
             }
             catch (LobbyServiceException e)
             {
                 connectionStatusText.text = e.Message;
+                ChangeMultiplayerState(MultiplayerState.none);
             }
         }
     }
@@ -363,9 +422,11 @@ public class MultiplayerManagerV2 : MonoBehaviour
     {
         if (leechedLobby != null)
         {
+            string leechedLobbyId = leechedLobby.Id;
+            leechedLobby = null;
             try
             {
-                await LobbyService.Instance.RemovePlayerAsync(leechedLobby.Id, AuthenticationService.Instance.PlayerId);
+                await LobbyService.Instance.RemovePlayerAsync(leechedLobbyId, AuthenticationService.Instance.PlayerId);
             }
             catch (LobbyServiceException e)
             {
@@ -375,11 +436,81 @@ public class MultiplayerManagerV2 : MonoBehaviour
             {
                 connectionStatusText.text = "Authentication error: " + e.Message;
             }
-            leechedLobby = null;
         }
         if (multiplayerState == MultiplayerState.leeching)
         {
             ChangeMultiplayerState(MultiplayerState.none);
+            QueryLobbies();
+        }
+    }
+
+    public void StopHostingAndLeeching()
+    {
+        StopHostingAsync();
+        StopLeechingAsync();
+    }
+
+    public async void QueryLobbies()
+    {
+        ClearRooms();
+        try
+        {
+            QueryLobbiesOptions options = new QueryLobbiesOptions();
+            options.Count = 50;
+
+            // Filter for open lobbies only
+            options.Filters = new List<QueryFilter>()
+            {
+                new QueryFilter(
+                field: QueryFilter.FieldOptions.AvailableSlots,
+                op: QueryFilter.OpOptions.GT,
+                value: "0")
+            };
+
+            // Order by newest lobbies first
+            options.Order = new List<QueryOrder>()
+            {
+            new QueryOrder(
+                asc: false,
+                field: QueryOrder.FieldOptions.Created)
+            };
+
+            QueryResponse lobbies = await LobbyService.Instance.QueryLobbiesAsync(options);
+            foreach (Lobby result in lobbies.Results)
+            {
+                {
+                    RoomResult roomResult = Instantiate(roomResultPrefab, roomInstantiationArea.transform);
+                    roomResult.Initialize(result);
+                    roomResults.Add(roomResult);
+                }
+            }
+        }
+        catch (LobbyServiceException e)
+        {
+            connectionStatusText.text = e.Message;
+        }
+        FilterLobbies();
+    }
+
+    public void FilterLobbies()
+    {
+        string nameFilter = roomNameFilter.text.ToLower().Trim();
+        string codeFilter = roomCodeFilter.text.ToLower().Trim();
+
+        foreach (RoomResult room in roomResults)
+        {
+            bool nameMatch = true;
+            if (!string.IsNullOrWhiteSpace(nameFilter) && !room.lobby.Name.ToLower().Contains(nameFilter))
+            {
+                nameMatch = false;
+            }
+            bool codeMatch = true;
+            if (!string.IsNullOrWhiteSpace(codeFilter) && room.Code.ToLower() != codeFilter.ToLower())
+            {
+                codeMatch = false;
+            }
+            room.SetInteractable(multiplayerState == MultiplayerState.leeching);
+            room.gameObject.SetActive(nameMatch && codeMatch);
         }
     }
 
@@ -387,16 +518,13 @@ public class MultiplayerManagerV2 : MonoBehaviour
 
     private void OnLobbyChanged(ILobbyChanges changes)
     {
-        if (multiplayerState == MultiplayerState.hosting || multiplayerState == MultiplayerState.leeching)
+        if (changes.LobbyDeleted)
         {
-            if (changes.LobbyDeleted)
+            if (hostedLobby != null)
             {
-                if (hostedLobby != null)
-                {
-                    connectionStatusText.text = "Room was closed or kicked.";
-                }
-                StopLeechingAsync();
+                connectionStatusText.text = "Room was closed or kicked.";
             }
+            StopHostingAndLeeching();
         }
     }
 
@@ -447,7 +575,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         switch (state)
         {
             case LobbyEventConnectionState.Unsubscribed:
-                ResetAllHosting();
+                StopHostingAndLeeching();
                 connectionStatusText.text = "Disconnected from room.";
                 break;
             case LobbyEventConnectionState.Subscribing:
@@ -457,11 +585,11 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 connectionStatusText.text = "Connected to room.";
                 break;
             case LobbyEventConnectionState.Unsynced:
-                ResetAllHosting();
+                StopHostingAndLeeching();
                 connectionStatusText.text = "Disconnected from room.";
                 break;
             case LobbyEventConnectionState.Error:
-                ResetAllHosting();
+                StopHostingAndLeeching();
                 connectionStatusText.text = "Disconnected from room.";
                 break;
             default: return;

@@ -7,11 +7,12 @@ using System;
 
 public class RoomResult : MonoBehaviour
 {
+    [SerializeField] private Image avatar;
     [SerializeField] private TextMeshProUGUI roomName;
     [SerializeField] private TextMeshProUGUI roomGameVersion;
     [SerializeField] private TextMeshProUGUI roomCardsVersion;
     [SerializeField] private Button joinButton;
-    public uint CardsVersion { get; private set; }
+    private uint cardsVersion;
     public string Code { get; private set; }
     public Lobby lobby;
 
@@ -26,7 +27,7 @@ public class RoomResult : MonoBehaviour
         roomName.text = lobby.Name;
         roomGameVersion.text = lobby.Data["GameVersion"].Value;
         roomCardsVersion.text = lobby.Data["CardsVersion"].Value;
-        CardsVersion = Convert.ToUInt32(roomCardsVersion.text);
+        cardsVersion = Convert.ToUInt32(roomCardsVersion.text);
         Code = lobby.Data["Code"].Value;
     }
 
@@ -36,7 +37,7 @@ public class RoomResult : MonoBehaviour
     }
     private bool VersionMatch
     {
-        get { return CardLoader.instance != null && CardLoader.instance.dataVersionObject.cardsFileVersion == CardsVersion; }
+        get { return CardLoader.instance != null && CardLoader.instance.dataVersionObject.cardsFileVersion == cardsVersion; }
     }
 
 }
