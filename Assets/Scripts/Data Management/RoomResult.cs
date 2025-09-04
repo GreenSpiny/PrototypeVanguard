@@ -18,7 +18,7 @@ public class RoomResult : MonoBehaviour
 
     public void Start()
     {
-        joinButton.onClick.AddListener(() => MultiplayerManager.instance.StartLeeching(this));
+        joinButton.onClick.AddListener(() => MultiplayerManagerV2.instance.StartLeechingAsync(this));
     }
 
     public void Initialize(Lobby lobby)

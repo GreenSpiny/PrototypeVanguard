@@ -409,8 +409,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
         if (multiplayerState == MultiplayerState.hosting)
         {
             ChangeMultiplayerState(MultiplayerState.none);
-            QueryLobbies();
         }
+        ClearRooms();
     }
 
     public async void StartLeechingAsync(RoomResult room)
@@ -481,8 +481,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
         if (multiplayerState == MultiplayerState.leeching)
         {
             ChangeMultiplayerState(MultiplayerState.none);
-            QueryLobbies();
         }
+        ClearRooms();
     }
 
     public void StopHostingAndLeeching()
@@ -550,7 +550,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
             {
                 codeMatch = false;
             }
-            room.SetInteractable(multiplayerState == MultiplayerState.leeching);
+            room.SetInteractable(multiplayerState == MultiplayerState.none);
             room.gameObject.SetActive(nameMatch && codeMatch);
         }
     }
@@ -561,11 +561,10 @@ public class MultiplayerManagerV2 : MonoBehaviour
     {
         if (changes.LobbyDeleted)
         {
-            if (hostedLobby != null)
-            {
-                connectionStatusText.text = "Room was closed or kicked.";
-            }
+            leechedLobby = null;
+            hostedLobby = null;
             StopHostingAndLeeching();
+            connectionStatusText.text = "Room was closed or kicked.";
         }
     }
 
@@ -618,8 +617,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
         switch (state)
         {
             case LobbyEventConnectionState.Unsubscribed:
+                leechedLobby = null;
                 StopHostingAndLeeching();
-                connectionStatusText.text = "Disconnected from room.";
                 break;
             case LobbyEventConnectionState.Subscribing:
                 connectionStatusText.text = "Connecting to room...";
@@ -628,10 +627,11 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 connectionStatusText.text = "Connected to room.";
                 break;
             case LobbyEventConnectionState.Unsynced:
+                leechedLobby = null;
                 StopHostingAndLeeching();
-                connectionStatusText.text = "Disconnected from room.";
                 break;
             case LobbyEventConnectionState.Error:
+                leechedLobby = null;
                 StopHostingAndLeeching();
                 connectionStatusText.text = "Disconnected from room.";
                 break;
