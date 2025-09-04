@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 2798776625911381147}
-  playerName: {fileID: 7829662863652466111}
+  playerNameText: {fileID: 7829662863652466111}
   playButton: {fileID: 8938186249182525945}
   kickButton: {fileID: 6027124202374663207}
 --- !u!1 &4693422683916697658

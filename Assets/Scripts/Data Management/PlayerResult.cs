@@ -8,10 +8,15 @@ public class PlayerResult : MonoBehaviour
     [SerializeField] TextMeshProUGUI playerNameText;
     [SerializeField] Button playButton;
     [SerializeField] Button kickButton;
-
     public string playerID { get; private set; }
     public string playerName { get; private set; }
     public string avatarName {  get; private set; }
+
+    private void Start()
+    {
+        playButton.onClick.AddListener(() => MultiplayerManagerV2.instance.StartPlaying(playerID));
+        kickButton.onClick.AddListener(() => MultiplayerManagerV2.instance.KickPlayer(playerID));
+    }
 
     public void Initialize(string playerID)
     {

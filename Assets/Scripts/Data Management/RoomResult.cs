@@ -28,7 +28,7 @@ public class RoomResult : MonoBehaviour
         roomGameVersion.text = lobby.Data["GameVersion"].Value;
         roomCardsVersion.text = lobby.Data["CardsVersion"].Value;
         cardsVersion = Convert.ToUInt32(roomCardsVersion.text);
-        Code = lobby.Data["Code"].Value;
+        Code = lobby.Data["RoomCode"].Value;
     }
 
     public void SetInteractable(bool interactable)

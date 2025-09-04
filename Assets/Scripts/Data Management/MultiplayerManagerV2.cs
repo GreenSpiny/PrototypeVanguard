@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.Services.Matchmaker.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
 
 public class MultiplayerManagerV2 : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
     public static MultiplayerManagerV2 instance;
     public static Lobby hostedLobby;
     public static Lobby leechedLobby;
+    public static int relayCode;
 
     // Control elements
     public enum MultiplayerState { none, hosting, leeching, blocked };
@@ -109,6 +112,25 @@ public class MultiplayerManagerV2 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             UnityGameServices.instance.SwitchProfileAsync();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            Debug.Log("help!");
+            if (multiplayerState == MultiplayerState.hosting && hostedLobby != null)
+            {
+                Debug.Log("me");
+                string matchedPlayerId = AuthenticationService.Instance.PlayerId;
+                UpdatePlayerOptions options = new UpdatePlayerOptions();
+                options.Data = new Dictionary<string, PlayerDataObject>()
+                {
+                    {
+                    "RelayCode", new PlayerDataObject(
+                        visibility: PlayerDataObject.VisibilityOptions.Member,
+                        value: "MyCode"
+                    )}
+                };
+                LobbyService.Instance.UpdatePlayerAsync(hostedLobby.Id, matchedPlayerId, options);
+            }
         }
     }
 
@@ -331,7 +353,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             ChangeMultiplayerState(MultiplayerState.blocked);
             AssignLocalPlayerData();
-            GameManager.singlePlayer = false;
 
             string lobbyName = GameManager.localPlayerName + "'s Lobby";
             int maxPlayers = 5;
@@ -352,7 +373,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                         index: DataObject.IndexOptions.N1)
                 },
                 {
-                    "Code", new DataObject(
+                    "RoomCode", new DataObject(
                         visibility: DataObject.VisibilityOptions.Public,
                         value: "abcd", //roomCodeInputField.text,
                         index: DataObject.IndexOptions.S2)
@@ -362,6 +383,12 @@ public class MultiplayerManagerV2 : MonoBehaviour
                         visibility: DataObject.VisibilityOptions.Public,
                         value: AuthenticationService.Instance.PlayerId,
                         index: DataObject.IndexOptions.S3)
+                },
+                {
+                    "RelayCode", new DataObject(
+                        visibility: DataObject.VisibilityOptions.Member,
+                        value: "MyCode",
+                        index: DataObject.IndexOptions.S4)
                 }
             };
 
@@ -373,7 +400,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 callbacks.LobbyChanged += OnLobbyChanged;
                 callbacks.PlayerJoined += OnPlayerJoined;
                 callbacks.PlayerLeft += OnPlayerLeft;
-                callbacks.KickedFromLobby += OnKickedFromLobby;
                 callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
                 var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(hostedLobby.Id, callbacks);
 
@@ -419,7 +445,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             ChangeMultiplayerState(MultiplayerState.blocked);
             AssignLocalPlayerData();
-            GameManager.singlePlayer = false;
 
             try
             {
@@ -443,8 +468,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 var callbacks = new LobbyEventCallbacks();
                 callbacks.LobbyChanged += OnLobbyChanged;
                 callbacks.PlayerLeft += OnPlayerLeft;
-                callbacks.PlayerDataChanged += OnPlayerDataChanged;
-                callbacks.KickedFromLobby += OnKickedFromLobby;
                 callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
                 var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(targetLobby.Id, callbacks);
 
@@ -489,6 +512,52 @@ public class MultiplayerManagerV2 : MonoBehaviour
     {
         StopHostingAsync();
         StopLeechingAsync();
+    }
+
+    public async void StartPlaying(string playerId)
+    {
+        GameManager.singlePlayer = false;
+        if (hostedLobby != null)
+        {
+            try
+            {
+                UpdateLobbyOptions options = new UpdateLobbyOptions();
+                options.IsPrivate = true;
+                options.IsLocked = true;
+                options.Data = new Dictionary<string, DataObject>()
+                {
+                    {
+                    "RelayCode", new DataObject(
+                        visibility: DataObject.VisibilityOptions.Member,
+                        value: "MyCode",
+                        index: DataObject.IndexOptions.S4
+                        
+                    )}
+                };
+                await LobbyService.Instance.UpdateLobbyAsync(hostedLobby.Id, options);
+                SceneManager.LoadScene("FightScene");
+            }
+            catch (LobbyServiceException e)
+            {
+                connectionStatusText.text = "Lobby error: " + e.Message;
+            }
+        }
+    }
+
+    public async void KickPlayer(string playerId)
+    {
+        if (multiplayerState == MultiplayerState.hosting && hostedLobby != null)
+        {
+            connectionStatusText.text = "Start kicking: " + playerId;
+            try
+            {
+                await LobbyService.Instance.RemovePlayerAsync(hostedLobby.Id, playerId);
+            }
+            catch (LobbyServiceException e)
+            {
+                connectionStatusText.text = "Lobby error: " + e.Message;
+            }
+        }
     }
 
     public async void QueryLobbies()
@@ -566,6 +635,21 @@ public class MultiplayerManagerV2 : MonoBehaviour
             StopHostingAndLeeching();
             connectionStatusText.text = "Room was closed or kicked.";
         }
+        else
+        {
+            if (hostedLobby != null)
+            {
+                changes.ApplyToLobby(hostedLobby);
+            }
+            else if (leechedLobby != null)
+            {
+                changes.ApplyToLobby(leechedLobby);
+                if (!string.IsNullOrEmpty(leechedLobby.Data["RelayCode"].Value))
+                {
+                    connectionStatusText.text = "Relay code: " + leechedLobby.Data["RelayCode"].Value;
+                }
+            }
+        }
     }
 
     private void OnPlayerJoined(List<LobbyPlayerJoined> joined)
@@ -580,6 +664,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                     {
                         connectionStatusText.text = "Player joined! " + player.Player.Id;
                         PlayerResult result = Instantiate(playerResultPrefab, playerInstantiationArea.transform);
+                        result.Initialize(player.Player.Id);
                         playerResults.Add(result);
                     }
                 }
@@ -599,17 +684,19 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
     }
 
-    private void OnKickedFromLobby()
-    {
-        connectionStatusText.text = "Room was closed or kicked.";
-        hostedLobby = null;
-        leechedLobby = null;
-        ChangeMultiplayerState(MultiplayerState.none);
-    }
-
     private void OnPlayerDataChanged(Dictionary<int, Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>>> dictionary)
     {
-        
+        connectionStatusText.text = "On change!";
+        foreach (int playerIndex in dictionary.Keys)
+        {
+            Debug.Log(playerIndex);
+            var changeDict = dictionary[playerIndex];
+            if (changeDict.ContainsKey("RelayCode"))
+            {
+                string relayCode = changeDict["RelayCode"].Value.Value;
+                onlineStatusText.text = relayCode;
+            }
+        }
     }
 
     private void OnLobbyEventConnectionStateChanged(LobbyEventConnectionState state)
@@ -617,6 +704,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
         switch (state)
         {
             case LobbyEventConnectionState.Unsubscribed:
+                connectionStatusText.text = "Room was closed or kicked.";
+                hostedLobby = null;
                 leechedLobby = null;
                 StopHostingAndLeeching();
                 break;
@@ -627,13 +716,15 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 connectionStatusText.text = "Connected to room.";
                 break;
             case LobbyEventConnectionState.Unsynced:
+                hostedLobby = null;
                 leechedLobby = null;
                 StopHostingAndLeeching();
                 break;
             case LobbyEventConnectionState.Error:
+                hostedLobby = null;
                 leechedLobby = null;
                 StopHostingAndLeeching();
-                connectionStatusText.text = "Disconnected from room.";
+                connectionStatusText.text = "There was a connection error.";
                 break;
             default: return;
         }
