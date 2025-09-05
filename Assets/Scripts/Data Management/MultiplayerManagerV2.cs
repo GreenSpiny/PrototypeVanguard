@@ -49,6 +49,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
     [SerializeField] private CanvasGroup userLobbyArea;
     [SerializeField] private CanvasGroup browseLobbiesArea;
     [SerializeField] private Image grayOutImage;
+    private CanvasGroup grayOutCanvas;
 
     // Major buttons
     [SerializeField] private Button startSingleplayerButton;
@@ -84,6 +85,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         deckSelectContainers = new DeckSelectContainer[2] { player1DeckContainer, player2DeckContainer };
         startMultiplayerParent = startMultiplayerButton.transform.parent;
         stopMultiplayerParent = stopMultiplayerButton.transform.parent;
+        grayOutCanvas = grayOutImage.GetComponent<CanvasGroup>();
     }
 
     private void Start()
@@ -141,6 +143,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
         GameManager.localPlayerDecklist1 = player1DeckContainer.deckList;
         GameManager.localPlayerDecklist2 = player2DeckContainer.deckList;
+        GameManager.player2starts = !goFirstToggle.isOn;
     }
 
     public void OnPlayerNameChanged(string playerName)
@@ -325,6 +328,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 userLobbyArea.interactable = false;
                 browseLobbiesArea.interactable = false;
                 grayOutImage.gameObject.SetActive(true);
+                grayOutCanvas.interactable = true;
                 startMultiplayerParent.gameObject.SetActive(true);
                 stopMultiplayerParent.gameObject.SetActive(false);
                 break;
@@ -333,6 +337,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 optionsArea.interactable = false;
                 userLobbyArea.interactable = false;
                 browseLobbiesArea.interactable = false;
+                grayOutCanvas.interactable = false;
                 break;
         }
     }
@@ -539,7 +544,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
     {
         if (hostedLobby != null)
         {
-            connectionStatusText.text = "Start kicking: " + playerId;
             try
             {
                 await LobbyService.Instance.RemovePlayerAsync(hostedLobby.Id, playerId);
@@ -663,7 +667,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                     if (player.Player.Id != AuthenticationService.Instance.PlayerId)
                     {
                         PlayerResult result = Instantiate(playerResultPrefab, playerInstantiationArea.transform);
-                        result.Initialize(player.Player.Id);
+                        result.Initialize(player.Player.Id, player.PlayerIndex);
                         playerResults.Add(result);
                     }
                 }
@@ -677,9 +681,17 @@ public class MultiplayerManagerV2 : MonoBehaviour
 
     private void OnPlayerLeft(List<int> left)
     {
-        if (hostedLobby != null)
+        if (multiplayerState == MultiplayerState.hosting)
         {
-
+            for (int i = playerResults.Count - 1; i >= 0; i--)
+            {
+                PlayerResult currentResult = playerResults[i];
+                if (left.Contains(currentResult.playerIndex))
+                {
+                    playerResults.RemoveAt(i);
+                    Destroy(currentResult.gameObject);
+                }
+            }
         }
     }
 

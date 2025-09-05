@@ -116,11 +116,11 @@ public class MenuManager : MonoBehaviour
             if (ButtonsGroupIn)
             {
                 targetColor = button.color;
+                characterImage.sprite = button.sprite;
+                characterImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, button.height * spriteHeightMultiplier);
+                characterAnimator.Play("Appear", -1, 0f);
             }
             hoveredButton = button;
-            characterImage.sprite = button.sprite;
-            characterImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, button.height * spriteHeightMultiplier);
-            characterAnimator.Play("Appear", -1, 0f);
         }
     }
 
@@ -189,12 +189,12 @@ public class MenuManager : MonoBehaviour
 
     public void ToTutorial()
     {
-        TransitionOut(() => { SceneManager.LoadScene("TutorialScene"); });
+        //TransitionOut(() => { SceneManager.LoadScene("TutorialScene"); });
     }
 
     public void ToAbout()
     {
-        TransitionOut(() => { SceneManager.LoadScene("AboutScene"); });
+        //TransitionOut(() => { SceneManager.LoadScene("AboutScene"); });
     }
 
     public void Quit()

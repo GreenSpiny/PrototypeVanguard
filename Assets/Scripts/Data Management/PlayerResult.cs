@@ -9,6 +9,7 @@ public class PlayerResult : MonoBehaviour
     [SerializeField] Button playButton;
     [SerializeField] Button kickButton;
     public string playerID { get; private set; }
+    public int playerIndex { get; private set; }
     public string playerName { get; private set; }
     public string avatarName {  get; private set; }
 
@@ -18,9 +19,10 @@ public class PlayerResult : MonoBehaviour
         kickButton.onClick.AddListener(() => MultiplayerManagerV2.instance.KickPlayer(playerID));
     }
 
-    public void Initialize(string playerID)
+    public void Initialize(string playerID, int playerIndex)
     {
         this.playerID = playerID;
+        this.playerIndex = playerIndex;
     }
 
     public void SetData(string playerName, string avatarName)

@@ -20,6 +20,7 @@ public class GameManager : NetworkBehaviour
     public static CardInfo.DeckList localPlayerDecklist1;   // The primary decklist assigned for the game.
     public static CardInfo.DeckList localPlayerDecklist2;   // The secondary decklist assigned for the game. Only relevant in singleplayer mode.
     public static bool singlePlayer;                        // Flag for whether the game should be run in singleplayer mode or multiplayer mode.
+    public static bool player2starts;
     public static string localPlayerName;
 
     [SerializeField] public NetworkManager networkManager;
@@ -47,7 +48,6 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private TextMeshProUGUI debugString;
 
-    private Coroutine listenForHostCoroutine;
     private const int maxConnections = 2;
     private const string connectionType = "udp";
 
@@ -133,7 +133,7 @@ public class GameManager : NetworkBehaviour
         }
         else if (MultiplayerManagerV2.leechedLobby != null)
         {
-            listenForHostCoroutine = StartCoroutine(ListenForHostMessage());
+            StartCoroutine(ListenForHostMessage());
         }
     }
 
@@ -509,7 +509,7 @@ public class GameManager : NetworkBehaviour
             }
         }
         animationProperties.UIAnimator.Close();
-        phaseIndicator.phaseAnimator.Play("phase neutral");
+        phaseIndicator.phaseAnimator.Play("phase neutral " + turnPlayer.ToString());
         foreach (Player player in players)
         {
             player.OnPhaseChanged();
@@ -529,7 +529,6 @@ public class GameManager : NetworkBehaviour
         if (singlePlayer)
         {
             players[playerIndex].AssignDeck(submittedDeck);
-
             CardInfo.DeckList player2Deck;
             if (localPlayerDecklist2 != null)
             {
@@ -542,7 +541,14 @@ public class GameManager : NetworkBehaviour
             int nextPlayerIndex = NextPlayer(playerIndex);
             players[nextPlayerIndex].AssignDeck(player2Deck);
             animationProperties.playerNames[nextPlayerIndex].text = "Shadowboxer";
-            
+
+            turnPlayer = 0;
+            if (player2starts)
+            {
+                turnPlayer = 1;
+                Debug.Log("not me!");
+            }
+
             StartCoroutine(RequestGameStartDelayed());
         }
         // Multiplayer
