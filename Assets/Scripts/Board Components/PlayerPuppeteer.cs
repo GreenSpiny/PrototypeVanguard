@@ -46,6 +46,7 @@ public class PlayerPuppeteer : NetworkBehaviour
             GameManager.instance.letterboxedCanvas.GetCameras()[1].camera = player.playerCamera;
             GameManager.instance.letterboxedCanvas.Refresh();
             GameManager.instance.boardOverlayCanvas.worldCamera = player.playerCamera;
+            GameManager.instance.boardUnderlayCanvas.worldCamera = player.playerCamera;
 
             foreach (GameObject element in player.ownedUIRoots)
             {

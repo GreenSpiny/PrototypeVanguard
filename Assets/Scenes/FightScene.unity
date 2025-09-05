@@ -17076,6 +17076,7 @@ MonoBehaviour:
   dragManager: {fileID: 1566091970}
   letterboxedCanvas: {fileID: 1678573311}
   boardOverlayCanvas: {fileID: 502552713}
+  boardUnderlayCanvas: {fileID: 2060118478}
   cardDetailUI: {fileID: 1763507562}
   players:
   - {fileID: 1050813228}

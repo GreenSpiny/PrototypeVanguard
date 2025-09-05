@@ -58,7 +58,7 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.shuffle:
-                GameManager.instance.RequestShuffleCardsRpc(selectedCard.node.nodeID);
+                GameManager.instance.RequestShuffleCardsRpc(selectedCard.node.nodeID, RandomUtility.RandInt());
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.viewsoul:

@@ -248,6 +248,11 @@ public class CardInfo : IComparable<CardInfo>
             this.toolbox = toolbox;
         }
 
+        public void ShuffleMainDeck()
+        {
+            RandomUtility.Shuffle(RandomUtility.GenerateRandom(), mainDeck);
+        }
+
         public int CardCount(int cardIndex)
         {
             int uniqueIndex = CardLoader.GetCardInfo(cardIndex).GetUniqueIndex();

@@ -26,6 +26,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] public DragManager dragManager;
     [SerializeField] public LetterboxedCanvas letterboxedCanvas;
     [SerializeField] public Canvas boardOverlayCanvas;
+    [SerializeField] public Canvas boardUnderlayCanvas;
     [SerializeField] private CardDetailUI cardDetailUI;
 
     [NonSerialized] public Dictionary<int, Node> allNodes = new Dictionary<int, Node>();
@@ -119,6 +120,8 @@ public class GameManager : NetworkBehaviour
     {
         if (singlePlayer)
         {
+            UnityTransport transport = networkManager.GetComponent<UnityTransport>();
+            transport.SetConnectionData("127.0.0.1", 7777);
             networkManager.StartHost();
             animationProperties.UIAnimator.anim.Play("Game Static");
             phaseIndicator.phaseAnimator.Play("phase neutral");
@@ -315,10 +318,10 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestShuffleCardsRpc(int nodeID)
+    public void RequestShuffleCardsRpc(int nodeID, int randomSeed)
     {
         Node targetNode = allNodes[nodeID];
-        targetNode.Shuffle(false);
+        targetNode.Shuffle(randomSeed, false);
     }
 
     [Rpc(SendTo.Everyone)]
@@ -518,12 +521,15 @@ public class GameManager : NetworkBehaviour
     public void SubmitDeckListToServerRpc(int playerIndex, string playerName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
     {
         CardInfo.DeckList submittedDeck = new CardInfo.DeckList("default", nation, mainDeck, rideDeck, strideDeck, toolbox);
+        submittedDeck.ShuffleMainDeck();
         players[playerIndex].AssignDeck(submittedDeck);
-        animationProperties.playerNames[playerIndex].text = playerName;
+        //animationProperties.playerNames[playerIndex].text = playerName;
 
         // Singleplayer
         if (singlePlayer)
         {
+            players[playerIndex].AssignDeck(submittedDeck);
+
             CardInfo.DeckList player2Deck;
             if (localPlayerDecklist2 != null)
             {
@@ -556,8 +562,11 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.NotServer)]
     public void BroadcastDeckListToClientRpc(int playerIndex, string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
     {
-        CardInfo.DeckList broadcastedDeck = new CardInfo.DeckList(deckName, nation, mainDeck, rideDeck, strideDeck, toolbox);
-        players[playerIndex].AssignDeck(broadcastedDeck);
+        if (players[playerIndex].deckList == null)
+        {
+            CardInfo.DeckList broadcastedDeck = new CardInfo.DeckList(deckName, nation, mainDeck, rideDeck, strideDeck, toolbox);
+            players[playerIndex].AssignDeck(broadcastedDeck);
+        }
     }
 
     private void Update()

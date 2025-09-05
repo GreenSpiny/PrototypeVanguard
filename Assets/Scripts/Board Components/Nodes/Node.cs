@@ -156,17 +156,9 @@ public abstract class Node : MonoBehaviour
         }
     }
 
-    public void Shuffle(bool instant)
+    public void Shuffle(int randomSeed, bool instant)
     {
-        List<Card> shuffledCards = new List<Card>();
-        while (cards.Count > 0)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, cards.Count);
-            Card c = cards[randomIndex];
-            cards.RemoveAt(randomIndex);
-            shuffledCards.Add(c);
-        }
-        cards = shuffledCards;
+        RandomUtility.Shuffle(RandomUtility.GenerateRandomBySeed(randomSeed), cards);
         AlignCards(true);
         if (!instant)
         {

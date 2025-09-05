@@ -69,7 +69,6 @@ public class Player : MonoBehaviour
                     abyss.RecieveCard(deck.cards[i], string.Empty);
                 }
             }
-            deck.Shuffle(true);
 
             cards.Add(VC.cards[0]);
             CardInfo vanguard = CardLoader.GetCardInfo(deckList.rideDeck[0]);
