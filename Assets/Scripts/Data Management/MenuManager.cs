@@ -35,6 +35,8 @@ public class MenuManager : MonoBehaviour
     private enum MenuState { none, loading, open }
     private MenuState state = MenuState.none;
 
+    public bool ButtonsGroupIn { get { return menuButtonsGroup.alpha > .99f; } }
+
     private void Awake()
     {
         mainAnimator = GetComponent<Animator>();
@@ -111,7 +113,10 @@ public class MenuManager : MonoBehaviour
     {
         if (hoveredButton != button)
         {
-            targetColor = button.color;
+            if (ButtonsGroupIn)
+            {
+                targetColor = button.color;
+            }
             hoveredButton = button;
             characterImage.sprite = button.sprite;
             characterImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, button.height * spriteHeightMultiplier);
@@ -146,6 +151,10 @@ public class MenuManager : MonoBehaviour
     {
         if (!transitioningOut)
         {
+            if (hoveredButton != null)
+            {
+                targetColor = hoveredButton.color;
+            }
             menuButtonsGroup.blocksRaycasts = false;
             transitioningOut = true;
             transitionOutCallback = callback;

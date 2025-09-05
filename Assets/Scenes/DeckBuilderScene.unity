@@ -1230,6 +1230,9 @@ MonoBehaviour:
   onLoad:
     m_PersistentCalls:
       m_Calls: []
+  onQuit:
+    m_PersistentCalls:
+      m_Calls: []
   unloadScene: MenuScene
   fadeTransitionSpeed: 2
   colorTransitionSpeed: 10
@@ -2453,7 +2456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   areaType: 0
-  maxCards: 6
+  maxCards: 5
   cardsPerRow: 17
   cardHeight: 200
   alignSpeed: 10
@@ -7866,7 +7869,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1744666049}
   m_HandleRect: {fileID: 1744666048}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

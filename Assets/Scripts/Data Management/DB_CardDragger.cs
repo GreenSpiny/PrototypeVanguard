@@ -134,6 +134,11 @@ public class DB_CardDragger : MonoBehaviour
 
         transform.position = mousePosition;
         scrollRect.enabled = draggedCard == null;
+        if (draggedCard != null)
+        {
+            float dragOffset = DB_CardReciever.receiverCardWidth * 0.5f;
+            draggedCard.transform.localPosition = new Vector3(-dragOffset, dragOffset / Card.cardWidth, 0f);
+        }
     }
 
 }

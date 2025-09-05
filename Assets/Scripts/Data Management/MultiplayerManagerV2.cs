@@ -76,7 +76,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -107,15 +106,21 @@ public class MultiplayerManagerV2 : MonoBehaviour
         StartCoroutine(LoadInitialDisplay());
     }
 
+    private bool debuglimit = false;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha9))
+        if (!debuglimit && !Application.isEditor)
         {
-            UnityGameServices.instance.SwitchProfileAsync();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            Caching.ClearCache();
+            if (Input.GetKey(KeyCode.Alpha0) && Input.GetKey(KeyCode.Alpha1))
+            {
+                debuglimit = true;
+                UnityGameServices.instance.SwitchProfileAsync();
+            }
+            if (Input.GetKey(KeyCode.Alpha2) && Input.GetKey(KeyCode.Alpha8))
+            {
+                debuglimit = true;
+                Caching.ClearCache();
+            }
         }
     }
 
