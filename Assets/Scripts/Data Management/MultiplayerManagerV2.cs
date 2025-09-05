@@ -76,6 +76,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -631,7 +632,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 changes.ApplyToLobby(leechedLobby);
                 if (string.IsNullOrEmpty(relayCode))
                 {
-                    if (leechedLobby.Data.ContainsKey("MatchedPlayer") && leechedLobby.Data["MatchedPlayer"].Value == AuthenticationService.Instance.PlayerId)
+                    if (multiplayerState == MultiplayerState.leeching && leechedLobby.Data.ContainsKey("MatchedPlayer") && leechedLobby.Data["MatchedPlayer"].Value == AuthenticationService.Instance.PlayerId)
                     {
                         connectionStatusText.text = "Joining game!";
                         ChangeMultiplayerState(MultiplayerState.blocked);

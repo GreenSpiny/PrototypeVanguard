@@ -47,6 +47,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI debugString;
 
     private Coroutine listenForHostCoroutine;
+    private const int maxConnections = 2;
+    private const string connectionType = "udp";
 
     public enum GameState { setup, dieroll, gaming, finished }
     public enum Phase { none = 0, mulligan = 1, ride = 2, main = 3, battle = 4, end = 5 }
@@ -134,8 +136,7 @@ public class GameManager : NetworkBehaviour
 
     private async void StartHostingAsync(Lobby lobby)
     {
-        int maxConnections = 2;
-        string connectionType = "udp";
+        
 
         try
         {
@@ -146,7 +147,6 @@ public class GameManager : NetworkBehaviour
 
             if (!string.IsNullOrEmpty(MultiplayerManagerV2.relayCode))
             {
-                debugString.text = MultiplayerManagerV2.relayCode;
                 UpdateLobbyOptions options = new UpdateLobbyOptions();
                 options.IsPrivate = true;
                 options.IsLocked = true;
@@ -161,7 +161,6 @@ public class GameManager : NetworkBehaviour
                     )}
                 };
                 await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options);
-                debugString.text = "updated lobby. Final code: " + MultiplayerManagerV2.relayCode;
             }
         }
         catch (RelayServiceException e)
@@ -173,16 +172,20 @@ public class GameManager : NetworkBehaviour
             debugString.text = "Lobby error: " + e.Message;
         }
     }
+    private async void StartLeechingAsync()
+    {
+        var allocation = await RelayService.Instance.JoinAllocationAsync(MultiplayerManagerV2.relayCode);
+        networkManager.GetComponent<UnityTransport>().SetRelayServerData(AllocationUtils.ToRelayServerData(allocation, connectionType));
+        NetworkManager.Singleton.StartClient();
+    }
 
     private IEnumerator ListenForHostMessage()
     {
-        debugString.text = "Let's listen for host message.";
         while (string.IsNullOrEmpty(MultiplayerManagerV2.relayCode))
         {
             yield return null;
         }
-        debugString.text = "Got the code: " + MultiplayerManagerV2.relayCode;
-        listenForHostCoroutine = null;
+        StartLeechingAsync();
     }
 
     public void OnConnectionOverride(NetworkManager manager, ConnectionEventData data)
