@@ -15,6 +15,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
     public static MultiplayerManagerV2 instance;
     public static Lobby hostedLobby;
     public static Lobby leechedLobby;
+    public static string relayCode;
 
     // Control elements
     public enum MultiplayerState { none, hosting, leeching, blocked };
@@ -87,6 +88,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
 
     private void Start()
     {
+        relayCode = null;
         roomResults = new List<RoomResult>();
         playerResults = new List<PlayerResult>();
 
@@ -343,16 +345,16 @@ public class MultiplayerManagerV2 : MonoBehaviour
             options.Data = new Dictionary<string, DataObject>()
             {
                 {
-                    "GameVersion", new DataObject(
-                        visibility: DataObject.VisibilityOptions.Public,
-                        value: Application.version,
-                        index: DataObject.IndexOptions.S1)
-                },
-                {
                     "CardsVersion", new DataObject(
                         visibility: DataObject.VisibilityOptions.Public,
                         value: CardLoader.instance.dataVersionObject.cardsFileVersion.ToString(),
                         index: DataObject.IndexOptions.N1)
+                },
+                {
+                    "GameVersion", new DataObject(
+                        visibility: DataObject.VisibilityOptions.Public,
+                        value: Application.version,
+                        index: DataObject.IndexOptions.S1)
                 },
                 {
                     "RoomCode", new DataObject(
@@ -365,12 +367,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
                         visibility: DataObject.VisibilityOptions.Public,
                         value: AuthenticationService.Instance.PlayerId,
                         index: DataObject.IndexOptions.S3)
-                },
-                {
-                    "RelayCode", new DataObject(
-                        visibility: DataObject.VisibilityOptions.Member,
-                        value: "MyCode",
-                        index: DataObject.IndexOptions.S4)
                 }
             };
 
@@ -512,17 +508,10 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 options.Data = new Dictionary<string, DataObject>()
                 {
                     {
-                    "RelayCode", new DataObject(
-                        visibility: DataObject.VisibilityOptions.Member,
-                        value: "MyCode",
-                        index: DataObject.IndexOptions.S4
-
-                    )},
-                    {
                     "MatchedPlayer", new DataObject(
                         visibility: DataObject.VisibilityOptions.Member,
                         value: playerId,
-                        index: DataObject.IndexOptions.S5
+                        index: DataObject.IndexOptions.S4
 
                     )}
                 };
@@ -640,17 +629,17 @@ public class MultiplayerManagerV2 : MonoBehaviour
             else if (leechedLobby != null)
             {
                 changes.ApplyToLobby(leechedLobby);
-                if (!string.IsNullOrEmpty(leechedLobby.Data["RelayCode"].Value))
+                if (string.IsNullOrEmpty(relayCode))
                 {
-                    if (leechedLobby.Data["MatchedPlayer"].Value == AuthenticationService.Instance.PlayerId)
+                    if (leechedLobby.Data.ContainsKey("MatchedPlayer") && leechedLobby.Data["MatchedPlayer"].Value == AuthenticationService.Instance.PlayerId)
                     {
                         connectionStatusText.text = "Joining game!";
                         ChangeMultiplayerState(MultiplayerState.blocked);
                         SceneManager.LoadScene("FightScene");
                     }
-                    else
+                    if (leechedLobby.Data.ContainsKey("RelayCode") && !string.IsNullOrEmpty(leechedLobby.Data["RelayCode"].Value))
                     {
-                        StopLeechingAsync();
+                        relayCode = leechedLobby.Data["RelayCode"].Value;
                     }
                 }
             }

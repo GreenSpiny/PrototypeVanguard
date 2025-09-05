@@ -1,11 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using Unity.Netcode;
-using System.Collections;
+using Unity.Netcode.Transports.UTP;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
+using Unity.Services.Matchmaker.Models;
+using Unity.Services.Relay;
+using Unity.Services.Relay.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Text;
 
 public class GameManager : NetworkBehaviour
 {
@@ -36,6 +43,10 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private AnimationProperties animationProperties;
     
     [SerializeField] public PhaseIndicator phaseIndicator;
+
+    [SerializeField] private TextMeshProUGUI debugString;
+
+    private Coroutine listenForHostCoroutine;
 
     public enum GameState { setup, dieroll, gaming, finished }
     public enum Phase { none = 0, mulligan = 1, ride = 2, main = 3, battle = 4, end = 5 }
@@ -111,6 +122,67 @@ public class GameManager : NetworkBehaviour
             phaseIndicator.phaseAnimator.Play("phase neutral");
             cardDetailUI.DisableChat();
         }
+        else if (MultiplayerManagerV2.hostedLobby != null)
+        {
+            StartHostingAsync(MultiplayerManagerV2.hostedLobby);
+        }
+        else if (MultiplayerManagerV2.leechedLobby != null)
+        {
+            listenForHostCoroutine = StartCoroutine(ListenForHostMessage());
+        }
+    }
+
+    private async void StartHostingAsync(Lobby lobby)
+    {
+        int maxConnections = 2;
+        string connectionType = "udp";
+
+        try
+        {
+            var allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
+            networkManager.GetComponent<UnityTransport>().SetRelayServerData(AllocationUtils.ToRelayServerData(allocation, connectionType));
+            var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            MultiplayerManagerV2.relayCode = NetworkManager.Singleton.StartHost() ? joinCode : null;
+
+            if (!string.IsNullOrEmpty(MultiplayerManagerV2.relayCode))
+            {
+                debugString.text = MultiplayerManagerV2.relayCode;
+                UpdateLobbyOptions options = new UpdateLobbyOptions();
+                options.IsPrivate = true;
+                options.IsLocked = true;
+                options.Data = new Dictionary<string, DataObject>()
+                {
+                    {
+                    "RelayCode", new DataObject(
+                        visibility: DataObject.VisibilityOptions.Member,
+                        value: MultiplayerManagerV2.relayCode,
+                        index: DataObject.IndexOptions.S5
+
+                    )}
+                };
+                await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options);
+                debugString.text = "updated lobby. Final code: " + MultiplayerManagerV2.relayCode;
+            }
+        }
+        catch (RelayServiceException e)
+        {
+            debugString.text = "Relay error: " + e.Message;
+        }
+        catch (LobbyServiceException e)
+        {
+            debugString.text = "Lobby error: " + e.Message;
+        }
+    }
+
+    private IEnumerator ListenForHostMessage()
+    {
+        debugString.text = "Let's listen for host message.";
+        while (string.IsNullOrEmpty(MultiplayerManagerV2.relayCode))
+        {
+            yield return null;
+        }
+        debugString.text = "Got the code: " + MultiplayerManagerV2.relayCode;
+        listenForHostCoroutine = null;
     }
 
     public void OnConnectionOverride(NetworkManager manager, ConnectionEventData data)
