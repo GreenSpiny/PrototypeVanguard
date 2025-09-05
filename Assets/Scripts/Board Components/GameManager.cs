@@ -108,6 +108,7 @@ public class GameManager : NetworkBehaviour
         {
             networkManager.StartHost();
             animationProperties.UIAnimator.anim.Play("Game Static");
+            phaseIndicator.phaseAnimator.Play("phase neutral");
             cardDetailUI.DisableChat();
         }
     }
@@ -430,6 +431,7 @@ public class GameManager : NetworkBehaviour
             }
         }
         animationProperties.UIAnimator.Close();
+        phaseIndicator.phaseAnimator.Play("phase neutral");
         foreach (Player player in players)
         {
             player.OnPhaseChanged();
