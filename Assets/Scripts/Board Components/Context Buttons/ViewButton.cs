@@ -20,11 +20,11 @@ public class ViewButton : ContextButton
         {
             if (selectedNode.Type == Node.NodeType.deck)
             {
-                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedNode.nodeID, amount, actionFlag == CardInfo.ActionFlag.reveal, false);
+                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedNode.nodeID, 0, amount, actionFlag == CardInfo.ActionFlag.reveal, false);
             }
             else
             {
-                DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedNode, amount, actionFlag == CardInfo.ActionFlag.reveal, false);
+                DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedNode, 0, amount, actionFlag == CardInfo.ActionFlag.reveal, false);
             }
         }
 

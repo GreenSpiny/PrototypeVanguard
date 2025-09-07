@@ -196,7 +196,7 @@ public class DragManager : MonoBehaviour
             }
             else
             {
-                OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, controllingPlayer.toolbox.cards.Count, false, true);
+                OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, 0, controllingPlayer.toolbox.cards.Count, false, true);
             }
         }
 
@@ -344,11 +344,11 @@ public class DragManager : MonoBehaviour
         GameManager.instance.players[playerID].display.CloseDisplay();
     }
 
-    public void OpenDisplay(int playerID, Node node, int cardAmount, bool revealCards, bool sortCards)
+    public void OpenDisplay(int playerID, Node node, int startIndex, int cardAmount, bool revealCards, bool sortCards)
     {
         if (node.HasCard)
         {
-            GameManager.instance.players[playerID].display.OpenDisplay(node, cardAmount, revealCards, sortCards);
+            GameManager.instance.players[playerID].display.OpenDisplay(node, startIndex, cardAmount, revealCards, sortCards);
         }
     }
 

@@ -1,16 +1,19 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Node_Display : Node
 {
     public override NodeType Type => NodeType.display;
     private Node lastAcceptedNode;
+    private string lastAcceptedParams = string.Empty;
 
     public bool LastNodeWasDeck { get { return lastAcceptedNode != null && lastAcceptedNode.Type == NodeType.deck; } }
     public override void RecieveCard(Card card, string parameters)
     {
         cards.Add(card);
+        lastAcceptedParams = parameters;
         base.RecieveCard(card, parameters);
     }
 
@@ -64,8 +67,12 @@ public class Node_Display : Node
         return toReturn;
     }
 
-    public void OpenDisplay(Node node, int cardCount, bool revealCards, bool sortCards)
+    public void OpenDisplay(Node node, int startIndex, int cardCount, bool revealCards, bool sortCards)
     {
+        if (node == this)
+        {
+            return;
+        }
         CloseDisplay();
         lastAcceptedNode = node;
         if (node.Type == NodeType.toolbox)
@@ -74,15 +81,10 @@ public class Node_Display : Node
             node.AlignCards(true);
         }
         int initialCount = node.cards.Count;
-        Card c = node.TopCard;
-        for (int i = initialCount - 1; i >= initialCount - cardCount;)
+        for (int i = initialCount - startIndex - 1; i >= initialCount - startIndex - cardCount; i--)
         {
+            Card c = node.cards[node.cards.Count - startIndex - 1];
             RecieveCard(c, string.Empty);
-            i--;
-            if (i >= 0)
-            {
-                c = node.cards[i];
-            }
         }
         if (sortCards)
         {
@@ -92,7 +94,7 @@ public class Node_Display : Node
         {
             foreach (Card card in cards)
             {
-                c.SetRevealed(true, float.MaxValue);
+                card.SetRevealed(true, float.MaxValue);
             }
         }
     }
@@ -101,10 +103,14 @@ public class Node_Display : Node
     {
         for (int i = cards.Count - 1; i >= 0; i--)
         {
-            string paramaters = string.Empty;
+            string paramaters = lastAcceptedParams;
             if (cards[i].flip)
             {
-                paramaters += "facedown";
+                paramaters += par_facedown;
+            }
+            if (lastAcceptedNode.Type == NodeType.RC || lastAcceptedNode.Type == NodeType.VC)
+            {
+                paramaters += par_bottom;
             }
             if (lastAcceptedNode.Type == NodeType.toolbox)
             {

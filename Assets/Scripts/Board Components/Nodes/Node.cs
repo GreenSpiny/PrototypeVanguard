@@ -36,6 +36,12 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public NodeUI NodeUI;
     protected float verticalOffsetUI;
 
+    // Const parameters
+    public const string par_facedown = "facedown";
+    public const string par_faceup = "faceup";
+    public const string par_cancel = "cancel";
+    public const string par_bottom = "bottom";
+
     public int nodeID { get; private set; }     // Unique node identifier for networking purposes
 
     // Dirty nodes are realigned on the next update cycle.
@@ -99,7 +105,7 @@ public abstract class Node : MonoBehaviour
         }
 
         // Otherwise, manage node ownership normally
-        bool cancel = parameters.Contains("cancel");
+        bool cancel = parameters.Contains(par_cancel);
 
         bool shouldFlip = card.flip;
         bool shouldRest = card.rest;

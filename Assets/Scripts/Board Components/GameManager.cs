@@ -234,13 +234,13 @@ public class GameManager : NetworkBehaviour
                     RequestStandAndDrawRpc(turnPlayer);
                     break;
                 case Phase.ride:
-                    RequestChangePhaseRpc((int)Phase.main);
+                    RequestChangePhaseRpc(turnCount, (int)Phase.main);
                     break;
                 case Phase.main:
-                    RequestChangePhaseRpc((int)Phase.battle);
+                    RequestChangePhaseRpc(turnCount, (int)Phase.battle);
                     break;
                 case Phase.battle:
-                    RequestChangePhaseRpc((int)Phase.end);
+                    RequestChangePhaseRpc(turnCount, (int)Phase.end);
                     break;
                 case Phase.end:
                     RequestStandAndDrawRpc(NextPlayer(turnPlayer));
@@ -254,17 +254,17 @@ public class GameManager : NetworkBehaviour
                 case Phase.ride:
                     if (turnCount == 0)
                     {
-                        RequestChangePhaseRpc((int)Phase.mulligan);
+                        RequestChangePhaseRpc(turnCount, (int)Phase.mulligan);
                     }
                     break;
                 case Phase.main:
-                    RequestChangePhaseRpc((int)Phase.ride);
+                    RequestChangePhaseRpc(turnCount, (int)Phase.ride);
                     break;
                 case Phase.battle:
-                    RequestChangePhaseRpc((int)Phase.main);
+                    RequestChangePhaseRpc(turnCount, (int)Phase.main);
                     break;
                 case Phase.end:
-                    RequestChangePhaseRpc((int)Phase.battle);
+                    RequestChangePhaseRpc(turnCount, (int)Phase.battle);
                     break;
             }
         }
@@ -382,7 +382,7 @@ public class GameManager : NetworkBehaviour
             if (targetVC.HasCard)
             {
                 Card topCard = targetVC.cards[targetVC.cards.Count - 1];
-                topCard.SetOrientation(topCard.flip, false);
+                topCard.SetOrientation(false, false);
             }
             foreach (Node targetRC in targetPlayer.RC)
             {
@@ -404,23 +404,26 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestChangePhaseRpc(int phase)
+    public void RequestChangePhaseRpc(int currentTurn, int phase)
     {
-        this.phase = (Phase) phase;
-        phaseIndicator.phaseText.text = phaseNames[(int)this.phase] + " Phase";
-        foreach (Player player in players)
+        if (currentTurn >= turnCount)
         {
-            player.OnPhaseChanged();
+            this.phase = (Phase)phase;
+            phaseIndicator.phaseText.text = phaseNames[(int)this.phase] + " Phase";
+            foreach (Player player in players)
+            {
+                player.OnPhaseChanged();
+            }
+            phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
+            phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
         }
-        phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
-        phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestDisplayCardsRpc(int playerID, int nodeID, int cardCount, bool revealCards, bool sortCards)
+    public void RequestDisplayCardsRpc(int playerID, int nodeID, int startIndex, int cardCount, bool revealCards, bool sortCards)
     {
         Node targetNode = allNodes[nodeID];
-        DragManager.instance.OpenDisplay(playerID, targetNode, cardCount, revealCards, sortCards);
+        DragManager.instance.OpenDisplay(playerID, targetNode, startIndex, cardCount, revealCards, sortCards);
     }
 
     [Rpc(SendTo.Everyone)]
@@ -501,7 +504,11 @@ public class GameManager : NetworkBehaviour
         DragManager.instance.ChangeDMstate(DragManager.DMstate.open);
         for (int i = 0; i < 2; i++)
         {
-            players[i].VC.cards[0].SetOrientation(false, false);
+            if (singlePlayer)
+            {
+                players[i].VC.cards[0].SetOrientation(false, false);
+                players[i].VC.AlignCards(true);
+            }
             for (int j = 1; j <= 5; j++)
             {
                 Node targetDeck = players[i].deck;

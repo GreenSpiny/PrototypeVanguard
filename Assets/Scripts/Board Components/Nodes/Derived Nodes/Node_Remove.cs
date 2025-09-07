@@ -7,7 +7,7 @@ public class Node_Remove : Node_Stack
 
     public override void CardAutoAction(Card clickedCard)
     {
-        DragManager.instance.OpenDisplay(player.playerIndex, this, cards.Count, false, true);
+        DragManager.instance.OpenDisplay(player.playerIndex, this, 0, cards.Count, false, true);
     }
 
     public override void NodeAutoAction()

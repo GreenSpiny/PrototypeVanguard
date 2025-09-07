@@ -22,11 +22,11 @@ public class ActionButton : ContextButton
                 DragManager.instance.powerContext.DisplayButtons(Input.mousePosition, null);
                 break;
             case CardInfo.ActionFlag.soul:
-                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.VC.nodeID, selectedCard.cardID, "bottom");
+                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.VC.nodeID, selectedCard.cardID, Node.par_bottom);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.botdeck:
-                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.deck.nodeID, selectedCard.cardID, "bottom");
+                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.deck.nodeID, selectedCard.cardID, Node.par_bottom);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.reveal:
@@ -41,7 +41,7 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.view:
-                DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedCard.node, selectedCard.node.cards.Count, false, true);
+                DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedCard.node, 0, selectedCard.node.cards.Count, false, true);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.viewx:
@@ -51,10 +51,7 @@ public class ActionButton : ContextButton
                 DragManager.instance.viewContext.DisplayButtons(Input.mousePosition, new CardInfo.ActionFlag[] { CardInfo.ActionFlag.reveal });
                 break;
             case CardInfo.ActionFlag.search:
-                if (selectedCard.node.HasCard)
-                {
-                    GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, selectedCard.node.cards.Count, false, true);
-                }
+                GameManager.instance.RequestDisplayCardsRpc(activePlayer.playerIndex, selectedCard.node.nodeID, 0, selectedCard.node.cards.Count, false, true);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.shuffle:
@@ -63,7 +60,7 @@ public class ActionButton : ContextButton
                 break;
             case CardInfo.ActionFlag.viewsoul:
                 // TODO: add start index paramater
-                DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedCard.node, selectedCard.node.cards.Count, false, true);
+                DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedCard.node, 1, selectedCard.node.cards.Count - 1, false, true);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.armLeft:
@@ -73,9 +70,11 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.bindFD:
+                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.bind.nodeID, selectedCard.cardID, Node.par_facedown);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.locking:
+                GameManager.instance.RequestSetOrientationRpc(selectedCard.cardID, true, false);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.rideRC:
