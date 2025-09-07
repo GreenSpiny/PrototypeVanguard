@@ -399,6 +399,8 @@ public class GameManager : NetworkBehaviour
         phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
 
         Player targetPlayer = players[turnPlayer];
+        Player nextPlayer = players[NextPlayer(turnPlayer)];
+
         if (!drewForTurn)
         {
             Node targetDeck = targetPlayer.deck;
@@ -408,9 +410,15 @@ public class GameManager : NetworkBehaviour
             }
             drewForTurn = true;
             Node targetVC = targetPlayer.VC;
+            Node nextVC = nextPlayer.VC;
             if (targetVC.HasCard)
             {
                 Card topCard = targetVC.cards[targetVC.cards.Count - 1];
+                topCard.SetOrientation(false, false);
+            }
+            if (nextVC.HasCard && turnCount == 0)
+            {
+                Card topCard = nextVC.cards[nextVC.cards.Count - 1];
                 topCard.SetOrientation(false, false);
             }
             foreach (Node targetRC in targetPlayer.RC)

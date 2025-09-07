@@ -18527,7 +18527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.25882354, g: 0.2627451, b: 0.4509804, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -19089,6 +19089,7 @@ MonoBehaviour:
   - {fileID: 741258427}
   reversedUIRoots:
   - {fileID: 1490451704}
+  - {fileID: 2592315}
   previousPhaseButton: {fileID: 549540728}
   nextPhaseButton: {fileID: 796411893}
   phaseText: {fileID: 759974946}
@@ -19473,6 +19474,7 @@ MonoBehaviour:
   - {fileID: 1499641718}
   - {fileID: 803288263}
   reversedUIRoots:
+  - {fileID: 1490451704}
   - {fileID: 2592315}
   previousPhaseButton: {fileID: 575044247}
   nextPhaseButton: {fileID: 1587852797}

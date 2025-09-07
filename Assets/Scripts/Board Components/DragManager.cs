@@ -141,7 +141,7 @@ public class DragManager : MonoBehaviour
             clickLocation = mousePosition;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || (Input.GetMouseButtonDown(1) && (HoveredCard == null || HoveredCard.node.Type != Node.NodeType.display)))
+        if (Input.GetMouseButtonDown(1) && (HoveredCard == null || HoveredCard.node.Type != Node.NodeType.display))
         {
             // DisplayNode is selectively synced across clients
             if (controllingPlayer.display.LastNodeWasDeck)
@@ -190,14 +190,7 @@ public class DragManager : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(2) && dmstate == DMstate.open)
         {
-            if (controllingPlayer.display.HasCard)
-            {
-                CloseDisplay(controllingPlayer.playerIndex);
-            }
-            else
-            {
-                OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, 0, controllingPlayer.toolbox.cards.Count, false, true);
-            }
+            OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, 0, controllingPlayer.toolbox.cards.Count, false, true);
         }
 
         if (dmstate == DMstate.dragging)
@@ -341,13 +334,28 @@ public class DragManager : MonoBehaviour
 
     public void CloseDisplay(int playerID)
     {
-        GameManager.instance.players[playerID].display.CloseDisplay();
+        if (GameManager.instance.players[playerID].display.HasCard)
+        {
+            GameManager.instance.players[playerID].display.CloseDisplay();
+        }
     }
 
     public void OpenDisplay(int playerID, Node node, int startIndex, int cardAmount, bool revealCards, bool sortCards)
     {
         if (node.HasCard)
         {
+            Player targetPlayer = GameManager.instance.players[playerID];
+            if (targetPlayer.display.HasCard)
+            {
+                if (targetPlayer.display.LastNodeWasDeck)
+                {
+                    GameManager.instance.RequestCloseDisplayRpc(playerID);
+                }
+                else
+                {
+                    CloseDisplay(playerID);
+                }
+            }
             GameManager.instance.players[playerID].display.OpenDisplay(node, startIndex, cardAmount, revealCards, sortCards);
         }
     }
