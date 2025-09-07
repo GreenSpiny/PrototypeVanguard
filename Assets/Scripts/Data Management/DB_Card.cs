@@ -14,9 +14,13 @@ public class DB_Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [NonSerialized] public DB_CardReciever reciever;
     [NonSerialized] public DB_CardReciever draggedFromReceiver;
 
+    [NonSerialized] public bool delayAlignment = true;
+    [NonSerialized] private float spawnTime;
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        spawnTime = Time.time;
     }
 
     private void Start()
@@ -106,7 +110,14 @@ public class DB_Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         public override int Compare(DB_Card x, DB_Card y)
         {
             int initialResult = x.cardInfo.CompareTo(y.cardInfo);
-            if (initialResult != 0) { return  initialResult; }
+            if (initialResult != 0)
+            {
+                return  initialResult;
+            }
+            if (x.spawnTime != y.spawnTime)
+            {
+                return x.spawnTime.CompareTo(y.spawnTime);
+            }
             return x.GetInstanceID().CompareTo(y.GetInstanceID());
         }
     }

@@ -5,6 +5,7 @@ using System.Text;
 using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Matchmaker.Models;
@@ -29,6 +30,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] public Canvas boardOverlayCanvas;
     [SerializeField] public Canvas boardUnderlayCanvas;
     [SerializeField] private CardDetailUI cardDetailUI;
+    [SerializeField] private SceneLoadCanvas sceneLoadCanvas;
 
     [NonSerialized] public Dictionary<int, Node> allNodes = new Dictionary<int, Node>();
     [NonSerialized] public Dictionary<int, Card> allCards = new Dictionary<int, Card>();
@@ -50,6 +52,7 @@ public class GameManager : NetworkBehaviour
 
     private const int maxConnections = 2;
     private const string connectionType = "udp";
+    private bool exiting;
 
     public enum GameState { setup, dieroll, gaming, finished }
     public enum Phase { none = 0, mulligan = 1, ride = 2, main = 3, battle = 4, end = 5 }
@@ -76,6 +79,7 @@ public class GameManager : NetworkBehaviour
         {
             singlePlayer = true;
         }
+        networkManager.SetSingleton();
         networkManager.OnConnectionEvent += OnConnectionOverride;
 
         if (instance == null)
@@ -109,6 +113,7 @@ public class GameManager : NetworkBehaviour
         }
 
         infoCamera.gameObject.SetActive(true);
+        exiting = false;
     }
 
     private int NextPlayer(int input)
@@ -122,9 +127,8 @@ public class GameManager : NetworkBehaviour
         {
             UnityTransport transport = networkManager.GetComponent<UnityTransport>();
             transport.SetConnectionData("127.0.0.1", 7777);
-            networkManager.StartHost();
+            bool startedHost = networkManager.StartHost();
             animationProperties.UIAnimator.anim.Play("Game Static");
-            phaseIndicator.phaseAnimator.Play("phase neutral");
             cardDetailUI.DisableChat();
         }
         else if (MultiplayerManagerV2.hostedLobby != null)
@@ -137,16 +141,41 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    private async void LeaveGameAsync()
+    {
+        exiting = true;
+        try
+        {
+            if (MultiplayerManagerV2.hostedLobby != null)
+            {
+                await LobbyService.Instance.DeleteLobbyAsync(MultiplayerManagerV2.hostedLobby.Id);
+            }
+            else if (MultiplayerManagerV2.leechedLobby != null)
+            {
+                await LobbyService.Instance.RemovePlayerAsync(MultiplayerManagerV2.leechedLobby.Id, AuthenticationService.Instance.PlayerId);
+                
+            }
+        }
+        catch (AuthenticationException e)
+        {
+            debugString.text = e.Message;
+        }
+        catch (LobbyServiceException e)
+        {
+            debugString.text = e.Message;
+        }
+        networkManager.Shutdown();
+        sceneLoadCanvas.TransitionOut();
+    }
+
     private async void StartHostingAsync(Lobby lobby)
     {
-        
-
         try
         {
             var allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
             networkManager.GetComponent<UnityTransport>().SetRelayServerData(AllocationUtils.ToRelayServerData(allocation, connectionType));
             var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            MultiplayerManagerV2.relayCode = NetworkManager.Singleton.StartHost() ? joinCode : null;
+            MultiplayerManagerV2.relayCode = networkManager.StartHost() ? joinCode : null;
 
             if (!string.IsNullOrEmpty(MultiplayerManagerV2.relayCode))
             {
@@ -593,6 +622,10 @@ public class GameManager : NetworkBehaviour
                 int dieRoll = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
                 RequestDieRollEventRpc(dieRoll);
             }
+        }
+        if (Input.GetKey(KeyCode.Escape) && !exiting)
+        {
+            LeaveGameAsync();
         }
     }
 

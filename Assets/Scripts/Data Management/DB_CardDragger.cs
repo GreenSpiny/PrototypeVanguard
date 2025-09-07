@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using static DragManager;
@@ -105,6 +106,8 @@ public class DB_CardDragger : MonoBehaviour
                             cloneCard.Load(hoveredCard.cardInfo.index);
                             cloneCard.SetWidth();
                             receiver.ReceiveCard(cloneCard);
+                            cloneCard.transform.position = mousePosition;
+                            ApplyCardOffset(cloneCard);
                             break;
                         }
                     }
@@ -118,6 +121,11 @@ public class DB_CardDragger : MonoBehaviour
                         cloneCard.Load(hoveredCard.cardInfo.index);
                         cloneCard.SetWidth();
                         parentReceiver.ReceiveCard(cloneCard);
+                        DB_Card lastCopy = parentReceiver.GetLastCopy(cloneCard.cardInfo);
+                        if (lastCopy != null)
+                        {
+                            cloneCard.transform.position = lastCopy.transform.position;
+                        }
                     }
                 }
             }
@@ -132,13 +140,20 @@ public class DB_CardDragger : MonoBehaviour
             }
         }
 
-        transform.position = mousePosition;
+        
         scrollRect.enabled = draggedCard == null;
+        transform.position = Input.mousePosition;
         if (draggedCard != null)
         {
-            float dragOffset = DB_CardReciever.receiverCardWidth * 0.5f;
-            draggedCard.transform.localPosition = new Vector3(-dragOffset, dragOffset / Card.cardWidth, 0f);
+            draggedCard.transform.localPosition = Vector3.zero;
+            ApplyCardOffset(draggedCard);
         }
+    }
+
+    private void ApplyCardOffset(DB_Card card)
+    {
+        float dragOffset = DB_CardReciever.receiverCardWidth * 0.5f;
+        card.transform.localPosition += new Vector3(-dragOffset, dragOffset / Card.cardWidth, 0f);
     }
 
 }

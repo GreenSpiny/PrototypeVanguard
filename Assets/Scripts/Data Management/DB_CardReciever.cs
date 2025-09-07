@@ -48,7 +48,10 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void ReceiveCard(DB_Card card)
     {
         cards.Add(card);
-        card.transform.SetParent(transform, true);
+        if (card.transform.parent != transform)
+        {
+            card.transform.SetParent(transform, true);
+        }
         card.reciever = this;
         card.draggedFromReceiver = null;
         builder.SetDirty();
@@ -75,6 +78,23 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
         cards.Clear();
         builder.SetDirty();
+    }
+
+    public DB_Card GetLastCopy(CardInfo info)
+    {
+        DB_Card foundCard = null;
+        foreach (DB_Card card in cards)
+        {
+            if (card.cardInfo.index == info.index)
+            {
+                foundCard = card;
+            }
+            else if (foundCard != null && card.cardInfo.index != info.index)
+            {
+                break;
+            }
+        }
+        return foundCard;
     }
 
     public void AlignCards(bool instant)
@@ -115,7 +135,17 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         foreach (DB_Card card in cards)
         {
-            card.transform.localPosition = Vector3.Lerp(card.transform.localPosition, card.moveTarget, alignSpeed * Time.deltaTime);
+            if (!Input.GetKey(KeyCode.B))
+            {
+                if (card.delayAlignment)
+                {
+                    card.delayAlignment = false;
+                }
+                else
+                {
+                    card.transform.localPosition = Vector3.Lerp(card.transform.localPosition, card.moveTarget, alignSpeed * Time.deltaTime);
+                }
+            }
         }
         if (DB_CardDragger.instance != null && DB_CardDragger.instance.draggedCard == null)
         {
