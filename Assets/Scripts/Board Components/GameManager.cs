@@ -429,8 +429,8 @@ public class GameManager : NetworkBehaviour
             }
             if (nextVC.HasCard && turnCount == 0)
             {
-                Card topCard = nextVC.cards[nextVC.cards.Count - 1];
-                topCard.SetOrientation(false, false);
+                //Card topCard = nextVC.cards[nextVC.cards.Count - 1];
+                //topCard.SetOrientation(false, false);
             }
             foreach (Node targetRC in targetPlayer.RC)
             {

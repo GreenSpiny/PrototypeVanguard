@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class AvatarBank : MonoBehaviour
 {
-    [SerializeField] private List<Sprite> sprites;
+    [SerializeField] public List<Sprite> sprites;
     private Dictionary<string, Sprite> spriteDict = new Dictionary<string, Sprite>();
     public const string defaultAvatar = "leafy";
     public const string fallbackAvatar = "shadowarmy";

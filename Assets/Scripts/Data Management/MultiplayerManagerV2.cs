@@ -24,6 +24,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
     [SerializeField] private SceneLoadCanvas sceneLoadCanvas;
     [SerializeField] private RectTransform roomInstantiationArea;
     [SerializeField] private RectTransform playerInstantiationArea;
+    [SerializeField] private AvatarSelector avatarSelector;
 
     // User fields
     [SerializeField] private Image userAvatar;
@@ -136,6 +137,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 sanitizedName = sanitizedName.Substring(0, displayNameInputField.characterLimit);
             }
             GameManager.localPlayerName = sanitizedName;
+            PlayerPrefs.SetString(SaveDataManager.lastProfileNameKey, sanitizedName);
         }
         else
         {
@@ -230,9 +232,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
         if (string.IsNullOrWhiteSpace(lastAvatarName))
         {
             lastAvatarName = AvatarBank.defaultAvatar;
-            PlayerPrefs.SetString(SaveDataManager.lastAvatarKey, lastAvatarName);
         }
-        userAvatar.sprite = CardLoader.instance.avatarBank.GetSprite(lastAvatarName);
+        SetAvatar(lastAvatarName);
 
         sceneLoadCanvas.TransitionIn();
 
@@ -280,6 +281,18 @@ public class MultiplayerManagerV2 : MonoBehaviour
         CheckValidity();
     }
 
+    public void SetAvatar(string avatarName)
+    {
+        PlayerPrefs.SetString(SaveDataManager.lastAvatarKey, avatarName);
+        userAvatar.sprite = CardLoader.instance.avatarBank.GetSprite(avatarName);
+    }
+
+    public void OpenAvatarWindow()
+    {
+        avatarSelector.gameObject.SetActive(true);
+        ChangeMultiplayerState(MultiplayerState.blocked);
+    }
+
     private void CheckValidity()
     {
         string error;
@@ -306,7 +319,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
         
         startSingleplayerButton.interactable = decksValid[0] && decksValid[1];
         startMultiplayerButton.interactable = decksValid[0];
-        
     }
 
     public void StartSingleplayerGame()
@@ -316,7 +328,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         SceneManager.LoadScene("FightScene");
     }
 
-    private void ChangeMultiplayerState(MultiplayerState state)
+    public void ChangeMultiplayerState(MultiplayerState state)
     {
         multiplayerState = state;
         switch (multiplayerState)
