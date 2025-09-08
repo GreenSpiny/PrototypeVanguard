@@ -393,7 +393,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 {
                 "Avatar", new PlayerDataObject(
                     visibility: PlayerDataObject.VisibilityOptions.Public,
-                    value: "shadowboxer")
+                    value: userAvatar.sprite.name)
                 },
                 {
                 "Host", new PlayerDataObject(
@@ -493,7 +493,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                     {
                     "Avatar", new PlayerDataObject(
                         visibility: PlayerDataObject.VisibilityOptions.Public,
-                        value: "shadowboxer")
+                        value: userAvatar.sprite.name)
                     }
                 };
 
