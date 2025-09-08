@@ -25,6 +25,7 @@ public class CardLoader : MonoBehaviour
     [NonSerialized] public Dictionary<int, AssetBundleRequest> allBundleRequests = new Dictionary<int, AssetBundleRequest>();
     [NonSerialized] public Dictionary<int, Material> allImagesData = new Dictionary<int, Material>();
     [NonSerialized] public List<CardInfo> allCardsDataSorted = new List<CardInfo>();
+    [NonSerialized] public AvatarBank avatarBank;
 
     // Card Parameter Tracking
     [NonSerialized] public List<string> allCardGifts;
@@ -59,6 +60,8 @@ public class CardLoader : MonoBehaviour
             enabled = false;
             DestroyImmediate(gameObject);
         }
+
+        avatarBank = GetComponent<AvatarBank>();
 
         // Set game quality settings
         Application.targetFrameRate = 60;

@@ -307,6 +307,7 @@ public class GameManager : NetworkBehaviour
     public void SetPlayerIcons(int playerIndex, string playerName, string playerAvatar)
     {
         animationProperties.playerNames[playerIndex].text = playerName;
+        animationProperties.playerImages[playerIndex].sprite = CardLoader.instance.avatarBank.GetSprite(playerAvatar);
     }
 
     public static string SanitizeString(string inputString)
@@ -593,7 +594,7 @@ public class GameManager : NetworkBehaviour
             }
             int nextPlayerIndex = NextPlayer(playerIndex);
             players[nextPlayerIndex].AssignDeck(player2Deck);
-            SetPlayerIcons(nextPlayerIndex, "Shadowboxer", "Shadow Army");
+            SetPlayerIcons(nextPlayerIndex, "Shadowboxer", null);
 
             turnPlayer = 0;
             if (player2starts)

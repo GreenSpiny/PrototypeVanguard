@@ -15,6 +15,7 @@ public class SaveDataManager : MonoBehaviour
     public const string lastViewedDecklistKey = "lastViewedDecklist";
     public const string lastProfileImageKey = "lastProfileImage";
     public const string lastProfileNameKey = "lastProfileName";
+    public const string lastAvatarKey = "lastAvatarName";
 
     private void Awake()
     {

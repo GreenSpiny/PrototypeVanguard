@@ -141,7 +141,10 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             GameManager.localPlayerName = "Player";
         }
-        GameManager.localAvatar = "unknown";
+        if (userAvatar.sprite != null)
+        {
+            GameManager.localAvatar = userAvatar.sprite.name;
+        }
         GameManager.localPlayerDecklist1 = player1DeckContainer.deckList;
         GameManager.localPlayerDecklist2 = player2DeckContainer.deckList;
         GameManager.player2starts = !goFirstToggle.isOn;
@@ -222,6 +225,14 @@ public class MultiplayerManagerV2 : MonoBehaviour
 
         gameVersionText.text = Application.version;
         cardsVersionText.text = CardLoader.instance.dataVersionObject.cardsFileVersion.ToString();
+
+        string lastAvatarName = PlayerPrefs.GetString(SaveDataManager.lastAvatarKey);
+        if (string.IsNullOrWhiteSpace(lastAvatarName))
+        {
+            lastAvatarName = AvatarBank.defaultAvatar;
+            PlayerPrefs.SetString(SaveDataManager.lastAvatarKey, lastAvatarName);
+        }
+        userAvatar.sprite = CardLoader.instance.avatarBank.GetSprite(lastAvatarName);
 
         sceneLoadCanvas.TransitionIn();
 
@@ -353,6 +364,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             ChangeMultiplayerState(MultiplayerState.blocked);
             AssignLocalPlayerData();
+            connectionStatusText.text = string.Empty;
 
             string lobbyName = GameManager.localPlayerName + "'s Lobby";
             int maxPlayers = 5;
@@ -453,6 +465,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             ChangeMultiplayerState(MultiplayerState.blocked);
             AssignLocalPlayerData();
+            connectionStatusText.text = string.Empty;
 
             try
             {
