@@ -33046,7 +33046,7 @@ MonoBehaviour:
   onQuit:
     m_PersistentCalls:
       m_Calls: []
-  unloadScene: MenuScene
+  unloadScene: MatchingScene
   fadeTransitionSpeed: 2
   colorTransitionSpeed: 10
   fadeOutColor: {r: 0.25882354, g: 0.2627451, b: 0.4509804, a: 1}

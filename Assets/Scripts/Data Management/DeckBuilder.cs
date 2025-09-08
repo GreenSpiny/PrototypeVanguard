@@ -21,8 +21,8 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] TMP_InputField deckInputField;
     [SerializeField] Button saveButton;
     [SerializeField] Button saveAsButton;
-    [SerializeField] Button deleteButton;
-    [SerializeField] Button resetButton;
+    [SerializeField] CanvasGroup pasteFeedbackGroup;
+    private TextMeshProUGUI pasteFeedbackText;
 
     [SerializeField] DB_CardReciever rideReceiver;
     [SerializeField] DB_CardReciever mainReceiver;
@@ -64,6 +64,8 @@ public class DeckBuilder : MonoBehaviour
             DestroyImmediate(gameObject);
             return;
         }
+        pasteFeedbackText = pasteFeedbackGroup.GetComponent<TextMeshProUGUI>();
+        pasteFeedbackGroup.alpha = 0f;
     }
 
     void Start()
@@ -83,6 +85,10 @@ public class DeckBuilder : MonoBehaviour
         if (initialLoadComplete)
         {
             sceneLoadCanvas.TransitionIn();
+        }
+        if (pasteFeedbackGroup.alpha > 0)
+        {
+            pasteFeedbackGroup.alpha = Mathf.Clamp(pasteFeedbackGroup.alpha - Time.deltaTime, 0f, 1f);
         }
     }
 
@@ -148,7 +154,7 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.value = targetDeckIndex;
             deckDropdown.RefreshShownValue();
             currentDeckList = SaveDataManager.LoadDeck(targetDeck);
-            LoadDeck(currentDeckList);
+            LoadDeck(currentDeckList, true);
         }
         else
         {
@@ -156,7 +162,7 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
             deckDropdown.value = 0;
             deckDropdown.RefreshShownValue();
-            LoadDeck(currentDeckList);
+            LoadDeck(currentDeckList, true);
         }
 
         // Inspect default card
@@ -170,9 +176,13 @@ public class DeckBuilder : MonoBehaviour
         RefreshInfo();
     }
 
-    private void LoadDeck(CardInfo.DeckList deckList)
+    private void LoadDeck(CardInfo.DeckList deckList, bool adjustSelection)
     {
-        PlayerPrefs.SetString(SaveDataManager.lastViewedDecklistKey, deckList.deckName);
+        if (adjustSelection)
+        {
+            PlayerPrefs.SetString(SaveDataManager.lastViewedDecklistKey, deckList.deckName);
+            deckInputField.text = deckList.deckName;
+        }
 
         nationAssignmentDropdown.value = 0;
         for (int i = 0; i < nationAssignmentDropdown.options.Count; i++)
@@ -220,10 +230,76 @@ public class DeckBuilder : MonoBehaviour
             toolboxReceiver.ReceiveCard(card);
         }
         toolboxReceiver.AlignCards(true);
-
-        deckInputField.text = deckList.deckName;
         currentDeckList = deckList;
 
+    }
+
+    public void CopyDeck()
+    {
+        currentDeckList = CreateDeck(currentDeckList.deckName);
+        string outputstring = currentDeckList.ToJSON();
+        outputstring += "\n\nRide Deck:";
+        foreach (int cardIndex in currentDeckList.rideDeck)
+        {
+            outputstring += "\n- " + CardLoader.GetCardInfo(cardIndex).name;
+        }
+        outputstring += "\n\nMain Deck:";
+        outputstring += StackCardsCopyUtility(currentDeckList.mainDeck);
+
+        if (currentDeckList.strideDeck.Length > 0)
+        {
+            outputstring += "\n\nStride Deck:";
+            outputstring += StackCardsCopyUtility(currentDeckList.strideDeck);
+        }
+
+        GUIUtility.systemCopyBuffer = outputstring;
+        pasteFeedbackText.text = "Copied deck to clipboard!";
+        pasteFeedbackGroup.alpha = 1f;
+    }
+
+    private string StackCardsCopyUtility(int[] cards)
+    {
+        string output = string.Empty;
+        int currentCard = int.MinValue;
+        int currentCount = 0;
+        foreach (int cardIndex in cards)
+        {
+            if (cardIndex != currentCard)
+            {
+                if (currentCard >= 0)
+                {
+                    output += "\n" + currentCount.ToString() + "x " + CardLoader.GetCardInfo(currentCard).name;
+                }
+                currentCount = 1;
+                currentCard = cardIndex;
+            }
+            else
+            {
+                currentCount++;
+            }
+        }
+        if (currentCount > 0)
+        {
+            output += "\n" + currentCount.ToString() + "x " + CardLoader.GetCardInfo(currentCard).name;
+        }
+        return output;
+    }
+
+    public void PasteDeck()
+    {
+        pasteFeedbackText.text = "Pasted deck from clipboard.";
+        pasteFeedbackGroup.alpha = 1f;
+        try
+        {
+            string input = GUIUtility.systemCopyBuffer;
+            string selection = input.Substring(input.IndexOf('{'), input.IndexOf('}') + 1);
+            CardInfo.DeckList newList = CardInfo.DeckList.FromJSON(selection);
+            LoadDeck(newList, false);
+        }
+        catch (Exception e)
+        {
+            pasteFeedbackText.text = "Unable to parse clipboard input.";
+        }
     }
 
     public void ResetFilters()
@@ -492,7 +568,7 @@ public class DeckBuilder : MonoBehaviour
                 deckDropdown.value = deckIndex;
                 deckDropdown.RefreshShownValue();
                 currentDeckList = SaveDataManager.LoadDeck(targetDeck);
-                LoadDeck(currentDeckList);
+                LoadDeck(currentDeckList, true);
             }
         }
     }
@@ -512,7 +588,7 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.value = currentValue;
             deckDropdown.RefreshShownValue();
             SaveDataManager.SaveDeck(currentDeckList);
-            LoadDeck(currentDeckList);
+            LoadDeck(currentDeckList, true);
         }
         else
         {
@@ -542,7 +618,7 @@ public class DeckBuilder : MonoBehaviour
     {
         CardInfo.DeckList blankList = new CardInfo.DeckList();
         blankList.deckName = currentDeckList.deckName;
-        LoadDeck(blankList);
+        LoadDeck(blankList, true);
     }
 
     public void OnDeckInputFieldChanged()
