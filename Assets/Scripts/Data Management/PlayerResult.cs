@@ -1,6 +1,10 @@
+using System.Collections.Generic;
+using TMPro;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
+using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class PlayerResult : MonoBehaviour
 {
@@ -10,27 +14,41 @@ public class PlayerResult : MonoBehaviour
     [SerializeField] Button kickButton;
     public string playerID { get; private set; }
     public int playerIndex { get; private set; }
-    public string playerName { get; private set; }
     public string avatarName {  get; private set; }
 
     private void Start()
     {
-        playButton.onClick.AddListener(() => MultiplayerManagerV2.instance.StartPlaying(playerID));
+        playButton.onClick.AddListener(() => MultiplayerManagerV2.instance.StartPlaying(playerID, playerNameText.text, avatarName));
         kickButton.onClick.AddListener(() => MultiplayerManagerV2.instance.KickPlayer(playerID));
     }
 
-    public void Initialize(string playerID, int playerIndex)
+    public void Initialize(LobbyPlayerJoined player)
     {
-        this.playerID = playerID;
-        this.playerIndex = playerIndex;
+        playerID = player.Player.Id;
+        playerIndex = player.PlayerIndex;
+        if (player.Player.Data != null)
+        {
+            if (player.Player.Data.ContainsKey("Name"))
+            {
+                playerNameText.text = player.Player.Data["Name"].Value;
+            }
+            if (player.Player.Data.ContainsKey("Avatar"))
+            {
+                avatarName = player.Player.Data["Avatar"].Value;
+            }
+        }
     }
 
-    public void SetData(string playerName, string avatarName)
+    public void UpdateData(Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>> data)
     {
-        this.playerName = playerName;
-        playerNameText.text = playerName;
-
-        this.avatarName = avatarName;
+        if (data.ContainsKey("Name"))
+        {
+            playerNameText.text = data["Name"].Value.Value;
+        }
+        if (data.ContainsKey("Avatar"))
+        {
+            avatarName = data["Avatar"].Value.Value;
+        }
     }
 
 }

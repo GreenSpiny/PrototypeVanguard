@@ -141,9 +141,13 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             GameManager.localPlayerName = "Player";
         }
+        GameManager.localAvatar = "unknown";
         GameManager.localPlayerDecklist1 = player1DeckContainer.deckList;
         GameManager.localPlayerDecklist2 = player2DeckContainer.deckList;
         GameManager.player2starts = !goFirstToggle.isOn;
+
+        GameManager.remotePlayerName = string.Empty;
+        GameManager.remoteAvatar = string.Empty;
     }
 
     public void OnPlayerNameChanged(string playerName)
@@ -220,6 +224,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         cardsVersionText.text = CardLoader.instance.dataVersionObject.cardsFileVersion.ToString();
 
         sceneLoadCanvas.TransitionIn();
+
         // Populate deck dropdown options
         player1DeckContainer.deckSelectDropdown.ClearOptions();
         player1DeckContainer.deckSelectDropdown.ClearOptions();
@@ -353,6 +358,25 @@ public class MultiplayerManagerV2 : MonoBehaviour
             int maxPlayers = 5;
             CreateLobbyOptions options = new CreateLobbyOptions();
             options.IsPrivate = false;
+            options.Player = new Unity.Services.Lobbies.Models.Player();
+            options.Player.Data = new Dictionary<string, PlayerDataObject>()
+            {
+                {
+                "Name", new PlayerDataObject(
+                    visibility: PlayerDataObject.VisibilityOptions.Public,
+                    value: GameManager.localPlayerName)
+                },
+                {
+                "Avatar", new PlayerDataObject(
+                    visibility: PlayerDataObject.VisibilityOptions.Public,
+                    value: "shadowboxer")
+                },
+                {
+                "Host", new PlayerDataObject(
+                    visibility: PlayerDataObject.VisibilityOptions.Public,
+                    value: "true")
+                }
+            };
             options.Data = new Dictionary<string, DataObject>()
             {
                 {
@@ -372,12 +396,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
                         visibility: DataObject.VisibilityOptions.Public,
                         value: "abcd", //roomCodeInputField.text,
                         index: DataObject.IndexOptions.S2)
-                },
-                {
-                    "Host", new DataObject(
-                        visibility: DataObject.VisibilityOptions.Public,
-                        value: AuthenticationService.Instance.PlayerId,
-                        index: DataObject.IndexOptions.S3)
                 }
             };
 
@@ -389,6 +407,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 callbacks.LobbyChanged += OnLobbyChanged;
                 callbacks.PlayerJoined += OnPlayerJoined;
                 callbacks.PlayerLeft += OnPlayerLeft;
+                callbacks.PlayerDataAdded += OnPlayerDataAdded;
                 callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
                 var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(hostedLobby.Id, callbacks);
 
@@ -407,7 +426,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
 
     public async void StopHostingAsync()
     {
-        ClearPlayers();
         if (hostedLobby != null)
         {
             string hostedLobbyId = hostedLobby.Id;
@@ -438,8 +456,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
 
             try
             {
-                /*
                 JoinLobbyByIdOptions options = new JoinLobbyByIdOptions();
+                options.Player = new Unity.Services.Lobbies.Models.Player();
                 options.Player.Data = new Dictionary<string, PlayerDataObject>()
                 {
                     {
@@ -450,14 +468,15 @@ public class MultiplayerManagerV2 : MonoBehaviour
                     {
                     "Avatar", new PlayerDataObject(
                         visibility: PlayerDataObject.VisibilityOptions.Public,
-                        value: "100")
+                        value: "shadowboxer")
                     }
                 };
-                */
-                Lobby targetLobby = await LobbyService.Instance.JoinLobbyByIdAsync(room.lobby.Id);
+
+                Lobby targetLobby = await LobbyService.Instance.JoinLobbyByIdAsync(room.lobby.Id, options);
                 var callbacks = new LobbyEventCallbacks();
                 callbacks.LobbyChanged += OnLobbyChanged;
                 callbacks.PlayerLeft += OnPlayerLeft;
+                callbacks.PlayerDataAdded += OnPlayerDataAdded;
                 callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
                 var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(targetLobby.Id, callbacks);
 
@@ -468,6 +487,11 @@ public class MultiplayerManagerV2 : MonoBehaviour
             {
                 connectionStatusText.text = e.Message;
                 ChangeMultiplayerState(MultiplayerState.none);
+            }
+            catch (AuthenticationException e)
+            {
+                connectionStatusText.text = e.Message;
+                // ChangeMultiplayerState(MultiplayerState.none);
             }
         }
     }
@@ -504,7 +528,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         StopLeechingAsync();
     }
 
-    public async void StartPlaying(string playerId)
+    public async void StartPlaying(string playerId, string remotePlayerName, string remotePlayerAvatar)
     {
         GameManager.singlePlayer = false;
         connectionStatusText.text = "Joining game!";
@@ -528,6 +552,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 };
 
                 await LobbyService.Instance.UpdateLobbyAsync(hostedLobby.Id, options);
+                GameManager.remotePlayerName = remotePlayerName;
+                GameManager.remoteAvatar = remotePlayerAvatar;
                 SceneManager.LoadScene("FightScene");
                 return;
             }
@@ -641,15 +667,31 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 changes.ApplyToLobby(leechedLobby);
                 if (string.IsNullOrEmpty(relayCode))
                 {
-                    if (multiplayerState == MultiplayerState.leeching && leechedLobby.Data.ContainsKey("MatchedPlayer") && leechedLobby.Data["MatchedPlayer"].Value == AuthenticationService.Instance.PlayerId)
+                    if (multiplayerState == MultiplayerState.leeching && leechedLobby.Data.ContainsKey("MatchedPlayer"))
                     {
-                        connectionStatusText.text = "Joining game!";
-                        ChangeMultiplayerState(MultiplayerState.blocked);
-                        SceneManager.LoadScene("FightScene");
+                        if (leechedLobby.Data["MatchedPlayer"].Value == AuthenticationService.Instance.PlayerId)
+                        {
+                            connectionStatusText.text = "Joining game!";
+                            ChangeMultiplayerState(MultiplayerState.blocked);
+                            SceneManager.LoadScene("FightScene");
+                        }
+                        else
+                        {
+                            StopLeechingAsync();
+                        }
                     }
                     if (leechedLobby.Data.ContainsKey("RelayCode") && !string.IsNullOrEmpty(leechedLobby.Data["RelayCode"].Value))
                     {
                         relayCode = leechedLobby.Data["RelayCode"].Value;
+                        GameManager.remotePlayerName = leechedLobby.Players.Count.ToString();
+                        foreach (var player in leechedLobby.Players)
+                        {
+                            if (player.Data.ContainsKey("Host") && player.Data.ContainsKey("Name"))
+                            {
+                                GameManager.remotePlayerName = player.Data["Name"].Value;
+                                GameManager.remoteAvatar = player.Data["Avatar"].Value;
+                            }
+                        }
                     }
                 }
             }
@@ -667,7 +709,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                     if (player.Player.Id != AuthenticationService.Instance.PlayerId)
                     {
                         PlayerResult result = Instantiate(playerResultPrefab, playerInstantiationArea.transform);
-                        result.Initialize(player.Player.Id, player.PlayerIndex);
+                        result.Initialize(player);
                         playerResults.Add(result);
                     }
                 }
@@ -685,6 +727,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             for (int i = playerResults.Count - 1; i >= 0; i--)
             {
+                connectionStatusText.text = left[left.Count - 1].ToString();
                 PlayerResult currentResult = playerResults[i];
                 if (left.Contains(currentResult.playerIndex))
                 {
@@ -695,22 +738,21 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
     }
 
-    /*
-    private void OnPlayerDataChanged(Dictionary<int, Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>>> dictionary)
+    private void OnPlayerDataAdded(Dictionary<int, Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>>> dictionary)
     {
-        connectionStatusText.text = "On change!";
-        foreach (int playerIndex in dictionary.Keys)
+        if (multiplayerState == MultiplayerState.hosting)
         {
-            Debug.Log(playerIndex);
-            var changeDict = dictionary[playerIndex];
-            if (changeDict.ContainsKey("RelayCode"))
+            foreach (PlayerResult result in playerResults)
             {
-                string relayCode = changeDict["RelayCode"].Value.Value;
-                onlineStatusText.text = relayCode;
+                if (dictionary.ContainsKey(result.playerIndex))
+                {
+                    Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>> innerDict = dictionary[result.playerIndex];
+                    result.UpdateData(innerDict);
+                }
             }
         }
+        
     }
-    */
 
     private void OnLobbyEventConnectionStateChanged(LobbyEventConnectionState state)
     {

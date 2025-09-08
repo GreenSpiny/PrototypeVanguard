@@ -12,7 +12,9 @@ public class CardDetailUI : MonoBehaviour
     [SerializeField] private Image cardImage;
     [SerializeField] private Image imageArea;
     [SerializeField] private TextMeshProUGUI cardNameText;
-    [SerializeField] private TextMeshProUGUI cardInfoText;
+    [SerializeField] private TextMeshProUGUI cardInfoText1;
+    [SerializeField] private TextMeshProUGUI cardInfoText2;
+    [SerializeField] private TextMeshProUGUI cardInfoText3;
     [SerializeField] private TextMeshProUGUI cardDescriptionText;
 
     [SerializeField] private GameObject actionLogLabel;
@@ -29,7 +31,6 @@ public class CardDetailUI : MonoBehaviour
     {
         imageContainerRect = imageContainer.GetComponent<RectTransform>();
         defaultName = cardNameText.text;
-        defaultInfo = cardInfoText.text;
     }
     public void InspectCard(CardInfo cardInfo)
     {
@@ -51,7 +52,7 @@ public class CardDetailUI : MonoBehaviour
 
             targetMaterial = CardLoader.GetCardImage(cardInfo.index);
             cardNameText.text = cardInfo.name;
-            cardInfoText.text = GenerateCardInfoString(cardInfo);
+            GenerateCardInfoStrings(cardInfo);
             cardDescriptionText.text = cardInfo.effect;
         }
         else
@@ -59,7 +60,9 @@ public class CardDetailUI : MonoBehaviour
             cardImage.rectTransform.anchoredPosition = new Vector2(cardImage.rectTransform.anchoredPosition.x, (Mathf.Abs(imageContainerRect.rect.height - targetHeight) - imageContainer.padding.w) / 2f);
             targetMaterial = CardLoader.GetDefaultCardBack();
             cardNameText.text = defaultName;
-            cardInfoText.text = defaultInfo;
+            cardInfoText1.text = "-";
+            cardInfoText2.text = "-";
+            cardInfoText3.text = "-";
             cardDescriptionText.text = string.Empty;
         }
 
@@ -68,42 +71,50 @@ public class CardDetailUI : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(cardDescriptionText.rectTransform);
     }
 
-    private string GenerateCardInfoString(CardInfo cardInfo)
+    private void GenerateCardInfoStrings(CardInfo cardInfo)
     {
-        string cardInfoString = string.Empty;
-        cardInfoString += "G" + cardInfo.grade.ToString() + " / ";
-        cardInfoString += cardInfo.basePower.ToString() + " / ";
-        cardInfoString += cardInfo.baseShield.ToString() + " / ";
-        cardInfoString += cardInfo.baseCrit.ToString() + "C";
-        cardInfoString += "\n" + cardInfo.unitType;
+        string cardInfoString1 = string.Empty;
+        cardInfoString1 += "G" + cardInfo.grade.ToString();
+        if (!cardInfo.isOrder)
+        {
+            cardInfoString1 += " / " + cardInfo.basePower.ToString();
+            cardInfoString1 += " / " + cardInfo.baseShield.ToString();
+            cardInfoString1 += " / " + cardInfo.baseCrit.ToString() + "C";
+        }
+        cardInfoText1.text = cardInfoString1;
+
+        string cardInfoString2 = string.Empty;
+        cardInfoString2 += cardInfo.unitType;
         if (cardInfo.skills != null && cardInfo.skills.Count() > 0)
         {
             foreach (string skill in cardInfo.skills)
             {
-                if (!string.IsNullOrEmpty(skill))
+                if (!string.IsNullOrWhiteSpace(skill))
                 {
-                    cardInfoString += " / " + skill;
+                    cardInfoString2 += " / " + skill;
                 }
             }
         }
-        cardInfoString += "\n";
+        cardInfoText2.text = cardInfoString2;
+
+        string cardInfoString3 = string.Empty;
         for (int i = 0; i < cardInfo.nation.Length; i++)
         {
             if (i != 0)
             {
-                cardInfoString += " | ";
+                cardInfoString3 += " | ";
             }
-            cardInfoString += cardInfo.nation[i];
+            cardInfoString3 += cardInfo.nation[i];
         }
         foreach (string race in cardInfo.race)
         {
-            cardInfoString += " / " + race;
+            cardInfoString3 += " / " + race;
         }
-        if (!string.IsNullOrEmpty(cardInfo.group))
+        if (!string.IsNullOrWhiteSpace(cardInfo.group))
         {
-            cardInfoString += " / " + cardInfo.group;
+            cardInfoString3 += " / " + cardInfo.group;
         }
-        return cardInfoString;
+        cardInfoText3.text = cardInfoString3;
     }
 
     public void DisableActionLog()

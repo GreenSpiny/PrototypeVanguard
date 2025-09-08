@@ -23,6 +23,9 @@ public class GameManager : NetworkBehaviour
     public static bool singlePlayer;                        // Flag for whether the game should be run in singleplayer mode or multiplayer mode.
     public static bool player2starts;
     public static string localPlayerName;
+    public static string remotePlayerName;
+    public static string localAvatar;
+    public static string remoteAvatar;
 
     [SerializeField] public NetworkManager networkManager;
     [SerializeField] public DragManager dragManager;
@@ -134,6 +137,7 @@ public class GameManager : NetworkBehaviour
         else if (MultiplayerManagerV2.hostedLobby != null)
         {
             StartHostingAsync(MultiplayerManagerV2.hostedLobby);
+            SetPlayerIcons(1, remotePlayerName, remoteAvatar);
         }
         else if (MultiplayerManagerV2.leechedLobby != null)
         {
@@ -217,6 +221,7 @@ public class GameManager : NetworkBehaviour
         {
             yield return null;
         }
+        SetPlayerIcons(0, remotePlayerName, remoteAvatar);
         StartLeechingAsync();
     }
 
@@ -297,6 +302,11 @@ public class GameManager : NetworkBehaviour
                     break;
             }
         }
+    }
+
+    public void SetPlayerIcons(int playerIndex, string playerName, string playerAvatar)
+    {
+        animationProperties.playerNames[playerIndex].text = playerName;
     }
 
     public static string SanitizeString(string inputString)
@@ -567,7 +577,6 @@ public class GameManager : NetworkBehaviour
         CardInfo.DeckList submittedDeck = new CardInfo.DeckList("default", nation, mainDeck, rideDeck, strideDeck, toolbox);
         submittedDeck.ShuffleMainDeck();
         players[playerIndex].AssignDeck(submittedDeck);
-        //animationProperties.playerNames[playerIndex].text = playerName;
 
         // Singleplayer
         if (singlePlayer)
@@ -584,13 +593,12 @@ public class GameManager : NetworkBehaviour
             }
             int nextPlayerIndex = NextPlayer(playerIndex);
             players[nextPlayerIndex].AssignDeck(player2Deck);
-            animationProperties.playerNames[nextPlayerIndex].text = "Shadowboxer";
+            SetPlayerIcons(nextPlayerIndex, "Shadowboxer", "Shadow Army");
 
             turnPlayer = 0;
             if (player2starts)
             {
                 turnPlayer = 1;
-                Debug.Log("not me!");
             }
 
             StartCoroutine(RequestGameStartDelayed());

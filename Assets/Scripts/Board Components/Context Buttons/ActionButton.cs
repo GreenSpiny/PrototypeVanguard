@@ -31,13 +31,9 @@ public class ActionButton : ContextButton
                 break;
             case CardInfo.ActionFlag.reveal:
                 if (selectedNode.Type == Node.NodeType.hand)
-                {
                     GameManager.instance.RequestRevealCardRpc(selectedCard.cardID, 1f);
-                }
                 else
-                {
                     GameManager.instance.RequestRevealCardRpc(selectedCard.cardID, float.MaxValue);
-                }
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.view:
@@ -59,7 +55,6 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.viewsoul:
-                // TODO: add start index paramater
                 DragManager.instance.OpenDisplay(activePlayer.playerIndex, selectedCard.node, 1, selectedCard.node.cards.Count - 1, false, true);
                 DragManager.instance.ClearSelections();
                 break;
