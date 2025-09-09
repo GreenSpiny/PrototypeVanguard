@@ -310,6 +310,32 @@ public class GameManager : NetworkBehaviour
         animationProperties.playerImages[playerIndex].sprite = CardLoader.instance.avatarBank.GetSprite(playerAvatar);
     }
 
+    public void ResetGame(int randomSeed)
+    {
+        turnCount = 0;
+        phase = Phase.mulligan;
+        DragManager.instance.ChangeDMstate(DragManager.DMstate.closed);
+        for (int i = 0; i < players.Length; i++)
+        {
+            Player targetPlayer = players[i];
+            foreach (Card c in targetPlayer.cards)
+            {
+                c.ReturnToOrigin();
+            }
+            foreach (Node node in targetPlayer.nodes)
+            {
+                node.AlignCards(true);
+            }
+            targetPlayer.deck.Shuffle(randomSeed, true);
+            for (int j = 0; j < 5; j++)
+            {
+                Node targetDeck = targetPlayer.deck;
+                targetPlayer.hand.RecieveCard(targetDeck.cards[targetDeck.cards.Count - j - 1], string.Empty);
+            }
+            targetPlayer.OnPhaseChanged();
+        }
+    }
+
     public static string SanitizeString(string inputString)
     {
         HashSet<char> badChars = new HashSet<char>() { '\n', '\r', '\t', '\\', '`', '{', '}' };

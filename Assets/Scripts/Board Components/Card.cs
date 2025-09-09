@@ -28,6 +28,7 @@ public class Card : MonoBehaviour
     [NonSerialized] public Vector3 targetEuler;             // The direction the card should face
 
     [NonSerialized] public Node node;
+    [NonSerialized] private Node originalNode;
     [NonSerialized] public bool isToolboxCard = false;
 
     public bool flip { get; private set; }
@@ -94,6 +95,7 @@ public class Card : MonoBehaviour
     {
         gameObject.SetActive(false);
         this.node = node;
+        originalNode = node;
         player = node.player;
         transform.SetParent(player.transform, true);
         transform.localRotation = Quaternion.identity;
@@ -164,6 +166,15 @@ public class Card : MonoBehaviour
         revealed = false;
         WasRevealed = false;
         node.SetDirty();
+    }
+
+    public void ReturnToOrigin()
+    {
+        if (node.Type != Node.NodeType.abyss && node != originalNode)
+        {
+            originalNode.RecieveCard(this, string.Empty);
+            SetOrientation(node.initialFlip, false);
+        }
     }
 
     private void Update()

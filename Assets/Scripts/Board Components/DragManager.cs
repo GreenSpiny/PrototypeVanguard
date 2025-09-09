@@ -257,6 +257,13 @@ public class DragManager : MonoBehaviour
                 DraggedCard = null;
                 break;
 
+            case DMstate.closed:
+                dmstate = DMstate.closed;
+                Debug.Log("DMstate -> closed");
+
+                DraggedCard = null;
+                break;
+
             default:
                 break;
         }
