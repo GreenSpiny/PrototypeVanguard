@@ -349,21 +349,21 @@ public class DragManager : MonoBehaviour
 
     public void OpenDisplay(int playerID, Node node, int startIndex, int cardAmount, bool revealCards, bool sortCards)
     {
+        Player targetPlayer = GameManager.instance.players[playerID];
+        if (targetPlayer.display.HasCard)
+        {
+            if (targetPlayer.display.LastNodeWasDeck)
+            {
+                GameManager.instance.RequestCloseDisplayRpc(playerID);
+            }
+            else
+            {
+                CloseDisplay(playerID);
+            }
+        }
         if (node.HasCard)
         {
-            Player targetPlayer = GameManager.instance.players[playerID];
-            if (targetPlayer.display.HasCard)
-            {
-                if (targetPlayer.display.LastNodeWasDeck)
-                {
-                    GameManager.instance.RequestCloseDisplayRpc(playerID);
-                }
-                else
-                {
-                    CloseDisplay(playerID);
-                }
-            }
-            GameManager.instance.players[playerID].display.OpenDisplay(node, startIndex, cardAmount, revealCards, sortCards);
+            targetPlayer.display.OpenDisplay(node, startIndex, cardAmount, revealCards, sortCards);
         }
     }
 

@@ -153,11 +153,12 @@ public class GameManager : NetworkBehaviour
             if (MultiplayerManagerV2.hostedLobby != null)
             {
                 await LobbyService.Instance.DeleteLobbyAsync(MultiplayerManagerV2.hostedLobby.Id);
+                MultiplayerManagerV2.hostedLobby = null;
             }
             else if (MultiplayerManagerV2.leechedLobby != null)
             {
                 await LobbyService.Instance.RemovePlayerAsync(MultiplayerManagerV2.leechedLobby.Id, AuthenticationService.Instance.PlayerId);
-                
+                MultiplayerManagerV2.leechedLobby = null;
             }
         }
         catch (AuthenticationException e)
@@ -242,6 +243,7 @@ public class GameManager : NetworkBehaviour
 
     private void AssignActionFlags(int playerIndex)
     {
+        players[playerIndex].playerActionFlags.Clear();
         foreach (Card card in players[playerIndex].cards)
         {
             foreach (CardInfo.ActionFlag flag in card.cardInfo.playerActionFlags)
@@ -258,7 +260,6 @@ public class GameManager : NetworkBehaviour
 
     public void ChangePhase(bool forward)
     {
-        // Change the phase
         Phase currentPhase = phase;
         if (forward)
         {
@@ -313,7 +314,6 @@ public class GameManager : NetworkBehaviour
     public void ResetGame(int randomSeed)
     {
         turnCount = 0;
-        phase = Phase.mulligan;
         DragManager.instance.ChangeDMstate(DragManager.DMstate.closed);
         for (int i = 0; i < players.Length; i++)
         {
@@ -327,18 +327,22 @@ public class GameManager : NetworkBehaviour
                 node.AlignCards(true);
             }
             targetPlayer.deck.Shuffle(randomSeed, true);
-            for (int j = 0; j < 5; j++)
-            {
-                Node targetDeck = targetPlayer.deck;
-                targetPlayer.hand.RecieveCard(targetDeck.cards[targetDeck.cards.Count - j - 1], string.Empty);
-            }
-            targetPlayer.OnPhaseChanged();
+            targetPlayer.IncrementEnergy(-10);
+        }
+        if (singlePlayer)
+        {
+            StartCoroutine(RequestGameStartDelayed());
+        }
+        else
+        {
+            phase = Phase.mulligan;
+            gameState = GameState.setup;
         }
     }
 
     public static string SanitizeString(string inputString)
     {
-        HashSet<char> badChars = new HashSet<char>() { '\n', '\r', '\t', '\\', '`', '{', '}' };
+        HashSet<char> badChars = new HashSet<char>() { '\n', '\r', '\t', '\\', '`', '{', '}', '<', '>' };
         StringBuilder builder = new StringBuilder(inputString.Length);
         foreach (char c in inputString)
         {
@@ -418,6 +422,12 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
+    public void RequestResetGameRpc(int randomSeed)
+    {
+        ResetGame(randomSeed);
+    }
+
+    [Rpc(SendTo.Everyone)]
     public void RequestStandAndDrawRpc(int newTurnPlayer)
     {
         bool turnChange = turnPlayer != newTurnPlayer;
@@ -431,9 +441,9 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
-            phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
+            phaseIndicator.phaseAnimator.Play("phase pulse " + turnPlayer.ToString(), 0, 0f);
         }
-        phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
+        phaseIndicator.overlayPhaseAnimator.Play("phase pulse " + turnPlayer.ToString(), 0, 0f);
 
         Player targetPlayer = players[turnPlayer];
         Player nextPlayer = players[NextPlayer(turnPlayer)];
@@ -480,7 +490,7 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     public void RequestChangePhaseRpc(int currentTurn, int phase)
     {
-        if (currentTurn >= turnCount)
+        if (turnCount <= currentTurn)
         {
             this.phase = (Phase)phase;
             phaseIndicator.phaseText.text = phaseNames[(int)this.phase] + " Phase";
@@ -488,8 +498,8 @@ public class GameManager : NetworkBehaviour
             {
                 player.OnPhaseChanged();
             }
-            phaseIndicator.phaseAnimator.Play("phase pulse", 0, 0f);
-            phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
+            phaseIndicator.phaseAnimator.Play("phase pulse " + turnPlayer.ToString(), 0, 0f);
+            phaseIndicator.overlayPhaseAnimator.Play("phase pulse " + turnPlayer.ToString(), 0, 0f);
         }
     }
 
@@ -573,8 +583,15 @@ public class GameManager : NetworkBehaviour
         AssignActionFlags(0);
         AssignActionFlags(1);
 
+        turnPlayer = 0;
+        if (player2starts)
+        {
+            turnPlayer = 1;
+        }
+
         gameState = GameState.gaming;
         phase = Phase.mulligan;
+        phaseIndicator.phaseText.text = phaseNames[(int)phase] + " Phase";
         DragManager.instance.ChangeDMstate(DragManager.DMstate.open);
         for (int i = 0; i < 2; i++)
         {
@@ -622,12 +639,6 @@ public class GameManager : NetworkBehaviour
             players[nextPlayerIndex].AssignDeck(player2Deck);
             SetPlayerIcons(nextPlayerIndex, "Shadowboxer", null);
 
-            turnPlayer = 0;
-            if (player2starts)
-            {
-                turnPlayer = 1;
-            }
-
             StartCoroutine(RequestGameStartDelayed());
         }
         // Multiplayer
@@ -656,7 +667,7 @@ public class GameManager : NetworkBehaviour
 
     private void Update()
     {
-        if (!singlePlayer && gameState == GameState.setup)
+        if (!singlePlayer && gameState == GameState.setup && networkManager.IsHost)
         {
             bool readyToStart = players[0].deckList != null && players[1].deckList != null;
             if (readyToStart)
@@ -666,9 +677,13 @@ public class GameManager : NetworkBehaviour
                 RequestDieRollEventRpc(dieRoll);
             }
         }
-        if (Input.GetKey(KeyCode.Escape) && !exiting)
+        if (Input.GetKeyDown(KeyCode.Escape) && !exiting)
         {
             LeaveGameAsync();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            RequestResetGameRpc(RandomUtility.RandInt());
         }
     }
 
