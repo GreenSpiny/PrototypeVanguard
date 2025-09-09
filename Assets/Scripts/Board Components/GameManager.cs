@@ -145,32 +145,35 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    private async void LeaveGameAsync()
+    public async void LeaveGameAsync()
     {
-        exiting = true;
-        try
+        if (!exiting)
         {
-            if (MultiplayerManagerV2.hostedLobby != null)
+            exiting = true;
+            try
             {
-                await LobbyService.Instance.DeleteLobbyAsync(MultiplayerManagerV2.hostedLobby.Id);
-                MultiplayerManagerV2.hostedLobby = null;
+                if (MultiplayerManagerV2.hostedLobby != null)
+                {
+                    await LobbyService.Instance.DeleteLobbyAsync(MultiplayerManagerV2.hostedLobby.Id);
+                    MultiplayerManagerV2.hostedLobby = null;
+                }
+                else if (MultiplayerManagerV2.leechedLobby != null)
+                {
+                    await LobbyService.Instance.RemovePlayerAsync(MultiplayerManagerV2.leechedLobby.Id, AuthenticationService.Instance.PlayerId);
+                    MultiplayerManagerV2.leechedLobby = null;
+                }
             }
-            else if (MultiplayerManagerV2.leechedLobby != null)
+            catch (AuthenticationException e)
             {
-                await LobbyService.Instance.RemovePlayerAsync(MultiplayerManagerV2.leechedLobby.Id, AuthenticationService.Instance.PlayerId);
-                MultiplayerManagerV2.leechedLobby = null;
+                debugString.text = e.Message;
             }
+            catch (LobbyServiceException e)
+            {
+                debugString.text = e.Message;
+            }
+            networkManager.Shutdown();
+            sceneLoadCanvas.TransitionOut();
         }
-        catch (AuthenticationException e)
-        {
-            debugString.text = e.Message;
-        }
-        catch (LobbyServiceException e)
-        {
-            debugString.text = e.Message;
-        }
-        networkManager.Shutdown();
-        sceneLoadCanvas.TransitionOut();
     }
 
     private async void StartHostingAsync(Lobby lobby)
@@ -311,7 +314,13 @@ public class GameManager : NetworkBehaviour
         animationProperties.playerImages[playerIndex].sprite = CardLoader.instance.avatarBank.GetSprite(playerAvatar);
     }
 
-    public void ResetGame(int randomSeed)
+    public void InitiateResetGame()
+    {
+        int random = RandomUtility.RandInt();
+        RequestResetGameRpc(random);
+    }
+
+    private void ResetGame(int randomSeed)
     {
         turnCount = 0;
         DragManager.instance.ChangeDMstate(DragManager.DMstate.closed);
@@ -422,13 +431,13 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestResetGameRpc(int randomSeed)
+    private void RequestResetGameRpc(int randomSeed)
     {
         ResetGame(randomSeed);
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestStandAndDrawRpc(int newTurnPlayer)
+    private void RequestStandAndDrawRpc(int newTurnPlayer)
     {
         bool turnChange = turnPlayer != newTurnPlayer;
         if (turnChange)
@@ -488,7 +497,7 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestChangePhaseRpc(int currentTurn, int phase)
+    private void RequestChangePhaseRpc(int currentTurn, int phase)
     {
         if (turnCount <= currentTurn)
         {
@@ -532,7 +541,7 @@ public class GameManager : NetworkBehaviour
     // === SETUP NETWORK REQUESTS === //
 
     [Rpc(SendTo.Everyone)]
-    public void RequestDieRollEventRpc(int result)
+    private void RequestDieRollEventRpc(int result)
     {
         dieRollWinner = result;
         animationProperties.UIAnimator.gameObject.SetActive(true);
@@ -659,7 +668,7 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.NotServer)]
-    public void BroadcastDeckListToClientRpc(int playerIndex, string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
+    private void BroadcastDeckListToClientRpc(int playerIndex, string deckName, string nation, int[] mainDeck, int[] rideDeck, int[] strideDeck, int[] toolbox)
     {
         if (players[playerIndex].deckList == null)
         {
@@ -680,13 +689,9 @@ public class GameManager : NetworkBehaviour
                 RequestDieRollEventRpc(dieRoll);
             }
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && !exiting)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             LeaveGameAsync();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            RequestResetGameRpc(RandomUtility.RandInt());
         }
     }
 

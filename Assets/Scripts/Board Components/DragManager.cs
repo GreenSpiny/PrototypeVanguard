@@ -190,7 +190,7 @@ public class DragManager : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(2) && dmstate == DMstate.open)
         {
-            OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, 0, controllingPlayer.toolbox.cards.Count, false, true);
+            ToggleToolbox();
         }
 
         if (dmstate == DMstate.dragging)
@@ -200,6 +200,18 @@ public class DragManager : MonoBehaviour
             {
                 dragNode.transform.position = dragHit.point;
             }
+        }
+    }
+
+    public void ToggleToolbox()
+    {
+        if (controllingPlayer.display.HasCard && controllingPlayer.display.PreviousNode == controllingPlayer.toolbox)
+        {
+            CloseDisplay(controllingPlayer.playerIndex);
+        }
+        else
+        {
+            OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, 0, controllingPlayer.toolbox.cards.Count, false, true);
         }
     }
 
@@ -350,7 +362,7 @@ public class DragManager : MonoBehaviour
     public void OpenDisplay(int playerID, Node node, int startIndex, int cardAmount, bool revealCards, bool sortCards)
     {
         Player targetPlayer = GameManager.instance.players[playerID];
-        if (targetPlayer.display.HasCard)
+        if (targetPlayer.display.HasCard && targetPlayer.display.PreviousNode != node)
         {
             if (targetPlayer.display.LastNodeWasDeck)
             {
