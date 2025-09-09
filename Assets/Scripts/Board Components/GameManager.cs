@@ -443,7 +443,7 @@ public class GameManager : NetworkBehaviour
         {
             phaseIndicator.phaseAnimator.Play("phase pulse " + turnPlayer.ToString(), 0, 0f);
         }
-        phaseIndicator.overlayPhaseAnimator.Play("phase pulse " + turnPlayer.ToString(), 0, 0f);
+        phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
 
         Player targetPlayer = players[turnPlayer];
         Player nextPlayer = players[NextPlayer(turnPlayer)];
@@ -499,7 +499,7 @@ public class GameManager : NetworkBehaviour
                 player.OnPhaseChanged();
             }
             phaseIndicator.phaseAnimator.Play("phase pulse " + turnPlayer.ToString(), 0, 0f);
-            phaseIndicator.overlayPhaseAnimator.Play("phase pulse " + turnPlayer.ToString(), 0, 0f);
+            phaseIndicator.overlayPhaseAnimator.Play("phase pulse", 0, 0f);
         }
     }
 
@@ -583,10 +583,13 @@ public class GameManager : NetworkBehaviour
         AssignActionFlags(0);
         AssignActionFlags(1);
 
-        turnPlayer = 0;
-        if (player2starts)
+        if (singlePlayer)
         {
-            turnPlayer = 1;
+            turnPlayer = 0;
+            if (player2starts)
+            {
+                turnPlayer = 1;
+            }
         }
 
         gameState = GameState.gaming;
