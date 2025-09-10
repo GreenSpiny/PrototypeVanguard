@@ -5,15 +5,18 @@ public class Node_Trigger : Node_Fan
 {
     public override NodeType Type => NodeType.trigger;
 
-    public override void CardAutoAction(Card clickedCard)
+    public override void CardAutoAction(Player player, Card clickedCard)
     {
-        if (GameManager.instance.turnPlayer == player.playerIndex)
+        if (GameManager.singlePlayer || this.player == player)
         {
-            GameManager.instance.RequestReceiveAllCardsRpc(nodeID, "hand", string.Empty);
-        }
-        else
-        {
-            GameManager.instance.RequestReceiveAllCardsRpc(nodeID, "damage", string.Empty);
+            if (GameManager.instance.turnPlayer == player.playerIndex)
+            {
+                GameManager.instance.RequestReceiveAllCardsRpc(nodeID, "hand", string.Empty);
+            }
+            else
+            {
+                GameManager.instance.RequestReceiveAllCardsRpc(nodeID, "damage", string.Empty);
+            }
         }
     }
 

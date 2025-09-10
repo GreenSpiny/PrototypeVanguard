@@ -5,7 +5,7 @@ public class Node_Drop : Node_Stack
 {
     public override NodeType Type => NodeType.drop;
 
-    public override void CardAutoAction(Card clickedCard)
+    public override void CardAutoAction(Player player, Card clickedCard)
     {
         DragManager.instance.OpenDisplay(DragManager.instance.controllingPlayer.playerIndex, this, 0, cards.Count, false, true);
     }

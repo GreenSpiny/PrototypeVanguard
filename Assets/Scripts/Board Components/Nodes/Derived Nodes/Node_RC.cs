@@ -7,15 +7,22 @@ public class Node_RC : Node_Stack
     public override NodeType Type => NodeType.RC;
     [SerializeField] public bool isBackRC;
 
-    public override void CardAutoAction(Card clickedCard)
+    public override void CardAutoAction(Player player, Card clickedCard)
     {
-        if (clickedCard.flip)
+        if (GameManager.singlePlayer || this.player == player)
         {
-            GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, false, clickedCard.rest);
+            if (clickedCard.flip)
+            {
+                GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, false, clickedCard.rest);
+            }
+            else
+            {
+                GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, clickedCard.flip, !clickedCard.rest);
+            }
         }
-        else
+        else if (cards.Count > 1)
         {
-            GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, clickedCard.flip, !clickedCard.rest);
+            DragManager.instance.OpenDisplay(player.playerIndex, clickedCard.node, 1, clickedCard.node.cards.Count - 1, false, true);
         }
     }
 

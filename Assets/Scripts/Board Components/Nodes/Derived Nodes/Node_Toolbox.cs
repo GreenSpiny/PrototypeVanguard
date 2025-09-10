@@ -5,9 +5,9 @@ public class Node_Toolbox : Node_Stack
 {
     public override NodeType Type => NodeType.toolbox;
 
-    public override void CardAutoAction(Card clickedCard)
+    public override void CardAutoAction(Player player, Card clickedCard)
     {
-        base.CardAutoAction(clickedCard);
+        base.CardAutoAction(player, clickedCard);
     }
 
     public override void NodeAutoAction()

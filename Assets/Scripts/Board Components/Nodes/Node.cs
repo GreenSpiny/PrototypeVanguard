@@ -196,7 +196,7 @@ public abstract class Node : MonoBehaviour
         }
     }
 
-    public virtual void CardAutoAction(Card clickedCard) { }
+    public virtual void CardAutoAction(Player player, Card clickedCard) { }
     public virtual void NodeAutoAction() { }
     public abstract List<CardInfo.ActionFlag> GenerateDefaultCardActions();
 

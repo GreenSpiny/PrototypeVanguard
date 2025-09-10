@@ -5,9 +5,12 @@ public class Node_Order : Node_Fan
 {
     public override NodeType Type => NodeType.order;
 
-    public override void CardAutoAction(Card clickedCard)
+    public override void CardAutoAction(Player player, Card clickedCard)
     {
-        GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, clickedCard.flip, !clickedCard.rest);
+        if (GameManager.singlePlayer || this.player == player)
+        {
+            GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, clickedCard.flip, !clickedCard.rest);
+        }
     }
 
     public override void NodeAutoAction()

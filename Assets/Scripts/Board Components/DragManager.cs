@@ -163,7 +163,7 @@ public class DragManager : MonoBehaviour
 
         if (doubleClick && dmstate == DMstate.open && HoveredCard != null)
         {
-            HoveredCard.node.CardAutoAction(HoveredCard);
+            HoveredCard.node.CardAutoAction(controllingPlayer, HoveredCard);
             clickTime = 0f;
             lastClickTime = float.MinValue;
         }

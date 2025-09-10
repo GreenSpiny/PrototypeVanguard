@@ -5,9 +5,12 @@ public class Node_Deck : Node_Stack
 {
     public override NodeType Type => NodeType.deck;
 
-    public override void CardAutoAction(Card clickedCard)
+    public override void CardAutoAction(Player player, Card clickedCard)
     {
-        GameManager.instance.RequestReceiveCardRpc(player.hand.nodeID, clickedCard.cardID, string.Empty);
+        if (GameManager.singlePlayer || this.player == player)
+        {
+            GameManager.instance.RequestReceiveCardRpc(player.hand.nodeID, clickedCard.cardID, string.Empty);
+        }
     }
 
     public override void NodeAutoAction()

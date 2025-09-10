@@ -5,7 +5,7 @@ public class Node_GC : Node_Fan
 {
     public override NodeType Type => NodeType.GC;
 
-    public override void CardAutoAction(Card clickedCard)
+    public override void CardAutoAction(Player player, Card clickedCard)
     {
         GameManager.instance.RequestReceiveAllCardsRpc(nodeID, "drop", string.Empty);
     }

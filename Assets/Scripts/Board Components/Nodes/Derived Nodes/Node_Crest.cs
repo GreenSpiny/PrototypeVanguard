@@ -5,9 +5,9 @@ public class Node_Crest : Node_Stack
 {
     public override NodeType Type => NodeType.crest;
 
-    public override void CardAutoAction(Card clickedCard)
+    public override void CardAutoAction(Player player, Card clickedCard)
     {
-        base.CardAutoAction(clickedCard);
+        base.CardAutoAction(player, clickedCard);
     }
 
     public override void NodeAutoAction()
