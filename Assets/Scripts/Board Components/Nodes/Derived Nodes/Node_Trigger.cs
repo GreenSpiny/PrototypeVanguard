@@ -9,11 +9,11 @@ public class Node_Trigger : Node_Fan
     {
         if (GameManager.instance.turnPlayer == player.playerIndex)
         {
-            GameManager.instance.RequestRecieveCardRpc(clickedCard.player.hand.nodeID, clickedCard.cardID, string.Empty);
+            GameManager.instance.RequestReceiveAllCardsRpc(nodeID, "hand", string.Empty);
         }
         else
         {
-            GameManager.instance.RequestRecieveCardRpc(clickedCard.player.damage.nodeID, clickedCard.cardID, string.Empty);
+            GameManager.instance.RequestReceiveAllCardsRpc(nodeID, "damage", string.Empty);
         }
     }
 

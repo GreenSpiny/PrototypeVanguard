@@ -19,7 +19,7 @@ public class Node_RC : Node_Stack
         }
     }
 
-    public override void RecieveCard(Card card, string parameters)
+    public override void ReceiveCard(Card card, string parameters)
     {
         bool drag = parameters.Contains("drag");
         bool toSoulRC = parameters.Contains("bottom");
@@ -28,7 +28,7 @@ public class Node_RC : Node_Stack
 
         if (toSoulRC)
         {
-            base.RecieveCard(card, parameters);
+            base.ReceiveCard(card, parameters);
         }
         else if (isFromRC && drag)
         {
@@ -55,20 +55,23 @@ public class Node_RC : Node_Stack
             // Initiate the swap
             foreach (Card c in originalCards)
             {
-                targetNode.RecieveCard(c, "noRetire");
+                targetNode.ReceiveCard(c, "noRetire");
             }
             foreach (Card c in newCards)
             {
-                RecieveCard(c, "noRetire");
+                ReceiveCard(c, "noRetire");
             }
         }
         else
         {
             if (!noRetire)
             {
-                RetireCards();
+                for (int i = cards.Count - 1; i >= 0; i--)
+                {
+                    cards[i].player.drop.ReceiveCard(cards[i], string.Empty);
+                }
             }
-            base.RecieveCard(card, parameters);
+            base.ReceiveCard(card, parameters);
         }
     }
 

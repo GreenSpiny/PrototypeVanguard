@@ -17,9 +17,9 @@ public class Node_VC : Node_Stack
         }
     }
 
-    public override void RecieveCard(Card card, string parameters)
+    public override void ReceiveCard(Card card, string parameters)
     {
-        base.RecieveCard(card, parameters);
+        base.ReceiveCard(card, parameters);
     }
 
     public override void NodeAutoAction()

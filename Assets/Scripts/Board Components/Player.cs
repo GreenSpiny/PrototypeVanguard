@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    abyss.RecieveCard(deck.cards[i], string.Empty);
+                    abyss.ReceiveCard(deck.cards[i], string.Empty);
                 }
             }
 
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    abyss.RecieveCard(ride.cards[i], string.Empty);
+                    abyss.ReceiveCard(ride.cards[i], string.Empty);
                 }
             }
             ride.cards.Reverse();
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    abyss.RecieveCard(gzone.cards[i], string.Empty);
+                    abyss.ReceiveCard(gzone.cards[i], string.Empty);
                 }
             }
             gzone.AlignCards(true);
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    abyss.RecieveCard(toolbox.cards[i], string.Empty);
+                    abyss.ReceiveCard(toolbox.cards[i], string.Empty);
                 }
             }
             toolbox.AlignCards(true);

@@ -10,11 +10,11 @@ public class Node_Display : Node
     private string lastAcceptedParams = string.Empty;
 
     public bool LastNodeWasDeck { get { return lastAcceptedNode != null && lastAcceptedNode.Type == NodeType.deck; } }
-    public override void RecieveCard(Card card, string parameters)
+    public override void ReceiveCard(Card card, string parameters)
     {
         cards.Add(card);
         lastAcceptedParams = parameters;
-        base.RecieveCard(card, parameters);
+        base.ReceiveCard(card, parameters);
     }
 
     public override void AlignCards(bool instant)
@@ -84,7 +84,7 @@ public class Node_Display : Node
         for (int i = initialCount - startIndex - 1; i >= initialCount - startIndex - cardCount; i--)
         {
             Card c = node.cards[node.cards.Count - startIndex - 1];
-            RecieveCard(c, string.Empty);
+            ReceiveCard(c, string.Empty);
         }
         if (sortCards)
         {
@@ -116,7 +116,7 @@ public class Node_Display : Node
             {
                 lastAcceptedNode.transform.localPosition = Vector3.zero;
             }
-            lastAcceptedNode.RecieveCard(cards[i], paramaters);
+            lastAcceptedNode.ReceiveCard(cards[i], paramaters);
         }
     }
 }

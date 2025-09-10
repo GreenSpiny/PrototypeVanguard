@@ -5,7 +5,7 @@ using UnityEngine;
 public class Node_Stack : Node
 {
     [SerializeField] protected bool compressCards;
-    public override void RecieveCard(Card card, string parameters)
+    public override void ReceiveCard(Card card, string parameters)
     {
         bool toBottom = parameters.Contains(par_bottom);
         bool facedown = parameters.Contains(par_facedown);
@@ -19,7 +19,7 @@ public class Node_Stack : Node
             cards.Add(card);
         }
         
-        base.RecieveCard(card, parameters);
+        base.ReceiveCard(card, parameters);
 
         if (cards.Contains(card))
         {

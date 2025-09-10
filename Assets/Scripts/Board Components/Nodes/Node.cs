@@ -88,7 +88,7 @@ public abstract class Node : MonoBehaviour
         }
     }
 
-    public virtual void RecieveCard(Card card, string parameters)
+    public virtual void ReceiveCard(Card card, string parameters)
     {
 
         // Redirect incompatible cards
@@ -98,7 +98,7 @@ public abstract class Node : MonoBehaviour
             {
                 cards.Remove(card);
             }
-            card.player.toolbox.RecieveCard(card, string.Empty);
+            card.player.toolbox.ReceiveCard(card, string.Empty);
             card.player.toolbox.transform.position = transform.position;
             SetDirty();
             return;
@@ -132,17 +132,6 @@ public abstract class Node : MonoBehaviour
         card.SetOrientation(shouldFlip, shouldRest);
         ResetRevealed();
         SetDirty();
-    }
-
-    public virtual void RetireCards()
-    {
-        if (Type != NodeType.drop)
-        {
-            for (int i = cards.Count - 1; i >= 0; i--)
-            {
-                cards[i].player.drop.RecieveCard(cards[i], string.Empty);
-            }
-        }
     }
 
     private void RemoveCard(Card card)

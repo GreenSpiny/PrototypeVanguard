@@ -7,7 +7,7 @@ public class Node_Deck : Node_Stack
 
     public override void CardAutoAction(Card clickedCard)
     {
-        GameManager.instance.RequestRecieveCardRpc(clickedCard.player.hand.nodeID, clickedCard.cardID, string.Empty);
+        GameManager.instance.RequestReceiveCardRpc(player.hand.nodeID, clickedCard.cardID, string.Empty);
     }
 
     public override void NodeAutoAction()

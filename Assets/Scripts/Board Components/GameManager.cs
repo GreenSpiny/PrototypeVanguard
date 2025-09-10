@@ -11,6 +11,7 @@ using Unity.Services.Lobbies.Models;
 using Unity.Services.Matchmaker.Models;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -383,18 +384,32 @@ public class GameManager : NetworkBehaviour
     // === CARD NETWORK REQUESTS === //
 
     [Rpc(SendTo.Everyone)]
-    public void RequestRecieveCardRpc(int nodeID, int cardID, string parameters)
+    public void RequestReceiveCardRpc(int nodeID, int cardID, string parameters)
     {
         Node targetNode = allNodes[nodeID];
         Card targetCard = allCards[cardID];
-        targetNode.RecieveCard(targetCard, parameters);
+        targetNode.ReceiveCard(targetCard, parameters);
     }
 
     [Rpc(SendTo.Everyone)]
-    public void RequestRetireCardsRpc(int nodeID, string parameters)
+    public void RequestReceiveAllCardsRpc(int sourceNodeID, string destinationString, string parameters)
     {
-        Node targetNode = allNodes[nodeID];
-        targetNode.RetireCards();
+        Node sourceNode = allNodes[sourceNodeID];
+        switch (destinationString)
+        {
+            case "drop":
+                for (int i = sourceNode.cards.Count - 1; i >= 0; i--)
+                    sourceNode.cards[i].player.drop.ReceiveCard(sourceNode.cards[i], parameters);
+                break;
+            case "hand":
+                for (int i = sourceNode.cards.Count - 1; i >= 0; i--)
+                    sourceNode.cards[i].player.hand.ReceiveCard(sourceNode.cards[i], parameters);
+                break;
+            case "damage":
+                for (int i = sourceNode.cards.Count - 1; i >= 0; i--)
+                    sourceNode.cards[i].player.damage.ReceiveCard(sourceNode.cards[i], parameters);
+                break;
+        }
     }
 
     [Rpc(SendTo.Everyone)]
@@ -463,7 +478,7 @@ public class GameManager : NetworkBehaviour
             Node targetDeck = targetPlayer.deck;
             if (targetDeck.HasCard)
             {
-                targetPlayer.hand.RecieveCard(targetDeck.cards[targetDeck.cards.Count - 1], string.Empty);
+                targetPlayer.hand.ReceiveCard(targetDeck.cards[targetDeck.cards.Count - 1], string.Empty);
             }
             drewForTurn = true;
             Node targetVC = targetPlayer.VC;
@@ -625,7 +640,7 @@ public class GameManager : NetworkBehaviour
             for (int j = 1; j <= 5; j++)
             {
                 Node targetDeck = players[i].deck;
-                players[i].hand.RecieveCard(targetDeck.cards[targetDeck.cards.Count - j], string.Empty);
+                players[i].hand.ReceiveCard(targetDeck.cards[targetDeck.cards.Count - j], string.Empty);
             }
         }
         animationProperties.UIAnimator.Close();

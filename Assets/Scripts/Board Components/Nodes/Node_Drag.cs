@@ -4,11 +4,11 @@ using UnityEngine;
 public class Node_Drag : Node
 {
     public override NodeType Type => NodeType.drag;
-    public override void RecieveCard(Card card, string parameters)
+    public override void ReceiveCard(Card card, string parameters)
     {
         cardRotation = card.node.cardRotation;
         cards.Add(card);
-        base.RecieveCard(card, parameters);
+        base.ReceiveCard(card, parameters);
     }
 
     public override void AlignCards(bool instant)

@@ -7,7 +7,7 @@ public class Node_GZone : Node_Stack
 
     public override void CardAutoAction(Card clickedCard)
     {
-        DragManager.instance.OpenDisplay(player.playerIndex, this, 0, cards.Count, false, true);
+        DragManager.instance.OpenDisplay(DragManager.instance.controllingPlayer.playerIndex, this, 0, cards.Count, false, true);
     }
 
     public override void NodeAutoAction()

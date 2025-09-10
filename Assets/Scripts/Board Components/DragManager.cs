@@ -225,11 +225,11 @@ public class DragManager : MonoBehaviour
                 if (DraggedCard != null && (HoveredNode == null || !HoveredNode.canDragTo || HoveredNode == dragNode.PreviousNode || (DraggedCard.player != HoveredNode.player && HoveredNode.Type != Node.NodeType.GC)))
                 {
                     // DragNode is intentionally not synced across clients
-                    dragNode.PreviousNode.RecieveCard(DraggedCard, "cancel");
+                    dragNode.PreviousNode.ReceiveCard(DraggedCard, "cancel");
                 }
                 else if (DraggedCard != null && HoveredNode != null)
                 {
-                    GameManager.instance.RequestRecieveCardRpc(HoveredNode.nodeID, DraggedCard.cardID, "drag");
+                    GameManager.instance.RequestReceiveCardRpc(HoveredNode.nodeID, DraggedCard.cardID, "drag");
                 }
 
                 foreach (Node node in GameManager.instance.allNodes.Values)
@@ -248,7 +248,7 @@ public class DragManager : MonoBehaviour
                 DraggedCard.UIState = Card.CardUIState.normal;
 
                 // DragNode is intentionally not synced across clients
-                dragNode.RecieveCard(DraggedCard, string.Empty);
+                dragNode.ReceiveCard(DraggedCard, string.Empty);
 
                 foreach (Node node in GameManager.instance.allNodes.Values)
                 {

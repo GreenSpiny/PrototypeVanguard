@@ -22,11 +22,11 @@ public class ActionButton : ContextButton
                 DragManager.instance.powerContext.DisplayButtons(Input.mousePosition, null);
                 break;
             case CardInfo.ActionFlag.soul:
-                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.VC.nodeID, selectedCard.cardID, Node.par_bottom);
+                GameManager.instance.RequestReceiveCardRpc(selectedCard.player.VC.nodeID, selectedCard.cardID, Node.par_bottom);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.botdeck:
-                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.deck.nodeID, selectedCard.cardID, Node.par_bottom);
+                GameManager.instance.RequestReceiveCardRpc(selectedCard.player.deck.nodeID, selectedCard.cardID, Node.par_bottom);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.reveal:
@@ -65,7 +65,7 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.bindFD:
-                GameManager.instance.RequestRecieveCardRpc(selectedCard.player.bind.nodeID, selectedCard.cardID, Node.par_facedown);
+                GameManager.instance.RequestReceiveCardRpc(selectedCard.player.bind.nodeID, selectedCard.cardID, Node.par_facedown);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.locking:

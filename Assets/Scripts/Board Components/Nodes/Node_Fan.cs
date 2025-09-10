@@ -16,10 +16,10 @@ public class Node_Fan : Node
     [SerializeField] protected float defaultSpacing;
     [SerializeField] protected bool lookAtCamera;
 
-    public override void RecieveCard(Card card, string parameters)
+    public override void ReceiveCard(Card card, string parameters)
     {
         cards.Add(card);
-        base.RecieveCard(card, parameters);
+        base.ReceiveCard(card, parameters);
     }
 
     public override void AlignCards(bool instant)

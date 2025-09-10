@@ -172,7 +172,7 @@ public class Card : MonoBehaviour
     {
         if (node.Type != Node.NodeType.abyss && node != originalNode)
         {
-            originalNode.RecieveCard(this, string.Empty);
+            originalNode.ReceiveCard(this, string.Empty);
             SetOrientation(node.initialFlip, false);
         }
     }
@@ -220,9 +220,13 @@ public class Card : MonoBehaviour
         }
 
         // Face cards away from players who should not see them
-        else if (!GameManager.singlePlayer && !revealed && node.privateKnowledge && player != DragManager.instance.controllingPlayer)
+        bool canViewCardByDefault = GameManager.singlePlayer || revealed || player == DragManager.instance.controllingPlayer;
+        if (!canViewCardByDefault && node.privateKnowledge)
         {
-            targetEuler.z += 180f;
+            if (!flip)
+            {
+                targetEuler.z += 180f;
+            }
         }
     }
 
