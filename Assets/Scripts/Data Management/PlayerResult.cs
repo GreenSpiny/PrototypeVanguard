@@ -35,6 +35,7 @@ public class PlayerResult : MonoBehaviour
             if (player.Player.Data.ContainsKey("Avatar"))
             {
                 avatarName = player.Player.Data["Avatar"].Value;
+                icon.sprite = CardLoader.instance.avatarBank.GetSprite(avatarName);
             }
         }
     }
@@ -48,6 +49,7 @@ public class PlayerResult : MonoBehaviour
         if (data.ContainsKey("Avatar"))
         {
             avatarName = data["Avatar"].Value.Value;
+            icon.sprite = CardLoader.instance.avatarBank.GetSprite(avatarName);
         }
     }
 

@@ -146,7 +146,7 @@ public class DeckBuilder : MonoBehaviour
         if (deckDropdown.options.Count > 0)
         {
             int targetDeckIndex = 0;
-            string lastViewedDecklist = PlayerPrefs.GetString(SaveDataManager.lastViewedDecklistKey);
+            string lastViewedDecklist = PlayerPrefs.GetString(SaveDataManager.player1DecklistKey);
             if (!string.IsNullOrWhiteSpace(lastViewedDecklist))
             {
                 for (int i = 0; i < deckDropdown.options.Count; i++)
@@ -188,7 +188,7 @@ public class DeckBuilder : MonoBehaviour
     {
         if (adjustSelection)
         {
-            PlayerPrefs.SetString(SaveDataManager.lastViewedDecklistKey, deckList.deckName);
+            PlayerPrefs.SetString(SaveDataManager.player1DecklistKey, deckList.deckName);
             deckInputField.text = deckList.deckName;
         }
 

@@ -8,6 +8,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static CardInfo;
 
 public class MultiplayerManagerV2 : MonoBehaviour
 {
@@ -147,6 +148,16 @@ public class MultiplayerManagerV2 : MonoBehaviour
         {
             GameManager.localAvatar = userAvatar.sprite.name;
         }
+
+        if (player1DeckContainer.deckList != null)
+        {
+            PlayerPrefs.SetString(SaveDataManager.player1DecklistKey, player1DeckContainer.deckList.deckName);
+        }
+        if (player2DeckContainer.deckList != null)
+        {
+            PlayerPrefs.SetString(SaveDataManager.player2DecklistKey, player2DeckContainer.deckList.deckName);
+        }
+
         GameManager.localPlayerDecklist1 = player1DeckContainer.deckList;
         GameManager.localPlayerDecklist2 = player2DeckContainer.deckList;
         GameManager.player2starts = !goFirstToggle.isOn;
@@ -254,26 +265,41 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
         if (player1DeckContainer.deckSelectDropdown.options.Count > 0)
         {
-            int targetDeckIndex = 0;
-            string lastViewedDecklist = PlayerPrefs.GetString(SaveDataManager.lastViewedDecklistKey);
-            if (!string.IsNullOrEmpty(lastViewedDecklist))
+            int targetPlayer1DeckIndex = 0;
+            string previousPlayer1Decklist = PlayerPrefs.GetString(SaveDataManager.player1DecklistKey);
+            if (!string.IsNullOrEmpty(previousPlayer1Decklist))
             {
                 for (int i = 0; i < player1DeckContainer.deckSelectDropdown.options.Count; i++)
                 {
-                    if (player1DeckContainer.deckSelectDropdown.options[i].text == lastViewedDecklist)
+                    if (player1DeckContainer.deckSelectDropdown.options[i].text == previousPlayer1Decklist)
                     {
-                        targetDeckIndex = i;
+                        targetPlayer1DeckIndex = i;
                         break;
                     }
                 }
             }
-            string targetDeck = player1DeckContainer.deckSelectDropdown.options[targetDeckIndex].text;
-            player1DeckContainer.deckSelectDropdown.value = targetDeckIndex;
-            player2DeckContainer.deckSelectDropdown.value = targetDeckIndex;
+            string targetPlayer1Deck = player1DeckContainer.deckSelectDropdown.options[targetPlayer1DeckIndex].text;
+            player1DeckContainer.deckSelectDropdown.value = targetPlayer1DeckIndex;
             player1DeckContainer.deckSelectDropdown.RefreshShownValue();
+            player1DeckContainer.deckList = SaveDataManager.LoadDeck(targetPlayer1Deck);
+
+            int targetPlayer2DeckIndex = 0;
+            string previousPlayer2Decklist = PlayerPrefs.GetString(SaveDataManager.player2DecklistKey);
+            if (!string.IsNullOrEmpty(previousPlayer2Decklist))
+            {
+                for (int i = 0; i < player2DeckContainer.deckSelectDropdown.options.Count; i++)
+                {
+                    if (player2DeckContainer.deckSelectDropdown.options[i].text == previousPlayer2Decklist)
+                    {
+                        targetPlayer2DeckIndex = i;
+                        break;
+                    }
+                }
+            }
+            string targetPlayer2Deck = player2DeckContainer.deckSelectDropdown.options[targetPlayer2DeckIndex].text;
+            player2DeckContainer.deckSelectDropdown.value = targetPlayer2DeckIndex;
             player2DeckContainer.deckSelectDropdown.RefreshShownValue();
-            player1DeckContainer.deckList = SaveDataManager.LoadDeck(targetDeck);
-            player2DeckContainer.deckList = SaveDataManager.LoadDeck(targetDeck);
+            player2DeckContainer.deckList = SaveDataManager.LoadDeck(targetPlayer2Deck);
         }
 
         // Complete initialization

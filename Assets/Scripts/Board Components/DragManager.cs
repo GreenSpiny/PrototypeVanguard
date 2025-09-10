@@ -167,7 +167,7 @@ public class DragManager : MonoBehaviour
             clickTime = 0f;
             lastClickTime = float.MinValue;
         }
-        else if (Input.GetMouseButton(0) && dmstate == DMstate.open && HoveredCard != null && dragDistanceMet)
+        else if (Input.GetMouseButton(0) && dmstate == DMstate.open && HoveredCard != null && dragDistanceMet && HoveredCard.player == controllingPlayer)
         {
             ChangeDMstate(DMstate.dragging);
         }
@@ -283,18 +283,33 @@ public class DragManager : MonoBehaviour
 
     private List<CardInfo.ActionFlag> GetAvailableActions(Node node, Card card)
     {
+        // Only basic "view" functions are allowed for opponents' cards / nodes
         List<CardInfo.ActionFlag> actions = new List<CardInfo.ActionFlag>();
-        foreach (CardInfo.ActionFlag flag in node.GenerateDefaultCardActions())
+
+        if (GameManager.singlePlayer || node.player == null || node.player == controllingPlayer)
         {
-            actions.Add(flag);
+            foreach (CardInfo.ActionFlag flag in node.GenerateDefaultCardActions())
+            {
+                actions.Add(flag);
+            }
+            foreach (CardInfo.ActionFlag flag in node.player.playerActionFlags)
+            {
+                actions.Add(flag);
+            }
+            foreach (CardInfo.ActionFlag flag in card.cardInfo.cardActionFlags)
+            {
+                actions.Add(flag);
+            }
         }
-        foreach (CardInfo.ActionFlag flag in node.player.playerActionFlags)
+        else
         {
-            actions.Add(flag);
-        }
-        foreach (CardInfo.ActionFlag flag in card.cardInfo.cardActionFlags)
-        {
-            actions.Add(flag);
+            foreach (CardInfo.ActionFlag flag in node.GenerateDefaultCardActions())
+            {
+                if (flag == CardInfo.ActionFlag.view || flag == CardInfo.ActionFlag.viewsoul)
+                {
+                    actions.Add(flag);
+                }
+            }
         }
         return actions;
     }

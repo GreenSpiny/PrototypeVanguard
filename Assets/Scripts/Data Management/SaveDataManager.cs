@@ -12,7 +12,8 @@ public class SaveDataManager : MonoBehaviour
     private static string CardsJSONFilePath { get { return Path.GetFullPath(Path.Join(Application.persistentDataPath, "JSON", "cardsData.json")); } }
     private static string DefaultDeckResourcesPath { get { return "decks/default_deck"; } }
 
-    public const string lastViewedDecklistKey = "lastViewedDecklist";
+    public const string player1DecklistKey = "lastViewedDecklist";
+    public const string player2DecklistKey = "secondaryDecklist";
     public const string lastProfileImageKey = "lastProfileImage";
     public const string lastProfileNameKey = "lastProfileName";
     public const string lastAvatarKey = "lastAvatarName";
