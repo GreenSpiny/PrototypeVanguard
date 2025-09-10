@@ -34,16 +34,16 @@ public class CreateAssetBundles
                 TextureImporter importer = TextureImporter.GetAtPath(texturePath) as TextureImporter;
                 importer.assetBundleName = bundlePrefix + folderName;
 
-                importer.alphaSource = TextureImporterAlphaSource.None;
+                importer.alphaSource = TextureImporterAlphaSource.FromInput;
+                importer.alphaIsTransparency = true;
                 importer.maxTextureSize = 512;
                 importer.crunchedCompression = true;
                 importer.compressionQuality = 100;
                 var settings = importer.GetPlatformTextureSettings("Standalone");
                 settings.overridden = false;
-                importer.alphaSource = TextureImporterAlphaSource.None;
-                settings.maxTextureSize = 256;
+                settings.maxTextureSize = 512;
                 settings.crunchedCompression = true;
-                settings.compressionQuality = 50;
+                settings.compressionQuality = 100;
                 importer.SetPlatformTextureSettings(settings);
 
                 AssetDatabase.SaveAssetIfDirty(importer);

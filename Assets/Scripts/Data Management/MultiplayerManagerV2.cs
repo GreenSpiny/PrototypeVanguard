@@ -501,6 +501,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
     {
         if (multiplayerState == MultiplayerState.none)
         {
+            GameManager.singlePlayer = false;
             ChangeMultiplayerState(MultiplayerState.blocked);
             AssignLocalPlayerData();
             connectionStatusText.text = string.Empty;
