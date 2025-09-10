@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static CardInfo;
 
 public class DeckBuilder : MonoBehaviour
 {
@@ -238,7 +239,7 @@ public class DeckBuilder : MonoBehaviour
         }
         toolboxReceiver.AlignCards(true);
         currentDeckList = deckList;
-
+        OnDeckInputFieldChanged();
     }
 
     public void CopyDeck()
@@ -564,7 +565,6 @@ public class DeckBuilder : MonoBehaviour
         }
 
         deckDropdown.RefreshShownValue();
-        OnDeckInputFieldChanged();
         StatusAlert("Saved deck.");
     }
 
@@ -591,29 +591,27 @@ public class DeckBuilder : MonoBehaviour
 
         if (deckDropdown.options.Count == 0)
         {
-            currentValue = 0;
             currentDeckList = new CardInfo.DeckList();
             currentDeckList.deckName = blankDeckName;
             deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
-            deckDropdown.value = currentValue;
             deckDropdown.RefreshShownValue();
             SaveDataManager.SaveDeck(currentDeckList);
-            LoadDeck(currentDeckList, true);
+            ResetDeck();
         }
         else
         {
             if (currentValue >= deckDropdown.options.Count)
             {
                 currentValue = deckDropdown.options.Count - 1;
+                deckDropdown.value = currentValue;
+                deckDropdown.RefreshShownValue();
             }
-            string targetDeck = deckDropdown.options[currentValue].text;
-            deckDropdown.value = currentValue;
-            deckDropdown.RefreshShownValue();
-            currentDeckList = SaveDataManager.LoadDeck(targetDeck);
-            deckInputField.text = currentDeckList.deckName;
+            else
+            {
+                SwapDecks(currentValue);
+            }
+            
         }
-
-        OnDeckInputFieldChanged();
         StatusAlert("Deleted deck.");
     }
 
@@ -626,7 +624,6 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.options.RemoveAt(currentValue);
             SaveDeckAs();
         }
-
         StatusAlert("Renamed deck.");
     }
 
