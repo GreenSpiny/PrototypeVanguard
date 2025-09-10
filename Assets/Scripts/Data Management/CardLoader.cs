@@ -302,7 +302,7 @@ public class CardLoader : MonoBehaviour
         {
             return new CardInfo();
         }
-        return instance.allCardsData[cardIndex];
+        return instance.allCardsData[cardIndex].Copy();
     }
 
     public static Material GetCardImage(int cardIndex)

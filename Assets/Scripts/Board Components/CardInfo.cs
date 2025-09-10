@@ -69,6 +69,7 @@ public class CardInfo : IComparable<CardInfo>
     // Some cards have properties that necessitate additional actions be offered to either player.
     // These properties are treated as flags to keep offerings to a minimum.
 
+    public readonly ActionFlag[] allActionFlags;
     public readonly List<ActionFlag> cardActionFlags = new List<ActionFlag>();      // grants actions to its card
     public readonly List<ActionFlag> playerActionFlags = new List<ActionFlag>();    // grants actions to its player
     public readonly List<ActionFlag> globalActionFlags = new List<ActionFlag>();    // grants actions to both players
@@ -130,8 +131,11 @@ public class CardInfo : IComparable<CardInfo>
         this.unitType = unitType;
         this.version = version;
 
-        foreach (ActionFlag flag in actionFlags)
+        allActionFlags = new ActionFlag[actionFlags.Length];
+        for (int i = 0; i < actionFlags.Length; i++)
         {
+            ActionFlag flag = actionFlags[i];
+            allActionFlags[i] = flag;
             switch (flag)
             {
                 case ActionFlag.armLeft: cardActionFlags.Add(flag); break;
@@ -152,6 +156,12 @@ public class CardInfo : IComparable<CardInfo>
 
         strippedName = GameManager.SimplifyString(name);
         strippedEffect = GameManager.SimplifyString(effect);
+    }
+
+    public CardInfo Copy()
+    {
+        CardInfo cardInfo = new CardInfo(alias, count, baseCrit, baseDrive, effect, gift, grade, group, id, index, name, nation, placeholder, basePower, race, regulation, rotate, baseShield, skills, unitType, version, allActionFlags);
+        return cardInfo;
     }
 
     public static CardInfo GenerateDefaultCardInfo()

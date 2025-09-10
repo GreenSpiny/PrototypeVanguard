@@ -472,11 +472,6 @@ public class GameManager : NetworkBehaviour
                 Card topCard = targetVC.cards[targetVC.cards.Count - 1];
                 topCard.SetOrientation(false, false);
             }
-            if (nextVC.HasCard && turnCount == 0)
-            {
-                //Card topCard = nextVC.cards[nextVC.cards.Count - 1];
-                //topCard.SetOrientation(false, false);
-            }
             foreach (Node targetRC in targetPlayer.RC)
             {
                 if (targetRC.HasCard)
@@ -493,6 +488,20 @@ public class GameManager : NetworkBehaviour
         foreach (Player player in players)
         {
             player.OnPhaseChanged();
+            if (turnChange)
+            {
+                if (player.VC.HasCard)
+                {
+                    player.VC.TopCard.ResetPower();
+                }
+                foreach (Node targetRC in player.RC)
+                {
+                    if (targetRC.HasCard)
+                    {
+                        targetRC.TopCard.ResetPower();
+                    }
+                }
+            }
         }
     }
 
