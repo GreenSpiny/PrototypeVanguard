@@ -21,6 +21,7 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] TMP_InputField deckInputField;
     [SerializeField] Button saveButton;
     [SerializeField] Button saveAsButton;
+    [SerializeField] Button renameButton;
     [SerializeField] CanvasGroup pasteFeedbackGroup;
     private TextMeshProUGUI pasteFeedbackText;
 
@@ -90,6 +91,12 @@ public class DeckBuilder : MonoBehaviour
         {
             pasteFeedbackGroup.alpha = Mathf.Clamp(pasteFeedbackGroup.alpha - Time.deltaTime, 0f, 1f);
         }
+    }
+
+    private void StatusAlert(string message)
+    {
+        pasteFeedbackGroup.alpha = 1f;
+        pasteFeedbackText.text = message;
     }
 
     private IEnumerator LoadInitialDeck()
@@ -253,8 +260,7 @@ public class DeckBuilder : MonoBehaviour
         }
 
         GUIUtility.systemCopyBuffer = outputstring;
-        pasteFeedbackText.text = "Copied deck to clipboard!";
-        pasteFeedbackGroup.alpha = 1f;
+        StatusAlert("Copied deck to clipboard!");
     }
 
     private string StackCardsCopyUtility(int[] cards)
@@ -532,6 +538,7 @@ public class DeckBuilder : MonoBehaviour
     {
         currentDeckList = CreateDeck(currentDeckList.deckName);
         SaveDataManager.SaveDeck(currentDeckList);
+        StatusAlert("Saved deck.");
     }
 
     public void SaveDeckAs()
@@ -555,7 +562,10 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.options.Add(new TMP_Dropdown.OptionData(currentDeckList.deckName));
             deckDropdown.value = deckDropdown.options.Count - 1;
         }
+
         deckDropdown.RefreshShownValue();
+        OnDeckInputFieldChanged();
+        StatusAlert("Saved deck.");
     }
 
     public void SwapDecks(int deckIndex)
@@ -600,7 +610,11 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.value = currentValue;
             deckDropdown.RefreshShownValue();
             currentDeckList = SaveDataManager.LoadDeck(targetDeck);
+            deckInputField.text = currentDeckList.deckName;
         }
+
+        OnDeckInputFieldChanged();
+        StatusAlert("Deleted deck.");
     }
 
     public void RenameDeck()
@@ -612,6 +626,8 @@ public class DeckBuilder : MonoBehaviour
             deckDropdown.options.RemoveAt(currentValue);
             SaveDeckAs();
         }
+
+        StatusAlert("Renamed deck.");
     }
 
     public void ResetDeck()
@@ -623,6 +639,11 @@ public class DeckBuilder : MonoBehaviour
 
     public void OnDeckInputFieldChanged()
     {
-        saveAsButton.interactable = !string.IsNullOrWhiteSpace(deckInputField.text);
+        string currentDropdownName = deckDropdown.options[deckDropdown.value].text;
+        string currentInputText = deckInputField.text;
+
+        saveButton.interactable = string.IsNullOrWhiteSpace(deckInputField.text) || currentInputText == currentDropdownName;
+        saveAsButton.interactable = !saveButton.interactable;
+        renameButton.interactable = !saveButton.interactable;
     }
 }
