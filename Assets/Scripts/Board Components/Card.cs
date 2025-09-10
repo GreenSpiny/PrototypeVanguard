@@ -116,23 +116,23 @@ public class Card : MonoBehaviour
 
     public bool IsPublic(Player viewingPlayer)
     {
-        if (WasRevealed)
+        if (GameManager.singlePlayer || viewingPlayer == player || WasRevealed)
         {
             return true;
+        }
+        if (viewingPlayer != player && flip)
+        {
+            return false;
         }
         if (node.Type == Node.NodeType.deck)
         {
             return false;
         }
-        if (viewingPlayer == player || (!node.privateKnowledge && !flip))
+        if (node.privateKnowledge && viewingPlayer != node.player)
         {
-            return true;
+            return false;
         }
-        if (GameManager.singlePlayer)
-        {
-            return true;
-        }
-        return false;
+        return true;
     }
 
     public void SetRevealed(bool reveal, float revealDuration)
@@ -221,7 +221,7 @@ public class Card : MonoBehaviour
 
         // Face cards away from players who should not see them
         bool canViewCardByDefault = GameManager.singlePlayer || revealed || player == DragManager.instance.controllingPlayer;
-        if (!canViewCardByDefault && node.privateKnowledge)
+        if (!canViewCardByDefault && node.privateKnowledge && node.player != DragManager.instance.controllingPlayer)
         {
             if (!flip)
             {
