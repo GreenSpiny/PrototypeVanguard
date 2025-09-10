@@ -74,7 +74,7 @@ public class PlayerPuppeteer : NetworkBehaviour
             {
                 deckList = CardInfo.CreateRandomDeck();
             }
-            GameManager.instance.utilityButtons.Configure(playerIndex);
+            GameManager.instance.utilityButtons.Configure(playerIndex, deckList.toolbox.Length > 0);
             GameManager.instance.SetPlayerIcons(playerIndex, GameManager.localPlayerName, GameManager.localAvatar);
             GameManager.instance.SubmitDeckListToServerRpc(playerIndex, GameManager.localPlayerName, deckList.nation, deckList.mainDeck, deckList.rideDeck, deckList.strideDeck, deckList.toolbox);
         }

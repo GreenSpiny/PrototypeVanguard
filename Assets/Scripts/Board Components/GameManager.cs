@@ -735,11 +735,11 @@ public class GameManager : NetworkBehaviour
 
         [SerializeField] private Animator animator;
 
-        public void Configure(int playerIndex)
+        public void Configure(int playerIndex, bool hasToolbox)
         {
-            exitButton.enabled = true;
-            resetButton.enabled = singlePlayer;
-            toolboxButton.enabled = true;
+            exitButton.gameObject.SetActive(true);
+            resetButton.gameObject.SetActive(singlePlayer);
+            toolboxButton.gameObject.SetActive(hasToolbox);
 
             int positionMultiplier = (playerIndex * -2) + 1;
             Transform trans = canvasGroup.gameObject.transform;
