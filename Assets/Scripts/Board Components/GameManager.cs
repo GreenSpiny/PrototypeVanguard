@@ -48,6 +48,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private Camera infoCamera;
     [SerializeField] private Chatbox chatbox;
     [SerializeField] private AnimationProperties animationProperties;
+    [SerializeField] public UtilityButtonContainer utilityButtons;
     
     [SerializeField] public PhaseIndicator phaseIndicator;
 
@@ -722,6 +723,30 @@ public class GameManager : NetworkBehaviour
         public TextMeshProUGUI phaseText;
         public Animator phaseAnimator;
         public Animator overlayPhaseAnimator;
+    }
+
+    [System.Serializable]
+    public class UtilityButtonContainer
+    {
+        public CanvasGroup canvasGroup;
+        public Button exitButton;
+        public Button resetButton;
+        public Button toolboxButton;
+
+        [SerializeField] private Animator animator;
+
+        public void Configure(int playerIndex)
+        {
+            exitButton.enabled = true;
+            resetButton.enabled = singlePlayer;
+            toolboxButton.enabled = true;
+
+            int positionMultiplier = (playerIndex * -2) + 1;
+            Transform trans = canvasGroup.gameObject.transform;
+            trans.localPosition = new Vector3(trans.localPosition.x * positionMultiplier, trans.localPosition.y, trans.localPosition.z);
+
+            animator.Play("Utility Enter");
+        }
     }
 
 }
