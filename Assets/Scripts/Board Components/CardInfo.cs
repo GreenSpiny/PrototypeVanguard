@@ -197,6 +197,7 @@ public class CardInfo : IComparable<CardInfo>
         for (int i = 0; i < actionFlagArray.Count(); i++)
         {
             ActionFlag flag = (ActionFlag) actionFlagJArray[i].ToObject<int>();
+            actionFlagArray[i] = flag;
         }
 
         return new CardInfo(

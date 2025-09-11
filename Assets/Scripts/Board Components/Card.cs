@@ -34,6 +34,8 @@ public class Card : MonoBehaviour
     public bool flip { get; private set; }
     public bool rest { get; private set; }
 
+    public bool armed;
+
     private bool revealed = false;
     private float revealTime = 0f;
     private Coroutine revealCoroutine;
@@ -42,8 +44,6 @@ public class Card : MonoBehaviour
     private Material cardFrontMaterial;
     private Material cardBackMaterial;
     private Material cardSideMaterial;
-
-    public float PositionDistance { get; private set; }
 
     public void SetMesh(bool rotate)
     {
@@ -81,8 +81,6 @@ public class Card : MonoBehaviour
 
     public enum CardUIState { normal, hovered, selected };
     private CardUIState state;
-
-    private bool anim = false;  // temporary
     public float CardMoveSpeed { get { return 10f * Time.deltaTime; } }
     public float CardFlipSpeed { get { return 14f * Time.deltaTime; } }
 
@@ -180,18 +178,18 @@ public class Card : MonoBehaviour
     private void Update()
     {
         // Animate position & rotation
-        // If no animation exist, do a smooth lerp
-        PositionDistance = Vector3.Distance(transform.position, node.cardAnchor.transform.position + anchoredPosition + anchoredPositionOffset);
-        if (!anim && node != null)
+        if (node != null)
         {
             transform.position = Vector3.Lerp(transform.position, node.cardAnchor.transform.position + anchoredPosition + anchoredPositionOffset, CardMoveSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetEuler), CardFlipSpeed);
-            transform.localScale = Vector3.Lerp(transform.localScale, node.cardScale, CardMoveSpeed);
-        }
-        // If an animation exists, follow the procedure
-        else
-        {
-
+            if (armed)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(node.cardScale.x * Node.armScale, node.cardScale.y, node.cardScale.z * Node.armScale), CardMoveSpeed);
+            }
+            else
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, node.cardScale, CardMoveSpeed);
+            }
         }
     }
 

@@ -424,6 +424,14 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
+    public void RequestArmRpc(int nodeID, int cardID, int armIndex)
+    {
+        Node targetNode = allNodes[nodeID];
+        Card targetCard = allCards[cardID];
+        targetNode.Arm(targetCard, armIndex);
+    }
+
+    [Rpc(SendTo.Everyone)]
     public void RequestEditPowerRpc(int cardID, int powerModifier, int critModifier, int driveModifier)
     {
         Card targetCard = allCards[cardID];

@@ -59,9 +59,11 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.armLeft:
+                GameManager.instance.RequestArmRpc(activePlayer.VC.nodeID, selectedCard.cardID, 1);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.armRight:
+                GameManager.instance.RequestArmRpc(activePlayer.VC.nodeID, selectedCard.cardID, 0);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.bindFD:

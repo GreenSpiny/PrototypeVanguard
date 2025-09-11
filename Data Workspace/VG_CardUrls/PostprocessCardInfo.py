@@ -140,9 +140,9 @@ for key in cards.keys():
 	lowereffect = c['effect'].lower()
 	c['actionflags'] = []
 
-	if 'left deity arms' in lowereffect:
+	if 'left deity arms' in lowereffect or 'armed arms' in lowername:
 		c['actionflags'].append(11) # arm left
-	if 'right deity arms' in lowereffect:
+	if 'right deity arms' in lowereffect or 'armed arms' in lowername:
 		c['actionflags'].append(12) # arm right
 	if ' bind ' in lowereffect and ' face down ' in lowereffect:
 		c['actionflags'].append(13) # bind FD

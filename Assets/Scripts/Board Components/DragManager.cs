@@ -286,28 +286,31 @@ public class DragManager : MonoBehaviour
         // Only basic "view" functions are allowed for opponents' cards / nodes
         List<CardInfo.ActionFlag> actions = new List<CardInfo.ActionFlag>();
 
-        if (GameManager.singlePlayer || node.player == null || node.player == controllingPlayer)
+        if (!card.armed)
         {
-            foreach (CardInfo.ActionFlag flag in node.GenerateDefaultCardActions())
+            if (GameManager.singlePlayer || node.player == null || node.player == controllingPlayer)
             {
-                actions.Add(flag);
-            }
-            foreach (CardInfo.ActionFlag flag in node.player.playerActionFlags)
-            {
-                actions.Add(flag);
-            }
-            foreach (CardInfo.ActionFlag flag in card.cardInfo.cardActionFlags)
-            {
-                actions.Add(flag);
-            }
-        }
-        else
-        {
-            foreach (CardInfo.ActionFlag flag in node.GenerateDefaultCardActions())
-            {
-                if (flag == CardInfo.ActionFlag.view || flag == CardInfo.ActionFlag.viewsoul)
+                foreach (CardInfo.ActionFlag flag in node.GenerateDefaultCardActions())
                 {
                     actions.Add(flag);
+                }
+                foreach (CardInfo.ActionFlag flag in node.player.playerActionFlags)
+                {
+                    actions.Add(flag);
+                }
+                foreach (CardInfo.ActionFlag flag in card.cardInfo.cardActionFlags)
+                {
+                    actions.Add(flag);
+                }
+            }
+            else
+            {
+                foreach (CardInfo.ActionFlag flag in node.GenerateDefaultCardActions())
+                {
+                    if (flag == CardInfo.ActionFlag.view || flag == CardInfo.ActionFlag.viewsoul)
+                    {
+                        actions.Add(flag);
+                    }
                 }
             }
         }

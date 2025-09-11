@@ -7,20 +7,30 @@ public class Node_VC : Node_Stack
 
     public override void CardAutoAction(Player player, Card clickedCard)
     {
-        if (GameManager.singlePlayer || this.player == player)
+        if (clickedCard.armed)
         {
-            if (clickedCard.flip)
+            if (GameManager.singlePlayer || this.player == player)
             {
-                GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, !clickedCard.flip, clickedCard.rest);
-            }
-            else
-            {
-                GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, clickedCard.flip, !clickedCard.rest);
+                GameManager.instance.RequestReceiveCardRpc(player.drop.nodeID, clickedCard.cardID, string.Empty);
             }
         }
-        else if (cards.Count > 1)
+        else
         {
-            DragManager.instance.OpenDisplay(player.playerIndex, clickedCard.node, 1, clickedCard.node.cards.Count - 1, false, true);
+            if (GameManager.singlePlayer || this.player == player)
+            {
+                if (clickedCard.flip)
+                {
+                    GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, !clickedCard.flip, clickedCard.rest);
+                }
+                else
+                {
+                    GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, clickedCard.flip, !clickedCard.rest);
+                }
+            }
+            else if (cards.Count > 1)
+            {
+                DragManager.instance.OpenDisplay(player.playerIndex, clickedCard.node, 1, clickedCard.node.cards.Count - 1, false, true);
+            }
         }
     }
 

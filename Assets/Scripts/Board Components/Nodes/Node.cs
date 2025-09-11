@@ -36,6 +36,12 @@ public abstract class Node : MonoBehaviour
     [SerializeField] public NodeUI NodeUI;
     protected float verticalOffsetUI;
 
+    // Dynamic arms
+    protected Vector2[] armLocations;
+    protected Card[] arms = new Card[2];
+    public const float armScale = 0.667f;
+    private const float armOffset = 0.75f;
+
     // Const parameters
     public const string par_facedown = "facedown";
     public const string par_faceup = "faceup";
@@ -53,6 +59,13 @@ public abstract class Node : MonoBehaviour
 
     public enum NodeUIState { normal, available, hovered, selected };
     protected NodeUIState state;
+    private void Awake()
+    {
+        // Arm setup
+        armLocations = new Vector2[arms.Length];
+        armLocations[0] = new Vector2(-Card.cardWidth * armOffset, 0f);
+        armLocations[1] = new Vector2(Card.cardWidth * armOffset, 0f);
+    }
 
     public void Init(int nodeID)
     {
@@ -125,9 +138,10 @@ public abstract class Node : MonoBehaviour
                 card.ResetPower();
             }
         }
-            
+        
         PreviousNode = card.node;
         PreviousNode.RemoveCard(card);
+        card.armed = false;
         card.node = this;
         card.SetOrientation(shouldFlip, shouldRest);
         ResetRevealed();
@@ -140,6 +154,14 @@ public abstract class Node : MonoBehaviour
         {
             cards.Remove(card);
             SetDirty();
+        }
+        for (int i = 0; i < arms.Length; i++)
+        {
+            if (arms[i] == card)
+            {
+                arms[i] = null;
+                SetDirty();
+            }
         }
     }
 
@@ -190,9 +212,38 @@ public abstract class Node : MonoBehaviour
                 card.anchoredPositionOffset = Vector3.zero;
             }
         }
+        for (int i = 0; i < arms.Length; i++)
+        {
+            Card arm = arms[i];
+            if (arm != null)
+            {
+                arm.ToggleColliders(true);
+                arm.anchoredPosition = new Vector3(armLocations[i].x * cardScale.x, 0f, armLocations[i].y * cardScale.z);
+                arm.anchoredPositionOffset = Vector3.zero;
+                arm.LookAt(null);
+            }
+        }
         if (NodeUI != null)
         {
             NodeUI.Refresh(verticalOffsetUI);
+        }
+    }
+
+    public void Arm(Card card, int armIndex)
+    {
+        if (Type == NodeType.RC || Type == NodeType.VC)
+        {
+            if (arms[armIndex] != null)
+            {
+                arms[armIndex].player.drop.ReceiveCard(arms[armIndex], string.Empty);
+            }
+            card.node.RemoveCard(card);
+            arms[armIndex] = card;
+            card.armed = true;
+            card.node = this;
+            card.SetOrientation(false, false);
+            ResetRevealed();
+            SetDirty();
         }
     }
 
