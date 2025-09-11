@@ -486,12 +486,13 @@ public class GameManager : NetworkBehaviour
                 targetPlayer.hand.ReceiveCard(targetDeck.cards[targetDeck.cards.Count - 1], string.Empty);
             }
             drewForTurn = true;
-            Node targetVC = targetPlayer.VC;
-            Node nextVC = nextPlayer.VC;
-            if (targetVC.HasCard)
+            foreach (Card c in targetPlayer.VC.cards)
             {
-                Card topCard = targetVC.cards[targetVC.cards.Count - 1];
-                topCard.SetOrientation(false, false);
+                c.SetOrientation(false, false);
+            }
+            foreach (Card c in targetPlayer.order.cards)
+            {
+                c.SetOrientation(false, false);
             }
             foreach (Node targetRC in targetPlayer.RC)
             {
