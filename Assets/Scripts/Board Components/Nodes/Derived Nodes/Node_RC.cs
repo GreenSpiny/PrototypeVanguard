@@ -13,7 +13,7 @@ public class Node_RC : Node_Stack
         {
             if (GameManager.singlePlayer || this.player == player)
             {
-                GameManager.instance.RequestReceiveCardRpc(player.drop.nodeID, clickedCard.cardID, string.Empty);
+                GameManager.instance.RequestReceiveCardRpc(clickedCard.player.drop.nodeID, clickedCard.cardID, string.Empty);
             }
         }
         else

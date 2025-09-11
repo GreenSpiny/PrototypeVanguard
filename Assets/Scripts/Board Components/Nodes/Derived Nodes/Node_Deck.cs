@@ -9,7 +9,7 @@ public class Node_Deck : Node_Stack
     {
         if (GameManager.singlePlayer || this.player == player)
         {
-            GameManager.instance.RequestReceiveCardRpc(player.hand.nodeID, clickedCard.cardID, string.Empty);
+            GameManager.instance.RequestReceiveCardRpc(clickedCard.player.hand.nodeID, clickedCard.cardID, string.Empty);
         }
     }
 

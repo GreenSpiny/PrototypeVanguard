@@ -677,6 +677,7 @@ public class GameManager : NetworkBehaviour
             {
                 player2Deck = CardInfo.CreateRandomDeck();
             }
+            player2Deck.ShuffleMainDeck();
             int nextPlayerIndex = NextPlayer(playerIndex);
             players[nextPlayerIndex].AssignDeck(player2Deck);
             SetPlayerIcons(nextPlayerIndex, "Shadowboxer", null);

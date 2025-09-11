@@ -167,7 +167,7 @@ public class DragManager : MonoBehaviour
             clickTime = 0f;
             lastClickTime = float.MinValue;
         }
-        else if (Input.GetMouseButton(0) && dmstate == DMstate.open && HoveredCard != null && dragDistanceMet && HoveredCard.player == controllingPlayer)
+        else if (Input.GetMouseButton(0) && dmstate == DMstate.open && HoveredCard != null && dragDistanceMet && (GameManager.singlePlayer || HoveredCard.player == controllingPlayer))
         {
             ChangeDMstate(DMstate.dragging);
         }
