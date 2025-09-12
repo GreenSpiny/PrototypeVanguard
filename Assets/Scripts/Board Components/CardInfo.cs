@@ -49,6 +49,7 @@ public class CardInfo : IComparable<CardInfo>
     public readonly bool isSentinel;
     public readonly bool isElementaria;
     public readonly bool isRegalis;
+    public readonly bool isMarker;
 
     public readonly string strippedName;
     public readonly string strippedEffect;
@@ -153,6 +154,15 @@ public class CardInfo : IComparable<CardInfo>
         isSentinel = skills.Contains("Sentinel");
         isElementaria = skills.Contains("Elementaria");
         isRegalis = skills.Contains("Regalis Piece");
+        isMarker = unitType == "Marker";
+
+        if (isOrder || isMarker)
+        {
+            this.baseCrit = 0;
+            this.baseDrive = 0;
+            this.basePower = 0;
+            this.baseShield = 0;
+        }
 
         strippedName = GameManager.SimplifyString(name);
         strippedEffect = GameManager.SimplifyString(effect);

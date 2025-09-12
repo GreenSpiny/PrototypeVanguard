@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node_Order : Node_Fan
+public class Node_Marker : Node_Fan
 {
-    public override NodeType Type => NodeType.order;
+    public override NodeType Type => NodeType.marker;
 
     public override void CardAutoAction(Player player, Card clickedCard)
     {
         if (GameManager.singlePlayer || this.player == player)
         {
-            GameManager.instance.RequestSetOrientationRpc(clickedCard.cardID, clickedCard.flip, !clickedCard.rest);
+            GameManager.instance.RequestReceiveCardRpc(clickedCard.player.drop.nodeID, clickedCard.cardID, string.Empty);
         }
     }
 
@@ -22,9 +22,8 @@ public class Node_Order : Node_Fan
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-            CardInfo.ActionFlag.view
+
         };
         return toReturn;
     }
-
 }

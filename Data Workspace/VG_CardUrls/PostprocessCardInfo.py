@@ -152,7 +152,7 @@ for key in cards.keys():
 		c['actionflags'].append(15) # lock
 	if 'overDress]' in lowereffect or '[explosivegrowth]' in lowereffect:
 		c['actionflags'].append(16) # rideRC
-	if 'overDress]' in lowereffect or '[explosivegrowth]' in lowereffect or 'granfia' in lowername:
+	if 'overDress]' in lowereffect or '[explosivegrowth]' in lowereffect or 'granfia' in lowername or 'estacion' in lowername:
 		c['actionflags'].append(17) # soulRC
 
 # dupe check

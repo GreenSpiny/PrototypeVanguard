@@ -8,7 +8,7 @@ using Unity.Mathematics;
 public abstract class Node : MonoBehaviour
 {
     public static Transform cameraTransform;
-    public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC, display, toolbox, crest, abyss }
+    public enum NodeType { none, drag, hand, deck, drop, bind, remove, trigger, damage, order, gzone, ride, VC, RC, GC, display, toolbox, crest, abyss, marker }
     public bool HasCard { get { return cards.Count > 0; } }         // True if the node contains at least one card
     public Card BottomCard {  get { return cards[0]; } }
     public Card TopCard { get { return cards[cards.Count - 1]; } }
@@ -16,6 +16,8 @@ public abstract class Node : MonoBehaviour
     [NonSerialized] public List<Card> cards = new List<Card>();     // The cards attached to this node
     public Node PreviousNode { get; protected set; }                // The previous Node of the most recently attached card
     [NonSerialized] public Player player;                           // The player who owns this node
+
+    [SerializeField] private Node_Marker markerSubNode;
 
     public virtual NodeType Type { get { return NodeType.none; } }
     [SerializeField] public bool canDragTo;             // If true, this node can accept dragged cards
@@ -65,6 +67,15 @@ public abstract class Node : MonoBehaviour
         armLocations = new Vector2[arms.Length];
         armLocations[0] = new Vector2(-Card.cardWidth * armOffset, 0f);
         armLocations[1] = new Vector2(Card.cardWidth * armOffset, 0f);
+
+        // Collider toggling
+        if (!canDragTo)
+        {
+            foreach (Collider collider in GetComponentsInChildren<Collider>())
+            {
+                collider.enabled = false;
+            }
+        }
     }
 
     public void Init(int nodeID)
@@ -103,8 +114,7 @@ public abstract class Node : MonoBehaviour
 
     public virtual void ReceiveCard(Card card, string parameters)
     {
-
-        // Redirect incompatible cards
+        // Redirect incompatible toolbox cards back to the toolbox
         if (Type != NodeType.toolbox && card.isToolboxCard && !acceptToolbox)
         {
             if (cards.Contains(card))
@@ -113,6 +123,18 @@ public abstract class Node : MonoBehaviour
             }
             card.player.toolbox.ReceiveCard(card, string.Empty);
             card.player.toolbox.transform.position = transform.position;
+            SetDirty();
+            return;
+        }
+
+        // Redirect markers to the marker subnode, if applicable
+        if (Type != NodeType.marker && card.cardInfo.isMarker && markerSubNode != null)
+        {
+            if (cards.Contains(card))
+            {
+                cards.Remove(card);
+            }
+            markerSubNode.ReceiveCard(card, string.Empty);
             SetDirty();
             return;
         }

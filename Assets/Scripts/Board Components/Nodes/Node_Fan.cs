@@ -59,6 +59,10 @@ public class Node_Fan : Node
                 {
                     yOffset *= -1f;
                 }
+                if (scaledCardWidth <= spacing)
+                {
+                    yOffset = 0;
+                }
             }
 
             if (fanOrigin == FanOrigin.edge)

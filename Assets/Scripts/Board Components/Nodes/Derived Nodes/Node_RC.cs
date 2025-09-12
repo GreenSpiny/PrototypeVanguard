@@ -43,7 +43,7 @@ public class Node_RC : Node_Stack
         bool isFromRC = card.node.Type == NodeType.RC || (card.node.Type == NodeType.drag && card.node.PreviousNode.Type == NodeType.RC);
         bool noRetire = parameters.Contains("noRetire");
 
-        if (toSoulRC)
+        if (toSoulRC || card.cardInfo.isMarker)
         {
             base.ReceiveCard(card, parameters);
         }
