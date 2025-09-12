@@ -39,7 +39,7 @@ public abstract class Node : MonoBehaviour
     protected float verticalOffsetUI;
 
     // Dynamic arms
-    protected Vector2[] armLocations;
+    public Vector2[] armLocations;
     protected Card[] arms = new Card[2];
     public const float armScale = 0.667f;
     private const float armOffset = 0.75f;
@@ -237,11 +237,10 @@ public abstract class Node : MonoBehaviour
         for (int i = 0; i < arms.Length; i++)
         {
             Card arm = arms[i];
-            if (arm != null && player != null)
+            if (arm != null)
             {
-                int playerSign = -((player.playerIndex * 2) - 1);
                 arm.ToggleColliders(true);
-                arm.anchoredPosition = new Vector3(armLocations[i].x * cardScale.x * playerSign, 0f, armLocations[i].y * cardScale.z);
+                arm.anchoredPosition = new Vector3(armLocations[i].x * cardScale.x, 0f, armLocations[i].y * cardScale.z);
                 arm.anchoredPositionOffset = Vector3.zero;
                 arm.LookAt(null);
             }

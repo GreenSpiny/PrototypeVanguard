@@ -1688,7 +1688,7 @@ GameObject:
   - component: {fileID: 50887258}
   - component: {fileID: 50887257}
   m_Layer: 8
-  m_Name: node_RC_46
+  m_Name: node_RC_49
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1708,7 +1708,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 645161800}
-  - {fileID: 1586172655}
   m_Father: {fileID: 1029953936}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &50887257
@@ -1767,6 +1766,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 1747884264}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 645161801}
   compressCards: 0
@@ -1862,6 +1862,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1878805476}
   fanDirection: 1
@@ -2323,7 +2324,7 @@ GameObject:
   - component: {fileID: 87988763}
   - component: {fileID: 87988762}
   m_Layer: 8
-  m_Name: node_VC_42
+  m_Name: node_VC_47
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2344,7 +2345,6 @@ Transform:
   m_Children:
   - {fileID: 1160026666}
   - {fileID: 805837517}
-  - {fileID: 1618954950}
   m_Father: {fileID: 1029953936}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &87988762
@@ -2403,6 +2403,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 872649979}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1160026667}
   compressCards: 0
@@ -3023,7 +3024,7 @@ GameObject:
   - component: {fileID: 143027151}
   - component: {fileID: 143027150}
   m_Layer: 8
-  m_Name: node_marker_24
+  m_Name: node_marker_19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3056,6 +3057,7 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1448175940}
   fanDirection: 0
@@ -3074,15 +3076,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143027147}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1448175941}
   - {fileID: 549807247}
-  m_Father: {fileID: 627099462}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1050813229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &143027150
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4385,6 +4387,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 832432821}
   fanDirection: 1
@@ -6157,7 +6160,7 @@ Transform:
   m_GameObject: {fileID: 337450166}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7971,7 +7974,7 @@ GameObject:
   - component: {fileID: 452690966}
   - component: {fileID: 452690965}
   m_Layer: 8
-  m_Name: node_RC_48
+  m_Name: node_RC_50
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7991,7 +7994,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 972522763}
-  - {fileID: 1079905289}
   m_Father: {fileID: 1029953936}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &452690965
@@ -8050,6 +8052,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 204707150}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 972522764}
   compressCards: 0
@@ -8918,7 +8921,7 @@ GameObject:
   - component: {fileID: 503732325}
   - component: {fileID: 503732324}
   m_Layer: 8
-  m_Name: node_marker_18
+  m_Name: node_marker_16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8951,6 +8954,7 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 517810581}
   fanDirection: 0
@@ -8969,15 +8973,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503732321}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 517810582}
   - {fileID: 337450167}
-  m_Father: {fileID: 1139607359}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1050813229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &503732324
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9589,6 +9593,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 683394675}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1380683000}
   compressCards: 0
@@ -10104,7 +10109,7 @@ Transform:
   m_GameObject: {fileID: 549807246}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10654,6 +10659,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1358867450}
   compressCards: 0
@@ -11669,6 +11675,7 @@ MonoBehaviour:
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 269948734}
   fanDirection: 1
@@ -11828,7 +11835,7 @@ GameObject:
   - component: {fileID: 627099464}
   - component: {fileID: 627099463}
   m_Layer: 8
-  m_Name: node_RC_23
+  m_Name: node_RC_25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11848,7 +11855,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1809159715}
-  - {fileID: 143027149}
   m_Father: {fileID: 1050813229}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &627099463
@@ -11907,6 +11913,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 831049146}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1809159716}
   compressCards: 0
@@ -12155,7 +12162,7 @@ Transform:
   m_GameObject: {fileID: 642813905}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12964,6 +12971,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 1752166116}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1919531640}
   compressCards: 0
@@ -14011,7 +14019,7 @@ GameObject:
   - component: {fileID: 733093214}
   - component: {fileID: 733093213}
   m_Layer: 8
-  m_Name: node_marker_26
+  m_Name: node_marker_20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14044,6 +14052,7 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 424539619}
   fanDirection: 0
@@ -14062,15 +14071,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733093210}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.237, y: 0, z: -2.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 424539620}
   - {fileID: 1487800510}
-  m_Father: {fileID: 1169353759}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1050813229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &733093213
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14191,7 +14200,7 @@ Transform:
   m_GameObject: {fileID: 734625680}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14940,7 +14949,7 @@ GameObject:
   - component: {fileID: 758498445}
   - component: {fileID: 758498444}
   m_Layer: 8
-  m_Name: node_RC_40
+  m_Name: node_RC_46
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14960,7 +14969,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 285140863}
-  - {fileID: 1341662852}
   m_Father: {fileID: 1029953936}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &758498444
@@ -15019,6 +15027,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 545018729}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 285140864}
   compressCards: 0
@@ -15172,7 +15181,7 @@ GameObject:
   - component: {fileID: 768804009}
   - component: {fileID: 768804008}
   m_Layer: 8
-  m_Name: node_marker_45
+  m_Name: node_marker_42
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15186,15 +15195,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 768804006}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.237, y: 0.01, z: 1.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1652394958}
   - {fileID: 1845848956}
-  m_Father: {fileID: 1087350573}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1029953936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &768804008
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -15251,11 +15260,12 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1652394959}
   fanDirection: 0
   fanOrigin: 1
-  reverse: 1
+  reverse: 0
   descend: 0
   maxCards: 50
   maxWidth: 1
@@ -16026,6 +16036,7 @@ MonoBehaviour:
   cardScale: {x: 0.68605, y: 1, z: 0.68605}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 403124815}
   fanDirection: 1
@@ -16649,7 +16660,7 @@ GameObject:
   - component: {fileID: 811640659}
   - component: {fileID: 811640658}
   m_Layer: 8
-  m_Name: node_marker_20
+  m_Name: node_marker_17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16682,6 +16693,7 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1579850766}
   fanDirection: 0
@@ -16700,15 +16712,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811640655}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.237, y: 0.01, z: -1.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1579850767}
   - {fileID: 1109985036}
-  m_Father: {fileID: 1504746320}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1050813229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &811640658
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -18031,6 +18043,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1105254162}
   compressCards: 0
@@ -19161,6 +19174,7 @@ MonoBehaviour:
   cardScale: {x: 0, y: 1, z: 0}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 159844813}
   compressCards: 1
@@ -19697,6 +19711,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 1084387410}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 12820227}
   compressCards: 0
@@ -20755,6 +20770,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1277294297}
   compressCards: 0
@@ -20914,6 +20930,12 @@ Transform:
   - {fileID: 1027492626}
   - {fileID: 575261719}
   - {fileID: 1706777066}
+  - {fileID: 1341662852}
+  - {fileID: 1618954950}
+  - {fileID: 768804007}
+  - {fileID: 1586172655}
+  - {fileID: 1079905289}
+  - {fileID: 1808768956}
   - {fileID: 758498443}
   - {fileID: 87988761}
   - {fileID: 1087350573}
@@ -21300,6 +21322,12 @@ Transform:
   - {fileID: 1171738016}
   - {fileID: 2131617360}
   - {fileID: 910982406}
+  - {fileID: 1330205756}
+  - {fileID: 503732323}
+  - {fileID: 811640657}
+  - {fileID: 1699310430}
+  - {fileID: 143027149}
+  - {fileID: 733093212}
   - {fileID: 1423804615}
   - {fileID: 1139607359}
   - {fileID: 1504746320}
@@ -21800,7 +21828,7 @@ GameObject:
   - component: {fileID: 1079905291}
   - component: {fileID: 1079905290}
   m_Layer: 8
-  m_Name: node_marker_49
+  m_Name: node_marker_44
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21814,15 +21842,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079905288}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1348432160}
   - {fileID: 642813906}
-  m_Father: {fileID: 452690964}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1029953936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1079905290
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -21879,11 +21907,12 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1348432161}
   fanDirection: 0
   fanOrigin: 1
-  reverse: 1
+  reverse: 0
   descend: 0
   maxCards: 50
   maxWidth: 1
@@ -22178,6 +22207,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 1680902622}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 243512508}
   compressCards: 0
@@ -22291,7 +22321,7 @@ GameObject:
   - component: {fileID: 1087350575}
   - component: {fileID: 1087350574}
   m_Layer: 8
-  m_Name: node_RC_44
+  m_Name: node_RC_48
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22311,7 +22341,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 106062058}
-  - {fileID: 768804007}
   m_Father: {fileID: 1029953936}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &1087350574
@@ -22370,6 +22399,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 1915765477}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 106062059}
   compressCards: 0
@@ -22777,6 +22807,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1806164646}
   compressCards: 0
@@ -22805,7 +22836,7 @@ Transform:
   m_GameObject: {fileID: 1109985035}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23229,7 +23260,7 @@ GameObject:
   - component: {fileID: 1139607361}
   - component: {fileID: 1139607360}
   m_Layer: 8
-  m_Name: node_VC_17
+  m_Name: node_VC_22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23250,7 +23281,6 @@ Transform:
   m_Children:
   - {fileID: 930395740}
   - {fileID: 2073412904}
-  - {fileID: 503732323}
   m_Father: {fileID: 1050813229}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &1139607360
@@ -23309,6 +23339,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 2145511176}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 930395741}
   compressCards: 0
@@ -23742,7 +23773,7 @@ Transform:
   m_GameObject: {fileID: 1158220730}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24125,7 +24156,7 @@ GameObject:
   - component: {fileID: 1169353761}
   - component: {fileID: 1169353760}
   m_Layer: 8
-  m_Name: node_RC_25
+  m_Name: node_RC_26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24145,7 +24176,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1564632875}
-  - {fileID: 733093212}
   m_Father: {fileID: 1050813229}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &1169353760
@@ -24204,6 +24234,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 716084037}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1564632876}
   compressCards: 0
@@ -24290,6 +24321,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 695207366}
   compressCards: 0
@@ -28152,7 +28184,7 @@ GameObject:
   - component: {fileID: 1330205758}
   - component: {fileID: 1330205757}
   m_Layer: 8
-  m_Name: node_marker_16
+  m_Name: node_marker_15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28166,15 +28198,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330205755}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.237, y: 0, z: -1.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1919092278}
   - {fileID: 1158220731}
-  m_Father: {fileID: 1423804615}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1050813229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1330205757
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -28231,6 +28263,7 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1919092279}
   fanDirection: 0
@@ -28727,7 +28760,7 @@ GameObject:
   - component: {fileID: 1341662854}
   - component: {fileID: 1341662853}
   m_Layer: 8
-  m_Name: node_marker_41
+  m_Name: node_marker_40
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28741,15 +28774,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341662851}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.237, y: 0, z: 1.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 896095377}
   - {fileID: 1430033497}
-  m_Father: {fileID: 758498443}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1029953936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1341662853
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -28806,11 +28839,12 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 896095378}
   fanDirection: 0
   fanOrigin: 1
-  reverse: 1
+  reverse: 0
   descend: 0
   maxCards: 50
   maxWidth: 1
@@ -30393,6 +30427,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1662500157}
   compressCards: 0
@@ -31663,7 +31698,7 @@ GameObject:
   - component: {fileID: 1423804614}
   - component: {fileID: 1423804616}
   m_Layer: 8
-  m_Name: node_RC_15
+  m_Name: node_RC_21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31691,7 +31726,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2132235754}
-  - {fileID: 1330205756}
   m_Father: {fileID: 1050813229}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &1423804616
@@ -31742,6 +31776,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 1383322862}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 2132235755}
   compressCards: 0
@@ -31771,7 +31806,7 @@ Transform:
   m_GameObject: {fileID: 1430033496}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31988,6 +32023,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 442159676}
   compressCards: 0
@@ -32791,7 +32827,7 @@ Transform:
   m_GameObject: {fileID: 1476096511}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -32950,7 +32986,7 @@ Transform:
   m_GameObject: {fileID: 1487800509}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33362,6 +33398,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1520209633}
   compressCards: 0
@@ -33378,7 +33415,7 @@ GameObject:
   - component: {fileID: 1504746322}
   - component: {fileID: 1504746321}
   m_Layer: 8
-  m_Name: node_RC_19
+  m_Name: node_RC_23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33398,7 +33435,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 712757970}
-  - {fileID: 811640657}
   m_Father: {fileID: 1050813229}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &1504746321
@@ -33457,6 +33493,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 1993432926}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 712757971}
   compressCards: 0
@@ -34282,6 +34319,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1989158564}
   fanDirection: 0
@@ -35357,7 +35395,7 @@ GameObject:
   - component: {fileID: 1586172657}
   - component: {fileID: 1586172656}
   m_Layer: 8
-  m_Name: node_marker_47
+  m_Name: node_marker_43
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35371,15 +35409,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586172654}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.237, y: 0, z: 2.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1970750167}
   - {fileID: 1476096512}
-  m_Father: {fileID: 50887256}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1029953936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1586172656
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -35436,11 +35474,12 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1970750168}
   fanDirection: 0
   fanOrigin: 1
-  reverse: 1
+  reverse: 0
   descend: 0
   maxCards: 50
   maxWidth: 1
@@ -36246,7 +36285,7 @@ GameObject:
   - component: {fileID: 1618954952}
   - component: {fileID: 1618954951}
   m_Layer: 8
-  m_Name: node_marker_43
+  m_Name: node_marker_41
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36260,15 +36299,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618954949}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1850906402}
   - {fileID: 734625681}
-  m_Father: {fileID: 87988761}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1029953936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1618954951
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -36325,11 +36364,12 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1850906403}
   fanDirection: 0
   fanOrigin: 1
-  reverse: 1
+  reverse: 0
   descend: 0
   maxCards: 50
   maxWidth: 1
@@ -38868,7 +38908,7 @@ GameObject:
   - component: {fileID: 1699310432}
   - component: {fileID: 1699310431}
   m_Layer: 8
-  m_Name: node_marker_22
+  m_Name: node_marker_18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38901,6 +38941,7 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 862318413}
   fanDirection: 0
@@ -38919,15 +38960,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699310428}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.237, y: 0, z: -2.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 862318414}
   - {fileID: 1856209683}
-  m_Father: {fileID: 2130360747}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1050813229}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1699310431
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -39113,6 +39154,7 @@ MonoBehaviour:
   cardScale: {x: 0, y: 1, z: 0}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 729812137}
   compressCards: 1
@@ -39862,6 +39904,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1740634089}
   fanDirection: 0
@@ -40381,6 +40424,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1790702650}
   compressCards: 0
@@ -41108,6 +41152,7 @@ MonoBehaviour:
   cardScale: {x: 0, y: 1, z: 0}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1667074058}
   compressCards: 1
@@ -42059,7 +42104,7 @@ GameObject:
   - component: {fileID: 1808768958}
   - component: {fileID: 1808768957}
   m_Layer: 8
-  m_Name: node_marker_51
+  m_Name: node_marker_45
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42073,15 +42118,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808768955}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.237, y: 0, z: 2.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 631678699}
   - {fileID: 2132884232}
-  m_Father: {fileID: 1836651547}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1029953936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1808768957
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -42138,11 +42183,12 @@ MonoBehaviour:
   cardScale: {x: 0.3, y: 1, z: 0.3}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 631678700}
   fanDirection: 0
   fanOrigin: 1
-  reverse: 1
+  reverse: 0
   descend: 0
   maxCards: 50
   maxWidth: 1
@@ -42489,6 +42535,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0.2}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1252822348}
 --- !u!1001 &1821161194
@@ -42726,7 +42773,7 @@ GameObject:
   - component: {fileID: 1836651549}
   - component: {fileID: 1836651548}
   m_Layer: 8
-  m_Name: node_RC_50
+  m_Name: node_RC_51
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42746,7 +42793,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1359849421}
-  - {fileID: 1808768956}
   m_Father: {fileID: 1029953936}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &1836651548
@@ -42805,6 +42851,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 1732143801}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1359849422}
   compressCards: 0
@@ -42900,7 +42947,7 @@ Transform:
   m_GameObject: {fileID: 1845848955}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43018,7 +43065,7 @@ Transform:
   m_GameObject: {fileID: 1856209682}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44704,6 +44751,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 0}
 --- !u!4 &1949839314
@@ -45446,6 +45494,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0.2}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1150989940}
 --- !u!1 &1989158562
@@ -47905,6 +47954,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0.2}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 1112785300}
   fanDirection: 1
@@ -48558,6 +48608,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0.2}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 174936530}
   fanDirection: 1
@@ -48765,7 +48816,7 @@ GameObject:
   - component: {fileID: 2130360749}
   - component: {fileID: 2130360748}
   m_Layer: 8
-  m_Name: node_RC_21
+  m_Name: node_RC_24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48785,7 +48836,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 970542134}
-  - {fileID: 1699310430}
   m_Father: {fileID: 1050813229}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!135 &2130360748
@@ -48844,6 +48894,7 @@ MonoBehaviour:
   cardScale: {x: 1, y: 1, z: 1}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 486118091}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 970542135}
   compressCards: 0
@@ -49029,6 +49080,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 331919711}
   compressCards: 0
@@ -49318,7 +49370,7 @@ Transform:
   m_GameObject: {fileID: 2132884231}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49733,6 +49785,7 @@ MonoBehaviour:
   cardScale: {x: 0.588178, y: 1, z: 0.588178}
   nudgeDistance: {x: 0, y: 0, z: 0}
   NodeUI: {fileID: 0}
+  armLocations: []
   animInfo:
     flashRenderer: {fileID: 562677304}
   fanDirection: 1

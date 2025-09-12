@@ -39,6 +39,11 @@ public class PlayerPuppeteer : NetworkBehaviour
 
             foreach (var node in GameManager.instance.allNodes.Values)
             {
+                int playerFactor = -((playerIndex * 2) - 1);
+                for (int i = 0; i < node.armLocations.Length; i++)
+                {
+                    node.armLocations[i].x *= playerFactor;
+                }
                 node.SetDirty();
             }
 

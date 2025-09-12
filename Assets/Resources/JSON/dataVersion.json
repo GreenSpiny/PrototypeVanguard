@@ -1,5 +1,5 @@
 {
-   "cardsFileVersion":5,
+   "cardsFileVersion":6,
    "imageBundleVersions":[
       2,
       2,
@@ -44,6 +44,6 @@
       3,
       2,
       2,
-      2
+      5
    ]
 }

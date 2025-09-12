@@ -26,4 +26,15 @@ public class Node_Marker : Node_Fan
         };
         return toReturn;
     }
+
+    public override void AlignCards(bool instant)
+    {
+        base.AlignCards(instant);
+        if (DragManager.instance != null && DragManager.instance.controllingPlayer != null)
+        {
+            Player player = DragManager.instance.controllingPlayer;
+            transform.localRotation = Quaternion.Euler(0f, 180f * player.playerIndex, 0f);
+            reverse = player.playerIndex == 1;
+        }
+    }
 }
