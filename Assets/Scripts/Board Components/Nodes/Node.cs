@@ -237,10 +237,11 @@ public abstract class Node : MonoBehaviour
         for (int i = 0; i < arms.Length; i++)
         {
             Card arm = arms[i];
-            if (arm != null)
+            if (arm != null && player != null)
             {
+                int playerSign = -((player.playerIndex * 2) - 1);
                 arm.ToggleColliders(true);
-                arm.anchoredPosition = new Vector3(armLocations[i].x * cardScale.x, 0f, armLocations[i].y * cardScale.z);
+                arm.anchoredPosition = new Vector3(armLocations[i].x * cardScale.x * playerSign, 0f, armLocations[i].y * cardScale.z);
                 arm.anchoredPositionOffset = Vector3.zero;
                 arm.LookAt(null);
             }

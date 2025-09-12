@@ -204,13 +204,13 @@ public class Card : MonoBehaviour
         {
             targetEuler = node.cardRotation;
         }
-        if (rest) // rotate resting cards
+        if (rest && node.Type != Node.NodeType.display) // rotate resting cards
         {
             targetEuler.y += 90f;
         }
         if (DragManager.instance.controllingPlayer != null) // rotate cards to face the active player
         {
-            targetEuler.y += 180f * (DragManager.instance.controllingPlayer.playerIndex);
+            targetEuler.y += 180f * DragManager.instance.controllingPlayer.playerIndex;
         }
         if (flip) // if a card is in the flip state, turn it upside down from its node's normal orientation
         {

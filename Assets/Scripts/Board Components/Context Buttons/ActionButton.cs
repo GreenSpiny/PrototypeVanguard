@@ -80,6 +80,10 @@ public class ActionButton : ContextButton
             case CardInfo.ActionFlag.soulRC:
                 DragManager.instance.ClearSelections();
                 break;
+            case CardInfo.ActionFlag.prison:
+                GameManager.instance.RequestReceiveCardRpc(GameManager.instance.NextPlayer(activePlayer).order.nodeID, selectedCard.cardID, string.Empty);
+                DragManager.instance.ClearSelections();
+                break;
             default:
                 DragManager.instance.ClearSelections();
                 break;

@@ -154,6 +154,8 @@ for key in cards.keys():
 		c['actionflags'].append(16) # rideRC
 	if 'overDress]' in lowereffect or '[explosivegrowth]' in lowereffect or 'granfia' in lowername or 'estacion' in lowername:
 		c['actionflags'].append(17) # soulRC
+	if c['id'] == 'galaxycentralprisongalactolus':
+		c['actionflags'].append(18) # prison
 
 # dupe check
 dupeCheck = False

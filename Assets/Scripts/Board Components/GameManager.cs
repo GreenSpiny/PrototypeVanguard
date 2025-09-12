@@ -123,6 +123,11 @@ public class GameManager : NetworkBehaviour
         return (input + 1) % 2;
     }
 
+    public Player NextPlayer(Player player)
+    {
+        return players[NextPlayer(player.playerIndex)];
+    }
+
     private void Start()
     {
         if (singlePlayer)
@@ -245,17 +250,16 @@ public class GameManager : NetworkBehaviour
 
     private void AssignActionFlags(int playerIndex)
     {
-        players[playerIndex].playerActionFlags.Clear();
         foreach (Card card in players[playerIndex].cards)
         {
             foreach (CardInfo.ActionFlag flag in card.cardInfo.playerActionFlags)
             {
                 players[playerIndex].playerActionFlags.Add(flag);
             }
-            foreach (CardInfo.ActionFlag flag in card.cardInfo.globalActionFlags)
+            foreach (CardInfo.ActionFlag flag in card.cardInfo.opponentActionFlags)
             {
-                players[playerIndex].playerActionFlags.Add(flag);
                 players[NextPlayer(playerIndex)].playerActionFlags.Add(flag);
+                Debug.Log(flag.ToString());
             }
         }
     }

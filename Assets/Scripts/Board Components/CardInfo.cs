@@ -73,7 +73,7 @@ public class CardInfo : IComparable<CardInfo>
     public readonly ActionFlag[] allActionFlags;
     public readonly List<ActionFlag> cardActionFlags = new List<ActionFlag>();      // grants actions to its card
     public readonly List<ActionFlag> playerActionFlags = new List<ActionFlag>();    // grants actions to its player
-    public readonly List<ActionFlag> globalActionFlags = new List<ActionFlag>();    // grants actions to both players
+    public readonly List<ActionFlag> opponentActionFlags = new List<ActionFlag>();  // grants actions to its player's opponent
     public enum ActionFlag
     {
         none = 0,
@@ -97,7 +97,8 @@ public class CardInfo : IComparable<CardInfo>
         bindFDFoe = 14,
         locking = 15,
         rideRC = 16,
-        soulRC = 17
+        soulRC = 17,
+        prison = 18
     }
 
     public CardInfo()
@@ -142,10 +143,11 @@ public class CardInfo : IComparable<CardInfo>
                 case ActionFlag.armLeft: cardActionFlags.Add(flag); break;
                 case ActionFlag.armRight: cardActionFlags.Add(flag); break;
                 case ActionFlag.bindFD: playerActionFlags.Add(flag); break;
-                case ActionFlag.bindFDFoe: globalActionFlags.Add(flag); break;
-                case ActionFlag.locking: globalActionFlags.Add(flag); break;
+                case ActionFlag.bindFDFoe: opponentActionFlags.Add(ActionFlag.bindFD); break;
+                case ActionFlag.locking: playerActionFlags.Add(flag); opponentActionFlags.Add(flag); break;
                 case ActionFlag.rideRC: playerActionFlags.Add(flag); break;
                 case ActionFlag.soulRC: playerActionFlags.Add(flag); break;
+                case ActionFlag.prison: opponentActionFlags.Add(flag); break;
             }
         }
 

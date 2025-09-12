@@ -22,7 +22,9 @@ public class Node_Order : Node_Fan
     {
         List<CardInfo.ActionFlag> toReturn = new List<CardInfo.ActionFlag>()
         {
-            CardInfo.ActionFlag.view
+            CardInfo.ActionFlag.view,
+            CardInfo.ActionFlag.soul,
+            CardInfo.ActionFlag.botdeck
         };
         return toReturn;
     }
