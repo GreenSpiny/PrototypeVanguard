@@ -425,7 +425,6 @@ public class CardInfo : IComparable<CardInfo>
                         }
                     }
                 }
-                Debug.Log("Container count: " + existingContainers.Count);
                 if (existingContainers.Count > 0)
                 {
                     if (possibleFinalCoreNations.Count > 0)
