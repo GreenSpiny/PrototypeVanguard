@@ -13,7 +13,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public enum AreaType { ride, main, stride, toolbox }
     [SerializeField] public AreaType areaType;
 
-    [SerializeField] private int maxCards;
+    [SerializeField] public int maxCards;
     [SerializeField] private int cardsPerRow;
     [SerializeField] private float cardHeight;
     [SerializeField] private float alignSpeed;

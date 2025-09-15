@@ -189,19 +189,15 @@ public class CardLoader : MonoBehaviour
             allCardsData[newEntry.index] = newEntry;
             allCardsDataSorted.Add(newEntry);
 
+            gradeSet.Add(newEntry.grade);
             if (!string.IsNullOrEmpty(newEntry.gift))
                 giftSet.Add(newEntry.gift);
-            gradeSet.Add(newEntry.grade);
             if (!string.IsNullOrEmpty(newEntry.group))
                 groupSet.Add(newEntry.group);
             foreach (string nation in newEntry.nation)
-            {
                 nationSet.Add(nation);
-            }
             foreach (string race in newEntry.race)
-            {
                 raceSet.Add(race);
-            }
             if (!string.IsNullOrEmpty(newEntry.unitType))
                 unitTypeSet.Add(newEntry.unitType);
         }
@@ -297,13 +293,22 @@ public class CardLoader : MonoBehaviour
         return instance.defaultCardBackMaterial;
     }
 
-    public static CardInfo GetCardInfo(int cardIndex)
+    public static CardInfo GetCardInfoCopy(int cardIndex)
     {
         if (instance == null || !instance.allCardsData.ContainsKey(cardIndex))
         {
             return new CardInfo();
         }
         return instance.allCardsData[cardIndex].Copy();
+    }
+
+    public static CardInfo GetCardInfo(int cardIndex)
+    {
+        if (instance == null || !instance.allCardsData.ContainsKey(cardIndex))
+        {
+            return new CardInfo();
+        }
+        return instance.allCardsData[cardIndex];
     }
 
     public static Material GetCardImage(int cardIndex)

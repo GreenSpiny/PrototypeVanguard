@@ -325,21 +325,13 @@ public class DeckBuilder : MonoBehaviour
     public void OnFilterChanged()
     {
         string type = unitTypeDropdown.options[unitTypeDropdown.value].text;
-        bool searchUnits = unitTypeDropdown.value == 0 || type.Contains("Unit", StringComparison.InvariantCultureIgnoreCase);
-        if (!searchUnits)
-        {
-            raceDropdown.value = 0;
-            groupDropdown.value = 0;
-        }
-        raceDropdown.interactable = searchUnits;
-        groupDropdown.interactable = searchUnits;
         bool searchTriggers = unitTypeDropdown.value == 0 || type.Contains("Trigger", StringComparison.InvariantCultureIgnoreCase);
         if (!searchTriggers)
         {
             giftDropdown.value = 0;
+            giftDropdown.RefreshShownValue();
         }
         giftDropdown.interactable = searchTriggers;
-
         needsSearch = true;
     }
 
@@ -390,16 +382,11 @@ public class DeckBuilder : MonoBehaviour
 
         // Dig through the cards data.
         float targetWidth = searchResultsArea.GetComponent<RectTransform>().rect.width - searchResultsArea.padding.left - searchResultsArea.padding.right;
-        List<CardInfo> allCardsDataSorted = CardLoader.instance.allCardsDataSorted;
         int resultCount = 0;
         if (searchNation || searchType || searchGrade || searchRace || searchGroup || searchGift || searchQuery)
         {
-            foreach (CardInfo cardInfo in allCardsDataSorted)
+            foreach (CardInfo cardInfo in CardLoader.instance.allCardsDataSorted)
             {
-                if (string.IsNullOrEmpty(cardInfo.regulation))
-                {
-                    continue;
-                }
                 if (searchQuery)
                 {
                     bool nameMatch = cardInfo.strippedName.Contains(query, StringComparison.InvariantCultureIgnoreCase);
@@ -413,9 +400,26 @@ public class DeckBuilder : MonoBehaviour
                 {
                     continue;
                 }
-                if (searchType && cardInfo.unitType != type)
+                if (searchType)
                 {
-                    continue;
+                    if (type == "Sentinel")
+                    {
+                        if (!cardInfo.isSentinel)
+                        {
+                            continue;
+                        }
+                    }
+                    else if (type == "Regalis")
+                    {
+                        if (!cardInfo.isRegalis)
+                        {
+                            continue;
+                        }
+                    }
+                    else if (cardInfo.unitType != type)
+                    {
+                        continue;
+                    }
                 }
                 if (searchGrade && cardInfo.grade != grade)
                 {
@@ -466,10 +470,10 @@ public class DeckBuilder : MonoBehaviour
 
     private void RefreshInfo()
     {
-        rideReceiver.label.text = rideReceiver.templateLabelText.Replace("[x]", rideReceiver.cards.Count.ToString());
-        mainReceiver.label.text = mainReceiver.templateLabelText.Replace("[x]", mainReceiver.cards.Count.ToString());
-        strideReceiver.label.text = strideReceiver.templateLabelText.Replace("[x]", strideReceiver.cards.Count.ToString());
-        toolboxReceiver.label.text = toolboxReceiver.templateLabelText.Replace("[x]", toolboxReceiver.cards.Count.ToString());
+        rideReceiver.label.text = "Ride Deck : " + rideReceiver.cards.Count.ToString() + " / " + rideReceiver.maxCards.ToString();
+        mainReceiver.label.text = "Main Deck : " + mainReceiver.cards.Count.ToString() + " / " + mainReceiver.maxCards.ToString();
+        strideReceiver.label.text = "Stride Deck : " + strideReceiver.cards.Count.ToString() + " / " + strideReceiver.maxCards.ToString();
+        toolboxReceiver.label.text = "Toolbox : " + toolboxReceiver.cards.Count.ToString() + " / " + toolboxReceiver.maxCards.ToString();
 
         currentDeckList = CreateDeck(currentDeckList.deckName);
         string errorText = string.Empty;

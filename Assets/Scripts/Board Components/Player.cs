@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
                 cards.Add(deck.cards[i]);
                 if (i < deckList.mainDeck.Count())
                 {
-                    CardInfo c = CardLoader.GetCardInfo(deckList.mainDeck[i]);
+                    CardInfo c = CardLoader.GetCardInfoCopy(deckList.mainDeck[i]);
                     deck.cards[i].cardInfo = c;
                     deck.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
                     deck.cards[i].SetMesh(c.rotate);
@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
             }
 
             cards.Add(VC.cards[0]);
-            CardInfo vanguard = CardLoader.GetCardInfo(deckList.rideDeck[0]);
+            CardInfo vanguard = CardLoader.GetCardInfoCopy(deckList.rideDeck[0]);
             VC.cards[0].cardInfo = vanguard;
             VC.cards[0].SetTexture(CardLoader.GetCardImage(vanguard.index), true);
             VC.cards[0].SetMesh(vanguard.rotate);
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 
             cards.Add(crest.cards[0]);
             int generatorIndex = 1259;
-            CardInfo energyGenerator = CardLoader.GetCardInfo(generatorIndex);
+            CardInfo energyGenerator = CardLoader.GetCardInfoCopy(generatorIndex);
             crest.cards[0].cardInfo = energyGenerator;
             crest.cards[0].SetTexture(CardLoader.GetCardImage(generatorIndex), true);
             crest.cards[0].SetMesh(energyGenerator.rotate);
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
                 cards.Add(ride.cards[i]);
                 if (i != 0 && i < deckList.rideDeck.Count())
                 {
-                    CardInfo c = CardLoader.GetCardInfo(deckList.rideDeck[i]);
+                    CardInfo c = CardLoader.GetCardInfoCopy(deckList.rideDeck[i]);
                     ride.cards[i].cardInfo = c;
                     ride.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
                     ride.cards[i].SetMesh(c.rotate);
@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
                 cards.Add(gzone.cards[i]);
                 if (i < deckList.strideDeck.Count())
                 {
-                    CardInfo c = CardLoader.GetCardInfo(deckList.strideDeck[i]);
+                    CardInfo c = CardLoader.GetCardInfoCopy(deckList.strideDeck[i]);
                     gzone.cards[i].cardInfo = c;
                     gzone.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
                     gzone.cards[i].SetMesh(c.rotate);
@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
                 cards.Add(toolbox.cards[i]);
                 if (i < deckList.toolbox.Count())
                 {
-                    CardInfo c = CardLoader.GetCardInfo(deckList.toolbox[i]);
+                    CardInfo c = CardLoader.GetCardInfoCopy(deckList.toolbox[i]);
                     toolbox.cards[i].cardInfo = c;
                     toolbox.cards[i].SetTexture(CardLoader.GetCardImage(c.index), true);
                     toolbox.cards[i].SetMesh(c.rotate);

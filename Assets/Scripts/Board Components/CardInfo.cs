@@ -123,14 +123,17 @@ public class CardInfo : IComparable<CardInfo>
         this.id = id;
         this.index = index;
         this.name = name;
-        this.nation = nation;
+        this.nation = new string[nation.Length];
+        nation.CopyTo(this.nation, 0);
         this.placeholder = placeholder;
         this.basePower = basePower;
-        this.race = race;
+        this.race = new string[race.Length];
+        race.CopyTo(this.race, 0);
         this.regulation = regulation;
         this.rotate = rotate;
         this.baseShield = baseShield;
-        this.skills = skills;
+        this.skills = new string[skills.Length];
+        skills.CopyTo(this.skills, 0);
         this.unitType = unitType;
         this.version = version;
 
