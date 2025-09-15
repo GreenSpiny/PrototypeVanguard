@@ -155,7 +155,7 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         receiverImage.color = Color.Lerp(receiverImage.color, targetColor, colorTransitionSpeed * Time.deltaTime);
     }
 
-    public bool CanAcceptCard(DB_Card card)
+    public bool CanAcceptCard(DB_Card card, bool ignoreCount = false)
     {
         bool isOrder = card.cardInfo.isOrder;
         bool isGUnit = card.cardInfo.unitType == "G Unit";
@@ -164,18 +164,21 @@ public class DB_CardReciever : MonoBehaviour, IPointerEnterHandler, IPointerExit
         bool isCalamity = card.cardInfo.race.Contains("Calamity");
         bool isTrainingEquipment = card.cardInfo.index == 3720;
 
-        if (cards.Count >= maxCards)
+        if (!ignoreCount)
         {
-            return false;
-        }
-        int currentQuantity = DeckBuilder.instance.currentDeckList.CardCount(card.cardInfo.index);
-        if (card.draggedFromReceiver != null)
-        {
-            currentQuantity -= 1;
-        }
-        if (currentQuantity >= card.cardInfo.count)
-        {
-            return false;
+            if (cards.Count >= maxCards)
+            {
+                return false;
+            }
+            int currentQuantity = DeckBuilder.instance.currentDeckList.CardCount(card.cardInfo.index);
+            if (card.draggedFromReceiver != null)
+            {
+                currentQuantity -= 1;
+            }
+            if (currentQuantity >= card.cardInfo.count)
+            {
+                return false;
+            }
         }
         if (areaType == AreaType.stride)
         {

@@ -393,21 +393,24 @@ public class CardInfo : IComparable<CardInfo>
                 foreach (int i in allCardsSet)
                 {
                     CardInfo cardInfo = CardLoader.GetCardInfo(i);
-                    NationContainer newContainer = new NationContainer(cardInfo.nation);
-                    if (existingContainers.Count == 0)
+                    if (cardInfo.nation.Length > 0 && cardInfo.nation[0] != "Nationless")
                     {
-                        existingContainers.Add(newContainer);
-                    }
-                    else
-                    {
-                        foreach (NationContainer container in existingContainers)
+                        NationContainer newContainer = new NationContainer(cardInfo.nation);
+                        if (existingContainers.Count == 0)
                         {
-                            if (!container.CompatibleWith(newContainer))
-                            {
-                                return "Mixed";
-                            }
+                            existingContainers.Add(newContainer);
                         }
-                        existingContainers.Add(newContainer);
+                        else
+                        {
+                            foreach (NationContainer container in existingContainers)
+                            {
+                                if (!container.CompatibleWith(newContainer))
+                                {
+                                    return "Mixed";
+                                }
+                            }
+                            existingContainers.Add(newContainer);
+                        }
                     }
                 }
                 if (existingContainers.Count > 0)
@@ -420,7 +423,7 @@ public class CardInfo : IComparable<CardInfo>
                     return firstContainer.sideNation;
                 }
             }
-            return string.Empty;
+            return "None";
         }
 
         // Note! IsValid also assigns cardNation.

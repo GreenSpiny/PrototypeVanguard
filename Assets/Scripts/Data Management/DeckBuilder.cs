@@ -140,7 +140,11 @@ public class DeckBuilder : MonoBehaviour
         {
             raceDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
         }
-        foreach (string option in CardLoader.instance.allCardUnitTypes)
+        List<string> improvedUnitTypes = new List<string>(CardLoader.instance.allCardUnitTypes);
+        improvedUnitTypes.Add("Sentinel");
+        improvedUnitTypes.Add("Regalis");
+        improvedUnitTypes.Sort();
+        foreach (string option in improvedUnitTypes)
         {
             unitTypeDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
         }

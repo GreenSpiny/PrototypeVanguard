@@ -10,6 +10,7 @@ public class DB_CardDragger : MonoBehaviour
 
     public DB_Card hoveredCard;
     public DB_CardReciever hoveredReceiver;
+    public DB_Card potentialDraggedCard;
     public DB_Card draggedCard;
 
     [SerializeField] private Transform searchContainer;
@@ -47,22 +48,31 @@ public class DB_CardDragger : MonoBehaviour
         bool dragDistanceMet = Vector3.Distance(clickLocation, mousePosition) > DragThreshold;
         bool doubleClick = (clickTime - lastClickTime < DoubleClickThreshold) && !dragDistanceMet;
 
+        if (Input.GetMouseButton(0) && hoveredCard != null)
+        {
+            potentialDraggedCard = hoveredCard;
+        }
+        else if (!Input.GetMouseButton(0))
+        {
+            potentialDraggedCard = null;
+        }
+
         // Begin dragging
-        if (Input.GetMouseButton(0) && draggedCard == null && hoveredCard != null && dragDistanceMet)
+        if (Input.GetMouseButton(0) && draggedCard == null && potentialDraggedCard != null && dragDistanceMet)
         {
             // Drag out of search area
-            if (hoveredCard.transform.parent == searchContainer)
+            if (potentialDraggedCard.transform.parent == searchContainer)
             {
-                DB_Card cloneCard = Instantiate(hoveredCard, transform);
-                cloneCard.Load(hoveredCard.cardInfo.index);
+                DB_Card cloneCard = Instantiate(potentialDraggedCard, transform);
+                cloneCard.Load(potentialDraggedCard.cardInfo.index);
                 cloneCard.SetWidth(DB_CardReciever.receiverCardWidth);
                 draggedCard = cloneCard;
             }
-            else if (hoveredCard.reciever != null)
+            else if (potentialDraggedCard.reciever != null)
             {
-                DB_CardReciever originalReceiver = hoveredCard.reciever;
-                hoveredCard.reciever.RemoveCard(hoveredCard, false);
-                draggedCard = hoveredCard;
+                DB_CardReciever originalReceiver = potentialDraggedCard.reciever;
+                potentialDraggedCard.reciever.RemoveCard(potentialDraggedCard, false);
+                draggedCard = potentialDraggedCard;
                 draggedCard.transform.SetParent(transform, true);
                 draggedCard.draggedFromReceiver = originalReceiver;
             }
@@ -114,7 +124,7 @@ public class DB_CardDragger : MonoBehaviour
                 }
                 else
                 {
-                    DB_CardReciever parentReceiver = hoveredCard.transform.parent.GetComponent<DB_CardReciever>();
+                    DB_CardReciever parentReceiver = hoveredCard.reciever;
                     if (parentReceiver != null && parentReceiver.CanAcceptCard(hoveredCard))
                     {
                         DB_Card cloneCard = Instantiate(hoveredCard, parentReceiver.transform);
@@ -130,9 +140,24 @@ public class DB_CardDragger : MonoBehaviour
                 }
             }
             // Right click
-            if (Input.GetMouseButtonDown(1) && hoveredCard != null)
+            if (Input.GetMouseButtonDown(1) && draggedCard == null && hoveredCard != null)
             {
-                if (hoveredCard.reciever != null)
+                if (hoveredCard.transform.parent == searchContainer)
+                {
+                    foreach (DB_CardReciever receiver in receivers)
+                    {
+                        if (receiver.areaType != DB_CardReciever.AreaType.ride && receiver.CanAcceptCard(hoveredCard, true))
+                        {
+                            DB_Card lastCopy = receiver.GetLastCopy(hoveredCard.cardInfo);
+                            if (lastCopy != null)
+                            {
+                                receiver.RemoveCard(lastCopy, true);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if (hoveredCard.reciever != null)
                 {
                     hoveredCard.reciever.RemoveCard(hoveredCard, true);
                     hoveredCard = null;
