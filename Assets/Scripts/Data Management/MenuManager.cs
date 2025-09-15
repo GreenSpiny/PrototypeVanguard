@@ -52,7 +52,7 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         // If already loaded or testing locally, transition in immediately.
-        if (CardLoader.instance != null && (CardLoader.instance.CardsLoaded || CardLoader.instance.downloadMode == CardLoader.DownloadMode.localResources))
+        if (CardLoader.instance != null && (CardLoader.CardsLoaded || CardLoader.instance.downloadMode == CardLoader.DownloadMode.localResources))
         {
             TransitionIn(false);
         }
@@ -83,8 +83,6 @@ public class MenuManager : MonoBehaviour
             if (CardLoader.instance != null)
             {
                 RectTransform rect = progressBarImage.rectTransform;
-                // float targetScale = CardLoader.instance.imageDownloadProgress;
-                // float currentScale = Mathf.Clamp(rect.localScale.x + Time.deltaTime * downloadProgressAnimationSpeed, 0f, targetScale);
                 rect.localScale = new Vector3(CardLoader.instance.imageDownloadProgress, 1, 1);
 
                 if (CardLoader.instance.versionDownloadProgress > 0)
@@ -97,7 +95,7 @@ public class MenuManager : MonoBehaviour
                     downloadStatusText.gameObject.SetActive(true);
                 }
             }
-            if (CardLoader.instance.CardsLoaded)
+            if (CardLoader.CardsLoaded)
             {
                 if (!CardLoader.instance.IsError)
                 {

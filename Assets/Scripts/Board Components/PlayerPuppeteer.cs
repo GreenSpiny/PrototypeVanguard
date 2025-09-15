@@ -64,7 +64,7 @@ public class PlayerPuppeteer : NetworkBehaviour
             }
 
             // Wait for all card loading to be finished
-            while (!CardLoader.instance.CardsLoaded)
+            while (!CardLoader.CardsLoaded)
             {
                 yield return null;
             }

@@ -230,7 +230,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
     private IEnumerator LoadInitialDisplay()
     {
         // Manually transition the scene in
-        while (CardLoader.instance == null || !CardLoader.instance.CardsLoaded)
+        while (!CardLoader.CardsLoaded)
         {
             yield return null;
         }

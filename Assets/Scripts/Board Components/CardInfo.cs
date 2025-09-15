@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode.Transports.SinglePlayer;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.VolumeComponent;
@@ -238,6 +239,67 @@ public class CardInfo : IComparable<CardInfo>
             );
     }
 
+    public static readonly string[] CoreNations = new string[] { "Dragon Empire", "Dark States", "Stoicheia", "Keter Sanctuary", "Brandt Gate", "Lyrical Monasterio" };
+    public static bool IsCoreNation(string nation) { return CoreNations.Contains(nation); }
+
+    [System.Serializable]
+    public class NationContainer :IEqualityComparer<NationContainer>
+    {
+        public List<string> coreNations = new List<string>();
+        public string sideNation = string.Empty;
+        private int hashCode = 0;
+        public NationContainer(IEnumerable<string> nations)
+        {
+            coreNations = new List<string>(coreNations);
+            foreach (string nation in nations)
+            {
+                if (IsCoreNation(nation))
+                {
+                    coreNations.Add(nation);
+                }
+                else
+                {
+                    sideNation = nation;
+                }
+            }
+            coreNations.Sort();
+            string hashString = sideNation;
+            foreach (string nation in coreNations)
+            {
+                hashString += nation;
+            }
+            hashCode = hashString.GetHashCode();
+        }
+
+        public bool CompatibleWith(NationContainer other)
+        {
+            if (!string.IsNullOrEmpty(sideNation) && !string.IsNullOrEmpty(other.sideNation))
+            {
+                return sideNation.Equals(other.sideNation);
+            }
+            bool matchFound = false;
+            foreach (string nation in coreNations)
+            {
+                if (other.coreNations.Contains(nation))
+                {
+                    matchFound = true;
+                    break;
+                }
+            }
+            return matchFound;
+        }
+
+        public bool Equals(NationContainer x, NationContainer y)
+        {
+            return x.hashCode == y.hashCode;
+        }
+
+        public int GetHashCode(NationContainer obj)
+        {
+            return obj.hashCode;
+        }
+    }
+
     [System.Serializable]
     public class DeckList
     {
@@ -319,10 +381,54 @@ public class CardInfo : IComparable<CardInfo>
             return count;
         }
 
+        public string DetermineNation(HashSet<int> allCardsSet)
+        {
+            if (allCardsSet.Count == 0)
+            {
+                return "None";
+            }
+            if (CardLoader.CardsLoaded)
+            {
+                HashSet<NationContainer> existingContainers = new HashSet<NationContainer>();
+                foreach (int i in allCardsSet)
+                {
+                    CardInfo cardInfo = CardLoader.GetCardInfo(i);
+                    NationContainer newContainer = new NationContainer(cardInfo.nation);
+                    if (existingContainers.Count == 0)
+                    {
+                        existingContainers.Add(newContainer);
+                    }
+                    else
+                    {
+                        foreach (NationContainer container in existingContainers)
+                        {
+                            if (!container.CompatibleWith(newContainer))
+                            {
+                                return "Mixed";
+                            }
+                        }
+                        existingContainers.Add(newContainer);
+                    }
+                }
+                if (existingContainers.Count > 0)
+                {
+                    NationContainer firstContainer = existingContainers.First();
+                    if (firstContainer.coreNations.Count > 0)
+                    {
+                        return firstContainer.coreNations[0];
+                    }
+                    return firstContainer.sideNation;
+                }
+            }
+            return string.Empty;
+        }
+
+        // Note! IsValid also assigns cardNation.
+        // May change this for cleanliness, but it's efficient for now.
         public bool IsValid(out string error)
         {
             error = string.Empty;
-            if (CardLoader.instance == null || !CardLoader.instance.CardsLoaded)
+            if (!CardLoader.CardsLoaded)
             {
                 error = "Card Loader is not initialized.";
                 return false;
@@ -373,14 +479,15 @@ public class CardInfo : IComparable<CardInfo>
                     cardSet.Add(i);
                     cardList.Add(i);
                 }
+                nation = DetermineNation(cardSet); // Questionable assignment location
+                if (nation == "Mixed")
+                {
+                    error = "Mixing nations is disallowed.";
+                    return false;
+                }
                 foreach (int cardIndex in cardSet)
                 {
                     CardInfo info = CardLoader.GetCardInfo(cardIndex);
-                    if (info.nation[0] != "Nationless" && !info.nation.Contains(nation))
-                    {
-                        error = "Mixing nations is disallowed.";
-                        return false;
-                    }
                     if (CardCount(cardIndex) > info.count)
                     {
                         error = "'" + info.name + "' exceeds the maximum number of copies.";

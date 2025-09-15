@@ -46,7 +46,8 @@ public class CardLoader : MonoBehaviour
 
     public bool IsError { get { return !string.IsNullOrEmpty(errorText); } }
 
-    public bool CardsLoaded { get; private set; } = false;
+    private bool cardsLoaded;
+    public static bool CardsLoaded { get { return CardLoader.instance != null && CardLoader.instance.cardsLoaded; } }
 
     private void Awake()
     {
@@ -80,7 +81,7 @@ public class CardLoader : MonoBehaviour
     {
         // Reset progress
 
-        CardsLoaded = false;
+        cardsLoaded = false;
         versionDownloadProgress = 0;
         cardsDownloadProgress = 0;
         imageDownloadProgress = 0;
@@ -241,7 +242,7 @@ public class CardLoader : MonoBehaviour
         }
         else
         {
-            CardsLoaded = true;
+            cardsLoaded = true;
         }
     }
 
@@ -283,7 +284,7 @@ public class CardLoader : MonoBehaviour
             }
         }
 
-        CardsLoaded = true;
+        cardsLoaded = true;
         Debug.Log("Remote image download & extraction completed.");
     }
 

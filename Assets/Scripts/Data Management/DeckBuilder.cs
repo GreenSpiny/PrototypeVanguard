@@ -47,11 +47,12 @@ public class DeckBuilder : MonoBehaviour
     [SerializeField] Color deckErrorColor;
 
     [SerializeField] CanvasGroup mainCanvasGroup;
-    [SerializeField] TMP_Dropdown nationAssignmentDropdown;
+    [SerializeField] TextMeshProUGUI nationAssignment;
     [SerializeField] SceneLoadCanvas sceneLoadCanvas;
 
     [NonSerialized] public bool deckValid = false;
     private bool needsRefresh = false;
+    private bool needsSearch = false;
     private bool initialLoadComplete = false;
     private const string blankDeckName = "blank deck";
 
@@ -82,7 +83,18 @@ public class DeckBuilder : MonoBehaviour
     {
         if (needsRefresh)
         {
+            needsRefresh = false;
             RefreshInfo();
+        }
+        if (needsSearch)
+        {
+            needsSearch = false;
+            ClearSearchResults();
+            if (searchCoroutine != null)
+            {
+                StopCoroutine(searchCoroutine);
+            }
+            searchCoroutine = StartCoroutine(Search());
         }
         if (initialLoadComplete)
         {
@@ -102,7 +114,7 @@ public class DeckBuilder : MonoBehaviour
 
     private IEnumerator LoadInitialDeck()
     {
-        while (CardLoader.instance == null || !CardLoader.instance.CardsLoaded)
+        while (!CardLoader.CardsLoaded)
         {
             yield return null;
         }
@@ -123,10 +135,6 @@ public class DeckBuilder : MonoBehaviour
         foreach (string option in CardLoader.instance.allCardNations)
         {
             nationDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
-            if (option != "Nationless")
-            {
-                nationAssignmentDropdown.options.Add(new TMP_Dropdown.OptionData(option, null, Color.white));
-            }
         }
         foreach (string option in CardLoader.instance.allCardRaces)
         {
@@ -191,17 +199,6 @@ public class DeckBuilder : MonoBehaviour
             PlayerPrefs.SetString(SaveDataManager.player1DecklistKey, deckList.deckName);
             deckInputField.text = deckList.deckName;
         }
-
-        nationAssignmentDropdown.value = 0;
-        for (int i = 0; i < nationAssignmentDropdown.options.Count; i++)
-        {
-            if (nationAssignmentDropdown.options[i].text == deckList.nation)
-            {
-                nationAssignmentDropdown.value = i;
-                break;
-            }
-        }
-        nationAssignmentDropdown.RefreshShownValue();
 
         rideReceiver.RemoveAllCards();
         for (int i = 0; i < Mathf.Min(deckList.rideDeck.Length, CardInfo.DeckList.maxRide); i++)
@@ -339,12 +336,7 @@ public class DeckBuilder : MonoBehaviour
         }
         giftDropdown.interactable = searchTriggers;
 
-        if (searchCoroutine != null)
-        {
-            StopCoroutine(searchCoroutine);
-        }
-        ClearSearchResults();
-        searchCoroutine = StartCoroutine(Search());
+        needsSearch = true;
     }
 
     private Coroutine searchCoroutine;
@@ -384,7 +376,7 @@ public class DeckBuilder : MonoBehaviour
         bool searchGift = giftDropdown.value != 0;
 
         string query = GameManager.SimplifyString(queryInputField.text);
-        bool searchQuery = query.Length > 2;
+        bool searchQuery = query.Length > 0;
 
         bool shouldSearch = searchNation || searchType || searchGrade || searchRace || searchGroup || searchGift || searchQuery;
         if (!shouldSearch)
@@ -461,8 +453,8 @@ public class DeckBuilder : MonoBehaviour
 
         // End coroutine
         searchCoroutine = null;
-
     }
+
     public void SetDirty()
     {
         needsRefresh = true;
@@ -470,7 +462,6 @@ public class DeckBuilder : MonoBehaviour
 
     private void RefreshInfo()
     {
-        needsRefresh = false;
         rideReceiver.label.text = rideReceiver.templateLabelText.Replace("[x]", rideReceiver.cards.Count.ToString());
         mainReceiver.label.text = mainReceiver.templateLabelText.Replace("[x]", mainReceiver.cards.Count.ToString());
         strideReceiver.label.text = strideReceiver.templateLabelText.Replace("[x]", strideReceiver.cards.Count.ToString());
@@ -479,6 +470,7 @@ public class DeckBuilder : MonoBehaviour
         currentDeckList = CreateDeck(currentDeckList.deckName);
         string errorText = string.Empty;
         deckValid = currentDeckList.IsValid(out errorText);
+        nationAssignment.text = currentDeckList.nation;
         if (deckValid)
         {
             deckValidText.text = "Deck is Valid.";
@@ -511,7 +503,7 @@ public class DeckBuilder : MonoBehaviour
     {
         CardInfo.DeckList deck = new CardInfo.DeckList();
         deck.deckName = deckName;
-        deck.nation = nationAssignmentDropdown.options[nationAssignmentDropdown.value].text;
+        deck.nation = nationAssignment.text;
         deck.rideDeck = new int[rideReceiver.cards.Count];
         for (int i = 0; i < rideReceiver.cards.Count; i++)
         {

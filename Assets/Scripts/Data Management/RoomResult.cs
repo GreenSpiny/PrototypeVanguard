@@ -37,7 +37,7 @@ public class RoomResult : MonoBehaviour
     }
     private bool VersionMatch
     {
-        get { return CardLoader.instance != null && CardLoader.instance.dataVersionObject.cardsFileVersion == cardsVersion; }
+        get { return CardLoader.CardsLoaded && CardLoader.instance.dataVersionObject.cardsFileVersion == cardsVersion; }
     }
 
 }
