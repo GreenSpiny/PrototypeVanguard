@@ -392,6 +392,7 @@ public class CardInfo : IComparable<CardInfo>
             }
             if (CardLoader.CardsLoaded)
             {
+                List<string> possibleFinalCoreNations = new List<string>();
                 HashSet<NationContainer> existingContainers = new HashSet<NationContainer>();
                 foreach (int i in allCardsSet)
                 {
@@ -402,6 +403,7 @@ public class CardInfo : IComparable<CardInfo>
                         if (existingContainers.Count == 0)
                         {
                             existingContainers.Add(newContainer);
+                            possibleFinalCoreNations = new List<string>(newContainer.coreNations);
                         }
                         else
                         {
@@ -413,17 +415,24 @@ public class CardInfo : IComparable<CardInfo>
                                 }
                             }
                             existingContainers.Add(newContainer);
+                            for (int j = possibleFinalCoreNations.Count - 1; j >= 0; j--)
+                            {
+                                if (!newContainer.coreNations.Contains(possibleFinalCoreNations[j]))
+                                {
+                                    possibleFinalCoreNations.RemoveAt(j);
+                                }
+                            }
                         }
                     }
                 }
+                Debug.Log("Container count: " + existingContainers.Count);
                 if (existingContainers.Count > 0)
                 {
-                    NationContainer firstContainer = existingContainers.First();
-                    if (firstContainer.coreNations.Count > 0)
+                    if (possibleFinalCoreNations.Count > 0)
                     {
-                        return firstContainer.coreNations[0];
+                        return possibleFinalCoreNations.First();
                     }
-                    return firstContainer.sideNation;
+                    return existingContainers.First().sideNation;
                 }
             }
             return "None";
