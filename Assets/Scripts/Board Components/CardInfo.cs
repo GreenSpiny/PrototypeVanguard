@@ -402,7 +402,6 @@ public class CardInfo : IComparable<CardInfo>
                         NationContainer newContainer = new NationContainer(cardInfo.nation);
                         if (existingContainers.Count == 0)
                         {
-                            existingContainers.Add(newContainer);
                             possibleFinalCoreNations = new List<string>(newContainer.coreNations);
                         }
                         else
@@ -414,7 +413,6 @@ public class CardInfo : IComparable<CardInfo>
                                     return "Mixed";
                                 }
                             }
-                            existingContainers.Add(newContainer);
                             for (int j = possibleFinalCoreNations.Count - 1; j >= 0; j--)
                             {
                                 if (!newContainer.coreNations.Contains(possibleFinalCoreNations[j]))
@@ -423,6 +421,7 @@ public class CardInfo : IComparable<CardInfo>
                                 }
                             }
                         }
+                        existingContainers.Add(newContainer);
                     }
                 }
                 if (existingContainers.Count > 0)

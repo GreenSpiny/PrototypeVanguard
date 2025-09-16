@@ -13,6 +13,7 @@ public class DragManager : MonoBehaviour
     [SerializeField] public Player controllingPlayer;
     [SerializeField] Node_Drag dragNode;
 
+    private Card potentialDraggedCard;
     public Card HoveredCard { get; private set; }       // The card currently being hovered
     public Card DraggedCard { get; private set; }       // The card currently being dragged about
     public Card SelectedCard { get; private set; }      // The card currently chosen for a context action
@@ -141,6 +142,15 @@ public class DragManager : MonoBehaviour
             clickLocation = mousePosition;
         }
 
+        if (Input.GetMouseButtonDown(0) && HoveredCard != null)
+        {
+            potentialDraggedCard = HoveredCard;
+        }
+        else if (!Input.GetMouseButton(0))
+        {
+            potentialDraggedCard = null;
+        }
+
         if (Input.GetMouseButtonDown(1) && (HoveredCard == null || HoveredCard.node.Type != Node.NodeType.display))
         {
             // DisplayNode is selectively synced across clients
@@ -167,7 +177,7 @@ public class DragManager : MonoBehaviour
             clickTime = 0f;
             lastClickTime = float.MinValue;
         }
-        else if (Input.GetMouseButton(0) && dmstate == DMstate.open && HoveredCard != null && dragDistanceMet && (GameManager.singlePlayer || HoveredCard.player == controllingPlayer))
+        else if (Input.GetMouseButton(0) && dmstate == DMstate.open && potentialDraggedCard != null && dragDistanceMet && (GameManager.singlePlayer || HoveredCard.player == controllingPlayer))
         {
             ChangeDMstate(DMstate.dragging);
         }
@@ -244,7 +254,7 @@ public class DragManager : MonoBehaviour
             case DMstate.dragging:
                 dmstate = DMstate.dragging;
                 Debug.Log("DMstate -> dragging");
-                DraggedCard = HoveredCard;
+                DraggedCard = potentialDraggedCard;
                 DraggedCard.UIState = Card.CardUIState.normal;
 
                 // DragNode is intentionally not synced across clients

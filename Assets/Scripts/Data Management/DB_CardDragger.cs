@@ -48,7 +48,7 @@ public class DB_CardDragger : MonoBehaviour
         bool dragDistanceMet = Vector3.Distance(clickLocation, mousePosition) > DragThreshold;
         bool doubleClick = (clickTime - lastClickTime < DoubleClickThreshold) && !dragDistanceMet;
 
-        if (Input.GetMouseButton(0) && hoveredCard != null)
+        if (Input.GetMouseButtonDown(0) && hoveredCard != null)
         {
             potentialDraggedCard = hoveredCard;
         }
