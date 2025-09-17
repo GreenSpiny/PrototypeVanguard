@@ -52,6 +52,11 @@ public class SceneLoadCanvas : MonoBehaviour
             if (canvasGroup.alpha == 0)
             {
                 transitioningOut = false;
+                if (onQuit != null)
+                {
+                    onQuit.Invoke();
+                }
+                Cursor.visible = true;
                 SceneManager.LoadScene(unloadScene);
             }
         }
@@ -96,10 +101,6 @@ public class SceneLoadCanvas : MonoBehaviour
         {
             transitioningOut = true;
             canvasGroup.blocksRaycasts = false;
-            if (onQuit != null)
-            {
-                onQuit.Invoke();
-            }
         }
     }
 

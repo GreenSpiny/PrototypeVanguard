@@ -582,7 +582,7 @@ public class GameManager : NetworkBehaviour
         dieRollWinner = result;
         animationProperties.UIAnimator.gameObject.SetActive(true);
 
-        int gzoneCount = DragManager.instance.OpposingPlayer.gzone.cards.Count;
+        int gzoneCount = NextPlayer(DragManager.instance.controllingPlayer).gzone.cards.Count;
         string gzoneResult;
         if (gzoneCount == 1)
         {

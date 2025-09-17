@@ -32,14 +32,12 @@ public class DragManager : MonoBehaviour
     [SerializeField] public ContextRoot powerContext;
     [SerializeField] public ContextRoot viewContext;
     [SerializeField] public CardDetailUI cardDetailUI;
+    [SerializeField] private GameObject targetCursor;
 
     // Layer Masks
     private static LayerMask cardMask;
     private static LayerMask nodeMask;
     private static LayerMask dragMask;
-
-    // Textures
-    [SerializeField] private Texture2D targetCursor;
 
     public enum DMstate
     {
@@ -84,10 +82,6 @@ public class DragManager : MonoBehaviour
         }
     }
 
-    public Player OpposingPlayer
-    {
-        get { return GameManager.instance.players[(controllingPlayer.playerIndex + 1) % 2]; }
-    }
     protected void Update()
     {
         if (controllingPlayer == null || dmstate == DMstate.closed)
@@ -197,8 +191,14 @@ public class DragManager : MonoBehaviour
         {
             ChangeDMstate(DMstate.open);
         }
-        else if (Input.GetMouseButtonDown(1) && dmstate == DMstate.open)
+        else if (Input.GetMouseButtonDown(1) && (dmstate == DMstate.open || dmstate == DMstate.targeting))
         {
+            Card storedHoveredCard = HoveredCard;
+            if (dmstate == DMstate.targeting)
+            {
+                ChangeDMstate(DMstate.open);
+            }
+            HoveredCard = storedHoveredCard;
             if (HoveredCard != null)
             {
                 List<CardInfo.ActionFlag> availableActions = GetAvailableActions(HoveredCard.node, HoveredCard);
@@ -210,12 +210,12 @@ public class DragManager : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetMouseButtonDown(1) && dmstate == DMstate.targeting)
+        else if (Input.GetMouseButtonDown(2) && (dmstate == DMstate.open || dmstate == DMstate.targeting))
         {
-            ChangeDMstate(DMstate.open);
-        }
-        else if (Input.GetMouseButtonDown(2) && dmstate == DMstate.open)
-        {
+            if (dmstate == DMstate.targeting)
+            {
+                ChangeDMstate(DMstate.open);
+            }
             ToggleToolbox(false);
         }
 
@@ -227,6 +227,8 @@ public class DragManager : MonoBehaviour
                 dragNode.transform.position = dragHit.point;
             }
         }
+
+        targetCursor.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
     }
 
     public void ToggleToolbox(bool oppositePlayer)
@@ -272,7 +274,8 @@ public class DragManager : MonoBehaviour
                 DraggedCard = null;
                 targetAction = CardInfo.ActionFlag.none;
                 ClearSelections();
-                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                Cursor.visible = true;
+                targetCursor.gameObject.SetActive(false);
                 break;
 
             case DMstate.dragging:
@@ -294,7 +297,8 @@ public class DragManager : MonoBehaviour
 
                 targetAction = CardInfo.ActionFlag.none;
                 ClearSelections();
-                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                Cursor.visible = true;
+                targetCursor.gameObject.SetActive(false);
                 break;
 
             case DMstate.targeting:
@@ -310,7 +314,8 @@ public class DragManager : MonoBehaviour
                 }
 
                 DraggedCard = null;
-                Cursor.SetCursor(targetCursor, Vector2.zero, CursorMode.Auto);
+                Cursor.visible = false;
+                targetCursor.gameObject.SetActive(true);
                 break;
 
             case DMstate.closed:
@@ -319,7 +324,8 @@ public class DragManager : MonoBehaviour
 
                 DraggedCard = null;
                 targetAction = CardInfo.ActionFlag.none;
-                Cursor.SetCursor(null, new Vector2(64f, 64f), CursorMode.Auto);
+                Cursor.visible = true;
+                targetCursor.gameObject.SetActive(false);
                 break;
 
             default:

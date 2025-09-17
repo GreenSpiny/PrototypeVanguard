@@ -72,11 +72,11 @@ public class Node_RC : Node_Stack
             // Initiate the swap
             foreach (Card c in originalCards)
             {
-                targetNode.ReceiveCard(c, "noRetire");
+                targetNode.ReceiveCard(c, par_noretire);
             }
             foreach (Card c in newCards)
             {
-                ReceiveCard(c, "noRetire");
+                ReceiveCard(c, par_noretire);
             }
         }
         else

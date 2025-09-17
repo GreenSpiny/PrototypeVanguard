@@ -56,7 +56,7 @@ public class CardHUD : MonoBehaviour
             DisplayCardInfo(s);
             currentAlpha = 0;
         }
-        if (d != null)
+        else if (d != null)
         {
             DisplayCardInfo(d);
             currentAlpha = 0;
