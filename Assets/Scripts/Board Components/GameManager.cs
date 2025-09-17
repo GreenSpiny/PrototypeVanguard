@@ -12,6 +12,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.UI;
+using static CardInfo;
 
 public class GameManager : NetworkBehaviour
 {
@@ -685,6 +686,7 @@ public class GameManager : NetworkBehaviour
             player2Deck.ShuffleMainDeck();
             int nextPlayerIndex = NextPlayer(playerIndex);
             players[nextPlayerIndex].AssignDeck(player2Deck);
+            utilityButtons.Configure(playerIndex, submittedDeck.toolbox.Length > 0, player2Deck.toolbox.Length > 0);
             SetPlayerIcons(nextPlayerIndex, "Shadowboxer", null);
 
             StartCoroutine(RequestGameStartDelayed());
@@ -692,6 +694,7 @@ public class GameManager : NetworkBehaviour
         // Multiplayer
         else
         {
+            utilityButtons.Configure(playerIndex, submittedDeck.toolbox.Length > 0, false);
             for (int i = 0; i < 2; i++)
             {
                 CardInfo.DeckList targetList = players[i].deckList;
@@ -758,14 +761,16 @@ public class GameManager : NetworkBehaviour
         public Button exitButton;
         public Button resetButton;
         public Button toolboxButton;
+        public Button toolboxButtonP2;
 
         [SerializeField] private Animator animator;
 
-        public void Configure(int playerIndex, bool hasToolbox)
+        public void Configure(int playerIndex, bool showP1Toolbox, bool showP2Toolbox)
         {
             exitButton.gameObject.SetActive(true);
             resetButton.gameObject.SetActive(singlePlayer);
-            toolboxButton.gameObject.SetActive(hasToolbox);
+            toolboxButton.gameObject.SetActive(showP1Toolbox);
+            toolboxButtonP2.gameObject.SetActive(showP2Toolbox);
 
             int positionMultiplier = (playerIndex * -2) + 1;
             Transform trans = canvasGroup.gameObject.transform;

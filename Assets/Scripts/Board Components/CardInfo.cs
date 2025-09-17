@@ -99,7 +99,8 @@ public class CardInfo : IComparable<CardInfo>
         locking = 15,
         rideRC = 16,
         soulRC = 17,
-        prison = 18
+        prison = 18,
+        gaugeRC = 19
     }
 
     public CardInfo()
@@ -152,6 +153,7 @@ public class CardInfo : IComparable<CardInfo>
                 case ActionFlag.rideRC: playerActionFlags.Add(flag); break;
                 case ActionFlag.soulRC: playerActionFlags.Add(flag); break;
                 case ActionFlag.prison: opponentActionFlags.Add(flag); break;
+                case ActionFlag.gaugeRC: playerActionFlags.Add(flag); break;
             }
         }
 

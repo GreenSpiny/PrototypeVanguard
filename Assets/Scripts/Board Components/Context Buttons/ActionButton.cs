@@ -75,13 +75,21 @@ public class ActionButton : ContextButton
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.rideRC:
+                DragManager.instance.targetAction = CardInfo.ActionFlag.rideRC;
+                DragManager.instance.ChangeDMstate(DragManager.DMstate.targeting);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.soulRC:
+                DragManager.instance.targetAction = CardInfo.ActionFlag.soulRC;
+                DragManager.instance.ChangeDMstate(DragManager.DMstate.targeting);
                 DragManager.instance.ClearSelections();
                 break;
             case CardInfo.ActionFlag.prison:
                 GameManager.instance.RequestReceiveCardRpc(GameManager.instance.NextPlayer(activePlayer).order.nodeID, selectedCard.cardID, string.Empty);
+                DragManager.instance.ClearSelections();
+                break;
+            case CardInfo.ActionFlag.gaugeRC:
+                GameManager.instance.RequestReceiveCardRpc(selectedCard.player.RC[3].nodeID, selectedCard.cardID, Node.par_bottom);
                 DragManager.instance.ClearSelections();
                 break;
             default:

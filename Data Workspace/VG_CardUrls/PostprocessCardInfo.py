@@ -150,12 +150,13 @@ for key in cards.keys():
 		c['actionflags'].append(14) # bind FD foe
 	if ' lock ' in lowereffect:
 		c['actionflags'].append(15) # lock
-	if 'overDress]' in lowereffect or '[explosivegrowth]' in lowereffect:
+	if 'overdress]' in lowereffect or '[explosivegrowth]' in lowereffect:
 		c['actionflags'].append(16) # rideRC
-	if 'overDress]' in lowereffect or '[explosivegrowth]' in lowereffect or 'granfia' in lowername or 'estacion' in lowername:
 		c['actionflags'].append(17) # soulRC
 	if c['id'] == 'galaxycentralprisongalactolus':
 		c['actionflags'].append(18) # prison
+	if 'granfia' in lowername or 'estacion' in lowername:
+		c['actionflags'].append(19) # gauge RC
 
 # dupe check
 dupeCheck = False

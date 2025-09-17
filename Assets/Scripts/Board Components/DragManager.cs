@@ -26,6 +26,8 @@ public class DragManager : MonoBehaviour
     private float lastClickTime;      // The time of the previous mouse press, for double click detection
     private Vector3 clickLocation;    // The location of the most recent mouse press, for drag detection
 
+    public CardInfo.ActionFlag targetAction;    // The current ActionFlag being applied in targeting mode, if any
+
     [SerializeField] public ContextRoot standardContext;
     [SerializeField] public ContextRoot powerContext;
     [SerializeField] public ContextRoot viewContext;
@@ -35,6 +37,9 @@ public class DragManager : MonoBehaviour
     private static LayerMask cardMask;
     private static LayerMask nodeMask;
     private static LayerMask dragMask;
+
+    // Textures
+    [SerializeField] private Texture2D targetCursor;
 
     public enum DMstate
     {
@@ -64,15 +69,18 @@ public class DragManager : MonoBehaviour
         powerContext.HideAllButtons();
         viewContext.HideAllButtons();
         HoveredButton = null;
-        if (SelectedCard != null)
+        if (dmstate != DMstate.targeting)
         {
-            SelectedCard.UIState = Card.CardUIState.normal;
-            SelectedCard = null;
-        }
-        if (SelectedNode != null)
-        {
-            SelectedNode.UIState = Node.NodeUIState.normal;
-            SelectedNode = null;
+            if (SelectedCard != null)
+            {
+                SelectedCard.UIState = Card.CardUIState.normal;
+                SelectedCard = null;
+            }
+            if (SelectedNode != null)
+            {
+                SelectedNode.UIState = Node.NodeUIState.normal;
+                SelectedNode = null;
+            }
         }
     }
 
@@ -171,7 +179,11 @@ public class DragManager : MonoBehaviour
         bool dragDistanceMet = Vector3.Distance(clickLocation, mousePosition) > DragThreshold;
         bool doubleClick = (clickTime - lastClickTime < DoubleClickThreshold) && !dragDistanceMet;
 
-        if (doubleClick && dmstate == DMstate.open && HoveredCard != null)
+        if (Input.GetMouseButtonDown(0) && dmstate == DMstate.targeting)
+        {
+            ApplyTargetingAction(targetAction);
+        }
+        else if (doubleClick && dmstate == DMstate.open && HoveredCard != null)
         {
             HoveredCard.node.CardAutoAction(controllingPlayer, HoveredCard);
             clickTime = 0f;
@@ -198,9 +210,13 @@ public class DragManager : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetMouseButtonDown(1) && dmstate == DMstate.targeting)
+        {
+            ChangeDMstate(DMstate.open);
+        }
         else if (Input.GetMouseButtonDown(2) && dmstate == DMstate.open)
         {
-            ToggleToolbox();
+            ToggleToolbox(false);
         }
 
         if (dmstate == DMstate.dragging)
@@ -213,15 +229,21 @@ public class DragManager : MonoBehaviour
         }
     }
 
-    public void ToggleToolbox()
+    public void ToggleToolbox(bool oppositePlayer)
     {
-        if (controllingPlayer.display.HasCard && controllingPlayer.display.PreviousNode == controllingPlayer.toolbox)
+        Player targetPlayer = controllingPlayer;
+        if (oppositePlayer)
+        {
+            targetPlayer = GameManager.instance.NextPlayer(controllingPlayer);
+        }
+
+        if (controllingPlayer.display.HasCard && controllingPlayer.display.PreviousNode == targetPlayer.toolbox)
         {
             CloseDisplay(controllingPlayer.playerIndex);
         }
         else
         {
-            OpenDisplay(controllingPlayer.playerIndex, controllingPlayer.toolbox, 0, controllingPlayer.toolbox.cards.Count, false, true);
+            OpenDisplay(controllingPlayer.playerIndex, targetPlayer.toolbox, 0, targetPlayer.toolbox.cards.Count, false, true);
         }
     }
 
@@ -248,7 +270,9 @@ public class DragManager : MonoBehaviour
                 }
 
                 DraggedCard = null;
+                targetAction = CardInfo.ActionFlag.none;
                 ClearSelections();
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                 break;
 
             case DMstate.dragging:
@@ -268,15 +292,25 @@ public class DragManager : MonoBehaviour
                     }
                 }
 
-                HoveredNode = null;
+                targetAction = CardInfo.ActionFlag.none;
                 ClearSelections();
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                 break;
 
             case DMstate.targeting:
                 dmstate = DMstate.targeting;
                 Debug.Log("DMstate -> targeting");
 
+                foreach (Node node in GameManager.instance.allNodes.Values)
+                {
+                    if (node.Type == Node.NodeType.RC && SelectedCard.player == node.player && SelectedCard.node != node)
+                    {
+                        node.UIState = Node.NodeUIState.available;
+                    }
+                }
+
                 DraggedCard = null;
+                Cursor.SetCursor(targetCursor, Vector2.zero, CursorMode.Auto);
                 break;
 
             case DMstate.closed:
@@ -284,6 +318,8 @@ public class DragManager : MonoBehaviour
                 Debug.Log("DMstate -> closed");
 
                 DraggedCard = null;
+                targetAction = CardInfo.ActionFlag.none;
+                Cursor.SetCursor(null, new Vector2(64f, 64f), CursorMode.Auto);
                 break;
 
             default:
@@ -327,6 +363,23 @@ public class DragManager : MonoBehaviour
         return actions;
     }
 
+    private void ApplyTargetingAction(CardInfo.ActionFlag action)
+    {
+        if (HoveredNode != null && HoveredNode.UIState != Node.NodeUIState.normal && SelectedCard != null)
+        {
+            switch(action)
+            {
+                case CardInfo.ActionFlag.rideRC:
+                    GameManager.instance.RequestReceiveCardRpc(HoveredNode.nodeID, SelectedCard.cardID, Node.par_noretire);
+                    break;
+                case CardInfo.ActionFlag.soulRC:
+                    GameManager.instance.RequestReceiveCardRpc(HoveredNode.nodeID, SelectedCard.cardID, Node.par_bottom);
+                    break;
+            }
+        }
+        ChangeDMstate(DMstate.open);
+    }
+
     public void OnCardHoverEnter(Card card)
     {
         if (dmstate == DMstate.open)
@@ -349,15 +402,7 @@ public class DragManager : MonoBehaviour
 
     public void OnNodeHoverEnter(Node node)
     {
-        if (dmstate != DMstate.dragging && HoveredCard != null)
-        {
-            node.UIState = Node.NodeUIState.normal;
-        }
-        else if (dmstate == DMstate.dragging && DraggedCard != null && DraggedCard.node.PreviousNode == node)
-        {
-            node.UIState = Node.NodeUIState.normal;
-        }
-        else if (dmstate == DMstate.dragging && node.UIState == Node.NodeUIState.available && node != DraggedCard.node)
+        if (((dmstate == DMstate.dragging && node != DraggedCard.node) || (dmstate == DMstate.targeting && node != SelectedCard.node)) && node.UIState == Node.NodeUIState.available)
         {
             node.UIState = Node.NodeUIState.hovered;
         }
@@ -368,7 +413,7 @@ public class DragManager : MonoBehaviour
     {
         if (node.UIState == Node.NodeUIState.hovered)
         {
-            if (dmstate == DMstate.dragging && node != dragNode.PreviousNode)
+            if (dmstate == DMstate.dragging || dmstate == DMstate.targeting)
             {
                 node.UIState = Node.NodeUIState.available;
             }

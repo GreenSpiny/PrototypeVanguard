@@ -38,10 +38,10 @@ public class Node_RC : Node_Stack
 
     public override void ReceiveCard(Card card, string parameters)
     {
-        bool drag = parameters.Contains("drag");
-        bool toSoulRC = parameters.Contains("bottom");
+        bool drag = parameters.Contains(par_drag);
+        bool toSoulRC = parameters.Contains(par_bottom);
         bool isFromRC = card.node.Type == NodeType.RC || (card.node.Type == NodeType.drag && card.node.PreviousNode.Type == NodeType.RC);
-        bool noRetire = parameters.Contains("noRetire");
+        bool noRetire = parameters.Contains(par_noretire);
 
         if (toSoulRC || card.cardInfo.isMarker)
         {

@@ -49,6 +49,8 @@ public abstract class Node : MonoBehaviour
     public const string par_faceup = "faceup";
     public const string par_cancel = "cancel";
     public const string par_bottom = "bottom";
+    public const string par_drag = "drag";
+    public const string par_noretire = "noretire";
 
     public int nodeID { get; private set; }     // Unique node identifier for networking purposes
 
