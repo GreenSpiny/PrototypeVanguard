@@ -40,17 +40,19 @@ public class PlayerResult : MonoBehaviour
         }
     }
 
+    /*
     public void UpdateData(Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>> data)
     {
-        if (data.ContainsKey("Name"))
+        if (data.ContainsKey("Name") && (data["Name"].Changed || data["Name"].Added))
         {
             playerNameText.text = data["Name"].Value.Value;
         }
-        if (data.ContainsKey("Avatar"))
+        if (data.ContainsKey("Avatar") && (data["Avatar"].Changed || data["Avatar"].Added))
         {
             avatarName = data["Avatar"].Value.Value;
             icon.sprite = CardLoader.instance.avatarBank.GetSprite(avatarName);
         }
     }
+    */
 
 }

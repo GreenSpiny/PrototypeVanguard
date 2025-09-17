@@ -694,7 +694,6 @@ public class GameManager : NetworkBehaviour
         // Multiplayer
         else
         {
-            utilityButtons.Configure(playerIndex, submittedDeck.toolbox.Length > 0, false);
             for (int i = 0; i < 2; i++)
             {
                 CardInfo.DeckList targetList = players[i].deckList;

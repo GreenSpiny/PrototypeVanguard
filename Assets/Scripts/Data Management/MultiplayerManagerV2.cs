@@ -33,7 +33,6 @@ public class MultiplayerManagerV2 : MonoBehaviour
     [SerializeField] private Toggle goFirstToggle;
     [SerializeField] private DeckSelectContainer player1DeckContainer;
     [SerializeField] private DeckSelectContainer player2DeckContainer;
-    [SerializeField] private TMP_InputField roomCodeInputField;
     [SerializeField] private TMP_InputField roomNameFilter;
     [SerializeField] private TMP_InputField roomCodeFilter;
     private DeckSelectContainer[] deckSelectContainers;
@@ -49,6 +48,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
     // Blocking areas
     [SerializeField] private CanvasGroup optionsArea;
     [SerializeField] private CanvasGroup userLobbyArea;
+    [SerializeField] private CanvasGroup lobbyButtonsArea;
     [SerializeField] private CanvasGroup browseLobbiesArea;
     [SerializeField] private Image grayOutImage;
     private CanvasGroup grayOutCanvas;
@@ -305,6 +305,10 @@ public class MultiplayerManagerV2 : MonoBehaviour
         // Complete initialization
         initialized = true;
         CheckValidity();
+
+        // Query lobbies once
+        yield return null;
+        QueryLobbies();
     }
 
     public void SetAvatar(string avatarName)
@@ -362,6 +366,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
             case MultiplayerState.none:
                 optionsArea.interactable = true;
                 userLobbyArea.interactable = true;
+                lobbyButtonsArea.interactable = true;
                 browseLobbiesArea.interactable = true;
                 grayOutImage.gameObject.SetActive(false);
                 startMultiplayerParent.gameObject.SetActive(true);
@@ -371,6 +376,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
             case MultiplayerState.hosting:
                 optionsArea.interactable = false;
                 userLobbyArea.interactable = true;
+                lobbyButtonsArea.interactable = true;
                 browseLobbiesArea.interactable = false;
                 grayOutImage.gameObject.SetActive(false);
                 startMultiplayerParent.gameObject.SetActive(false);
@@ -380,6 +386,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
             case MultiplayerState.leeching:
                 optionsArea.interactable = false;
                 userLobbyArea.interactable = false;
+                lobbyButtonsArea.interactable = false;
                 browseLobbiesArea.interactable = false;
                 grayOutImage.gameObject.SetActive(true);
                 grayOutCanvas.interactable = true;
@@ -390,6 +397,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
             case MultiplayerState.blocked:
                 optionsArea.interactable = false;
                 userLobbyArea.interactable = false;
+                lobbyButtonsArea.interactable = false;
                 browseLobbiesArea.interactable = false;
                 grayOutCanvas.interactable = false;
                 break;
@@ -427,6 +435,11 @@ public class MultiplayerManagerV2 : MonoBehaviour
                     value: "true")
                 }
             };
+            string roomCode = Guid.NewGuid().ToString();
+            if (roomCode.Length > 4)
+            {
+                roomCode = roomCode.Substring(0, 4).ToUpper();
+            }
             options.Data = new Dictionary<string, DataObject>()
             {
                 {
@@ -444,9 +457,15 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 {
                     "RoomCode", new DataObject(
                         visibility: DataObject.VisibilityOptions.Public,
-                        value: "abcd", //roomCodeInputField.text,
+                        value: roomCode,
                         index: DataObject.IndexOptions.S2)
-                }
+                },
+                {
+                    "Avatar", new DataObject(
+                        visibility: DataObject.VisibilityOptions.Public,
+                        value: userAvatar.sprite.name,
+                        index: DataObject.IndexOptions.S3)
+                },
             };
 
             try
@@ -457,7 +476,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 callbacks.LobbyChanged += OnLobbyChanged;
                 callbacks.PlayerJoined += OnPlayerJoined;
                 callbacks.PlayerLeft += OnPlayerLeft;
-                callbacks.PlayerDataAdded += OnPlayerDataAdded;
+                //callbacks.PlayerDataAdded += OnPlayerDataAdded;
                 callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
                 var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(hostedLobby.Id, callbacks);
 
@@ -528,7 +547,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 var callbacks = new LobbyEventCallbacks();
                 callbacks.LobbyChanged += OnLobbyChanged;
                 callbacks.PlayerLeft += OnPlayerLeft;
-                callbacks.PlayerDataAdded += OnPlayerDataAdded;
+                //callbacks.PlayerDataAdded += OnPlayerDataAdded;
                 callbacks.LobbyEventConnectionStateChanged += OnLobbyEventConnectionStateChanged;
                 var events = await LobbyService.Instance.SubscribeToLobbyEventsAsync(targetLobby.Id, callbacks);
 
@@ -543,7 +562,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
             catch (AuthenticationException e)
             {
                 connectionStatusText.text = e.Message;
-                // ChangeMultiplayerState(MultiplayerState.none);
+                ChangeMultiplayerState(MultiplayerState.none);
             }
         }
     }
@@ -663,12 +682,23 @@ public class MultiplayerManagerV2 : MonoBehaviour
             {
                 {
                     RoomResult roomResult = Instantiate(roomResultPrefab, roomInstantiationArea.transform);
-                    roomResult.Initialize(result);
-                    roomResults.Add(roomResult);
+                    roomResult.Initialize(result, result.HostId == AuthenticationService.Instance.PlayerId);
+                    if (result.HostId == AuthenticationService.Instance.PlayerId)
+                    {
+                        roomResults.Insert(0, roomResult);
+                    }
+                    else
+                    {
+                        roomResults.Add(roomResult);
+                    }
                 }
             }
         }
         catch (LobbyServiceException e)
+        {
+            connectionStatusText.text = e.Message;
+        }
+        catch (AuthenticationException e)
         {
             connectionStatusText.text = e.Message;
         }
@@ -790,6 +820,7 @@ public class MultiplayerManagerV2 : MonoBehaviour
         }
     }
 
+    /*
     private void OnPlayerDataAdded(Dictionary<int, Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>>> dictionary)
     {
         if (multiplayerState == MultiplayerState.hosting)
@@ -803,8 +834,8 @@ public class MultiplayerManagerV2 : MonoBehaviour
                 }
             }
         }
-        
     }
+    */
 
     private void OnLobbyEventConnectionStateChanged(LobbyEventConnectionState state)
     {
